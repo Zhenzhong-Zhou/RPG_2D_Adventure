@@ -22,7 +22,7 @@ public class Scene extends JPanel implements Runnable {
     private LevelManager levelManager;
     private CollisionDetection collisionDetection;
     private AssetSetter assetSetter;
-    private GameObject gameObject[] = new GameObject[10];
+    private final GameObject[] gameObject = new GameObject[10];
 
     public Scene() {
         setFocusable(true);
@@ -66,7 +66,7 @@ public class Scene extends JPanel implements Runnable {
 
     public void draw(Graphics2D graphics2D) {
         levelManager.draw(graphics2D, player);
-        for(int i = 0; i<gameObject.length;i++) {
+        for(int i = 0; i < gameObject.length; i++) {
             if(gameObject[i] != null) {
                 gameObject[i].draw(graphics2D, this);
             }

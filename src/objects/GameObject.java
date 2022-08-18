@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.SceneConstant.*;
-import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 
