@@ -3,6 +3,7 @@ package main;
 import entities.Player;
 import input.KeyInputs;
 import levels.LevelManager;
+import utilities.CollisionDetection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
     private Player player;
     private LevelManager levelManager;
+    private CollisionDetection collisionDetection;
 
     public Scene() {
         setFocusable(true);
@@ -34,6 +36,9 @@ public class Scene extends JPanel implements Runnable {
 
         // Manager Class
         levelManager = new LevelManager();
+
+        // Collision Detection
+        collisionDetection = new CollisionDetection(this);
     }
 
     private void setSceneSize() {
@@ -81,9 +86,8 @@ public class Scene extends JPanel implements Runnable {
             // Player Coordination
             graphics2D.drawString("World X: " + player.getWorldX(), x, y += lineHeight);
             graphics2D.drawString("World Y: " + player.getWorldY(), x, y += lineHeight);
-            //TODO: add hitbox
-            graphics2D.drawString("Column: " + (player.getWorldX() + 8) / TILE_SIZE, x, y += lineHeight);
-            graphics2D.drawString("Row: " + (player.getWorldY() + 16) / TILE_SIZE, x, y += lineHeight);
+            graphics2D.drawString("Column: " + (player.getWorldX() + player.getHitbox().x) / TILE_SIZE, x, y += lineHeight);
+            graphics2D.drawString("Row: " + (player.getWorldY() + player.getHitbox().y) / TILE_SIZE, x, y += lineHeight);
 
             // Render Process Time
             graphics2D.drawString("Duration: " + convert.format(second) + " seconds", x, y + lineHeight);
@@ -141,5 +145,13 @@ public class Scene extends JPanel implements Runnable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
+
+    public CollisionDetection getCollisionDetection() {
+        return collisionDetection;
     }
 }

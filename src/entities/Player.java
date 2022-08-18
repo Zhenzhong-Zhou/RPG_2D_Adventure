@@ -23,6 +23,8 @@ public class Player extends Entity {
 
         screenX = (SCENE_WIDTH / 2) - (TILE_SIZE / 2);
         screenY = (SCENE_HEIGHT / 2) - (TILE_SIZE / 2);
+        hitbox = new Rectangle(8, 16,32,32);
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -54,20 +56,32 @@ public class Player extends Entity {
 
     private void updatePositions() {
         if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed()) {
-            if(keyInputs.isUpPressed()) {
-                direction = UP;
-                worldY -= speed;
-            } else if(keyInputs.isLeftPressed()) {
-                direction = LEFT;
-                worldX -= speed;
-            } else if(keyInputs.isDownPressed()) {
-                direction = DOWN;
-                worldY += speed;
-            } else if(keyInputs.isRightPressed()) {
-                direction = RIGHT;
-                worldX += speed;
-            }
+            if(keyInputs.isUpPressed()) direction = UP;
+            else if(keyInputs.isLeftPressed()) direction = LEFT;
+            else if(keyInputs.isDownPressed()) direction = DOWN;
+            else if(keyInputs.isRightPressed()) direction = RIGHT;
+
             updateAnimation();
+            checkCollision();
+            playerCanMove();
+        }
+    }
+
+    private void checkCollision() {
+        // CHECK TILE COLLISION
+        collision = false;
+        scene.getCollisionDetection().checkTile(this);
+    }
+
+    private void playerCanMove() {
+        // IF COLLISION IS FALSE, PLAYER CAN MOVE
+        if(! collision) {
+            switch(direction) {
+                case UP -> worldY -= speed;
+                case LEFT -> worldX -= speed;
+                case DOWN -> worldY += speed;
+                case RIGHT -> worldX += speed;
+            }
         }
     }
 
