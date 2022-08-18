@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.DirectionConstant.*;
+import static utilities.Constants.ObjectConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
@@ -16,6 +17,7 @@ public class Player extends Entity {
     private final int screenX, screenY;
     private final Scene scene;
     private final KeyInputs keyInputs;
+    private int hasKey=0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         this.scene = scene;
@@ -24,6 +26,8 @@ public class Player extends Entity {
         screenX = (SCENE_WIDTH / 2) - (TILE_SIZE / 2);
         screenY = (SCENE_HEIGHT / 2) - (TILE_SIZE / 2);
         hitbox = new Rectangle(8, 16, 32, 32);
+        hitboxDefaultX = hitbox.x;
+        hitboxDefaultY = hitbox.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -71,6 +75,31 @@ public class Player extends Entity {
         // CHECK TILE COLLISION
         collision = false;
         scene.getCollisionDetection().checkTile(this);
+
+        // CHECK OBJECT COLLISION
+        int objectIndex = scene.getCollisionDetection().checkObject(this, true);
+        collectObject(objectIndex);
+    }
+
+    private void collectObject(int objectIndex) {
+        if(objectIndex != 999) {
+            String objectName =  scene.getGameObject()[objectIndex].getObjectName();
+            switch(objectName) {
+                case KEY -> {
+                    hasKey++;
+                    scene.getGameObject()[objectIndex] = null;
+                }
+                case DOOR -> {
+                    if(hasKey > 0) scene.getGameObject()[objectIndex] = null;
+                    hasKey--;
+                }
+                case CHEST -> System.out.println("CHEST");
+                case BOOT -> {
+                    speed += 1;
+                    scene.getGameObject()[objectIndex] = null;
+                }
+            }
+        }
     }
 
     private void playerCanMove() {

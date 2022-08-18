@@ -8,5 +8,6 @@ public class Chest extends GameObject {
     public Chest() {
         objectName = CHEST;
         image = GetSpriteAtlas(CHEST_IMAGE);
+        collision = true;
     }
 }

@@ -15,6 +15,8 @@ public class GameObject {
     protected String objectName;
     protected boolean collision;
     protected int worldX, worldY;
+    protected  Rectangle hitbox = new Rectangle(0,0, TILE_SIZE, TILE_SIZE);
+    protected int hitboxDefaultX = 0, hitboxDefaultY = 0;
 
     public void draw(Graphics2D graphics2D, Scene scene) {
         Player player = scene.getPlayer();
@@ -89,5 +91,33 @@ public class GameObject {
 
     public void setWorldY(int worldY) {
         this.worldY = worldY;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
+
+    public int getHitboxDefaultX() {
+        return hitboxDefaultX;
+    }
+
+    public void setHitboxDefaultX(int hitboxDefaultX) {
+        this.hitboxDefaultX = hitboxDefaultX;
+    }
+
+    public int getHitboxDefaultY() {
+        return hitboxDefaultY;
+    }
+
+    public void setHitboxDefaultY(int hitboxDefaultY) {
+        this.hitboxDefaultY = hitboxDefaultY;
     }
 }

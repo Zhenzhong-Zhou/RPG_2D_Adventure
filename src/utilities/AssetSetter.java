@@ -30,7 +30,7 @@ public class AssetSetter {
 
         scene.getGameObject()[3] = new Door();
         scene.getGameObject()[3].setWorldX(12 * TILE_SIZE);
-        scene.getGameObject()[3].setWorldY(21 * TILE_SIZE);
+        scene.getGameObject()[3].setWorldY(22 * TILE_SIZE);
 
         scene.getGameObject()[4] = new Door();
         scene.getGameObject()[4].setWorldX(8 * TILE_SIZE);

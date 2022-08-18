@@ -8,5 +8,6 @@ public class Door extends GameObject {
     public Door() {
         objectName = DOOR;
         image = GetSpriteAtlas(DOOR_IMAGE);
+        collision = true;
     }
 }

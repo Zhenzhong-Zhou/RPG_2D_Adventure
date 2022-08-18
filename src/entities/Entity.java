@@ -11,6 +11,7 @@ public abstract class Entity {
     protected int spriteNum = 1;
     protected int animationSpeed = 60;
     protected Rectangle hitbox;
+    protected int hitboxDefaultX, hitboxDefaultY;
     protected boolean collision;
 
     public int getWorldX() {
@@ -31,6 +32,22 @@ public abstract class Entity {
 
     public Rectangle getHitbox() {
         return hitbox;
+    }
+
+    public int getHitboxDefaultX() {
+        return hitboxDefaultX;
+    }
+
+    public void setHitboxDefaultX(int hitboxDefaultX) {
+        this.hitboxDefaultX = hitboxDefaultX;
+    }
+
+    public int getHitboxDefaultY() {
+        return hitboxDefaultY;
+    }
+
+    public void setHitboxDefaultY(int hitboxDefaultY) {
+        this.hitboxDefaultY = hitboxDefaultY;
     }
 
     public boolean isCollision() {
