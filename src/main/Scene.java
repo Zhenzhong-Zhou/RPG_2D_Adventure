@@ -1,5 +1,6 @@
 package main;
 
+import entities.Player;
 import input.KeyInputs;
 
 import javax.swing.*;
@@ -14,6 +15,8 @@ import static utilities.Constants.SceneConstant.SCENE_WIDTH;
 
 public class Scene extends JPanel implements Runnable{
     private Thread thread;
+    private KeyInputs keyInputs = new KeyInputs(this);
+    private Player player;
 
     public Scene() {
         setFocusable(true);
@@ -24,7 +27,10 @@ public class Scene extends JPanel implements Runnable{
 
     private void initClasses() {
         // Input Class
-        addKeyListener(new KeyInputs(this));
+        this.addKeyListener(keyInputs);
+
+        // Entity Classes
+        player = new Player(this, keyInputs);
     }
 
     private void setSceneSize() {
@@ -35,10 +41,12 @@ public class Scene extends JPanel implements Runnable{
         System.out.println("Size: " + SCENE_WIDTH + ", " + SCENE_HEIGHT);
     }
 
-    public void update() {}
+    public void update() {
+        player.update();
+    }
 
     public void draw(Graphics2D graphics2D) {
-
+        player.draw(graphics2D);
     }
 
     public void paintComponent(Graphics graphics) {
@@ -93,5 +101,9 @@ public class Scene extends JPanel implements Runnable{
                 updates = 0;
             }
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
