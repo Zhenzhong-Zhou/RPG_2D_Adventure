@@ -41,39 +41,39 @@ public class LoadSave {
 
 
     // TILES: Grass
-    public static final String GRASS_00_IMAGE = "tiles/grass00.png";
-    public static final String GRASS_01_IMAGE = "tiles/grass01.png";
+    public static final String GRASS_00_IMAGE = "tile/grass/grass00.png";
+    public static final String GRASS_01_IMAGE = "tile/grass/grass01.png";
 
     // TILES: Water
-    public static final String WATER_00_IMAGE = "tiles/water00.png";
-    public static final String WATER_01_IMAGE = "tiles/water01.png";
-    public static final String WATER_02_IMAGE = "tiles/water02.png";
-    public static final String WATER_03_IMAGE = "tiles/water03.png";
-    public static final String WATER_04_IMAGE = "tiles/water04.png";
-    public static final String WATER_05_IMAGE = "tiles/water05.png";
-    public static final String WATER_06_IMAGE = "tiles/water06.png";
-    public static final String WATER_07_IMAGE = "tiles/water07.png";
-    public static final String WATER_08_IMAGE = "tiles/water08.png";
-    public static final String WATER_09_IMAGE = "tiles/water09.png";
-    public static final String WATER_10_IMAGE = "tiles/water10.png";
-    public static final String WATER_11_IMAGE = "tiles/water11.png";
-    public static final String WATER_12_IMAGE = "tiles/water12.png";
-    public static final String WATER_13_IMAGE = "tiles/water13.png";
+    public static final String WATER_00_IMAGE = "tile/water/water00.png";
+    public static final String WATER_01_IMAGE = "tile/water/water01.png";
+    public static final String WATER_02_IMAGE = "tile/water/water02.png";
+    public static final String WATER_03_IMAGE = "tile/water/water03.png";
+    public static final String WATER_04_IMAGE = "tile/water/water04.png";
+    public static final String WATER_05_IMAGE = "tile/water/water05.png";
+    public static final String WATER_06_IMAGE = "tile/water/water06.png";
+    public static final String WATER_07_IMAGE = "tile/water/water07.png";
+    public static final String WATER_08_IMAGE = "tile/water/water08.png";
+    public static final String WATER_09_IMAGE = "tile/water/water09.png";
+    public static final String WATER_10_IMAGE = "tile/water/water10.png";
+    public static final String WATER_11_IMAGE = "tile/water/water11.png";
+    public static final String WATER_12_IMAGE = "tile/water/water12.png";
+    public static final String WATER_13_IMAGE = "tile/water/water13.png";
 
     // TILES: Road
-    public static final String ROAD_00_IMAGE = "tiles/road00.png";
-    public static final String ROAD_01_IMAGE = "tiles/road01.png";
-    public static final String ROAD_02_IMAGE = "tiles/road02.png";
-    public static final String ROAD_03_IMAGE = "tiles/road03.png";
-    public static final String ROAD_04_IMAGE = "tiles/road04.png";
-    public static final String ROAD_05_IMAGE = "tiles/road05.png";
-    public static final String ROAD_06_IMAGE = "tiles/road06.png";
-    public static final String ROAD_07_IMAGE = "tiles/road07.png";
-    public static final String ROAD_08_IMAGE = "tiles/road08.png";
-    public static final String ROAD_09_IMAGE = "tiles/road09.png";
-    public static final String ROAD_10_IMAGE = "tiles/road10.png";
-    public static final String ROAD_11_IMAGE = "tiles/road11.png";
-    public static final String ROAD_12_IMAGE = "tiles/road12.png";
+    public static final String ROAD_00_IMAGE = "tile/road/road00.png";
+    public static final String ROAD_01_IMAGE = "tile/road/road01.png";
+    public static final String ROAD_02_IMAGE = "tile/road/road02.png";
+    public static final String ROAD_03_IMAGE = "tile/road/road03.png";
+    public static final String ROAD_04_IMAGE = "tile/road/road04.png";
+    public static final String ROAD_05_IMAGE = "tile/road/road05.png";
+    public static final String ROAD_06_IMAGE = "tile/road/road06.png";
+    public static final String ROAD_07_IMAGE = "tile/road/road07.png";
+    public static final String ROAD_08_IMAGE = "tile/road/road08.png";
+    public static final String ROAD_09_IMAGE = "tile/road/road09.png";
+    public static final String ROAD_10_IMAGE = "tile/road/road10.png";
+    public static final String ROAD_11_IMAGE = "tile/road/road11.png";
+    public static final String ROAD_12_IMAGE = "tile/road/road12.png";
 
     // TILES: Earth, Wall and Tree
     public static final String EARTH_IMAGE = "tiles/earth.png";
