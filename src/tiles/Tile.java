@@ -3,7 +3,7 @@ package tiles;
 import java.awt.image.BufferedImage;
 
 public class Tile {
-    private BufferedImage sprite;
+    private final BufferedImage sprite;
     private boolean collision;
 
     public Tile(BufferedImage sprite, boolean collision) {
@@ -15,11 +15,11 @@ public class Tile {
         return sprite;
     }
 
-    public void setCollision(boolean collision) {
-        this.collision = collision;
-    }
-
     public boolean isCollision() {
         return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
     }
 }

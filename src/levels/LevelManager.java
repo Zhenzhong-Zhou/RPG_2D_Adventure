@@ -1,7 +1,6 @@
 package levels;
 
 import entities.Player;
-import main.Scene;
 import tiles.TileManager;
 
 import java.awt.*;

@@ -5,7 +5,6 @@ import input.KeyInputs;
 import levels.LevelManager;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.text.DecimalFormat;
 
@@ -13,9 +12,9 @@ import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
 import static utilities.Constants.SceneConstant.*;
 
-public class Scene extends JPanel implements Runnable{
+public class Scene extends JPanel implements Runnable {
     private Thread thread;
-    private KeyInputs keyInputs = new KeyInputs(this);
+    private final KeyInputs keyInputs = new KeyInputs(this);
     private Player player;
     private LevelManager levelManager;
 
@@ -80,11 +79,11 @@ public class Scene extends JPanel implements Runnable{
             graphics2D.setColor(Color.WHITE);
 
             // Player Coordination
-            graphics2D.drawString("World X: " + player.getWorldX(), x,y+=lineHeight);
-            graphics2D.drawString("World Y: "+ player.getWorldY(), x,y+=lineHeight);
+            graphics2D.drawString("World X: " + player.getWorldX(), x, y += lineHeight);
+            graphics2D.drawString("World Y: " + player.getWorldY(), x, y += lineHeight);
             //TODO: add hitbox
-            graphics2D.drawString("Column: " + (player.getWorldX() + 8) / TILE_SIZE, x,y+=lineHeight);
-            graphics2D.drawString("Row: " + (player.getWorldY() + 16) / TILE_SIZE, x,y+=lineHeight);
+            graphics2D.drawString("Column: " + (player.getWorldX() + 8) / TILE_SIZE, x, y += lineHeight);
+            graphics2D.drawString("Row: " + (player.getWorldY() + 16) / TILE_SIZE, x, y += lineHeight);
 
             // Render Process Time
             graphics2D.drawString("Duration: " + convert.format(second) + " seconds", x, y + lineHeight);

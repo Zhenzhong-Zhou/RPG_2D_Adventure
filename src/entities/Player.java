@@ -8,13 +8,14 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
-import static utilities.Constants.WorldConstant.*;
+import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
+import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 import static utilities.LoadSave.*;
 
-public class Player extends Entity{
-    private Scene scene;
-    private KeyInputs keyInputs;
+public class Player extends Entity {
     private final int screenX, screenY;
+    private final Scene scene;
+    private final KeyInputs keyInputs;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         this.scene = scene;
@@ -30,8 +31,8 @@ public class Player extends Entity{
 //        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
 //        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         // TODO: not center
-        worldX = 23 *TILE_SIZE;
-        worldY= 21*TILE_SIZE;
+        worldX = 23 * TILE_SIZE;
+        worldY = 21 * TILE_SIZE;
         speed = 1;
         direction = DOWN;
     }
@@ -147,7 +148,7 @@ public class Player extends Entity{
 
         // Draw hitbox
         graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(x + 8, y +16, 32, 32);
+        graphics2D.drawRect(x + 8, y + 16, 32, 32);
     }
 
     public int getScreenX() {
