@@ -1,5 +1,7 @@
 package main;
 
+import input.KeyInputs;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -21,7 +23,8 @@ public class Scene extends JPanel implements Runnable{
     }
 
     private void initClasses() {
-
+        // Input Class
+        addKeyListener(new KeyInputs(this));
     }
 
     private void setSceneSize() {
