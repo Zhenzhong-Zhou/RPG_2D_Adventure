@@ -18,7 +18,7 @@ public class AudioManager {
     }
 
     public void loadMusics() {
-        String[] musicNames = {"BlueBoyAdventure"};
+        String[] musicNames = {"menu", "BlueBoyAdventure", "level1", "level2"};
         musics = new Clip[musicNames.length];
         for(int i = 0; i < musics.length; i++) {
             musics[i] = GetClip(musicNames[i]);

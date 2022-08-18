@@ -65,7 +65,7 @@ public class Constants {
     public static class AudioManager {
         // MUSICS
         public static final int MENU = 0; //TODO: Add others later
-        public static final int START = 0;
+        public static final int START = 1;
 
         // SOUND EFFECTS
         public static final int COIN = 0;
