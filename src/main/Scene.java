@@ -2,6 +2,7 @@ package main;
 
 import entities.Player;
 import input.KeyInputs;
+import levels.LevelManager;
 
 import javax.swing.*;
 
@@ -16,6 +17,7 @@ public class Scene extends JPanel implements Runnable{
     private Thread thread;
     private KeyInputs keyInputs = new KeyInputs(this);
     private Player player;
+    private LevelManager levelManager;
 
     public Scene() {
         setFocusable(true);
@@ -30,6 +32,9 @@ public class Scene extends JPanel implements Runnable{
 
         // Entity Classes
         player = new Player(this, keyInputs);
+
+        // Manager Class
+        levelManager = new LevelManager();
     }
 
     private void setSceneSize() {
@@ -45,6 +50,7 @@ public class Scene extends JPanel implements Runnable{
     }
 
     public void draw(Graphics2D graphics2D) {
+        levelManager.draw(graphics2D, player);
         player.draw(graphics2D);
     }
 
@@ -74,10 +80,10 @@ public class Scene extends JPanel implements Runnable{
             graphics2D.setColor(Color.WHITE);
 
             // Player Coordination
-            graphics2D.drawString("World X: " + player.getX(), x,y+=lineHeight);
-            graphics2D.drawString("World Y: "+ player.getY(), x,y+=lineHeight);
-            graphics2D.drawString("Column: " + (player.getX() + player.getX()) / TILE_SIZE, x,y+=lineHeight);
-            graphics2D.drawString("Row: " + (player.getY() + player.getY()) / TILE_SIZE, x,y+=lineHeight);
+            graphics2D.drawString("World X: " + player.getWorldX(), x,y+=lineHeight);
+            graphics2D.drawString("World Y: "+ player.getWorldY(), x,y+=lineHeight);
+            graphics2D.drawString("Column: " + (player.getWorldX() + player.getWorldX()) / TILE_SIZE, x,y+=lineHeight);
+            graphics2D.drawString("Row: " + (player.getWorldY() + player.getWorldY()) / TILE_SIZE, x,y+=lineHeight);
 
             // Render Process Time
             graphics2D.drawString("Duration: " + convert.format(second) + " seconds", x, y + lineHeight);

@@ -92,7 +92,7 @@ public class LoadSave {
 
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
-    public static String saveFolder = "The Legend of Zelda";
+    public static String saveFolder = "Blue Boy Adventure";
     public static String levelFile = "default_level.txt";
     public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
     private static final File dataFile = new File(filePath);

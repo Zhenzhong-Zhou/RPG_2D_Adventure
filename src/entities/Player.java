@@ -7,24 +7,29 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.DirectionConstant.*;
-import static utilities.Constants.SceneConstant.TILE_SIZE;
+import static utilities.Constants.SceneConstant.*;
+import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
+import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 import static utilities.LoadSave.*;
 
 public class Player extends Entity{
     private Scene scene;
     private KeyInputs keyInputs;
+    private final int screenX, screenY;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         this.scene = scene;
         this.keyInputs = keyInputs;
 
+        screenX = (SCENE_WIDTH / 2) - (TILE_SIZE / 2);
+        screenY = (SCENE_HEIGHT / 2) - (TILE_SIZE / 2);
         setDefaultValues();
         getPlayerImage();
     }
 
     private void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
+        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         speed = 1;
         direction = DOWN;
     }
@@ -48,16 +53,16 @@ public class Player extends Entity{
         if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed()) {
             if(keyInputs.isUpPressed()) {
                 direction = UP;
-                y -= speed;
+                worldY -= speed;
             } else if(keyInputs.isLeftPressed()) {
                 direction = LEFT;
-                x -= speed;
+                worldX -= speed;
             } else if(keyInputs.isDownPressed()) {
                 direction = DOWN;
-                y += speed;
+                worldY += speed;
             } else if(keyInputs.isRightPressed()) {
                 direction = RIGHT;
-                x += speed;
+                worldX += speed;
             }
             updateAnimation();
         }
@@ -116,10 +121,18 @@ public class Player extends Entity{
                 }
             }
         }
-        graphics2D.drawImage(image, x, y, null);
+        graphics2D.drawImage(image, screenX, screenY, null);
 
         // Draw hitbox
         graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(x + 8, y +16, 32, 32);
+        graphics2D.drawRect(screenX + 8, screenY +16, 32, 32);
+    }
+
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
     }
 }
