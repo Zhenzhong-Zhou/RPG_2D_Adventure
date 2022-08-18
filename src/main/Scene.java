@@ -14,8 +14,8 @@ import static utilities.Constants.GameConstant.UPS_SET;
 import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
-    private Thread thread;
     private final KeyInputs keyInputs = new KeyInputs(this);
+    private Thread thread;
     private Player player;
     private LevelManager levelManager;
     private CollisionDetection collisionDetection;

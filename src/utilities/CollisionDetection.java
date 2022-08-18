@@ -1,10 +1,7 @@
 package utilities;
 
 import entities.Entity;
-import entities.Player;
 import main.Scene;
-
-import java.util.ArrayList;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -30,7 +27,7 @@ public class CollisionDetection {
         int tileNum1, tileNum2;
         switch(entity.getDirection()) {
             case UP -> {
-                entityTopRow = (int) ((entityTopWorldY - entity.getSpeed()) / TILE_SIZE);
+                entityTopRow = (entityTopWorldY - entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
@@ -41,7 +38,7 @@ public class CollisionDetection {
                 }
             }
             case LEFT -> {
-                entityLeftCol = (int) ((entityLeftWorldX - entity.getSpeed()) / TILE_SIZE);
+                entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
@@ -52,7 +49,7 @@ public class CollisionDetection {
                 }
             }
             case DOWN -> {
-                entityBottomRow = (int) ((entityBottomWorldY + entity.getSpeed()) / TILE_SIZE);
+                entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
                 tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
@@ -63,7 +60,7 @@ public class CollisionDetection {
                 }
             }
             case RIGHT -> {
-                entityRightCol = (int) ((entityRightWorldX + entity.getSpeed()) / TILE_SIZE);
+                entityRightCol = (entityRightWorldX + entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
