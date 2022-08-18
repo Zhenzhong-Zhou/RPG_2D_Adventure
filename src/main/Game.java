@@ -9,6 +9,8 @@ public class Game {
         Scene scene = new Scene();
         new Window(scene);
 
+        scene.setupGame();
+
         scene.start();
     }
 }

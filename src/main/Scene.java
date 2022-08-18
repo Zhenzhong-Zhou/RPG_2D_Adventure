@@ -3,6 +3,8 @@ package main;
 import entities.Player;
 import input.KeyInputs;
 import levels.LevelManager;
+import objects.GameObject;
+import utilities.AssetSetter;
 import utilities.CollisionDetection;
 
 import javax.swing.*;
@@ -19,6 +21,8 @@ public class Scene extends JPanel implements Runnable {
     private Player player;
     private LevelManager levelManager;
     private CollisionDetection collisionDetection;
+    private AssetSetter assetSetter;
+    private GameObject gameObject[] = new GameObject[10];
 
     public Scene() {
         setFocusable(true);
@@ -39,6 +43,9 @@ public class Scene extends JPanel implements Runnable {
 
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
+
+        // Setter
+        assetSetter = new AssetSetter(this);
     }
 
     private void setSceneSize() {
@@ -49,12 +56,21 @@ public class Scene extends JPanel implements Runnable {
         System.out.println("Size: " + SCENE_WIDTH + ", " + SCENE_HEIGHT);
     }
 
+    public void setupGame() {
+        assetSetter.setObject();
+    }
+
     public void update() {
         player.update();
     }
 
     public void draw(Graphics2D graphics2D) {
         levelManager.draw(graphics2D, player);
+        for(int i = 0; i<gameObject.length;i++) {
+            if(gameObject[i] != null) {
+                gameObject[i].draw(graphics2D, this);
+            }
+        }
         player.draw(graphics2D);
     }
 
@@ -153,5 +169,9 @@ public class Scene extends JPanel implements Runnable {
 
     public CollisionDetection getCollisionDetection() {
         return collisionDetection;
+    }
+
+    public GameObject[] getGameObject() {
+        return gameObject;
     }
 }
