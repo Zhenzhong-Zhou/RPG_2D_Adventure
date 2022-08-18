@@ -76,9 +76,9 @@ public class LoadSave {
     public static final String ROAD_12_IMAGE = "tile/road/road12.png";
 
     // TILES: Earth, Wall and Tree
-    public static final String EARTH_IMAGE = "tiles/earth.png";
-    public static final String WALL_IMAGE = "tiles/wall.png";
-    public static final String TREE_IMAGE = "tiles/tree.png";
+    public static final String EARTH_IMAGE = "tile/earth.png";
+    public static final String WALL_IMAGE = "tile/wall.png";
+    public static final String TREE_IMAGE = "tile/tree.png";
 
     // OBJECTS
     public static final String KEY_IMAGE = "objects/key.png";
