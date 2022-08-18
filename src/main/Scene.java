@@ -10,8 +10,7 @@ import java.text.DecimalFormat;
 
 import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
-import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
-import static utilities.Constants.SceneConstant.SCENE_WIDTH;
+import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable{
     private Thread thread;
@@ -52,7 +51,38 @@ public class Scene extends JPanel implements Runnable{
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
+
+        // DEBUG
+        long drawStart = 0;
+        if(keyInputs.isDisplayDebugInfo()) drawStart = System.nanoTime();
+
         draw(graphics2D);
+
+        // DEBUG
+        if(keyInputs.isDisplayDebugInfo()) {
+            // Render Time
+            long drawEnd = System.nanoTime();
+            long duration = drawEnd - drawStart;
+            double second = (double) duration / 1000000000.0;
+            DecimalFormat convert = new DecimalFormat();
+            convert.setMaximumFractionDigits(8);
+
+            // Display Info Position
+            int x = 10;
+            int y = 600;
+            int lineHeight = 20;
+            graphics2D.setColor(Color.WHITE);
+
+            // Player Coordination
+            graphics2D.drawString("World X: " + player.getX(), x,y+=lineHeight);
+            graphics2D.drawString("World Y: "+ player.getY(), x,y+=lineHeight);
+            graphics2D.drawString("Column: " + (player.getX() + player.getX()) / TILE_SIZE, x,y+=lineHeight);
+            graphics2D.drawString("Row: " + (player.getY() + player.getY()) / TILE_SIZE, x,y+=lineHeight);
+
+            // Render Process Time
+            graphics2D.drawString("Duration: " + convert.format(second) + " seconds", x, y + lineHeight);
+        }
+
         graphics.dispose();
     }
 

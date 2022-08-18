@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 public class KeyInputs implements KeyListener {
     private final Scene scene;
     private boolean upPressed, leftPressed, downPressed, rightPressed;
+    private boolean displayDebugInfo;
 
     public KeyInputs(Scene scene) {
         this.scene = scene;
@@ -25,6 +26,8 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = true;
             case KeyEvent.VK_S -> downPressed = true;
             case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
+            case KeyEvent.VK_R -> System.out.println("Refresh map!");
         }
     }
 
@@ -68,5 +71,13 @@ public class KeyInputs implements KeyListener {
 
     public void setRightPressed(boolean rightPressed) {
         this.rightPressed = rightPressed;
+    }
+
+    public boolean isDisplayDebugInfo() {
+        return displayDebugInfo;
+    }
+
+    public void setDisplayDebugInfo(boolean displayDebugInfo) {
+        this.displayDebugInfo = displayDebugInfo;
     }
 }
