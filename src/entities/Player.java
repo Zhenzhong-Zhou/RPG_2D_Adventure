@@ -28,8 +28,11 @@ public class Player extends Entity{
     }
 
     private void setDefaultValues() {
-        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
-        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
+//        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
+//        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
+        // TODO: not center
+        worldX = 23 *TILE_SIZE;
+        worldY= 21*TILE_SIZE;
         speed = 1;
         direction = DOWN;
     }

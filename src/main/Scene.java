@@ -82,8 +82,9 @@ public class Scene extends JPanel implements Runnable{
             // Player Coordination
             graphics2D.drawString("World X: " + player.getWorldX(), x,y+=lineHeight);
             graphics2D.drawString("World Y: "+ player.getWorldY(), x,y+=lineHeight);
-            graphics2D.drawString("Column: " + (player.getWorldX() + player.getWorldX()) / TILE_SIZE, x,y+=lineHeight);
-            graphics2D.drawString("Row: " + (player.getWorldY() + player.getWorldY()) / TILE_SIZE, x,y+=lineHeight);
+            //TODO: add hitbox
+            graphics2D.drawString("Column: " + (player.getWorldX() + 8) / TILE_SIZE, x,y+=lineHeight);
+            graphics2D.drawString("Row: " + (player.getWorldY() + 16) / TILE_SIZE, x,y+=lineHeight);
 
             // Render Process Time
             graphics2D.drawString("Duration: " + convert.format(second) + " seconds", x, y + lineHeight);
