@@ -8,8 +8,7 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
-import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
-import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
+import static utilities.Constants.WorldConstant.*;
 import static utilities.LoadSave.*;
 
 public class Player extends Entity{
@@ -124,11 +123,31 @@ public class Player extends Entity{
                 }
             }
         }
-        graphics2D.drawImage(image, screenX, screenY, null);
+
+        int x = screenX;
+        int y = screenY;
+        if(screenX > worldX) {
+            x = worldX;
+        }
+        if(screenY > worldY) {
+            y = worldY;
+        }
+
+        int rightOffset = SCENE_WIDTH - screenX;
+        if(rightOffset > WORLD_WIDTH - worldX) {
+            x = SCENE_WIDTH - (WORLD_WIDTH - worldX);
+        }
+
+        int bottomOffset = SCENE_HEIGHT - screenY;
+        if(bottomOffset > WORLD_HEIGHT - worldY) {
+            y = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
+        }
+
+        graphics2D.drawImage(image, x, y, null);
 
         // Draw hitbox
         graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(screenX + 8, screenY +16, 32, 32);
+        graphics2D.drawRect(x + 8, y +16, 32, 32);
     }
 
     public int getScreenX() {
