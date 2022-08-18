@@ -6,6 +6,7 @@ import main.Scene;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.ObjectConstant.*;
 import static utilities.Constants.SceneConstant.*;
@@ -86,15 +87,21 @@ public class Player extends Entity {
             String objectName =  scene.getGameObject()[objectIndex].getObjectName();
             switch(objectName) {
                 case KEY -> {
+                    scene.getAudioManager().playEffect(COIN);
                     hasKey++;
                     scene.getGameObject()[objectIndex] = null;
                 }
                 case DOOR -> {
+                    scene.getAudioManager().playEffect(UNLOCK);
                     if(hasKey > 0) scene.getGameObject()[objectIndex] = null;
                     hasKey--;
                 }
-                case CHEST -> System.out.println("CHEST");
+                case CHEST -> {
+                    scene.getAudioManager().playEffect(FAN_FARE);
+                    System.out.println("CHEST");
+                }
                 case BOOT -> {
+                    scene.getAudioManager().playEffect(POWER_UP);
                     speed += 1;
                     scene.getGameObject()[objectIndex] = null;
                 }

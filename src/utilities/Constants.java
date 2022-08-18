@@ -58,4 +58,19 @@ public class Constants {
         public static final String CHEST = "CHEST";
         public static final String BOOT = "BOOT";
     }
+
+    /**
+     * AUDIO SETTINGS
+     */
+    public static class AudioManager {
+        // MUSICS
+        public static final int MENU = 0; //TODO: Add others later
+        public static final int START = 0;
+
+        // SOUND EFFECTS
+        public static final int COIN = 0;
+        public static final int POWER_UP = 1;
+        public static final int UNLOCK = 2;
+        public static final int FAN_FARE = 3;
+    }
 }

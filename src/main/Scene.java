@@ -1,5 +1,6 @@
 package main;
 
+import audio.AudioManager;
 import entities.Player;
 import input.KeyInputs;
 import levels.LevelManager;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
+import static utilities.Constants.AudioManager.START;
 import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
 import static utilities.Constants.SceneConstant.*;
@@ -21,6 +23,7 @@ public class Scene extends JPanel implements Runnable {
     private Player player;
     private LevelManager levelManager;
     private CollisionDetection collisionDetection;
+    private AudioManager audioManager;
     private AssetSetter assetSetter;
     private final GameObject[] gameObject = new GameObject[10];
 
@@ -44,6 +47,9 @@ public class Scene extends JPanel implements Runnable {
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
 
+        // Audio Class
+        audioManager = new AudioManager();
+
         // Setter
         assetSetter = new AssetSetter(this);
     }
@@ -58,6 +64,7 @@ public class Scene extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setObject();
+        audioManager.playMusic(START);//TODO: change to MENU later
     }
 
     public void update() {
@@ -169,6 +176,10 @@ public class Scene extends JPanel implements Runnable {
 
     public CollisionDetection getCollisionDetection() {
         return collisionDetection;
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
     }
 
     public GameObject[] getGameObject() {

@@ -139,7 +139,7 @@ public class LoadSave {
     }
 
     public static Clip GetClip(String filename) {
-        URL url = LoadSave.class.getResource("/audios/" + filename + ".wav");
+        URL url = LoadSave.class.getResource("/audio/" + filename + ".wav");
         AudioInputStream audio;
         try {
             assert url != null;
