@@ -14,12 +14,11 @@ import static utilities.LoadSave.*;
 
 public class Player extends Entity {
     private final int screenX, screenY;
-    private final Scene scene;
     private final KeyInputs keyInputs;
     private int standCounter = 0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
-        this.scene = scene;
+        super(scene);
         this.keyInputs = keyInputs;
 
         screenX = (SCENE_WIDTH / 2) - (TILE_SIZE / 2);
@@ -105,7 +104,7 @@ public class Player extends Entity {
         }
     }
 
-    private void updateAnimation() {
+    public void updateAnimation() {
         spriteCounter++;
         if(spriteCounter >= animationSpeed) {
             if(spriteNum == 1) {

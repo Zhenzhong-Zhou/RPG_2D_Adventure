@@ -1,6 +1,7 @@
 package main;
 
 import audio.AudioManager;
+import entities.Entity;
 import entities.Player;
 import gui.GUI;
 import input.KeyInputs;
@@ -22,7 +23,8 @@ import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
-    private final GameObject[] gameObject = new GameObject[10];
+    private final GameObject[] gameObjects = new GameObject[10];
+    private Entity[] NPCs = new Entity[10];
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -70,13 +72,24 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        assetSetter.setObject();
+        assetSetter.setObjects();
+        assetSetter.setNPCs();
         audioManager.playMusic(START);//TODO: change to MENU later
     }
 
     public void update() {
         switch(gameState) {
-            case PLAY -> player.update();
+            case PLAY -> {
+                // PLAYER
+                player.update();
+
+                // NPC
+                for(Entity npc : NPCs) {
+                    if(npc != null) {
+                        npc.update();
+                    }
+                }
+            }
             case PAUSE -> {
             }
         }
@@ -87,9 +100,16 @@ public class Scene extends JPanel implements Runnable {
         levelManager.draw(graphics2D, player);
 
         // OBJECTS
-        for(GameObject object : gameObject) {
+        for(GameObject object : gameObjects) {
             if(object != null) {
                 object.draw(graphics2D, this);
+            }
+        }
+
+        // NPC
+        for(Entity npc : NPCs) {
+            if(npc != null) {
+                npc.draw(graphics2D);
             }
         }
 
@@ -216,7 +236,11 @@ public class Scene extends JPanel implements Runnable {
         return gui;
     }
 
-    public GameObject[] getGameObject() {
-        return gameObject;
+    public GameObject[] getGameObjects() {
+        return gameObjects;
+    }
+
+    public Entity[] getNPCs() {
+        return NPCs;
     }
 }

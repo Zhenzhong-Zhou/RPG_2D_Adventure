@@ -77,7 +77,7 @@ public class CollisionDetection {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        GameObject[] objects = scene.getGameObject();
+        GameObject[] objects = scene.getGameObjects();
         for(int i = 0; i < objects.length; i++) {
             GameObject object = objects[i];
             if(object != null) {
