@@ -18,7 +18,7 @@ public class Player extends Entity {
     private final int screenX, screenY;
     private final Scene scene;
     private final KeyInputs keyInputs;
-    private int hasKey=0;
+    private int hasKey = 0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         this.scene = scene;
@@ -84,7 +84,7 @@ public class Player extends Entity {
 
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
-            String objectName =  scene.getGameObject()[objectIndex].getObjectName();
+            String objectName = scene.getGameObject()[objectIndex].getObjectName();
             switch(objectName) {
                 case KEY -> {
                     scene.getAudioManager().playEffect(COIN);

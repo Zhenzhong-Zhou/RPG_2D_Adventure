@@ -15,7 +15,7 @@ public class GameObject {
     protected String objectName;
     protected boolean collision;
     protected int worldX, worldY;
-    protected  Rectangle hitbox = new Rectangle(0,0, TILE_SIZE, TILE_SIZE);
+    protected Rectangle hitbox = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
     protected int hitboxDefaultX = 0, hitboxDefaultY = 0;
 
     public void draw(Graphics2D graphics2D, Scene scene) {

@@ -20,6 +20,7 @@ import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
+    private final GameObject[] gameObject = new GameObject[10];
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -27,7 +28,6 @@ public class Scene extends JPanel implements Runnable {
     private AudioManager audioManager;
     private GUI gui;
     private AssetSetter assetSetter;
-    private final GameObject[] gameObject = new GameObject[10];
 
     public Scene() {
         setFocusable(true);
