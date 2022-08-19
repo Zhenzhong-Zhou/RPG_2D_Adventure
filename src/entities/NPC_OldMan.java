@@ -13,6 +13,7 @@ public class NPC_OldMan extends Entity{
 
         setDefaultValues();
         getOldManImage();
+        setDialogues();
     }
 
     private void setDefaultValues() {
@@ -31,6 +32,13 @@ public class NPC_OldMan extends Entity{
         right2 = GetSpriteAtlas(OLD_MAN_RIGHT_2_IMAGE);
     }
 
+    protected void setDialogues() {
+        dialogues[0] = "Hello, blue boy!";
+        dialogues[1] = "Good luck!";
+        dialogues[2] = "Bye!";
+        dialogues[3] = "Test: more than one line -> \nwe will implement a dialogue system so we can talk to NPCs.";
+    }
+
     public void setAction() {
         actionLockCounter++;
         if(actionLockCounter == 180) {
@@ -42,7 +50,9 @@ public class NPC_OldMan extends Entity{
             if(i > 75) direction = RIGHT;
             actionLockCounter = 0;
         }
-//        playerCanMove();
-//        updateAnimation();
+    }
+
+    public void speak() {
+        super.speak();
     }
 }

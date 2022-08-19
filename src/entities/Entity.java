@@ -10,8 +10,6 @@ import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
-import static utilities.LoadSave.GetSpriteAtlas;
-import static utilities.LoadSave.UP_1_IMAGE;
 
 public abstract class Entity {
     protected Scene scene;
@@ -25,6 +23,8 @@ public abstract class Entity {
     protected int hitboxDefaultX, hitboxDefaultY;
     protected boolean collision;
     protected int actionLockCounter = 0;
+    protected String[] dialogues = new String[20];
+    protected int dialogueIndex = 0;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -33,6 +33,21 @@ public abstract class Entity {
     }
 
     protected void setAction() {}
+
+    protected void speak() {
+        if(dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        } else {
+            scene.getGui().setCurrentDialogue(dialogues[dialogueIndex]);
+            dialogueIndex++;
+        }
+        switch(scene.getPlayer().direction) {
+            case UP -> direction = DOWN;
+            case LEFT -> direction = RIGHT;
+            case DOWN -> direction = UP;
+            case RIGHT -> direction = LEFT;
+        }
+    }
 
     public void update() {
         setAction();
@@ -213,5 +228,9 @@ public abstract class Entity {
 
     public void setCollision(boolean collision) {
         this.collision = collision;
+    }
+
+    public String[] getDialogues() {
+        return dialogues;
     }
 }

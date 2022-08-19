@@ -6,6 +6,8 @@ import main.Scene;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static main.GameState.DIALOGUE;
+import static main.GameState.gameState;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
@@ -98,8 +100,12 @@ public class Player extends Entity {
 
     private void interactNPC(int npcIndex) {
         if(npcIndex != 999) {
-            System.out.println("NPC!");
+            if(keyInputs.isEnterPressed()) {
+                gameState = DIALOGUE;
+                scene.getNPCs()[npcIndex].speak();
+            }
         }
+        keyInputs.setEnterPressed(false);
     }
 
     public void draw(Graphics2D graphics2D) {

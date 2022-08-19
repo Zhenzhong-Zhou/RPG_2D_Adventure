@@ -9,7 +9,7 @@ import static main.GameState.*;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
-    private boolean upPressed, leftPressed, downPressed, rightPressed;
+    private boolean upPressed, leftPressed, downPressed, rightPressed, enterPressed;
     private boolean displayDebugInfo;
 
     public KeyInputs(Scene scene) {
@@ -23,20 +23,21 @@ public class KeyInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_W -> upPressed = true;
-            case KeyEvent.VK_A -> leftPressed = true;
-            case KeyEvent.VK_S -> downPressed = true;
-            case KeyEvent.VK_D -> rightPressed = true;
-            case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
-            case KeyEvent.VK_R -> System.out.println("Refresh map!");
-            case KeyEvent.VK_P -> {
-                //TODO: Combine with ESC
-                switch(gameState) {
-                    case PLAY -> gameState = PAUSE;
-                    case PAUSE -> gameState = PLAY;
+        switch(gameState) {
+            case PLAY -> {
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_W -> upPressed = true;
+                    case KeyEvent.VK_A -> leftPressed = true;
+                    case KeyEvent.VK_S -> downPressed = true;
+                    case KeyEvent.VK_D -> rightPressed = true;
+                    case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
+                    case KeyEvent.VK_R -> System.out.println("Refresh map!");
+                    case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
+                    case KeyEvent.VK_ENTER -> enterPressed = true;
                 }
             }
+            case PAUSE -> {if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;}
+            case DIALOGUE -> {if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;}
         }
     }
 
@@ -88,5 +89,13 @@ public class KeyInputs implements KeyListener {
 
     public void setDisplayDebugInfo(boolean displayDebugInfo) {
         this.displayDebugInfo = displayDebugInfo;
+    }
+
+    public boolean isEnterPressed() {
+        return enterPressed;
+    }
+
+    public void setEnterPressed(boolean enterPressed) {
+        this.enterPressed = enterPressed;
     }
 }
