@@ -1,6 +1,7 @@
 package utilities;
 
 import entities.Entity;
+import entities.Player;
 import main.Scene;
 import objects.GameObject;
 
@@ -145,99 +146,100 @@ public class CollisionDetection {
         }
         return index;
     }
-//
-//    public int checkEntity(Entity entity, Entity[] targets) {
-//        int index = 999;
-//
-//        for(int i = 0; i < targets.length; i++) {
-//            Entity target = targets[i];
-//            if(target != null) {
-//                // Get entity's hitbox position
-//                entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-//                entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
-//
-//                // Get the object's hitbox position
-//                target.getHitbox().x = target.getWorldX() + target.getHitbox().x;
-//                target.getHitbox().y = target.getWorldY() + target.getHitbox().y;
-//
-//                switch(entity.getDirection()) {
-//                    case UP -> {
-//                        entity.getHitbox().y -= entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case LEFT -> {
-//                        entity.getHitbox().x += entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case DOWN -> {
-//                        entity.getHitbox().y += entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case RIGHT -> {
-//                        entity.getHitbox().x -= entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                }
-//                entity.getHitbox().x = entity.getHitboxDefaultX();
-//                entity.getHitbox().y = entity.getHitboxDefaultY();
-//                target.getHitbox().x = target.getHitboxDefaultX();
-//                target.getHitbox().y = target.getHitboxDefaultY();
-//            }
-//        }
-//        return index;
-//    }
-//
-//    public void checkPlayer(Entity entity) {
-//        // Get entity's hitbox position
-//        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-//        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
-//
-//        Player player = play.getPlayer();
-//        // Get the object's hitbox position
-//        player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
-//        player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
-//
-//        switch(entity.getDirection()) {
-//            case UP -> {
-//                entity.getHitbox().y -= entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case LEFT -> {
-//                entity.getHitbox().x += entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case DOWN -> {
-//                entity.getHitbox().y += entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case RIGHT -> {
-//                entity.getHitbox().x -= entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//        }
-//        entity.getHitbox().x = entity.getHitboxDefaultX();
-//        entity.getHitbox().y = entity.getHitboxDefaultY();
-//        player.getHitbox().x = player.getHitboxDefaultX();
-//        player.getHitbox().y = player.getHitboxDefaultY();
-//    }
+
+    // NPC OR MONSTER
+    public int checkEntity(Entity entity, Entity[] targets) {
+        int index = 999;
+
+        for(int i = 0; i < targets.length; i++) {
+            Entity target = targets[i];
+            if(target != null) {
+                // Get entity's hitbox position
+                entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
+                entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+
+                // Get the object's hitbox position
+                target.getHitbox().x = target.getWorldX() + target.getHitbox().x;
+                target.getHitbox().y = target.getWorldY() + target.getHitbox().y;
+
+                switch(entity.getDirection()) {
+                    case UP -> {
+                        entity.getHitbox().y -= entity.getSpeed();
+                        if(entity.getHitbox().intersects(target.getHitbox())) {
+                            entity.setCollision(true);
+                            index = i;
+                        }
+                    }
+                    case LEFT -> {
+                        entity.getHitbox().x += entity.getSpeed();
+                        if(entity.getHitbox().intersects(target.getHitbox())) {
+                            entity.setCollision(true);
+                            index = i;
+                        }
+                    }
+                    case DOWN -> {
+                        entity.getHitbox().y += entity.getSpeed();
+                        if(entity.getHitbox().intersects(target.getHitbox())) {
+                            entity.setCollision(true);
+                            index = i;
+                        }
+                    }
+                    case RIGHT -> {
+                        entity.getHitbox().x -= entity.getSpeed();
+                        if(entity.getHitbox().intersects(target.getHitbox())) {
+                            entity.setCollision(true);
+                            index = i;
+                        }
+                    }
+                }
+                entity.getHitbox().x = entity.getHitboxDefaultX();
+                entity.getHitbox().y = entity.getHitboxDefaultY();
+                target.getHitbox().x = target.getHitboxDefaultX();
+                target.getHitbox().y = target.getHitboxDefaultY();
+            }
+        }
+        return index;
+    }
+
+    public void checkPlayer(Entity entity) {
+        // Get entity's hitbox position
+        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
+        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+
+        Player player = scene.getPlayer();
+        // Get the object's hitbox position
+        player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
+        player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
+
+        switch(entity.getDirection()) {
+            case UP -> {
+                entity.getHitbox().y -= entity.getSpeed();
+                if(entity.getHitbox().intersects(player.getHitbox())) {
+                    entity.setCollision(true);
+                }
+            }
+            case LEFT -> {
+                entity.getHitbox().x += entity.getSpeed();
+                if(entity.getHitbox().intersects(player.getHitbox())) {
+                    entity.setCollision(true);
+                }
+            }
+            case DOWN -> {
+                entity.getHitbox().y += entity.getSpeed();
+                if(entity.getHitbox().intersects(player.getHitbox())) {
+                    entity.setCollision(true);
+                }
+            }
+            case RIGHT -> {
+                entity.getHitbox().x -= entity.getSpeed();
+                if(entity.getHitbox().intersects(player.getHitbox())) {
+                    entity.setCollision(true);
+                }
+            }
+        }
+        entity.getHitbox().x = entity.getHitboxDefaultX();
+        entity.getHitbox().y = entity.getHitboxDefaultY();
+        player.getHitbox().x = player.getHitboxDefaultX();
+        player.getHitbox().y = player.getHitboxDefaultY();
+    }
 }

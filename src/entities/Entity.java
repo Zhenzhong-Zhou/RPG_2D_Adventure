@@ -10,6 +10,8 @@ import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
+import static utilities.LoadSave.GetSpriteAtlas;
+import static utilities.LoadSave.UP_1_IMAGE;
 
 public abstract class Entity {
     protected Scene scene;
@@ -38,8 +40,13 @@ public abstract class Entity {
         collision = false;
         scene.getCollisionDetection().checkTile(this);
         scene.getCollisionDetection().checkObject(this, false);
-//        scene.getCollisionDetection().checkPlayer(this);
+        scene.getCollisionDetection().checkPlayer(this);
 
+        playerCanMove();
+        updateAnimation();
+    }
+
+    protected void playerCanMove() {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(! collision) {
             switch(direction) {
@@ -49,10 +56,9 @@ public abstract class Entity {
                 case RIGHT -> worldX += speed;
             }
         }
-        updateAnimation();
     }
 
-    public void updateAnimation() {
+    protected void updateAnimation() {
         spriteCounter++;
         if(spriteCounter >= animationSpeed) {
             if(spriteNum == 1) {
@@ -64,43 +70,51 @@ public abstract class Entity {
         }
     }
 
-//    public void update() {
-//        setAction();
-//
-//        collision = false;
-//        scene.getCollisionDetection().checkTile(this);
-//        scene.getCollisionDetection().checkObject(this, false);
-////        scene.getCollisionDetection().checkPlayer(this);
-//
-//        playerCanMove();
-//        updateAnimation();
-//    }
-//
-//    protected void playerCanMove() {
-//        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-//        if(! collision) {
-//            switch(direction) {
-//                case UP -> worldY -= speed;
-//                case LEFT -> worldX -= speed;
-//                case DOWN -> worldY += speed;
-//                case RIGHT -> worldX += speed;
-//            }
-//        }
-//    }
-//
-//    protected void updateAnimation() {
-//        spriteCounter++;
-//        if(spriteCounter >= animationSpeed) {
-//            if(spriteNum == 1) {
-//                spriteNum = 2;
-//            } else if(spriteNum == 2) {
-//                spriteNum = 1;
-//            }
-//            spriteCounter = 0;
-//        }
-//    }
-
     public void draw(Graphics2D graphics2D) {
+        drawAnimation(graphics2D);
+    }
+
+    protected BufferedImage animate() {
+        BufferedImage image = null;
+
+        switch(direction) {
+            case UP -> {
+                if(spriteNum == 1) {
+                    image = up1;
+                }
+                if(spriteNum == 2) {
+                    image = up2;
+                }
+            }
+            case LEFT -> {
+                if(spriteNum == 1) {
+                    image = left1;
+                }
+                if(spriteNum == 2) {
+                    image = left2;
+                }
+            }
+            case DOWN -> {
+                if(spriteNum == 1) {
+                    image = down1;
+                }
+                if(spriteNum == 2) {
+                    image = down2;
+                }
+            }
+            case RIGHT -> {
+                if(spriteNum == 1) {
+                    image = right1;
+                }
+                if(spriteNum == 2) {
+                    image = right2;
+                }
+            }
+        }
+        return image;
+    }
+
+    protected void drawAnimation(Graphics2D graphics2D) {
         Player player = scene.getPlayer();
         int playerWorldX = player.getWorldX();
         int playerWorldY = player.getWorldY();
@@ -133,13 +147,15 @@ public abstract class Entity {
             screenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
         }
 
+        BufferedImage image = animate();
+
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
-            graphics2D.drawImage(down1, screenX, screenY, null);
+            graphics2D.drawImage(image, screenX, screenY, null);
         } else if(playerScreenX > playerWorldX ||       //TODO: need to fix later
                 playerScreenY > playerWorldY ||
                 rightOffset > WORLD_WIDTH - playerWorldX ||
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
-            graphics2D.drawImage(down1, screenX, screenY, null);
+            graphics2D.drawImage(image, screenX, screenY, null);
         }
     }
 

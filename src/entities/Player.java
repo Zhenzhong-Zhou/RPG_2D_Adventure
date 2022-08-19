@@ -84,6 +84,10 @@ public class Player extends Entity {
         // CHECK OBJECT COLLISION
         int objectIndex = scene.getCollisionDetection().checkObject(this, true);
         collectObject(objectIndex);
+
+        // CHECK NPC COLLISION
+        int npcIndex =  scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
+        interactNPC(npcIndex);
     }
 
     private void collectObject(int objectIndex) {
@@ -92,27 +96,9 @@ public class Player extends Entity {
         }
     }
 
-    private void playerCanMove() {
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(! collision) {
-            switch(direction) {
-                case UP -> worldY -= speed;
-                case LEFT -> worldX -= speed;
-                case DOWN -> worldY += speed;
-                case RIGHT -> worldX += speed;
-            }
-        }
-    }
-
-    public void updateAnimation() {
-        spriteCounter++;
-        if(spriteCounter >= animationSpeed) {
-            if(spriteNum == 1) {
-                spriteNum = 2;
-            } else if(spriteNum == 2) {
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
+    private void interactNPC(int npcIndex) {
+        if(npcIndex != 999) {
+            System.out.println("NPC!");
         }
     }
 
@@ -120,43 +106,8 @@ public class Player extends Entity {
         drawAnimation(graphics2D);
     }
 
-    private void drawAnimation(Graphics2D graphics2D) {
-        BufferedImage image = null;
-
-        switch(direction) {
-            case UP -> {
-                if(spriteNum == 1) {
-                    image = up1;
-                }
-                if(spriteNum == 2) {
-                    image = up2;
-                }
-            }
-            case LEFT -> {
-                if(spriteNum == 1) {
-                    image = left1;
-                }
-                if(spriteNum == 2) {
-                    image = left2;
-                }
-            }
-            case DOWN -> {
-                if(spriteNum == 1) {
-                    image = down1;
-                }
-                if(spriteNum == 2) {
-                    image = down2;
-                }
-            }
-            case RIGHT -> {
-                if(spriteNum == 1) {
-                    image = right1;
-                }
-                if(spriteNum == 2) {
-                    image = right2;
-                }
-            }
-        }
+    public void drawAnimation(Graphics2D graphics2D) {
+        BufferedImage image = animate();
 
         int x = screenX;
         int y = screenY;
