@@ -3,7 +3,6 @@ package utilities;
 import entities.Entity;
 import entities.Player;
 import main.Scene;
-import objects.GameObject;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -78,9 +77,9 @@ public class CollisionDetection {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        GameObject[] objects = scene.getGameObjects();
+        Entity[] objects = scene.getGameObjects();
         for(int i = 0; i < objects.length; i++) {
-            GameObject object = objects[i];
+            Entity object = objects[i];
             if(object != null) {
                 // Get entity's hitbox position
                 entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;

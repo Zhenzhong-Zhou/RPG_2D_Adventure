@@ -15,7 +15,7 @@ public abstract class Entity {
     protected Scene scene;
     protected int worldX, worldY, speed;
     protected BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
-    protected String direction;
+    protected String direction = DOWN;
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     protected int animationSpeed = 60;
@@ -25,6 +25,8 @@ public abstract class Entity {
     protected int actionLockCounter = 0;
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
+    protected BufferedImage image;
+    protected String objectName; // TODO: miss a collision
 
     public Entity(Scene scene) {
         this.scene = scene;

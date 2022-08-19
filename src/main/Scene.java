@@ -6,13 +6,15 @@ import entities.Player;
 import gui.GUI;
 import input.KeyInputs;
 import levels.LevelManager;
-import objects.GameObject;
 import utilities.AssetSetter;
 import utilities.CollisionDetection;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static main.GameState.PLAY;
 import static main.GameState.gameState;
@@ -23,8 +25,9 @@ import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
-    private final GameObject[] gameObjects = new GameObject[10];
+    private final Entity[] gameObjects = new Entity[10];
     private Entity[] NPCs = new Entity[10];
+    private ArrayList<Entity> entityArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -99,22 +102,30 @@ public class Scene extends JPanel implements Runnable {
         // MAP
         levelManager.draw(graphics2D, player);
 
-        // OBJECTS
-        for(GameObject object : gameObjects) {
-            if(object != null) {
-                object.draw(graphics2D, this);
-            }
-        }
-
-        // NPC
+        // ADD ENTITIES TO THE LIST
+        entityArrayList.add(player);
         for(Entity npc : NPCs) {
             if(npc != null) {
-                npc.draw(graphics2D);
+                entityArrayList.add(npc);
             }
         }
 
-        // PLAYER
-        player.draw(graphics2D);
+        for(Entity gameObject : gameObjects) {
+            if(gameObject != null) {
+                entityArrayList.add(gameObject);
+            }
+        }
+
+        // SORT
+        entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
+
+        // DRAW ENTITIES
+        for(Entity entity : entityArrayList) {
+            entity.draw(graphics2D);
+        }
+
+        // EMPTY ENTITY LIST
+        entityArrayList.clear();
 
         //GUI
         gui.draw(graphics2D);
@@ -236,7 +247,7 @@ public class Scene extends JPanel implements Runnable {
         return gui;
     }
 
-    public GameObject[] getGameObjects() {
+    public Entity[] getGameObjects() {
         return gameObjects;
     }
 

@@ -2,6 +2,7 @@ package entities;
 
 import main.Scene;
 
+import java.awt.*;
 import java.util.Random;
 
 import static utilities.Constants.DirectionConstant.*;
@@ -10,6 +11,10 @@ import static utilities.LoadSave.*;
 public class NPC_OldMan extends Entity{
     public NPC_OldMan(Scene scene) {
         super(scene);
+
+        hitbox = new Rectangle(0,16,48,32);
+        hitboxDefaultX = hitbox.x;
+        hitboxDefaultY = hitbox.y;
 
         setDefaultValues();
         getOldManImage();
