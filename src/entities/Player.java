@@ -19,6 +19,9 @@ public class Player extends Entity {
     private final Scene scene;
     private final KeyInputs keyInputs;
     private int hasKey = 0;
+    private int standCounter = 0;
+    private boolean moving;
+    private int pixelCounter = 0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         this.scene = scene;
@@ -60,15 +63,32 @@ public class Player extends Entity {
     }
 
     private void updatePositions() {
-        if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed()) {
-            if(keyInputs.isUpPressed()) direction = UP;
-            else if(keyInputs.isLeftPressed()) direction = LEFT;
-            else if(keyInputs.isDownPressed()) direction = DOWN;
-            else if(keyInputs.isRightPressed()) direction = RIGHT;
+        if(!moving) {
+            if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed()) {
+                if(keyInputs.isUpPressed()) direction = UP;
+                else if(keyInputs.isLeftPressed()) direction = LEFT;
+                else if(keyInputs.isDownPressed()) direction = DOWN;
+                else if(keyInputs.isRightPressed()) direction = RIGHT;
+                moving = true;
+            } else {
+                standCounter++;
 
-            updateAnimation();
+                if(standCounter == animationSpeed) {
+                    spriteNum = 1;
+                    standCounter = 0;
+                }
+            }
+        }
+
+        if(moving) {
             checkCollision();
             playerCanMove();
+            updateAnimation();
+        }
+        pixelCounter += speed;
+        if(pixelCounter == TILE_SIZE) {
+            moving = false;
+            pixelCounter = 0;
         }
     }
 
