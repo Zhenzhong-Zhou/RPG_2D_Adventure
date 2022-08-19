@@ -2,6 +2,7 @@ package main;
 
 import audio.AudioManager;
 import entities.Player;
+import gui.GUI;
 import input.KeyInputs;
 import levels.LevelManager;
 import objects.GameObject;
@@ -24,6 +25,7 @@ public class Scene extends JPanel implements Runnable {
     private LevelManager levelManager;
     private CollisionDetection collisionDetection;
     private AudioManager audioManager;
+    private GUI gui;
     private AssetSetter assetSetter;
     private final GameObject[] gameObject = new GameObject[10];
 
@@ -50,6 +52,9 @@ public class Scene extends JPanel implements Runnable {
         // Audio Class
         audioManager = new AudioManager();
 
+        // GUI Class
+        gui = new GUI(this);
+
         // Setter
         assetSetter = new AssetSetter(this);
     }
@@ -72,13 +77,21 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void draw(Graphics2D graphics2D) {
+        // MAP
         levelManager.draw(graphics2D, player);
-        for(int i = 0; i < gameObject.length; i++) {
-            if(gameObject[i] != null) {
-                gameObject[i].draw(graphics2D, this);
+
+        // OBJECTS
+        for(GameObject object : gameObject) {
+            if(object != null) {
+                object.draw(graphics2D, this);
             }
         }
+
+        // PLAYER
         player.draw(graphics2D);
+
+        //GUI
+        gui.draw(graphics2D);
     }
 
     public void paintComponent(Graphics graphics) {
@@ -103,7 +116,8 @@ public class Scene extends JPanel implements Runnable {
             // Display Info Position
             int x = 10;
             int y = 600;
-            int lineHeight = 20;
+            int lineHeight = 25;
+            graphics2D.setFont(gui.getMaruMonica().deriveFont(Font.PLAIN, 25F));
             graphics2D.setColor(Color.WHITE);
 
             // Player Coordination
@@ -166,6 +180,10 @@ public class Scene extends JPanel implements Runnable {
         }
     }
 
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -180,6 +198,10 @@ public class Scene extends JPanel implements Runnable {
 
     public AudioManager getAudioManager() {
         return audioManager;
+    }
+
+    public GUI getGui() {
+        return gui;
     }
 
     public GameObject[] getGameObject() {
