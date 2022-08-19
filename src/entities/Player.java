@@ -6,9 +6,7 @@ import main.Scene;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
-import static utilities.Constants.ObjectConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
@@ -17,8 +15,7 @@ import static utilities.LoadSave.*;
 public class Player extends Entity {
     private final int screenX, screenY;
     private final Scene scene;
-    private final KeyInputs keyInputs;
-    private int hasKey = 0;
+    private KeyInputs keyInputs;
     private int standCounter = 0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
@@ -92,36 +89,7 @@ public class Player extends Entity {
 
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
-            String objectName = scene.getGameObject()[objectIndex].getObjectName();
-            switch(objectName) {
-                case KEY -> {
-                    scene.getAudioManager().playEffect(COIN);
-                    hasKey++;
-                    scene.getGameObject()[objectIndex] = null;
-                    scene.getGui().displayNotification("You got a key!");
-                }
-                case DOOR -> {
-                    scene.getAudioManager().playEffect(UNLOCK);
-                    if(hasKey > 0) {
-                        scene.getGameObject()[objectIndex] = null;
-                        hasKey--;
-                        scene.getGui().displayNotification("You open a door!");
-                    } else {
-                        scene.getGui().displayNotification("You need a key!");
-                    }
-                }
-                case CHEST -> {
-                    scene.getAudioManager().playEffect(FAN_FARE);
-                    scene.getGui().setGameCompleted(true);
-                    scene.getAudioManager().stopSound();
-                }
-                case BOOT -> {
-                    scene.getAudioManager().playEffect(POWER_UP);
-                    speed += 1;
-                    scene.getGameObject()[objectIndex] = null;
-                    scene.getGui().displayNotification("Speed up!");
-                }
-            }
+
         }
     }
 
@@ -217,15 +185,18 @@ public class Player extends Entity {
         graphics2D.drawRect(x + 8, y + 16, 32, 32);
     }
 
+    public void resetDirectionBoolean() {
+        keyInputs.setUpPressed(false);
+        keyInputs.setLeftPressed(false);
+        keyInputs.setDownPressed(false);
+        keyInputs.setRightPressed(false);
+    }
+
     public int getScreenX() {
         return screenX;
     }
 
     public int getScreenY() {
         return screenY;
-    }
-
-    public int getHasKey() {
-        return hasKey;
     }
 }

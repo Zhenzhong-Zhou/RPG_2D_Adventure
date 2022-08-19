@@ -5,6 +5,8 @@ import main.Scene;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static main.GameState.*;
+
 public class KeyInputs implements KeyListener {
     private final Scene scene;
     private boolean upPressed, leftPressed, downPressed, rightPressed;
@@ -28,6 +30,13 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_D -> rightPressed = true;
             case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
             case KeyEvent.VK_R -> System.out.println("Refresh map!");
+            case KeyEvent.VK_P -> {
+                //TODO: Combine with ESC
+                switch(gameState) {
+                    case PLAY -> gameState = PAUSE;
+                    case PAUSE -> gameState = PLAY;
+                }
+            }
         }
     }
 

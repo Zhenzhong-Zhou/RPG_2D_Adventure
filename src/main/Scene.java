@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
+import static main.GameState.PLAY;
+import static main.GameState.gameState;
 import static utilities.Constants.AudioManager.START;
 import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
@@ -73,7 +75,10 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        switch(gameState) {
+            case PLAY ->  player.update();
+            case PAUSE -> {}
+        }
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -177,6 +182,12 @@ public class Scene extends JPanel implements Runnable {
                 frames = 0;
                 updates = 0;
             }
+        }
+    }
+
+    public void windowFocusLost() {
+        if(gameState == PLAY) {
+            getPlayer().resetDirectionBoolean();
         }
     }
 
