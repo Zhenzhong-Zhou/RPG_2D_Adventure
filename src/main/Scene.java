@@ -76,8 +76,9 @@ public class Scene extends JPanel implements Runnable {
 
     public void update() {
         switch(gameState) {
-            case PLAY ->  player.update();
-            case PAUSE -> {}
+            case PLAY -> player.update();
+            case PAUSE -> {
+            }
         }
     }
 

@@ -5,7 +5,8 @@ import main.Scene;
 import java.awt.*;
 
 import static main.GameState.gameState;
-import static utilities.Constants.SceneConstant.*;
+import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
+import static utilities.Constants.SceneConstant.SCENE_WIDTH;
 import static utilities.LoadSave.*;
 
 public class GUI {
@@ -25,9 +26,6 @@ public class GUI {
         purisaB = GetFont(PURISA_BOLD);
     }
 
-    public void displayNotification(String text) {
-    }
-
     public void draw(Graphics2D graphics2D) {
         this.graphics2D = graphics2D;
 
@@ -35,7 +33,8 @@ public class GUI {
         graphics2D.setColor(Color.WHITE);
 
         switch(gameState) {
-            case PLAY -> {}
+            case PLAY -> {
+            }
             case PAUSE -> drawPauseScreen();
         }
     }

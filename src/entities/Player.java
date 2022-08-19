@@ -15,7 +15,7 @@ import static utilities.LoadSave.*;
 public class Player extends Entity {
     private final int screenX, screenY;
     private final Scene scene;
-    private KeyInputs keyInputs;
+    private final KeyInputs keyInputs;
     private int standCounter = 0;
 
     public Player(Scene scene, KeyInputs keyInputs) {
