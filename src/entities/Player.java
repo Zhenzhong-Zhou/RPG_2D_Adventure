@@ -88,7 +88,7 @@ public class Player extends Entity {
         collectObject(objectIndex);
 
         // CHECK NPC COLLISION
-        int npcIndex =  scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
+        int npcIndex = scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
         interactNPC(npcIndex);
     }
 

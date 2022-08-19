@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 import static main.GameState.PLAY;
@@ -26,8 +25,8 @@ import static utilities.Constants.SceneConstant.*;
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
     private final Entity[] gameObjects = new Entity[10];
-    private Entity[] NPCs = new Entity[10];
-    private ArrayList<Entity> entityArrayList = new ArrayList<>();
+    private final Entity[] NPCs = new Entity[10];
+    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;

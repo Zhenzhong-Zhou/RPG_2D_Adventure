@@ -36,8 +36,12 @@ public class KeyInputs implements KeyListener {
                     case KeyEvent.VK_ENTER -> enterPressed = true;
                 }
             }
-            case PAUSE -> {if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;}
-            case DIALOGUE -> {if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;}
+            case PAUSE -> {
+                if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;
+            }
+            case DIALOGUE -> {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;
+            }
         }
     }
 

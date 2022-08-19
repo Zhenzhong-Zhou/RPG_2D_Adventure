@@ -17,7 +17,7 @@ public class Door extends Entity {
         down1 = GetSpriteAtlas(DOOR_IMAGE);
         collision = true;
 
-        hitbox = new Rectangle(0,16,48,32);
+        hitbox = new Rectangle(0, 16, 48, 32);
         hitboxDefaultX = hitbox.x;
         hitboxDefaultY = hitbox.y;
     }

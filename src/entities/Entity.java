@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
-import static utilities.Constants.SceneConstant.SCENE_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 
@@ -31,10 +30,11 @@ public abstract class Entity {
     public Entity(Scene scene) {
         this.scene = scene;
 
-        hitbox = new Rectangle(0,0,TILE_SIZE, TILE_SIZE);
+        hitbox = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
     }
 
-    protected void setAction() {}
+    protected void setAction() {
+    }
 
     protected void speak() {
         if(dialogues[dialogueIndex] == null) {

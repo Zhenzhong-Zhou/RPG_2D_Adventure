@@ -57,17 +57,17 @@ public class GUI {
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         // WINDOW
         int x = TILE_SIZE * 2;
-        int y = TILE_SIZE/2;
-        int width = SCENE_WIDTH-(TILE_SIZE*4);
-        int height = TILE_SIZE*5;
-        drawSubWindow( x,y,width,height);
+        int y = TILE_SIZE / 2;
+        int width = SCENE_WIDTH - (TILE_SIZE * 4);
+        int height = TILE_SIZE * 5;
+        drawSubWindow(x, y, width, height);
 
-        x+= TILE_SIZE;
-        y+=TILE_SIZE;
+        x += TILE_SIZE;
+        y += TILE_SIZE;
 
         for(String line : getCurrentDialogue().split("\n")) {
             graphics2D.drawString(line, x, y);
-            y+=40;
+            y += 40;
         }
     }
 
@@ -77,14 +77,14 @@ public class GUI {
     }
 
     private void drawSubWindow(int x, int y, int width, int height) {
-        Color color = new Color(0,0,0, 210);
+        Color color = new Color(0, 0, 0, 210);
         graphics2D.setColor(color);
-        graphics2D.fillRoundRect(x,y,width,height,35,35);
+        graphics2D.fillRoundRect(x, y, width, height, 35, 35);
 
-        color = new Color(255,255,255);
+        color = new Color(255, 255, 255);
         graphics2D.setColor(color);
         graphics2D.setStroke(new BasicStroke(5));
-        graphics2D.drawRoundRect(x+5,y+5,width-10, height-10, 25,25);
+        graphics2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
 
     public Font getMaruMonica() {
