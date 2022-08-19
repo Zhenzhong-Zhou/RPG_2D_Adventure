@@ -3,6 +3,7 @@ package audio;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+import static utilities.Constants.AudioManager.MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
@@ -14,7 +15,7 @@ public class AudioManager {
     public AudioManager() {
         loadMusics();
         loadEffects();
-        playMusic(0);
+        playMusic(MENU);
     }
 
     public void loadMusics() {

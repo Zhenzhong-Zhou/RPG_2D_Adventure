@@ -17,6 +17,7 @@ import java.util.Comparator;
 
 import static main.GameState.PLAY;
 import static main.GameState.gameState;
+import static utilities.Constants.AudioManager.MENU;
 import static utilities.Constants.AudioManager.START;
 import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
@@ -76,7 +77,6 @@ public class Scene extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setObjects();
         assetSetter.setNPCs();
-        audioManager.playMusic(START);//TODO: change to MENU later
     }
 
     public void update() {
@@ -98,36 +98,43 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void draw(Graphics2D graphics2D) {
-        // MAP
-        levelManager.draw(graphics2D, player);
+        switch(gameState) {
+            case MENU -> {
+                gui.draw(graphics2D);
+            }
+            case PLAY -> {
+                // MAP
+                levelManager.draw(graphics2D, player);
 
-        // ADD ENTITIES TO THE LIST
-        entityArrayList.add(player);
-        for(Entity npc : NPCs) {
-            if(npc != null) {
-                entityArrayList.add(npc);
+                // ADD ENTITIES TO THE LIST
+                entityArrayList.add(player);
+                for(Entity npc : NPCs) {
+                    if(npc != null) {
+                        entityArrayList.add(npc);
+                    }
+                }
+
+                for(Entity gameObject : gameObjects) {
+                    if(gameObject != null) {
+                        entityArrayList.add(gameObject);
+                    }
+                }
+
+                // SORT
+                entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
+
+                // DRAW ENTITIES
+                for(Entity entity : entityArrayList) {
+                    entity.draw(graphics2D);
+                }
+
+                // EMPTY ENTITY LIST
+                entityArrayList.clear();
+
+                //GUI
+                gui.draw(graphics2D);
             }
         }
-
-        for(Entity gameObject : gameObjects) {
-            if(gameObject != null) {
-                entityArrayList.add(gameObject);
-            }
-        }
-
-        // SORT
-        entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
-
-        // DRAW ENTITIES
-        for(Entity entity : entityArrayList) {
-            entity.draw(graphics2D);
-        }
-
-        // EMPTY ENTITY LIST
-        entityArrayList.clear();
-
-        //GUI
-        gui.draw(graphics2D);
     }
 
     public void paintComponent(Graphics graphics) {

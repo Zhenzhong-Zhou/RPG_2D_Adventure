@@ -235,4 +235,8 @@ public abstract class Entity {
     public String[] getDialogues() {
         return dialogues;
     }
+
+    public BufferedImage getDown1() {
+        return down1;
+    }
 }

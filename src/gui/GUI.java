@@ -14,6 +14,7 @@ public class GUI {
     private Font maruMonica, purisaB;
     private boolean gameCompleted;
     private String currentDialogue = "";
+    public int commandNum = 0 ;
 
     public GUI(Scene scene) {
         this.scene = scene;
@@ -33,10 +34,57 @@ public class GUI {
         graphics2D.setColor(Color.WHITE);
 
         switch(gameState) {
+            case MENU -> drawMenuScreen();
             case PLAY -> {
             }
             case PAUSE -> drawPauseScreen();
             case DIALOGUE -> drawDialogueOverlay();
+        }
+    }
+
+    private void drawMenuScreen() {
+        // TITLE
+        drawTitle();
+
+        // BLUE BOY IMAGE
+        drawCharacterImage();
+
+        // MENU
+        drawMenu("NEW GAME", 0);
+        drawMenu("LOAD GAME",1);
+        drawMenu("OPTIONS",2);
+        drawMenu("QUIT", 3);
+    }
+
+    private void drawTitle() {
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 96F));
+        String title =  "Blue Boy Adventure";
+        int x = getHorizonCenteredText(title);
+        int y = 4*TILE_SIZE;
+
+        // SHADOW
+        graphics2D.setColor(Color.GRAY);
+        graphics2D.drawString(title, x+5, y+5);
+
+        // MAIN COLOR
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.drawString(title, x,y);
+    }
+
+    private void drawCharacterImage() {
+        int x = SCENE_WIDTH/2-(TILE_SIZE*2)/2;
+        int y = 7*TILE_SIZE;
+        graphics2D.drawImage(scene.getPlayer().getDown1(), x,y,TILE_SIZE*2, TILE_SIZE*2,null);
+    }
+
+    private void drawMenu(String menu, int i) {
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 48F));
+        int lineHeight = 60;
+        int x = getHorizonCenteredText(menu);
+        int y = (int) (10.5 *TILE_SIZE);
+        graphics2D.drawString(menu, x, y+lineHeight*(i+1));
+        if(commandNum == i) {
+            graphics2D.drawString(">", x-TILE_SIZE,  y+lineHeight*(i+1));
         }
     }
 

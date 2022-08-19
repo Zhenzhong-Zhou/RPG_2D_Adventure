@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static main.GameState.*;
+import static utilities.Constants.AudioManager.START;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
@@ -24,6 +25,33 @@ public class KeyInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch(gameState) {
+            case MENU -> {
+               switch(e.getKeyCode()) {
+                   case KeyEvent.VK_W, KeyEvent.VK_KP_UP -> {
+                       scene.getGui().commandNum--;
+                       if(scene.getGui().commandNum < 0) {
+                           scene.getGui().commandNum = 3;
+                       }
+                   }
+                   case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                       scene.getGui().commandNum++;
+                       if(scene.getGui().commandNum > 3) {
+                           scene.getGui().commandNum = 0;
+                       }
+                   }
+                   case KeyEvent.VK_ENTER -> {
+                       switch(scene.getGui().commandNum) {
+                           case 0 -> {
+                               gameState = PLAY;
+                               scene.getAudioManager().playMusic(START);
+                           }
+                           case 1 -> System.out.println("LOAD GAME");
+                           case 2 -> System.out.println("OPTIONS");
+                           case 3 -> System.exit(0);
+                       }
+                   }
+               }
+            }
             case PLAY -> {
                 switch(e.getKeyCode()) {
                     case KeyEvent.VK_W -> upPressed = true;
