@@ -157,6 +157,10 @@ public abstract class Entity {
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
             graphics2D.drawImage(image, screenX, screenY, null);
         }
+
+        // Draw hitbox
+        graphics2D.setColor(Color.BLUE);
+        graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, getHitbox().width, getHitbox().height);
     }
 
     public int getWorldX() {

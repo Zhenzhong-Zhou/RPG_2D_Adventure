@@ -20,5 +20,9 @@ public class AssetSetter {
         scene.getNPCs()[0] = new NPC_OldMan(scene);
         scene.getNPCs()[0].setWorldX(21 *TILE_SIZE);
         scene.getNPCs()[0].setWorldY(21 *TILE_SIZE);
+
+        scene.getNPCs()[1] = new NPC_OldMan(scene);
+        scene.getNPCs()[1].setWorldX(20 *TILE_SIZE);
+        scene.getNPCs()[1].setWorldY(21 *TILE_SIZE);
     }
 }
