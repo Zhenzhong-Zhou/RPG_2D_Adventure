@@ -1,8 +1,11 @@
 package gui;
 
+import entities.Entity;
 import main.Scene;
+import objects.Heart;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static main.GameState.gameState;
 import static utilities.Constants.SceneConstant.*;
@@ -10,21 +13,30 @@ import static utilities.LoadSave.*;
 
 public class GUI {
     private final Scene scene;
-    Graphics2D graphics2D;
+    private Graphics2D graphics2D;
     private Font maruMonica, purisaB;
     private boolean gameCompleted;
     private String currentDialogue = "";
     public int commandNum = 0 ;
+    private BufferedImage heart_full, heart_half, heart_blank;
 
     public GUI(Scene scene) {
         this.scene = scene;
 
         initFont();
+        getPlayerLifeImage();
     }
 
     private void initFont() {
         maruMonica = GetFont(MARU_MONICA);
         purisaB = GetFont(PURISA_BOLD);
+    }
+
+    private void getPlayerLifeImage() {
+        Entity heart = new Heart(scene);
+        heart_full = heart.getDown1();
+        heart_half = heart.getDown2();
+        heart_blank = heart.getLeft1();
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -36,9 +48,17 @@ public class GUI {
         switch(gameState) {
             case MENU -> drawMenuScreen();
             case PLAY -> {
+                drawPlayerStatus();
             }
-            case PAUSE -> drawPauseScreen();
-            case DIALOGUE -> drawDialogueOverlay();
+            case OPTIONS -> drawOptionsScreen();
+            case PAUSE -> {
+                drawPlayerStatus();
+                drawPauseScreen();
+            }
+            case DIALOGUE -> {
+                drawPlayerStatus();
+                drawDialogueOverlay();
+            }
         }
     }
 
@@ -85,6 +105,47 @@ public class GUI {
         graphics2D.drawString(menu, x, y+lineHeight*(i+1));
         if(commandNum == i) {
             graphics2D.drawString(">", x-TILE_SIZE,  y+lineHeight*(i+1));
+        }
+    }
+
+    //TODO: ADD later
+    private void drawOptionsScreen() {
+
+    }
+
+    private void drawPlayerStatus() {
+        // MAX LIVES
+        drawMaxLives();
+
+       // CURRENT LIFE
+        drawCurrentLife();
+    }
+
+    private void drawMaxLives() {
+        int x = TILE_SIZE/2;
+        int y = TILE_SIZE/2;
+        int i =0;
+
+        while(i< scene.getPlayer().maxLives/2) {
+            graphics2D.drawImage(heart_blank,x, y, null);
+            i++;
+            x+=TILE_SIZE;
+        }
+    }
+
+    private void drawCurrentLife() {
+        int x = TILE_SIZE/2;
+        int y = TILE_SIZE/2;
+        int i =0;
+
+        while(i< scene.getPlayer().life) {
+            graphics2D.drawImage(heart_half,x, y, null);
+            i++;
+            if(i< scene.getPlayer().life) {
+                graphics2D.drawImage(heart_full,x, y, null);
+            }
+            i++;
+            x+=TILE_SIZE;
         }
     }
 

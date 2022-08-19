@@ -57,6 +57,7 @@ public class Constants {
         public static final String DOOR = "DOOR";
         public static final String CHEST = "CHEST";
         public static final String BOOT = "BOOT";
+        public static final String HEART = "HEART";
     }
 
     /**
@@ -64,7 +65,7 @@ public class Constants {
      */
     public static class AudioManager {
         // MUSICS
-        public static final int MENU = 0; //TODO: Add others later
+        public static final int MENU = 0;
         public static final int START = 1;
 
         // SOUND EFFECTS

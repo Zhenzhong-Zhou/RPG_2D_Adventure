@@ -24,8 +24,8 @@ public abstract class Entity {
     protected int actionLockCounter = 0;
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
-    protected BufferedImage image;
     protected String objectName; // TODO: miss a collision
+    public int maxLives, life;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -238,5 +238,13 @@ public abstract class Entity {
 
     public BufferedImage getDown1() {
         return down1;
+    }
+
+    public BufferedImage getLeft1() {
+        return left1;
+    }
+
+    public BufferedImage getDown2() {
+        return down2;
     }
 }
