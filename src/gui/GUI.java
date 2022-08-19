@@ -53,7 +53,8 @@ public class GUI {
     }
 
     private void drawDialogueOverlay() {
-        graphics2D.setFont(graphics2D.getFont().deriveFont(Font.PLAIN, 32F));
+        graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 23F));
+        graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         // WINDOW
         int x = TILE_SIZE * 2;
         int y = TILE_SIZE/2;
