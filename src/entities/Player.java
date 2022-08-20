@@ -94,6 +94,11 @@ public class Player extends Entity {
         // CHECK NPC COLLISION
         int npcIndex = scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
         interactNPC(npcIndex);
+
+        // CHECK EVENT
+//        gameState = DIALOGUE;
+        scene.getEventManager().checkEvent();
+        keyInputs.setEnterPressed(false);
     }
 
     private void collectObject(int objectIndex) {
@@ -109,7 +114,6 @@ public class Player extends Entity {
                 scene.getNPCs()[npcIndex].speak();
             }
         }
-        keyInputs.setEnterPressed(false);
     }
 
     public void draw(Graphics2D graphics2D) {

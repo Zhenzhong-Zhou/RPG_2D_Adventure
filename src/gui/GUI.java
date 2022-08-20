@@ -7,7 +7,7 @@ import objects.Heart;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static main.GameState.gameState;
+import static main.GameState.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
 
@@ -17,7 +17,7 @@ public class GUI {
     private Font maruMonica, purisaB;
     private boolean gameCompleted;
     private String currentDialogue = "";
-    public int commandNum = 0 ;
+    private int commandNum = 0 ;
     private BufferedImage heart_full, heart_half, heart_blank;
 
     public GUI(Scene scene) {
@@ -126,7 +126,7 @@ public class GUI {
         int y = TILE_SIZE/2;
         int i =0;
 
-        while(i< scene.getPlayer().maxLives/2) {
+        while(i< scene.getPlayer().getMaxLives()/2) {
             graphics2D.drawImage(heart_blank,x, y, null);
             i++;
             x+=TILE_SIZE;
@@ -138,10 +138,10 @@ public class GUI {
         int y = TILE_SIZE/2;
         int i =0;
 
-        while(i< scene.getPlayer().life) {
+        while(i< scene.getPlayer().getLife()) {
             graphics2D.drawImage(heart_half,x, y, null);
             i++;
-            if(i< scene.getPlayer().life) {
+            if(i< scene.getPlayer().getLife()) {
                 graphics2D.drawImage(heart_full,x, y, null);
             }
             i++;
@@ -218,5 +218,21 @@ public class GUI {
 
     public void setCurrentDialogue(String currentDialogue) {
         this.currentDialogue = currentDialogue;
+    }
+
+    public int getCommandNum() {
+        return commandNum;
+    }
+
+    public void setCommandNum(int commandNum) {
+        this.commandNum = commandNum;
+    }
+
+    public void decrementCommandNum() {
+        this.commandNum--;
+    }
+
+    public void incrementCommandNum() {
+        this.commandNum++;
     }
 }

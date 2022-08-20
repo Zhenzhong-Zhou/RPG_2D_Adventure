@@ -27,20 +27,20 @@ public class KeyInputs implements KeyListener {
         switch(gameState) {
             case MENU -> {
                switch(e.getKeyCode()) {
-                   case KeyEvent.VK_W, KeyEvent.VK_KP_UP -> {
-                       scene.getGui().commandNum--;
-                       if(scene.getGui().commandNum < 0) {
-                           scene.getGui().commandNum = 3;
+                   case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                       scene.getGui().decrementCommandNum();
+                       if(scene.getGui().getCommandNum() < 0) {
+                           scene.getGui().setCommandNum(3);
                        }
                    }
                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
-                       scene.getGui().commandNum++;
-                       if(scene.getGui().commandNum > 3) {
-                           scene.getGui().commandNum = 0;
+                       scene.getGui().incrementCommandNum();
+                       if(scene.getGui().getCommandNum() > 3) {
+                           scene.getGui().setCommandNum(0);
                        }
                    }
                    case KeyEvent.VK_ENTER -> {
-                       switch(scene.getGui().commandNum) {
+                       switch(scene.getGui().getCommandNum()) {
                            case 0 -> {
                                gameState = PLAY;
                                scene.getAudioManager().playMusic(START);
@@ -62,6 +62,7 @@ public class KeyInputs implements KeyListener {
                     case KeyEvent.VK_R -> System.out.println("Refresh map!");
                     case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
                     case KeyEvent.VK_ENTER -> enterPressed = true;
+                    case KeyEvent.VK_ESCAPE -> gameState = MENU;
                 }
             }
             case PAUSE -> {

@@ -25,7 +25,7 @@ public abstract class Entity {
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
     protected String objectName; // TODO: miss a collision
-    public int maxLives, life;
+    protected int maxLives, life;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -246,5 +246,25 @@ public abstract class Entity {
 
     public BufferedImage getDown2() {
         return down2;
+    }
+
+    public int getMaxLives() {
+        return maxLives;
+    }
+
+    public void setMaxLives(int maxLives) {
+        this.maxLives = maxLives;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public void lostLife() {
+        this.life --;
     }
 }

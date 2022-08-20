@@ -3,6 +3,7 @@ package main;
 import audio.AudioManager;
 import entities.Entity;
 import entities.Player;
+import events.EventManager;
 import gui.GUI;
 import input.KeyInputs;
 import levels.LevelManager;
@@ -15,10 +16,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import static main.GameState.PLAY;
-import static main.GameState.gameState;
-import static utilities.Constants.AudioManager.MENU;
-import static utilities.Constants.AudioManager.START;
+import static main.GameState.*;
 import static utilities.Constants.GameConstant.FPS_SET;
 import static utilities.Constants.GameConstant.UPS_SET;
 import static utilities.Constants.SceneConstant.*;
@@ -31,6 +29,7 @@ public class Scene extends JPanel implements Runnable {
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
+    private EventManager eventManager;
     private CollisionDetection collisionDetection;
     private AudioManager audioManager;
     private GUI gui;
@@ -50,8 +49,9 @@ public class Scene extends JPanel implements Runnable {
         // Entity Classes
         player = new Player(this, keyInputs);
 
-        // Manager Class
+        // Manager Classes
         levelManager = new LevelManager();
+        eventManager = new EventManager(this);
 
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
@@ -98,42 +98,40 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void draw(Graphics2D graphics2D) {
-        switch(gameState) {
-            case MENU -> {
-                gui.draw(graphics2D);
+        if(gameState == MENU) {
+            gui.draw(graphics2D);
+        }
+       else {
+            // MAP
+            levelManager.draw(graphics2D, player);
+
+            // ADD ENTITIES TO THE LIST
+            entityArrayList.add(player);
+            for(Entity npc : NPCs) {
+                if(npc != null) {
+                    entityArrayList.add(npc);
+                }
             }
-            case PLAY -> {
-                // MAP
-                levelManager.draw(graphics2D, player);
 
-                // ADD ENTITIES TO THE LIST
-                entityArrayList.add(player);
-                for(Entity npc : NPCs) {
-                    if(npc != null) {
-                        entityArrayList.add(npc);
-                    }
+            for(Entity gameObject : gameObjects) {
+                if(gameObject != null) {
+                    entityArrayList.add(gameObject);
                 }
-
-                for(Entity gameObject : gameObjects) {
-                    if(gameObject != null) {
-                        entityArrayList.add(gameObject);
-                    }
-                }
-
-                // SORT
-                entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
-
-                // DRAW ENTITIES
-                for(Entity entity : entityArrayList) {
-                    entity.draw(graphics2D);
-                }
-
-                // EMPTY ENTITY LIST
-                entityArrayList.clear();
-
-                //GUI
-                gui.draw(graphics2D);
             }
+
+            // SORT
+            entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
+
+            // DRAW ENTITIES
+            for(Entity entity : entityArrayList) {
+                entity.draw(graphics2D);
+            }
+
+            // EMPTY ENTITY LIST
+            entityArrayList.clear();
+
+            //GUI
+            gui.draw(graphics2D);
         }
     }
 
@@ -233,12 +231,20 @@ public class Scene extends JPanel implements Runnable {
         this.thread = thread;
     }
 
+    public KeyInputs getKeyInputs() {
+        return keyInputs;
+    }
+
     public Player getPlayer() {
         return player;
     }
 
     public LevelManager getLevelManager() {
         return levelManager;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
     }
 
     public CollisionDetection getCollisionDetection() {
