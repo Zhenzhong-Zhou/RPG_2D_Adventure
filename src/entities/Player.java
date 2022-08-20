@@ -225,7 +225,7 @@ public class Player extends Entity {
                 monster.life -= 1;
                 monster.invincible = true;
                 if(monster.life <= 0) {
-                    scene.getMonsters()[monsterIndex] = null;
+                    scene.getMonsters()[monsterIndex].dead = true;
                 }
             }
         }

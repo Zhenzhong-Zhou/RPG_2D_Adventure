@@ -33,6 +33,9 @@ public abstract class Entity {
     protected int entityType;
     protected boolean attacking;
     protected Rectangle attackBox;
+    protected boolean alive = true;
+    protected boolean dead;
+    protected int deadCounter = 0;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -171,6 +174,28 @@ public abstract class Entity {
         return image;
     }
 
+    private void deadAnimation(Graphics2D graphics2D) {
+        deadCounter++;
+        int i = 5;
+        if(deadCounter <= i) changeAlpha(graphics2D, 0f);
+        if(deadCounter > i && deadCounter <= i * 2) changeAlpha(graphics2D, 1f);
+        if(deadCounter > i * 2 && deadCounter <= i * 3) changeAlpha(graphics2D, 0f);
+        if(deadCounter > i * 3 && deadCounter <= i * 4) changeAlpha(graphics2D, 1f);
+        if(deadCounter > i * 4 && deadCounter <= i * 5) changeAlpha(graphics2D, 0f);
+        if(deadCounter > i * 5 && deadCounter <= i * 6) changeAlpha(graphics2D, 1f);
+        if(deadCounter > i * 6 && deadCounter <= i * 7) changeAlpha(graphics2D, 0f);
+        if(deadCounter > i * 7 && deadCounter <= i * 8) changeAlpha(graphics2D, 1f);
+
+        if(deadCounter > i * 8) {
+            dead = false;
+            alive = false;
+        }
+    }
+
+    private void changeAlpha(Graphics2D graphics2D, float alphaValue) {
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
+
     protected void drawAnimation(Graphics2D graphics2D) {
         Player player = scene.getPlayer();
         int playerWorldX = player.getWorldX();
@@ -200,6 +225,9 @@ public abstract class Entity {
 
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
             if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            if(dead) {
+                deadAnimation(graphics2D);
+            }
             graphics2D.drawImage(image, screenX, screenY, null);
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         } else if(playerScreenX > playerWorldX ||       //TODO: need to fix later
@@ -207,6 +235,9 @@ public abstract class Entity {
                 rightOffset > WORLD_WIDTH - playerWorldX ||
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
             if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            if(dead) {
+                deadAnimation(graphics2D);
+            }
             graphics2D.drawImage(image, screenX, screenY, null);
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
@@ -302,5 +333,21 @@ public abstract class Entity {
 
     public void lostLife() {
         this.life--;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }

@@ -95,9 +95,15 @@ public class Scene extends JPanel implements Runnable {
                 }
 
                 // MONSTER
-                for(Entity monster : monsters) {
+                for(int i = 0; i < monsters.length; i++) {
+                    Entity monster = monsters[i];
                     if(monster != null) {
-                        monster.update();
+                        if(monster.isAlive() && !monster.isDead()) {
+                            monster.update();
+                        }
+                        if(!monster.isAlive()) {
+                            monsters[i] = null;
+                        }
                     }
                 }
             }
