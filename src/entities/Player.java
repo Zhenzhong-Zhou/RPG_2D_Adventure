@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import static main.GameState.DIALOGUE;
 import static main.GameState.gameState;
+import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
@@ -204,6 +205,7 @@ public class Player extends Entity {
                 gameState = DIALOGUE;
                 scene.getNPCs()[npcIndex].speak();
             } else {
+                scene.getAudioManager().playEffect(SWING_WEAPON);
                 attacking = true;
             }
         }
@@ -212,6 +214,7 @@ public class Player extends Entity {
     private void interactMonster(int monsterIndex) {
         if(monsterIndex != 999) {
             if(! invincible) {
+                scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
                 life -= 1;
                 invincible = true;
             }
@@ -222,6 +225,7 @@ public class Player extends Entity {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[monsterIndex];
             if(!monster.invincible) {
+                scene.getAudioManager().playEffect(HIT_MONSTER);
                 monster.life -= 1;
                 monster.invincible = true;
                 if(monster.life <= 0) {

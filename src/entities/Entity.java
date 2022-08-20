@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import static utilities.Constants.AudioManager.RECEIVED_DAMAGE;
+import static utilities.Constants.AudioManager.SWING_WEAPON;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
@@ -86,6 +88,7 @@ public abstract class Entity {
         if(this.entityType == 2 && interactPlayer) {
             if(! scene.getPlayer().invincible) {
                 // Player get damaged
+                scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
                 scene.getPlayer().lostLife();
                 scene.getPlayer().invincible = true;
             }

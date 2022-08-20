@@ -82,5 +82,8 @@ public class Constants {
         public static final int POWER_UP = 1;
         public static final int UNLOCK = 2;
         public static final int FAN_FARE = 3;
+        public static final int HIT_MONSTER = 4;
+        public static final int RECEIVED_DAMAGE = 5;
+        public static final int SWING_WEAPON = 6;
     }
 }
