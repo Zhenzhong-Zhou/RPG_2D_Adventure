@@ -45,16 +45,7 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setAction() {
-        actionLockCounter++;
-        if(actionLockCounter == 180) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1;    // pick up a number from 1 to 100;
-            if(i <= 25) direction = UP;
-            if(i > 25 && i <= 50) direction = DOWN;
-            if(i > 50 && i <= 75) direction = LEFT;
-            if(i > 75) direction = RIGHT;
-            actionLockCounter = 0;
-        }
+        super.setAction();
     }
 
     public void speak() {

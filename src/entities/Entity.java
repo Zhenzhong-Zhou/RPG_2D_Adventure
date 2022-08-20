@@ -4,6 +4,7 @@ import main.Scene;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
@@ -34,6 +35,16 @@ public abstract class Entity {
     }
 
     protected void setAction() {
+        actionLockCounter++;
+        if(actionLockCounter == 180) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1;    // pick up a number from 1 to 100;
+            if(i <= 25) direction = UP;
+            if(i > 25 && i <= 50) direction = DOWN;
+            if(i > 50 && i <= 75) direction = LEFT;
+            if(i > 75) direction = RIGHT;
+            actionLockCounter = 0;
+        }
     }
 
     protected void speak() {
@@ -56,7 +67,10 @@ public abstract class Entity {
 
         collision = false;
         scene.getCollisionDetection().checkTile(this);
+
         scene.getCollisionDetection().checkObject(this, false);
+        scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
+        scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
         scene.getCollisionDetection().checkPlayer(this);
 
         playerCanMove();

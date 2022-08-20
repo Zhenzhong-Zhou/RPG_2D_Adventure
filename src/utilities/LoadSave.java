@@ -39,6 +39,9 @@ public class LoadSave {
     public static final String OLD_MAN_RIGHT_1_IMAGE = "npc/oldman_right_1.png";
     public static final String OLD_MAN_RIGHT_2_IMAGE = "npc/oldman_right_2.png";
 
+    // MONSTER: Green Slime
+    public static final String GREEN_SLIME_DOWN_1_IMAGE = "monster/greenslime_down_1.png";
+    public static final String GREEN_SLIME_DOWN_2_IMAGE = "monster/greenslime_down_2.png";
 
     // TILES: Grass
     public static final String GRASS_00_IMAGE = "tile/grass/grass00.png";

@@ -62,6 +62,14 @@ public class Constants {
     }
 
     /**
+     * MONSTER SETTINGS
+     */
+    public static class MonsterConstant {
+        // Monster Name
+        public static final String GREEN_SLIME = "GREEN_SLIME";
+    }
+
+    /**
      * AUDIO SETTINGS
      */
     public static class AudioManager {

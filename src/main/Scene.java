@@ -25,6 +25,7 @@ public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
     private final Entity[] gameObjects = new Entity[10];
     private final Entity[] NPCs = new Entity[10];
+    private Entity[] monsters = new Entity[20];
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
@@ -77,6 +78,7 @@ public class Scene extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setObjects();
         assetSetter.setNPCs();
+        assetSetter.setMonsters();
     }
 
     public void update() {
@@ -89,6 +91,13 @@ public class Scene extends JPanel implements Runnable {
                 for(Entity npc : NPCs) {
                     if(npc != null) {
                         npc.update();
+                    }
+                }
+
+                // MONSTER
+                for(Entity monster : monsters) {
+                    if(monster != null) {
+                        monster.update();
                     }
                 }
             }
@@ -115,6 +124,12 @@ public class Scene extends JPanel implements Runnable {
             for(Entity gameObject : gameObjects) {
                 if(gameObject != null) {
                     entityArrayList.add(gameObject);
+                }
+            }
+
+            for(Entity monster : monsters) {
+                if(monster != null) {
+                    entityArrayList.add(monster);
                 }
             }
 
@@ -226,10 +241,6 @@ public class Scene extends JPanel implements Runnable {
         }
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
-    }
-
     public KeyInputs getKeyInputs() {
         return keyInputs;
     }
@@ -264,5 +275,9 @@ public class Scene extends JPanel implements Runnable {
 
     public Entity[] getNPCs() {
         return NPCs;
+    }
+
+    public Entity[] getMonsters() {
+        return monsters;
     }
 }

@@ -95,6 +95,10 @@ public class Player extends Entity {
         int npcIndex = scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
         interactNPC(npcIndex);
 
+        // CHECK MONSTER COLLISION
+        int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
+        interactMonster(monsterIndex);
+
         // CHECK EVENT
         scene.getEventManager().checkEvent();
         keyInputs.setEnterPressed(false);
@@ -112,6 +116,12 @@ public class Player extends Entity {
                 gameState = DIALOGUE;
                 scene.getNPCs()[npcIndex].speak();
             }
+        }
+    }
+
+    private void interactMonster(int monsterIndex) {
+        if(monsterIndex != 999) {
+            life -= 1;
         }
     }
 
