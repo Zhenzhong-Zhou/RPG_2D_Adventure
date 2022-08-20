@@ -22,9 +22,9 @@ public class CollisionDetection {
     private void entityDirection(Entity entity) {
         switch(entity.getDirection()) {
             case UP -> entity.getHitbox().y -= entity.getSpeed();
-            case LEFT -> entity.getHitbox().x += entity.getSpeed();
+            case LEFT -> entity.getHitbox().x -= entity.getSpeed();
             case DOWN -> entity.getHitbox().y += entity.getSpeed();
-            case RIGHT -> entity.getHitbox().x -= entity.getSpeed();
+            case RIGHT -> entity.getHitbox().x += entity.getSpeed();
         }
     }
 
