@@ -31,6 +31,7 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
+        getPlayerAttackImage();
     }
 
     private void setDefaultValues() {
@@ -58,8 +59,33 @@ public class Player extends Entity {
         right2 = GetSpriteAtlas(RIGHT_2_IMAGE);
     }
 
+    private void getPlayerAttackImage() {
+        attackUp1 = GetAttackImage(ATTACK_UP_1_IMAGE, TILE_SIZE,TILE_SIZE*2);
+        attackUp2 = GetAttackImage(ATTACK_UP_2_IMAGE, TILE_SIZE,TILE_SIZE*2);
+        attackLeft1 = GetAttackImage(ATTACK_LEFT_1_IMAGE, TILE_SIZE*2, TILE_SIZE);
+        attackLeft2 = GetAttackImage(ATTACK_LEFT_2_IMAGE, TILE_SIZE*2, TILE_SIZE);
+        attackDown1 = GetAttackImage(ATTACK_DOWN_1_IMAGE, TILE_SIZE,TILE_SIZE*2);
+        attackDown2 = GetAttackImage(ATTACK_DOWN_2_IMAGE, TILE_SIZE,TILE_SIZE*2);
+        attackRight1 = GetAttackImage(ATTACK_RIGHT_1_IMAGE, TILE_SIZE*2, TILE_SIZE);
+        attackRight2 = GetAttackImage(ATTACK_RIGHT_2_IMAGE, TILE_SIZE*2, TILE_SIZE);
+    }
+
     public void update() {
+        if(attacking) {
+            attacking();
+        }
         updatePositions();
+    }
+
+    private void attacking() {
+        spriteCounter++;
+        if(spriteCounter<=10) spriteNum = 1;
+        if(spriteCounter>10 && spriteCounter<=35) spriteNum = 2;
+        if(spriteCounter>35) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            attacking = false;
+        }
     }
 
     private void updatePositions() {
@@ -136,10 +162,12 @@ public class Player extends Entity {
     }
 
     private void interactNPC(int npcIndex) {
-        if(npcIndex != 999) {
-            if(keyInputs.isEnterPressed()) {
+        if(keyInputs.isEnterPressed()) {
+            if(npcIndex != 999) {
                 gameState = DIALOGUE;
                 scene.getNPCs()[npcIndex].speak();
+            } else {
+                attacking = true;
             }
         }
     }
@@ -158,38 +186,74 @@ public class Player extends Entity {
     }
 
     public void drawAnimation(Graphics2D graphics2D) {
-        BufferedImage image = animate();
+        BufferedImage image = null;
+        int tempScreenX = screenX;
+        int tempScreenY = screenY;
 
-        int x = screenX;
-        int y = screenY;
-        if(screenX > worldX) {
-            x = worldX;
+        switch(direction) {
+            case UP -> {
+                if(!attacking) {
+                    if(spriteNum == 1) image = up1;
+                    if(spriteNum == 2) image = up2;
+                }
+                if(attacking) {
+                    tempScreenY = screenY - TILE_SIZE;
+                    if(spriteNum == 1) image = attackUp1;
+                    if(spriteNum == 2) image = attackUp2;
+                }
+            }
+            case LEFT -> {
+                if(!attacking) {
+                    if(spriteNum == 1) image = left1;
+                    if(spriteNum == 2) image = left2;
+                }
+                if(attacking) {
+                    tempScreenX = screenX - TILE_SIZE;
+                    if(spriteNum == 1) image = attackLeft1;
+                    if(spriteNum == 2) image = attackLeft2;
+                }
+            }
+            case DOWN -> {
+                if(!attacking) {
+                    if(spriteNum == 1) image = down1;
+                    if(spriteNum == 2) image = down2;
+                }
+                if(attacking) {
+                    if(spriteNum == 1) image = attackDown1;
+                    if(spriteNum == 2) image = attackDown2;
+                }
+            }
+            case RIGHT -> {
+                if(!attacking) {
+                    if(spriteNum == 1) image = right1;
+                    if(spriteNum == 2) image = right2;
+                }
+                if(attacking) {
+                    if(spriteNum == 1) image = attackRight1;
+                    if(spriteNum == 2) image = attackRight2;
+                }
+            }
         }
-        if(screenY > worldY) {
-            y = worldY;
-        }
+
+        if(screenX > worldX) tempScreenX = worldX;
+        if(screenY > worldY) tempScreenY = worldY;
 
         int rightOffset = SCENE_WIDTH - screenX;
-        if(rightOffset > WORLD_WIDTH - worldX) {
-            x = SCENE_WIDTH - (WORLD_WIDTH - worldX);
-        }
+        if(rightOffset > WORLD_WIDTH - worldX) tempScreenX = SCENE_WIDTH - (WORLD_WIDTH - worldX);
 
         int bottomOffset = SCENE_HEIGHT - screenY;
-        if(bottomOffset > WORLD_HEIGHT - worldY) {
-            y = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
-        }
+        if(bottomOffset > WORLD_HEIGHT - worldY) tempScreenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
 
-        if(invincible) {
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-        }
-        graphics2D.drawImage(image, x, y, null);
+        if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+
+        graphics2D.drawImage(image, tempScreenX, tempScreenY, null);
 
         // REST ALPHA
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         // DEBUG: Draw hitbox
         graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(x + hitbox.x, y + hitbox.y, hitbox.width, hitbox.height);
+        graphics2D.drawRect(tempScreenX + hitbox.x, tempScreenY + hitbox.y, hitbox.width, hitbox.height);
 
         // DEBUG: Invincible counter
         graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));

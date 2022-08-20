@@ -15,6 +15,7 @@ public abstract class Entity {
     protected Scene scene;
     protected int worldX, worldY, speed;
     protected BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
+    protected BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackDown1, attackDown2, attackRight1, attackRight2;
     protected String direction = DOWN;
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
@@ -30,6 +31,7 @@ public abstract class Entity {
     protected boolean invincible;
     protected int invincibleCounter = 0;
     protected int entityType;
+    protected boolean attacking;
 
     public Entity(Scene scene) {
         this.scene = scene;

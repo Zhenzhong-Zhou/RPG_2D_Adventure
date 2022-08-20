@@ -24,6 +24,16 @@ public class LoadSave {
     public static final String RIGHT_1_IMAGE = "player/walk/boy_right_1.png";
     public static final String RIGHT_2_IMAGE = "player/walk/boy_right_2.png";
 
+    // PLAYER ATTACK
+    public static final String ATTACK_UP_1_IMAGE = "player/attack/boy_attack_up_1.png";
+    public static final String ATTACK_UP_2_IMAGE = "player/attack/boy_attack_up_2.png";
+    public static final String ATTACK_LEFT_1_IMAGE = "player/attack/boy_attack_left_1.png";
+    public static final String ATTACK_LEFT_2_IMAGE = "player/attack/boy_attack_left_2.png";
+    public static final String ATTACK_DOWN_1_IMAGE = "player/attack/boy_attack_down_1.png";
+    public static final String ATTACK_DOWN_2_IMAGE = "player/attack/boy_attack_down_2.png";
+    public static final String ATTACK_RIGHT_1_IMAGE = "player/attack/boy_attack_right_1.png";
+    public static final String ATTACK_RIGHT_2_IMAGE = "player/attack/boy_attack_right_2.png";
+
     // PLAYER LIFE
     public static final String HEART_FULL = "objects/heart_full.png";
     public static final String HEART_HALF = "objects/heart_half.png";
@@ -101,12 +111,20 @@ public class LoadSave {
     private static final File dataFile = new File(filePath);
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
+        return getImage(fileName, TILE_SIZE, TILE_SIZE);
+    }
+
+    public static BufferedImage GetAttackImage(String fileName, int width, int height) {
+        return getImage(fileName, width, height);
+    }
+
+    private static BufferedImage getImage(String fileName, int width, int height) {
         BufferedImage image = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
         try {
             assert is != null;
             image = ImageIO.read(is);
-            image = ScaleImage(image, TILE_SIZE, TILE_SIZE);
+            image = ScaleImage(image, width, height);
         } catch(IOException e) {
             e.printStackTrace();
         } finally {
