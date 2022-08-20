@@ -154,7 +154,8 @@ public class CollisionDetection {
         return index;
     }
 
-    public void checkPlayer(Entity entity) {
+    public boolean checkPlayer(Entity entity) {
+        boolean interactPlayer = false;
         // Get entity's hitbox position
         entityPosition(entity);
 
@@ -167,11 +168,14 @@ public class CollisionDetection {
 
         if(entity.getHitbox().intersects(player.getHitbox())) {
             entity.setCollision(true);
+            interactPlayer = true;
         }
 
         entity.getHitbox().x = entity.getHitboxDefaultX();
         entity.getHitbox().y = entity.getHitboxDefaultY();
         player.getHitbox().x = player.getHitboxDefaultX();
         player.getHitbox().y = player.getHitboxDefaultY();
+
+        return interactPlayer;
     }
 }

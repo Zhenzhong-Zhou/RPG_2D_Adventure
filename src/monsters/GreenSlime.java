@@ -21,6 +21,7 @@ public class GreenSlime extends Entity {
     }
 
     private void setDefaultValues() {
+        entityType = 2;
         objectName = GREEN_SLIME;
         speed = 1;
         maxLives = 4;

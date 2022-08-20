@@ -25,8 +25,11 @@ public abstract class Entity {
     protected int actionLockCounter = 0;
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
-    protected String objectName; // TODO: miss a collision
+    protected String objectName;
     protected int maxLives, life;
+    protected boolean invincible;
+    protected int invincibleCounter = 0;
+    protected int entityType;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -71,7 +74,15 @@ public abstract class Entity {
         scene.getCollisionDetection().checkObject(this, false);
         scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
         scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-        scene.getCollisionDetection().checkPlayer(this);
+        boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
+
+        if(this.entityType == 2 && interactPlayer) {
+            if(!scene.getPlayer().invincible) {
+                // Player get damaged
+                scene.getPlayer().lostLife();
+                scene.getPlayer().invincible = true;
+            }
+        }
 
         playerCanMove();
         updateAnimation();

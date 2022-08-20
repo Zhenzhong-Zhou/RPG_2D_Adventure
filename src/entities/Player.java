@@ -80,6 +80,19 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
+
+        // This needs to be outside of key if statement!
+        invincibleCounter();
+    }
+
+    private void invincibleCounter() {
+        if(invincible) {
+            invincibleCounter++;
+            if(invincibleCounter>60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     private void checkCollision() {
@@ -121,7 +134,10 @@ public class Player extends Entity {
 
     private void interactMonster(int monsterIndex) {
         if(monsterIndex != 999) {
-            life -= 1;
+            if(! invincible) {
+                life -= 1;
+                invincible = true;
+            }
         }
     }
 
@@ -151,11 +167,22 @@ public class Player extends Entity {
             y = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
         }
 
+        if(invincible) {
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         graphics2D.drawImage(image, x, y, null);
 
-        // Draw hitbox
+        // REST ALPHA
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        // DEBUG: Draw hitbox
         graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(x + 8, y + 16, 32, 32);
+        graphics2D.drawRect(x + hitbox.x, y + hitbox.y, hitbox.width, hitbox.height);
+
+        // DEBUG: Invincible counter
+        graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
     }
 
     public void resetDirectionBoolean() {
