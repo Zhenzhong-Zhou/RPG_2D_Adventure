@@ -63,7 +63,7 @@ public class Player extends Entity {
     }
 
     private void updatePositions() {
-        if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed()) {
+        if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed() || keyInputs.isEnterPressed()) {
             if(keyInputs.isUpPressed()) direction = UP;
             else if(keyInputs.isLeftPressed()) direction = LEFT;
             else if(keyInputs.isDownPressed()) direction = DOWN;
@@ -83,6 +83,19 @@ public class Player extends Entity {
 
         // This needs to be outside of key if statement!
         invincibleCounter();
+    }
+
+    public void playerCanMove() {
+        // IF COLLISION IS FALSE, PLAYER CAN MOVE
+        if(! collision && !keyInputs.isEnterPressed()) {
+            switch(direction) {
+                case UP -> worldY -= speed;
+                case LEFT -> worldX -= speed;
+                case DOWN -> worldY += speed;
+                case RIGHT -> worldX += speed;
+            }
+        }
+        keyInputs.setEnterPressed(false);
     }
 
     private void invincibleCounter() {
@@ -114,7 +127,6 @@ public class Player extends Entity {
 
         // CHECK EVENT
         scene.getEventManager().checkEvent();
-        keyInputs.setEnterPressed(false);
     }
 
     private void collectObject(int objectIndex) {
