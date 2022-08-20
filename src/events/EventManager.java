@@ -4,69 +4,105 @@ import entities.Player;
 import main.GameState;
 import main.Scene;
 
-import java.awt.*;
-
 import static main.GameState.*;
 import static utilities.Constants.DirectionConstant.*;
-import static utilities.Constants.SceneConstant.TILE_SIZE;
+import static utilities.Constants.SceneConstant.*;
+import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
+import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 
 public class EventManager {
     private Scene scene;
-    private Rectangle eventBox;
-    private int eventBoxDefaultX, eventBoxDefaultY;
+    private EventBox eventBox[][];
+    private int previousEventX, previousEventY;
+    private boolean canTouchEvent;
 
     public EventManager(Scene scene) {
         this.scene = scene;
+        eventBox = new EventBox[MAX_WORLD_COL][MAX_WORLD_ROW];
 
-        eventBox = new Rectangle(23,23,2,2);
-        eventBoxDefaultX = eventBox.x;
-        eventBoxDefaultY = eventBox.y;
+        initEventBox();
+    }
+
+    private void initEventBox() {
+        int col =0;
+        int row = 0;
+        while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
+            eventBox[col][row] = new EventBox();
+            eventBox[col][row].x = 23;
+            eventBox[col][row].y = 23;
+            eventBox[col][row].width = 2;
+            eventBox[col][row].height = 2;
+            eventBox[col][row].setEventBoxDefaultX(eventBox[col][row].x);
+            eventBox[col][row].setEventBoxDefaultY(eventBox[col][row].y);
+
+            col++;
+            if(col == MAX_WORLD_COL) {
+                col = 0;
+                row++;
+            }
+        }
     }
 
     public void checkEvent() {
-        if(trigger(27, 16, RIGHT)) {damagePit(DIALOGUE);}
-        if(trigger(23, 12, UP)) {healingPool(DIALOGUE);}
-        if(trigger(23, 25, DOWN)) {teleport(DIALOGUE);}
+        // Check if the player is more than 1 tile away from the last event
+        int xDistance = Math.abs(scene.getPlayer().getWorldX() - previousEventX);
+        int yDistance = Math.abs(scene.getPlayer().getWorldY() - previousEventY);
+        int distance = Math.max(xDistance, yDistance);
+        if(distance > TILE_SIZE) {
+            canTouchEvent = true;
+        }
+
+        if(canTouchEvent) {
+            if(trigger(27, 16, RIGHT)) {damagePit(27, 16, DIALOGUE);}
+            if(trigger(23, 19, "any")) {damagePit(27, 16, DIALOGUE);}
+            if(trigger(23, 12, UP)) {healingPool(23, 12, DIALOGUE);}
+            if(trigger(23, 25, DOWN)) {teleport(23, 25, DIALOGUE);}
+        }
     }
 
-    private boolean trigger(int eventCol, int eventRow, String reqDirection) {
+    private boolean trigger(int col, int row, String reqDirection) {
         boolean trigger = false;
 
         Player player =  scene.getPlayer();
         player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
         player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
-        eventBox.x = eventCol * TILE_SIZE + eventBox.x;
-        eventBox.y = eventRow * TILE_SIZE + eventBox.y;
+        eventBox[col][row].x = col * TILE_SIZE + eventBox[col][row].x;
+        eventBox[col][row].y = row * TILE_SIZE + eventBox[col][row].y;
 
-        if(player.getHitbox().intersects(eventBox)) {
+        if(player.getHitbox().intersects(eventBox[col][row]) && !eventBox[col][row].isEventHappened()) {
             if(player.getDirection().contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
                 trigger = true;
+
+                previousEventX = scene.getPlayer().getWorldX();
+                previousEventY = scene.getPlayer().getWorldY();
             }
         }
 
         player.getHitbox().x = player.getHitboxDefaultX();
         player.getHitbox().y = player.getHitboxDefaultY();
-        eventBox.x = eventBoxDefaultX;
-        eventBox.y = eventBoxDefaultY;
+        eventBox[col][row].x = eventBox[col][row].getEventBoxDefaultX();
+        eventBox[col][row].y = eventBox[col][row].getEventBoxDefaultY();
 
         return trigger;
     }
 
-    private void damagePit(GameState gameState) {
+    private void damagePit(int col, int row, GameState gameState) {
         GameState.gameState = gameState;
         scene.getGui().setCurrentDialogue("You fall into a pit!");
         scene.getPlayer().lostLife();
+        canTouchEvent = false;
     }
 
-    private void healingPool(GameState gameState) {
+    private void healingPool(int col, int row, GameState gameState) {
         if(scene.getKeyInputs().isEnterPressed()) {
             GameState.gameState = gameState;
             scene.getGui().setCurrentDialogue("You life has been recovered!");
             scene.getPlayer().setLife(scene.getPlayer().getMaxLives());
+            eventBox[col][row].setEventHappened(true);
         }
     }
 
-    private void teleport(GameState gameState) {
+    private void teleport(int col, int row, GameState gameState) {
         GameState.gameState = gameState;
         scene.getGui().setCurrentDialogue("Teleport!");
         scene.getPlayer().setWorldX(37* TILE_SIZE);
