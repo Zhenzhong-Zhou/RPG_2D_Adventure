@@ -265,6 +265,6 @@ public abstract class Entity {
     }
 
     public void lostLife() {
-        this.life --;
+        this.life--;
     }
 }

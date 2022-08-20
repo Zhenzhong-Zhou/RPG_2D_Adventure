@@ -7,7 +7,6 @@ public class EventBox extends Rectangle {
     private boolean eventHappened;
 
 
-
     public int getEventBoxDefaultX() {
         return eventBoxDefaultX;
     }

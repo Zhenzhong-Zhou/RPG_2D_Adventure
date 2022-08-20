@@ -26,31 +26,31 @@ public class KeyInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch(gameState) {
             case MENU -> {
-               switch(e.getKeyCode()) {
-                   case KeyEvent.VK_W, KeyEvent.VK_UP -> {
-                       scene.getGui().decrementCommandNum();
-                       if(scene.getGui().getCommandNum() < 0) {
-                           scene.getGui().setCommandNum(3);
-                       }
-                   }
-                   case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
-                       scene.getGui().incrementCommandNum();
-                       if(scene.getGui().getCommandNum() > 3) {
-                           scene.getGui().setCommandNum(0);
-                       }
-                   }
-                   case KeyEvent.VK_ENTER -> {
-                       switch(scene.getGui().getCommandNum()) {
-                           case 0 -> {
-                               gameState = PLAY;
-                               scene.getAudioManager().playMusic(START);
-                           }
-                           case 1 -> System.out.println("LOAD GAME");
-                           case 2 -> System.out.println("OPTIONS");
-                           case 3 -> System.exit(0);
-                       }
-                   }
-               }
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                        scene.getGui().decrementCommandNum();
+                        if(scene.getGui().getCommandNum() < 0) {
+                            scene.getGui().setCommandNum(3);
+                        }
+                    }
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                        scene.getGui().incrementCommandNum();
+                        if(scene.getGui().getCommandNum() > 3) {
+                            scene.getGui().setCommandNum(0);
+                        }
+                    }
+                    case KeyEvent.VK_ENTER -> {
+                        switch(scene.getGui().getCommandNum()) {
+                            case 0 -> {
+                                gameState = PLAY;
+                                scene.getAudioManager().playMusic(START);
+                            }
+                            case 1 -> System.out.println("LOAD GAME");
+                            case 2 -> System.out.println("OPTIONS");
+                            case 3 -> System.exit(0);
+                        }
+                    }
+                }
             }
             case PLAY -> {
                 switch(e.getKeyCode()) {

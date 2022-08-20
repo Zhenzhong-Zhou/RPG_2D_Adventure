@@ -4,15 +4,15 @@ import entities.Player;
 import main.GameState;
 import main.Scene;
 
-import static main.GameState.*;
+import static main.GameState.DIALOGUE;
 import static utilities.Constants.DirectionConstant.*;
-import static utilities.Constants.SceneConstant.*;
+import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
 import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 
 public class EventManager {
-    private Scene scene;
-    private EventBox eventBox[][];
+    private final Scene scene;
+    private final EventBox[][] eventBox;
     private int previousEventX, previousEventY;
     private boolean canTouchEvent;
 
@@ -24,7 +24,7 @@ public class EventManager {
     }
 
     private void initEventBox() {
-        int col =0;
+        int col = 0;
         int row = 0;
         while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
             eventBox[col][row] = new EventBox();
@@ -53,24 +53,32 @@ public class EventManager {
         }
 
         if(canTouchEvent) {
-            if(trigger(27, 16, RIGHT)) {damagePit(27, 16, DIALOGUE);}
-            if(trigger(23, 19, "any")) {damagePit(27, 16, DIALOGUE);}
-            if(trigger(23, 12, UP)) {healingPool(23, 12, DIALOGUE);}
-            if(trigger(23, 25, DOWN)) {teleport(23, 25, DIALOGUE);}
+            if(trigger(27, 16, RIGHT)) {
+                damagePit(27, 16, DIALOGUE);
+            }
+            if(trigger(23, 19, ANY)) {
+                damagePit(27, 16, DIALOGUE);
+            }
+            if(trigger(23, 12, UP)) {
+                healingPool(23, 12, DIALOGUE);
+            }
+            if(trigger(23, 25, DOWN)) {
+                teleport(23, 25, DIALOGUE);
+            }
         }
     }
 
     private boolean trigger(int col, int row, String reqDirection) {
         boolean trigger = false;
 
-        Player player =  scene.getPlayer();
+        Player player = scene.getPlayer();
         player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
         player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
         eventBox[col][row].x = col * TILE_SIZE + eventBox[col][row].x;
         eventBox[col][row].y = row * TILE_SIZE + eventBox[col][row].y;
 
-        if(player.getHitbox().intersects(eventBox[col][row]) && !eventBox[col][row].isEventHappened()) {
-            if(player.getDirection().contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
+        if(player.getHitbox().intersects(eventBox[col][row]) && ! eventBox[col][row].isEventHappened()) {
+            if(player.getDirection().contentEquals(reqDirection) || reqDirection.contentEquals(ANY)) {
                 trigger = true;
 
                 previousEventX = scene.getPlayer().getWorldX();
@@ -105,7 +113,7 @@ public class EventManager {
     private void teleport(int col, int row, GameState gameState) {
         GameState.gameState = gameState;
         scene.getGui().setCurrentDialogue("Teleport!");
-        scene.getPlayer().setWorldX(37* TILE_SIZE);
-        scene.getPlayer().setWorldY(10* TILE_SIZE);
+        scene.getPlayer().setWorldX(37 * TILE_SIZE);
+        scene.getPlayer().setWorldY(10 * TILE_SIZE);
     }
 }

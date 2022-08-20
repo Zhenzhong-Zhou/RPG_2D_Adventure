@@ -96,7 +96,6 @@ public class Player extends Entity {
         interactNPC(npcIndex);
 
         // CHECK EVENT
-//        gameState = DIALOGUE;
         scene.getEventManager().checkEvent();
         keyInputs.setEnterPressed(false);
     }

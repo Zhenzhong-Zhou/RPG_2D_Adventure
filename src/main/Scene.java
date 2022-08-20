@@ -100,8 +100,7 @@ public class Scene extends JPanel implements Runnable {
     public void draw(Graphics2D graphics2D) {
         if(gameState == MENU) {
             gui.draw(graphics2D);
-        }
-       else {
+        } else {
             // MAP
             levelManager.draw(graphics2D, player);
 

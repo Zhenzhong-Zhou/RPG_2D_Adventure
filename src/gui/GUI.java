@@ -7,7 +7,7 @@ import objects.Heart;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static main.GameState.*;
+import static main.GameState.gameState;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
 
@@ -17,7 +17,7 @@ public class GUI {
     private Font maruMonica, purisaB;
     private boolean gameCompleted;
     private String currentDialogue = "";
-    private int commandNum = 0 ;
+    private int commandNum = 0;
     private BufferedImage heart_full, heart_half, heart_blank;
 
     public GUI(Scene scene) {
@@ -71,40 +71,40 @@ public class GUI {
 
         // MENU
         drawMenu("NEW GAME", 0);
-        drawMenu("LOAD GAME",1);
-        drawMenu("OPTIONS",2);
+        drawMenu("LOAD GAME", 1);
+        drawMenu("OPTIONS", 2);
         drawMenu("QUIT", 3);
     }
 
     private void drawTitle() {
         graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 96F));
-        String title =  "Blue Boy Adventure";
+        String title = "Blue Boy Adventure";
         int x = getHorizonCenteredText(title);
-        int y = 4*TILE_SIZE;
+        int y = 4 * TILE_SIZE;
 
         // SHADOW
         graphics2D.setColor(Color.GRAY);
-        graphics2D.drawString(title, x+5, y+5);
+        graphics2D.drawString(title, x + 5, y + 5);
 
         // MAIN COLOR
         graphics2D.setColor(Color.WHITE);
-        graphics2D.drawString(title, x,y);
+        graphics2D.drawString(title, x, y);
     }
 
     private void drawCharacterImage() {
-        int x = SCENE_WIDTH/2-(TILE_SIZE*2)/2;
-        int y = 7*TILE_SIZE;
-        graphics2D.drawImage(scene.getPlayer().getDown1(), x,y,TILE_SIZE*2, TILE_SIZE*2,null);
+        int x = SCENE_WIDTH / 2 - (TILE_SIZE * 2) / 2;
+        int y = 7 * TILE_SIZE;
+        graphics2D.drawImage(scene.getPlayer().getDown1(), x, y, TILE_SIZE * 2, TILE_SIZE * 2, null);
     }
 
     private void drawMenu(String menu, int i) {
         graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 48F));
         int lineHeight = 60;
         int x = getHorizonCenteredText(menu);
-        int y = (int) (10.5 *TILE_SIZE);
-        graphics2D.drawString(menu, x, y+lineHeight*(i+1));
+        int y = (int) (10.5 * TILE_SIZE);
+        graphics2D.drawString(menu, x, y + lineHeight * (i + 1));
         if(commandNum == i) {
-            graphics2D.drawString(">", x-TILE_SIZE,  y+lineHeight*(i+1));
+            graphics2D.drawString(">", x - TILE_SIZE, y + lineHeight * (i + 1));
         }
     }
 
@@ -117,35 +117,35 @@ public class GUI {
         // MAX LIVES
         drawMaxLives();
 
-       // CURRENT LIFE
+        // CURRENT LIFE
         drawCurrentLife();
     }
 
     private void drawMaxLives() {
-        int x = TILE_SIZE/2;
-        int y = TILE_SIZE/2;
-        int i =0;
+        int x = TILE_SIZE / 2;
+        int y = TILE_SIZE / 2;
+        int i = 0;
 
-        while(i< scene.getPlayer().getMaxLives()/2) {
-            graphics2D.drawImage(heart_blank,x, y, null);
+        while(i < scene.getPlayer().getMaxLives() / 2) {
+            graphics2D.drawImage(heart_blank, x, y, null);
             i++;
-            x+=TILE_SIZE;
+            x += TILE_SIZE;
         }
     }
 
     private void drawCurrentLife() {
-        int x = TILE_SIZE/2;
-        int y = TILE_SIZE/2;
-        int i =0;
+        int x = TILE_SIZE / 2;
+        int y = TILE_SIZE / 2;
+        int i = 0;
 
-        while(i< scene.getPlayer().getLife()) {
-            graphics2D.drawImage(heart_half,x, y, null);
+        while(i < scene.getPlayer().getLife()) {
+            graphics2D.drawImage(heart_half, x, y, null);
             i++;
-            if(i< scene.getPlayer().getLife()) {
-                graphics2D.drawImage(heart_full,x, y, null);
+            if(i < scene.getPlayer().getLife()) {
+                graphics2D.drawImage(heart_full, x, y, null);
             }
             i++;
-            x+=TILE_SIZE;
+            x += TILE_SIZE;
         }
     }
 
