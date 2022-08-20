@@ -25,8 +25,8 @@ public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
     private final Entity[] gameObjects = new Entity[10];
     private final Entity[] NPCs = new Entity[10];
-    private Entity[] monsters = new Entity[20];
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
+    private final Entity[] monsters = new Entity[20];
     private Thread thread;
     private Player player;
     private LevelManager levelManager;

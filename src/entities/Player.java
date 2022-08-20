@@ -87,7 +87,7 @@ public class Player extends Entity {
 
     public void playerCanMove() {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(! collision && !keyInputs.isEnterPressed()) {
+        if(! collision && ! keyInputs.isEnterPressed()) {
             switch(direction) {
                 case UP -> worldY -= speed;
                 case LEFT -> worldX -= speed;
@@ -101,7 +101,7 @@ public class Player extends Entity {
     private void invincibleCounter() {
         if(invincible) {
             invincibleCounter++;
-            if(invincibleCounter>60) {
+            if(invincibleCounter > 60) {
                 invincible = false;
                 invincibleCounter = 0;
             }

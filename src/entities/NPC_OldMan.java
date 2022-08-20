@@ -3,9 +3,8 @@ package entities;
 import main.Scene;
 
 import java.awt.*;
-import java.util.Random;
 
-import static utilities.Constants.DirectionConstant.*;
+import static utilities.Constants.DirectionConstant.DOWN;
 import static utilities.LoadSave.*;
 
 public class NPC_OldMan extends Entity {

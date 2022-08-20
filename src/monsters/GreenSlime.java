@@ -12,7 +12,7 @@ public class GreenSlime extends Entity {
     public GreenSlime(Scene scene) {
         super(scene);
 
-        hitbox = new Rectangle(3,18,42,30);
+        hitbox = new Rectangle(3, 18, 42, 30);
         hitboxDefaultX = hitbox.x;
         hitboxDefaultY = hitbox.y;
 

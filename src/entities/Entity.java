@@ -77,7 +77,7 @@ public abstract class Entity {
         boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
 
         if(this.entityType == 2 && interactPlayer) {
-            if(!scene.getPlayer().invincible) {
+            if(! scene.getPlayer().invincible) {
                 // Player get damaged
                 scene.getPlayer().lostLife();
                 scene.getPlayer().invincible = true;
