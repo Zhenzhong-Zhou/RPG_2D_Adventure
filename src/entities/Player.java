@@ -25,13 +25,20 @@ public class Player extends Entity {
 
         screenX = (SCENE_WIDTH / 2) - (TILE_SIZE / 2);
         screenY = (SCENE_HEIGHT / 2) - (TILE_SIZE / 2);
+
+        initBox();
+        setDefaultValues();
+        getPlayerImage();
+        getPlayerAttackImage();
+    }
+
+    private void initBox() {
         hitbox = new Rectangle(8, 16, 32, 32);
         hitboxDefaultX = hitbox.x;
         hitboxDefaultY = hitbox.y;
 
-        setDefaultValues();
-        getPlayerImage();
-        getPlayerAttackImage();
+        attackBox.width = 36;
+        attackBox.height = 36;
     }
 
     private void setDefaultValues() {
@@ -80,7 +87,37 @@ public class Player extends Entity {
     private void attacking() {
         spriteCounter++;
         if(spriteCounter<=10) spriteNum = 1;
-        if(spriteCounter>10 && spriteCounter<=35) spriteNum = 2;
+        if(spriteCounter>10 && spriteCounter<=35) {
+            spriteNum = 2;
+
+            // Save the current worldX, worldY, hitbox
+            int currentWorldX = worldX;
+            int currentWorldY = worldY;
+            int hitboxWidth = hitbox.width;
+            int hitboxHeight = hitbox.height;
+
+            // Adjust player's worldX/Y for the attackBox
+            switch(direction) {
+                case UP -> worldY -= attackBox.height;
+                case LEFT -> worldX -= attackBox.width;
+                case DOWN -> worldY += attackBox.height;
+                case RIGHT -> worldX += attackBox.width;
+            }
+
+            // attackBox becomes hitbox
+            hitbox.width = attackBox.width;
+            hitbox.height = attackBox.height;
+
+            // Check monster collision with the updated worldX/Y and hitbox
+            int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
+            damageMonster(monsterIndex);
+
+            // After checking collision, restore the original data
+            worldX = currentWorldX;
+            worldY = currentWorldY;
+            hitbox.width = hitboxWidth;
+            hitbox.height = hitboxHeight;
+        }
         if(spriteCounter>35) {
             spriteNum = 1;
             spriteCounter = 0;
@@ -178,6 +215,14 @@ public class Player extends Entity {
                 life -= 1;
                 invincible = true;
             }
+        }
+    }
+
+    private void damageMonster(int monsterIndex) {
+        if(monsterIndex != 999) {
+            System.out.println("Hit monster");
+        } else {
+            System.out.println("Miss!");
         }
     }
 

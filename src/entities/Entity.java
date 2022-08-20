@@ -32,11 +32,13 @@ public abstract class Entity {
     protected int invincibleCounter = 0;
     protected int entityType;
     protected boolean attacking;
+    protected Rectangle attackBox;
 
     public Entity(Scene scene) {
         this.scene = scene;
 
         hitbox = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
+        attackBox = new Rectangle();
     }
 
     protected void setAction() {
