@@ -14,20 +14,6 @@ public class CollisionDetection {
         this.scene = scene;
     }
 
-    private void entityPosition(Entity entity) {
-        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
-    }
-
-    private void entityDirection(Entity entity) {
-        switch(entity.getDirection()) {
-            case UP -> entity.getHitbox().y -= entity.getSpeed();
-            case LEFT -> entity.getHitbox().x -= entity.getSpeed();
-            case DOWN -> entity.getHitbox().y += entity.getSpeed();
-            case RIGHT -> entity.getHitbox().x += entity.getSpeed();
-        }
-    }
-
     public void checkTile(Entity entity) {
         int entityLeftWorldX = entity.getWorldX() + entity.getHitbox().x;
         int entityRightWorldX = entity.getWorldX() + entity.getHitbox().x + entity.getHitbox().width;
@@ -85,6 +71,20 @@ public class CollisionDetection {
                     entity.setCollision(true);
                 }
             }
+        }
+    }
+
+    private void entityPosition(Entity entity) {
+        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
+        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+    }
+
+    private void entityDirection(Entity entity) {
+        switch(entity.getDirection()) {
+            case UP -> entity.getHitbox().y -= entity.getSpeed();
+            case LEFT -> entity.getHitbox().x -= entity.getSpeed();
+            case DOWN -> entity.getHitbox().y += entity.getSpeed();
+            case RIGHT -> entity.getHitbox().x += entity.getSpeed();
         }
     }
 
