@@ -196,18 +196,19 @@ public abstract class Entity {
         int bottomOffset = SCENE_HEIGHT - playerScreenY;
         if(bottomOffset > WORLD_HEIGHT - playerWorldY) screenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
 
-        // TODO: invincible
-        if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         BufferedImage image = animate();
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
+            if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             graphics2D.drawImage(image, screenX, screenY, null);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         } else if(playerScreenX > playerWorldX ||       //TODO: need to fix later
                 playerScreenY > playerWorldY ||
                 rightOffset > WORLD_WIDTH - playerWorldX ||
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
+            if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             graphics2D.drawImage(image, screenX, screenY, null);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
 
         // Draw hitbox
