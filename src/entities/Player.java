@@ -161,7 +161,7 @@ public class Player extends Entity {
         keyInputs.setEnterPressed(false);
     }
 
-    private void invincibleCounter() {
+    public void invincibleCounter() {
         if(invincible) {
             invincibleCounter++;
             if(invincibleCounter > 60) {
@@ -220,9 +220,14 @@ public class Player extends Entity {
 
     private void damageMonster(int monsterIndex) {
         if(monsterIndex != 999) {
-            System.out.println("Hit monster");
-        } else {
-            System.out.println("Miss!");
+            Entity monster = scene.getMonsters()[monsterIndex];
+            if(!monster.invincible) {
+                monster.life -= 1;
+                monster.invincible = true;
+                if(monster.life <= 0) {
+                    scene.getMonsters()[monsterIndex] = null;
+                }
+            }
         }
     }
 
@@ -289,7 +294,7 @@ public class Player extends Entity {
         int bottomOffset = SCENE_HEIGHT - screenY;
         if(bottomOffset > WORLD_HEIGHT - worldY) tempScreenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
 
-        if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 
         graphics2D.drawImage(image, tempScreenX, tempScreenY, null);
 

@@ -90,6 +90,7 @@ public abstract class Entity {
 
         playerCanMove();
         updateAnimation();
+        invincibleCounter();
     }
 
     protected void playerCanMove() {
@@ -113,6 +114,16 @@ public abstract class Entity {
                 spriteNum = 1;
             }
             spriteCounter = 0;
+        }
+    }
+
+    protected void invincibleCounter() {
+        if(invincible) {
+            invincibleCounter++;
+            if(invincibleCounter > 40) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
         }
     }
 
@@ -176,24 +187,19 @@ public abstract class Entity {
         int down = playerWorldY + playerScreenY;
 
         // STOP MOVING CAMERA
-        if(playerWorldX < playerScreenX) {
-            screenX = worldX;
-        }
-        if(playerWorldY < playerScreenY) {
-            screenY = worldY;
-        }
+        if(playerWorldX < playerScreenX) screenX = worldX;
+        if(playerWorldY < playerScreenY) screenY = worldY;
 
         int rightOffset = SCENE_WIDTH - playerScreenX;
-        if(rightOffset > WORLD_WIDTH - playerWorldX) {
-            screenX = SCENE_WIDTH - (WORLD_WIDTH - worldX);
-        }
+        if(rightOffset > WORLD_WIDTH - playerWorldX) screenX = SCENE_WIDTH - (WORLD_WIDTH - worldX);
 
         int bottomOffset = SCENE_HEIGHT - playerScreenY;
-        if(bottomOffset > WORLD_HEIGHT - playerWorldY) {
-            screenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
-        }
+        if(bottomOffset > WORLD_HEIGHT - playerWorldY) screenY = SCENE_HEIGHT - (WORLD_HEIGHT - worldY);
 
+        // TODO: invincible
+        if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         BufferedImage image = animate();
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
             graphics2D.drawImage(image, screenX, screenY, null);
