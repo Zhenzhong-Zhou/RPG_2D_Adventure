@@ -199,6 +199,19 @@ public abstract class Entity {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
+    private void drawHealthBar(Graphics2D graphics2D, int screenX, int screenY) {
+        if(entityType == 2) {
+            double oneScale =  (double) TILE_SIZE/ maxLives;
+            double hpValue = oneScale *life;
+
+            graphics2D.setColor(new Color(35,35,35));
+            graphics2D.fillRect(screenX-1, screenY-11, TILE_SIZE+2, 12);
+
+            graphics2D.setColor(new Color(255,0,30));
+            graphics2D.fillRect(screenX, screenY-10, (int) hpValue, 10);
+        }
+    }
+
     protected void drawAnimation(Graphics2D graphics2D) {
         Player player = scene.getPlayer();
         int playerWorldX = player.getWorldX();
@@ -227,6 +240,9 @@ public abstract class Entity {
         BufferedImage image = animate();
 
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
+            // Monster HP Bar
+            drawHealthBar(graphics2D, screenX, screenY);
+
             if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             if(dead) {
                 deadAnimation(graphics2D);
