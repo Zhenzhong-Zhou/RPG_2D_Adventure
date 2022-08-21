@@ -2,6 +2,8 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
+import objects.Shield_Wood;
+import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -49,12 +51,30 @@ public class Player extends Entity {
         // TODO: not center
         worldX = 23 * TILE_SIZE;
         worldY = 21 * TILE_SIZE;
-        speed = 1;
+        speed = 2;
         direction = DOWN;
 
         // PLAYER STATUS
+        level = 0;
         maxLives = 6;
         life = maxLives;
+        strength = 1;   // The more strength he has, the more damage he gives.
+        dexterity = 1;  // The more dexterity he has, the less damage he receives.
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 0;
+        currentWeapon = new Sword_Normal(scene);
+        currentShield = new Shield_Wood(scene);
+        attack = getAttack();   // The total attack value is decided by strength and weapon.
+        defense = getDefense(); // The total defense value is decided by dexterity and shield.
+    }
+
+    public int getAttack() {
+        return attack = strength*currentWeapon.attackValue;
+    }
+
+    public int getDefense() {
+        return defense = dexterity* currentShield.defenseValue;
     }
 
     private void getPlayerImage() {

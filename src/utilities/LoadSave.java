@@ -99,6 +99,11 @@ public class LoadSave {
     public static final String CHEST_IMAGE = "objects/chest.png";
     public static final String BOOT_IMAGE = "objects/boots.png";
 
+    // EQUIPMENTS
+    public static final String NORMAL_SWORD_IMAGE = "objects/sword_normal.png";
+    public static final String SHIELD_WOOD_IMAGE = "objects/shield_wood.png";
+    public static final String SHIELD_BLUE_IMAGE = "objects/shield_blue.png";
+
     // FONTS
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
