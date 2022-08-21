@@ -25,54 +25,62 @@ public class KeyInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch(gameState) {
-            case MENU -> {
-                switch(e.getKeyCode()) {
-                    case KeyEvent.VK_W, KeyEvent.VK_UP -> {
-                        scene.getGui().decrementCommandNum();
-                        if(scene.getGui().getCommandNum() < 0) {
-                            scene.getGui().setCommandNum(3);
-                        }
-                    }
-                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
-                        scene.getGui().incrementCommandNum();
-                        if(scene.getGui().getCommandNum() > 3) {
-                            scene.getGui().setCommandNum(0);
-                        }
-                    }
-                    case KeyEvent.VK_ENTER -> {
-                        switch(scene.getGui().getCommandNum()) {
-                            case 0 -> {
-                                gameState = PLAY;
-                                scene.getAudioManager().playMusic(START);
-                            }
-                            case 1 -> System.out.println("LOAD GAME");
-                            case 2 -> System.out.println("OPTIONS");
-                            case 3 -> System.exit(0);
-                        }
-                    }
+            case MENU -> menu(e);
+            case PLAY -> play(e);
+            case PAUSE -> pause(e);
+            case DIALOGUE -> dialogue(e);
+            case CHARACTER -> character(e);
+        }
+    }
+
+    private void menu(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                scene.getGui().decrementCommandNum();
+                if(scene.getGui().getCommandNum() < 0) {
+                    scene.getGui().setCommandNum(3);
                 }
             }
-            case PLAY -> {
-                switch(e.getKeyCode()) {
-                    case KeyEvent.VK_W -> upPressed = true;
-                    case KeyEvent.VK_A -> leftPressed = true;
-                    case KeyEvent.VK_S -> downPressed = true;
-                    case KeyEvent.VK_D -> rightPressed = true;
-                    case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
-                    case KeyEvent.VK_R -> System.out.println("Refresh map!");
-                    case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
-                    case KeyEvent.VK_ENTER -> enterPressed = true;
-                    case KeyEvent.VK_ESCAPE -> gameState = MENU;
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                scene.getGui().incrementCommandNum();
+                if(scene.getGui().getCommandNum() > 3) {
+                    scene.getGui().setCommandNum(0);
                 }
             }
-            case PAUSE -> {
-                if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;
-            }
-            case DIALOGUE -> {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;
+            case KeyEvent.VK_ENTER -> {
+                switch(scene.getGui().getCommandNum()) {
+                    case 0 -> {
+                        gameState = PLAY;
+                        scene.getAudioManager().playMusic(START);
+                    }
+                    case 1 -> System.out.println("LOAD GAME");
+                    case 2 -> System.out.println("OPTIONS");
+                    case 3 -> System.exit(0);
+                }
             }
         }
     }
+
+    private void play(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_W -> upPressed = true;
+            case KeyEvent.VK_A -> leftPressed = true;
+            case KeyEvent.VK_S -> downPressed = true;
+            case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
+            case KeyEvent.VK_R -> System.out.println("Refresh map!");
+            case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
+            case KeyEvent.VK_C -> gameState = CHARACTER;
+            case KeyEvent.VK_ENTER -> enterPressed = true;
+            case KeyEvent.VK_ESCAPE -> gameState = MENU;
+        }
+    }
+
+    private void pause(KeyEvent e) {if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;}
+
+    private void dialogue(KeyEvent e) { if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;}
+
+    private void character(KeyEvent e) {if(e.getKeyCode() == KeyEvent.VK_C) gameState = PLAY;}
 
     @Override
     public void keyReleased(KeyEvent e) {

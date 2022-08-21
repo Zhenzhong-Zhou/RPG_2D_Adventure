@@ -1,6 +1,7 @@
 package gui;
 
 import entities.Entity;
+import entities.Player;
 import main.Scene;
 import objects.Heart;
 
@@ -59,6 +60,7 @@ public class GUI {
                 drawPlayerStatus();
                 drawDialogueOverlay();
             }
+            case CHARACTER -> {drawCharacterScreen();}
         }
     }
 
@@ -178,6 +180,112 @@ public class GUI {
             graphics2D.drawString(line, x, y);
             y += 40;
         }
+    }
+
+    private void drawCharacterScreen() {
+        // CREATE A FRAME
+        final int frameX = TILE_SIZE *2;
+        final int frameY = TILE_SIZE;
+        final int frameWidth = TILE_SIZE *6;
+        final int frameHeight = TILE_SIZE *11;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        // TEXT
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 32F));
+
+        int textX = frameX +20;
+        int textY = frameY +TILE_SIZE;
+        final int lineHeight = 40;
+
+        // NAME
+        graphics2D.drawString("Level", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Life", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Strength", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Dexterity", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Attack", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Defense", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Exp", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Next Level", textX, textY);
+        textY+=lineHeight;
+        graphics2D.drawString("Coin", textX, textY);
+        textY+=lineHeight+20;
+        graphics2D.drawString("Weapon", textX, textY);
+        textY+=lineHeight+15;
+        graphics2D.drawString("Shield", textX, textY);
+        textY+=lineHeight;
+
+        // VALUES
+        int tailX  = (frameX + frameWidth) - 30;
+        // Rest textY
+        textY = frameY +TILE_SIZE;
+        String value;
+
+        Player player = scene.getPlayer();
+        value = String.valueOf(player.getLevel());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = player.getLife() + "/" + player.getMaxLives();
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getStrength());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getDexterity());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getAttack());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getDefense());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getExp());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getNextLevelExp());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(player.getCoin());
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY+=lineHeight;
+
+        BufferedImage image;
+        image = player.getCurrentWeapon().getDown1();
+        graphics2D.drawImage(image, tailX*TILE_SIZE, textY, null);
+        textY+=TILE_SIZE+15;
+
+        graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX*TILE_SIZE, textY, null);
+        textY+=TILE_SIZE+20;
+    }
+
+    private int getHorizonForAlignToRightText(String text, int tailX) {
+        int length = (int) graphics2D.getFontMetrics().getStringBounds(text, graphics2D).getWidth();
+        return tailX - length;
     }
 
     private int getHorizonCenteredText(String text) {
