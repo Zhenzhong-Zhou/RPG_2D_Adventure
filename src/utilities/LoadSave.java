@@ -103,12 +103,22 @@ public class LoadSave {
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
 
+    // FILE NAME
+    public static final String DEFAULT_LEVEL = "maps/default_level";
+
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
     public static String saveFolder = "Blue Boy Adventure";
     public static String levelFile = "default_level.txt";
     public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
-    private static final File dataFile = new File(filePath);
+//    private static final File dataFile = new File(filePath);
+
+    public static void CreatedFolder() {
+        File folder = new File(homePath + File.separator + saveFolder);
+        if(! folder.exists()) {
+            folder.mkdir();
+        }
+    }
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         return getImage(fileName, TILE_SIZE, TILE_SIZE);
@@ -173,30 +183,31 @@ public class LoadSave {
         }
     }
 
-    public static void CreatedFolder() {
-        File folder = new File(homePath + File.separator + saveFolder);
-        if(! folder.exists()) {
-            folder.mkdir();
-        }
-    }
+//    private static File getFile(String filename) {
+//        String fileRoot = "res/maps";
+//        return new File(fileRoot + filename);
+//    }
 
-    public static void CreateLevel(int[][] idArray) {
-        if(dataFile.exists()) {
-            System.out.println("File: " + dataFile + " is already exists.");
+    public static void CreateLevel(String filename, int[][] idArray) {
+        String filePath = "res/";
+        String fileType = ".txt";
+        File levelFile = new File(filePath + filename + fileType);
+        if(levelFile.exists()) {
+            System.out.println("File: " + levelFile + " is already exists.");
         } else {
             try {
-                dataFile.createNewFile();
+                levelFile.createNewFile();
             } catch(IOException e) {
                 e.printStackTrace();
             }
 
-            WriteToFile(idArray);
+            WriteToFile(getFile(filename), idArray);
         }
     }
 
-    private static void WriteToFile(int[][] idArray) {
+    private static void WriteToFile(File file, int[][] idArray) {
         try {
-            PrintWriter printWriter = new PrintWriter(dataFile);
+            PrintWriter printWriter = new PrintWriter(file);
             for(int y = 0; y < idArray.length; y++) {
                 for(int x = 0; x < idArray[y].length; x++) {
                     if(x < idArray[y].length) {
@@ -211,19 +222,22 @@ public class LoadSave {
         }
     }
 
-    public static void SaveLevel(int[][] idArray) {
-        if(dataFile.exists()) {
-            WriteToFile(idArray);
+    public static void SaveLevel(String filename, int[][] idArray) {
+        String filePath = "res/";
+        String fileType = ".txt";
+        File levelFile = new File(filePath + filename + fileType);
+        if(levelFile.exists()) {
+            WriteToFile(levelFile, idArray);
         } else {
             //TODO: new level
-            System.out.println("File: " + dataFile + " is already exists.");
+            System.out.println("File: " + levelFile + " is already exists.");
         }
     }
 
-    private static int[][] ReadFromFile() {
+    private static int[][] ReadFromFile(File file) {
         int[][] matrix = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
         try {
-            Scanner scanner = new Scanner(dataFile);
+            Scanner scanner = new Scanner(file);
             int col = 0;
             int row = 0;
             while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
@@ -246,11 +260,14 @@ public class LoadSave {
         return matrix;
     }
 
-    public static int[][] GetLevelData() {
-        if(dataFile.exists()) {
-            return ReadFromFile();
+    public static int[][] GetLevelData(String filename) {
+        String filePath = "res/";
+        String fileType = ".txt";
+        File levelFile = new File(filePath + filename + fileType);
+        if(levelFile.exists()) {
+            return ReadFromFile(levelFile);
         } else {
-            System.out.println("File: " + dataFile + " does not exist!");
+            System.out.println("File: " + levelFile + " does not exist!");
             return null;
         }
     }
