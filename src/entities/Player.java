@@ -228,6 +228,7 @@ public class Player extends Entity {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
                 monster.life -= 1;
                 monster.invincible = true;
+                monster.damageReaction();
                 if(monster.life <= 0) {
                     scene.getMonsters()[monsterIndex].dead = true;
                 }

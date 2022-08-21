@@ -61,6 +61,8 @@ public abstract class Entity {
         }
     }
 
+    protected void damageReaction() {}
+
     protected void speak() {
         if(dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
