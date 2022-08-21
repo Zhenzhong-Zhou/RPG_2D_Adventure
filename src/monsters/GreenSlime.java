@@ -24,7 +24,7 @@ public class GreenSlime extends Entity {
         entityType = 2;
         objectName = GREEN_SLIME;
         speed = 1;
-        maxLives = 4;
+        maxLives = 20;
         life = maxLives;
     }
 

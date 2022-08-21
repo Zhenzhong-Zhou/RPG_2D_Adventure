@@ -38,6 +38,8 @@ public abstract class Entity {
     protected boolean alive = true;
     protected boolean dead;
     protected int deadCounter = 0;
+    protected boolean hpBarOn;
+    protected int hpBarCounter = 0;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -200,7 +202,7 @@ public abstract class Entity {
     }
 
     private void drawHealthBar(Graphics2D graphics2D, int screenX, int screenY) {
-        if(entityType == 2) {
+        if(entityType == 2 && hpBarOn) {
             double oneScale =  (double) TILE_SIZE/ maxLives;
             double hpValue = oneScale *life;
 
@@ -209,6 +211,12 @@ public abstract class Entity {
 
             graphics2D.setColor(new Color(255,0,30));
             graphics2D.fillRect(screenX, screenY-10, (int) hpValue, 10);
+
+            hpBarCounter++;
+            if(hpBarCounter > 600) {
+                hpBarCounter = 0 ;
+                hpBarOn= false;
+            }
         }
     }
 
@@ -243,22 +251,28 @@ public abstract class Entity {
             // Monster HP Bar
             drawHealthBar(graphics2D, screenX, screenY);
 
-            if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-            if(dead) {
-                deadAnimation(graphics2D);
+            if(invincible) {
+                hpBarOn = true;
+                hpBarCounter = 0;
+                changeAlpha(graphics2D, 0.4f);
             }
+            if(dead) deadAnimation(graphics2D);
+
             graphics2D.drawImage(image, screenX, screenY, null);
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            changeAlpha(graphics2D, 1f);
         } else if(playerScreenX > playerWorldX ||       //TODO: need to fix later
                 playerScreenY > playerWorldY ||
                 rightOffset > WORLD_WIDTH - playerWorldX ||
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
-            if(invincible) graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-            if(dead) {
-                deadAnimation(graphics2D);
+            if(invincible) {
+                hpBarOn = true;
+                hpBarCounter = 0;
+                changeAlpha(graphics2D, 0.4f);
             }
+            if(dead) deadAnimation(graphics2D);
+
             graphics2D.drawImage(image, screenX, screenY, null);
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            changeAlpha(graphics2D, 1f);
         }
 
         // Draw hitbox
