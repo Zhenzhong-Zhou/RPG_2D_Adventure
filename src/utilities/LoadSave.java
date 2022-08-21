@@ -104,14 +104,14 @@ public class LoadSave {
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
 
     // FILE NAME
-    public static final String DEFAULT_LEVEL = "maps/default_level";
+    public static final String DEFAULT_LEVEL = "maps/default_level.txt";
 
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
     public static String saveFolder = "Blue Boy Adventure";
-    public static String levelFile = "default_level.txt";
-    public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
-//    private static final File dataFile = new File(filePath);
+    public static String configFile = "";
+    public static String filePath = homePath + File.separator + saveFolder + File.separator + configFile;
+    private static final File dataFile = new File(filePath);
 
     public static void CreatedFolder() {
         File folder = new File(homePath + File.separator + saveFolder);
@@ -183,20 +183,17 @@ public class LoadSave {
         }
     }
 
-//    private static File getFile(String filename) {
-//        String fileRoot = "res/maps";
-//        return new File(fileRoot + filename);
-//    }
+    private static File getFile(String filename) {
+        String fileRoot = "res/";
+        return new File(fileRoot + filename);
+    }
 
     public static void CreateLevel(String filename, int[][] idArray) {
-        String filePath = "res/";
-        String fileType = ".txt";
-        File levelFile = new File(filePath + filename + fileType);
-        if(levelFile.exists()) {
-            System.out.println("File: " + levelFile + " is already exists.");
+        if(getFile(filename).exists()) {
+            System.out.println("File: " + getFile(filename) + " is already exists.");
         } else {
             try {
-                levelFile.createNewFile();
+                getFile(filename).createNewFile();
             } catch(IOException e) {
                 e.printStackTrace();
             }
@@ -223,14 +220,11 @@ public class LoadSave {
     }
 
     public static void SaveLevel(String filename, int[][] idArray) {
-        String filePath = "res/";
-        String fileType = ".txt";
-        File levelFile = new File(filePath + filename + fileType);
-        if(levelFile.exists()) {
-            WriteToFile(levelFile, idArray);
+        if(getFile(filename).exists()) {
+            WriteToFile(getFile(filename), idArray);
         } else {
             //TODO: new level
-            System.out.println("File: " + levelFile + " is already exists.");
+            System.out.println("File: " + getFile(filename) + " is already exists.");
         }
     }
 
@@ -261,13 +255,10 @@ public class LoadSave {
     }
 
     public static int[][] GetLevelData(String filename) {
-        String filePath = "res/";
-        String fileType = ".txt";
-        File levelFile = new File(filePath + filename + fileType);
-        if(levelFile.exists()) {
-            return ReadFromFile(levelFile);
+        if(getFile(filename).exists()) {
+            return ReadFromFile(getFile(filename));
         } else {
-            System.out.println("File: " + levelFile + " does not exist!");
+            System.out.println("File: " + getFile(filename) + " does not exist!");
             return null;
         }
     }
