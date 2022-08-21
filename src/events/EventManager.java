@@ -5,6 +5,7 @@ import main.GameState;
 import main.Scene;
 
 import static main.GameState.DIALOGUE;
+import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
@@ -96,6 +97,7 @@ public class EventManager {
 
     private void damagePit(int col, int row, GameState gameState) {
         GameState.gameState = gameState;
+        scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
         scene.getGui().setCurrentDialogue("You fall into a pit!");
         scene.getPlayer().lostLife();
         canTouchEvent = false;
@@ -104,6 +106,8 @@ public class EventManager {
     private void healingPool(int col, int row, GameState gameState) {
         if(scene.getKeyInputs().isEnterPressed()) {
             GameState.gameState = gameState;
+            scene.getPlayer().setAttackCanceled(true);
+            scene.getAudioManager().playEffect(POWER_UP);
             scene.getGui().setCurrentDialogue("You life has been recovered!");
             scene.getPlayer().setLife(scene.getPlayer().getMaxLives());
             eventBox[col][row].setEventHappened(true);
@@ -112,6 +116,7 @@ public class EventManager {
 
     private void teleport(int col, int row, GameState gameState) {
         GameState.gameState = gameState;
+        scene.getAudioManager().playEffect(FAN_FARE);
         scene.getGui().setCurrentDialogue("Teleport!");
         scene.getPlayer().setWorldX(37 * TILE_SIZE);
         scene.getPlayer().setWorldY(10 * TILE_SIZE);

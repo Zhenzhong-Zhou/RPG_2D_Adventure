@@ -19,6 +19,7 @@ public class Player extends Entity {
     private final int screenX, screenY;
     private final KeyInputs keyInputs;
     private int standCounter = 0;
+    private boolean attackCanceled;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         super(scene);
@@ -159,7 +160,17 @@ public class Player extends Entity {
                 case RIGHT -> worldX += speed;
             }
         }
+        checkEnterKey();
         keyInputs.setEnterPressed(false);
+    }
+
+    private void checkEnterKey() {
+        if(keyInputs.isEnterPressed() && ! attackCanceled) {
+            scene.getAudioManager().playEffect(SWING_WEAPON);
+            attacking = true;
+            spriteCounter = 0;
+        }
+        attackCanceled = false;
     }
 
     public void invincibleCounter() {
@@ -202,11 +213,9 @@ public class Player extends Entity {
     private void interactNPC(int npcIndex) {
         if(keyInputs.isEnterPressed()) {
             if(npcIndex != 999) {
+                attackCanceled = true;
                 gameState = DIALOGUE;
                 scene.getNPCs()[npcIndex].speak();
-            } else {
-                scene.getAudioManager().playEffect(SWING_WEAPON);
-                attacking = true;
             }
         }
     }
@@ -329,5 +338,9 @@ public class Player extends Entity {
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public void setAttackCanceled(boolean attackCanceled) {
+        this.attackCanceled = attackCanceled;
     }
 }
