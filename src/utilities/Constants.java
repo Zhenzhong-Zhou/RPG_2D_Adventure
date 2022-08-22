@@ -96,5 +96,6 @@ public class Constants {
         public static final int RECEIVED_DAMAGE = 5;
         public static final int SWING_WEAPON = 6;
         public static final int LEVEL_UP = 7;
+        public static final int CURSOR = 8;
     }
 }

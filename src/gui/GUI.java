@@ -23,6 +23,8 @@ public class GUI {
     private BufferedImage heart_full, heart_half, heart_blank;
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Integer> messageCounter = new ArrayList<>();
+    private int slotCol = 0;
+    private int slotRow = 0;
 
     public GUI(Scene scene) {
         this.scene = scene;
@@ -69,7 +71,10 @@ public class GUI {
                 drawPlayerStatus();
                 drawDialogueOverlay();
             }
-            case CHARACTER -> {drawCharacterScreen();}
+            case CHARACTER -> {
+                drawCharacterScreen();
+                drawInventory();
+            }
         }
     }
 
@@ -313,6 +318,31 @@ public class GUI {
         textY+=TILE_SIZE;
     }
 
+    private void drawInventory() {
+        // CREATE A FRAME
+        int frameX = TILE_SIZE*16;
+        int frameY = TILE_SIZE;
+        int frameWidth = TILE_SIZE*6;
+        int frameHeight = TILE_SIZE*6;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        // SLOT
+        final int slotXstart = frameX + 20;
+        final int slotYstart = frameY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+
+        // CURSOR
+        int cursorX = slotXstart + (TILE_SIZE * slotCol);
+        int cursorY = slotYstart + (TILE_SIZE * slotRow);
+        int cursorWidth = TILE_SIZE;
+        int cursorHeight = TILE_SIZE;
+        // DRAW CURSOR
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setStroke(new BasicStroke(3));
+        graphics2D.drawRoundRect(cursorX,cursorY,cursorWidth,cursorHeight, 10,10);
+    }
+
     private int getHorizonForAlignToRightText(String text, int tailX) {
         int length = (int) graphics2D.getFontMetrics().getStringBounds(text, graphics2D).getWidth();
         return tailX - length;
@@ -372,5 +402,29 @@ public class GUI {
 
     public void incrementCommandNum() {
         this.commandNum++;
+    }
+
+    public void slotColDecrease() {
+        this.slotCol --;
+    }
+
+    public void slotColIncrease() {
+        this.slotCol ++;
+    }
+
+    public void slotRowDecrease() {
+        this.slotRow --;
+    }
+
+    public void slotRowIncrease() {
+        this.slotRow ++;
+    }
+
+    public int getSlotCol() {
+        return slotCol;
+    }
+
+    public int getSlotRow() {
+        return slotRow;
     }
 }

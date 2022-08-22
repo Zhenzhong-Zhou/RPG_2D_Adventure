@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static main.GameState.*;
+import static utilities.Constants.AudioManager.CURSOR;
 import static utilities.Constants.AudioManager.START;
 
 public class KeyInputs implements KeyListener {
@@ -80,7 +81,35 @@ public class KeyInputs implements KeyListener {
 
     private void dialogue(KeyEvent e) { if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;}
 
-    private void character(KeyEvent e) {if(e.getKeyCode() == KeyEvent.VK_C) gameState = PLAY;}
+    private void character(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_C -> gameState = PLAY;
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                if(scene.getGui().getSlotRow() != 0) {
+                    scene.getGui().slotRowDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                if(scene.getGui().getSlotCol() != 0) {
+                    scene.getGui().slotColDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                if(scene.getGui().getSlotRow() != 4) {
+                    scene.getGui().slotRowIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT  -> {
+                if(scene.getGui().getSlotCol() != 5) {
+                    scene.getGui().slotColIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+        }
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {
