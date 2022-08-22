@@ -105,7 +105,11 @@ public abstract class Entity {
             if(! scene.getPlayer().invincible) {
                 // Player get damaged
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
-                scene.getPlayer().lostLife();
+                int damage = attack - scene.getPlayer().defense;
+                if(damage < 0) {
+                    damage = 0;
+                }
+                scene.getPlayer().life -= damage;
                 scene.getPlayer().invincible = true;
             }
         }
@@ -422,16 +426,8 @@ public abstract class Entity {
         this.dexterity = dexterity;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
     public void setAttack(int attack) {
         this.attack = attack;
-    }
-
-    public int getDefense() {
-        return defense;
     }
 
     public void setDefense(int defense) {

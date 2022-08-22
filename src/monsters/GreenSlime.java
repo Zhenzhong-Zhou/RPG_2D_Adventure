@@ -24,8 +24,10 @@ public class GreenSlime extends Entity {
         entityType = 2;
         objectName = GREEN_SLIME;
         speed = 1;
-        maxLives = 20;
+        maxLives = 4;
         life = maxLives;
+        attack = 5;
+        defense = 0;
     }
 
     private void getGreenSlimeImage() {

@@ -244,7 +244,11 @@ public class Player extends Entity {
         if(monsterIndex != 999) {
             if(! invincible) {
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
-                life -= 1;
+                int damage = scene.getMonsters()[monsterIndex].attack - scene.getPlayer().defense;
+                if(damage < 0) {
+                    damage = 0;
+                }
+                scene.getPlayer().life -= damage;
                 invincible = true;
             }
         }
@@ -255,7 +259,11 @@ public class Player extends Entity {
             Entity monster = scene.getMonsters()[monsterIndex];
             if(!monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
-                monster.life -= 1;
+                int damage = attack - monster.defense;
+                if(damage < 0) {
+                    damage = 0;
+                }
+                monster.life -= damage;
                 monster.invincible = true;
                 monster.damageReaction();
                 if(monster.life <= 0) {
