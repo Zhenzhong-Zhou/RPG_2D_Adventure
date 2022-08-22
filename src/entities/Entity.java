@@ -110,6 +110,7 @@ public abstract class Entity {
                     damage = 0;
                 }
                 scene.getPlayer().life -= damage;
+                scene.getGui().addMessage("-" + damage + " damage!");
                 scene.getPlayer().invincible = true;
             }
         }
@@ -352,6 +353,10 @@ public abstract class Entity {
 
     public String[] getDialogues() {
         return dialogues;
+    }
+
+    public String getObjectName() {
+        return objectName;
     }
 
     public BufferedImage getDown1() {

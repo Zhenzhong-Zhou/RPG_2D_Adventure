@@ -249,6 +249,7 @@ public class Player extends Entity {
                     damage = 0;
                 }
                 scene.getPlayer().life -= damage;
+                scene.getGui().addMessage("-" + damage + " damage!");
                 invincible = true;
             }
         }
@@ -264,10 +265,12 @@ public class Player extends Entity {
                     damage = 0;
                 }
                 monster.life -= damage;
+                scene.getGui().addMessage(damage + " damage!");
                 monster.invincible = true;
                 monster.damageReaction();
                 if(monster.life <= 0) {
                     scene.getMonsters()[monsterIndex].dead = true;
+                    scene.getGui().addMessage("killed the " + monster.getObjectName() + "!");
                 }
             }
         }

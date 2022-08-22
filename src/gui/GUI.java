@@ -7,6 +7,7 @@ import objects.Heart;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static main.GameState.gameState;
 import static utilities.Constants.SceneConstant.*;
@@ -20,6 +21,8 @@ public class GUI {
     private String currentDialogue = "";
     private int commandNum = 0;
     private BufferedImage heart_full, heart_half, heart_blank;
+    private ArrayList<String> messages = new ArrayList<>();
+    private ArrayList<Integer> messageCounter = new ArrayList<>();
 
     public GUI(Scene scene) {
         this.scene = scene;
@@ -40,6 +43,11 @@ public class GUI {
         heart_blank = heart.getLeft1();
     }
 
+    public void addMessage(String text) {
+       messages.add(text);
+       messageCounter.add(0);
+    }
+
     public void draw(Graphics2D graphics2D) {
         this.graphics2D = graphics2D;
 
@@ -50,6 +58,7 @@ public class GUI {
             case MENU -> drawMenuScreen();
             case PLAY -> {
                 drawPlayerStatus();
+                drawMessages();
             }
             case OPTIONS -> drawOptionsScreen();
             case PAUSE -> {
@@ -121,6 +130,29 @@ public class GUI {
 
         // CURRENT LIFE
         drawCurrentLife();
+    }
+
+    private void drawMessages() {
+        int messageY = TILE_SIZE*4;
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 25F));
+
+        for(int i = 0; i < messages.size(); i++) {
+            if(messages.get(i) != null) {
+                graphics2D.setColor(Color.BLACK);
+                graphics2D.drawString(messages.get(i), TILE_SIZE+2, messageY+2);
+
+                graphics2D.setColor(Color.WHITE);
+                graphics2D.drawString(messages.get(i), TILE_SIZE, messageY);
+                int counter = messageCounter.get(i) + 1;    // messageCounter++
+                messageCounter.set(i, counter);     // set the counter to the array
+                messageY +=50;
+
+                if(messageCounter.get(i) > 180) {
+                    messages.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
     }
 
     private void drawMaxLives() {

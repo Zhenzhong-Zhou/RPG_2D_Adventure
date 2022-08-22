@@ -63,8 +63,8 @@ public class EventManager {
             if(trigger(23, 12, UP)) {
                 healingPool(23, 12, DIALOGUE);
             }
-            if(trigger(23, 25, DOWN)) {
-                teleport(23, 25, DIALOGUE);
+            if(trigger(13, 21, LEFT)) {
+                teleport(13, 21, DIALOGUE);
             }
         }
     }
