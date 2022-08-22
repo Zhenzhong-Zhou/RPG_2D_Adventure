@@ -13,5 +13,6 @@ public class Key extends Entity {
 
         objectName = KEY;
         down1 = GetSpriteAtlas(KEY_IMAGE);
+        description = "[" + objectName + "]\nIt opens a door.";
     }
 }

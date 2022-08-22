@@ -352,6 +352,30 @@ public class GUI {
         graphics2D.setColor(Color.WHITE);
         graphics2D.setStroke(new BasicStroke(3));
         graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        // DESCRIPTION FRAME
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = TILE_SIZE*3;
+        drawSubWindow(dFrameX,dFrameY,dFrameWidth, dFrameHeight);
+        // DRAW DESCRIPTION TEXT
+        int textX = dFrameX+20;
+        int textY =dFrameY+TILE_SIZE;
+        graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 23F));
+        graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        int itemIndex = getItemIndexOnSlot();
+        if(itemIndex < scene.getPlayer().getInventory().size()) {
+            for(String line: scene.getPlayer().getInventory().get(itemIndex).getDescription().split("\n")) {
+                graphics2D.drawString(line, textX, textY);
+                textY+=32;
+            }
+        }
+    }
+
+    private int getItemIndexOnSlot() {
+        return slotCol + (slotRow*5);
     }
 
     private int getHorizonForAlignToRightText(String text, int tailX) {

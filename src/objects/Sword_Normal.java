@@ -14,5 +14,6 @@ public class Sword_Normal extends Entity {
         objectName = NORMAL_SWORD;
         down1 = GetSpriteAtlas(NORMAL_SWORD_IMAGE);
         attackValue = 1;
+        description = "[" + objectName + "]\nAn old sword.";
     }
 }

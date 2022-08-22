@@ -51,6 +51,7 @@ public abstract class Entity {
     protected Entity currentShield;
     protected int attackValue;
     protected int defenseValue;
+    protected String description = "";
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -493,5 +494,13 @@ public abstract class Entity {
 
     public void setDefenseValue(int defenseValue) {
         this.defenseValue = defenseValue;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
