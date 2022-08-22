@@ -23,12 +23,30 @@ public class AssetSetter {
     }
 
     public void setMonsters() {
-        scene.getMonsters()[0] = new GreenSlime(scene);
-        scene.getMonsters()[0].setWorldX(23 * TILE_SIZE);
-        scene.getMonsters()[0].setWorldY(36 * TILE_SIZE);
+        int i = 0;
+        scene.getMonsters()[i] = new GreenSlime(scene);
+        scene.getMonsters()[i].setWorldX(23 * TILE_SIZE);
+        scene.getMonsters()[i].setWorldY(36 * TILE_SIZE);
+        i++;
 
-        scene.getMonsters()[1] = new GreenSlime(scene);
-        scene.getMonsters()[1].setWorldX(23 * TILE_SIZE);
-        scene.getMonsters()[1].setWorldY(37 * TILE_SIZE);
+        scene.getMonsters()[i] = new GreenSlime(scene);
+        scene.getMonsters()[i].setWorldX(23 * TILE_SIZE);
+        scene.getMonsters()[i].setWorldY(37 * TILE_SIZE);
+        i++;
+
+        scene.getMonsters()[i] = new GreenSlime(scene);
+        scene.getMonsters()[i].setWorldX(23 * TILE_SIZE);
+        scene.getMonsters()[i].setWorldY(42 * TILE_SIZE);
+        i++;
+
+        scene.getMonsters()[i] = new GreenSlime(scene);
+        scene.getMonsters()[i].setWorldX(21 * TILE_SIZE);
+        scene.getMonsters()[i].setWorldY(38 * TILE_SIZE);
+        i++;
+
+        scene.getMonsters()[i] = new GreenSlime(scene);
+        scene.getMonsters()[i].setWorldX(34 * TILE_SIZE);
+        scene.getMonsters()[i].setWorldY(42 * TILE_SIZE);
+        i++;
     }
 }

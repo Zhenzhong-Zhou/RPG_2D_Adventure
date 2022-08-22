@@ -271,8 +271,26 @@ public class Player extends Entity {
                 if(monster.life <= 0) {
                     scene.getMonsters()[monsterIndex].dead = true;
                     scene.getGui().addMessage("killed the " + monster.getObjectName() + "!");
+                    exp += monster.getExp();
+                    scene.getGui().addMessage("Exp + " + monster.getExp());
+                    checkLevelUp();
                 }
             }
+        }
+    }
+
+    private void checkLevelUp() {
+        if(exp >= nextLevelExp) {
+            level++;
+            nextLevelExp = nextLevelExp*2;
+            maxLives += 2;
+            strength++;
+            dexterity++;
+            attack = getAttack();
+            defense = getDefense();
+            scene.getAudioManager().playEffect(LEVEL_UP);
+            gameState = DIALOGUE;
+            scene.getGui().setCurrentDialogue("You are level " + level + " now!\nYou feel stronger!");
         }
     }
 

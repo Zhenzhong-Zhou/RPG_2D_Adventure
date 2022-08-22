@@ -28,6 +28,7 @@ public class GreenSlime extends Entity {
         life = maxLives;
         attack = 5;
         defense = 0;
+        exp = 2;
     }
 
     private void getGreenSlimeImage() {
