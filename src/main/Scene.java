@@ -275,6 +275,10 @@ public class Scene extends JPanel implements Runnable {
         return gui;
     }
 
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
     public Entity[] getGameObjects() {
         return gameObjects;
     }

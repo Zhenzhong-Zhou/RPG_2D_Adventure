@@ -111,6 +111,7 @@ public class EventManager {
             scene.getGui().setCurrentDialogue("You life has been recovered!");
             scene.getPlayer().setLife(scene.getPlayer().getMaxLives());
             eventBox[col][row].setEventHappened(true);
+            scene.getAssetSetter().setMonsters();
         }
     }
 
