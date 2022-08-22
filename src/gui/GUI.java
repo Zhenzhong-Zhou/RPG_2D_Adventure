@@ -216,9 +216,9 @@ public class GUI {
         graphics2D.drawString("Next Level", textX, textY);
         textY+=lineHeight;
         graphics2D.drawString("Coin", textX, textY);
-        textY+=lineHeight+20;
+        textY+=lineHeight+5;
         graphics2D.drawString("Weapon", textX, textY);
-        textY+=lineHeight+15;
+        textY+=lineHeight+11;
         graphics2D.drawString("Shield", textX, textY);
         textY+=lineHeight;
 
@@ -274,13 +274,11 @@ public class GUI {
         graphics2D.drawString(value, textX, textY);
         textY+=lineHeight;
 
-        BufferedImage image;
-        image = player.getCurrentWeapon().getDown1();
-        graphics2D.drawImage(image, tailX*TILE_SIZE, textY, null);
-        textY+=TILE_SIZE+15;
+        graphics2D.drawImage(scene.getPlayer().getCurrentWeapon().getDown1(), tailX-TILE_SIZE, textY-25, null);
+        textY+=TILE_SIZE;
 
-        graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX*TILE_SIZE, textY, null);
-        textY+=TILE_SIZE+20;
+        graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX-TILE_SIZE, textY-25, null);
+        textY+=TILE_SIZE;
     }
 
     private int getHorizonForAlignToRightText(String text, int tailX) {
