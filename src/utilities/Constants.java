@@ -54,10 +54,10 @@ public class Constants {
      */
     public static class ObjectConstant {
         // Object Name
-        public static final String KEY = "KEY";
-        public static final String DOOR = "DOOR";
-        public static final String CHEST = "CHEST";
-        public static final String BOOT = "BOOT";
+        public static final String KEY = "Key";
+        public static final String DOOR = "Door";
+        public static final String CHEST = "Chest";
+        public static final String BOOT = "Boot";
         public static final String HEART = "HEART";
     }
 
@@ -66,7 +66,7 @@ public class Constants {
      */
     public static class MonsterConstant {
         // Monster Name
-        public static final String GREEN_SLIME = "GREEN_SLIME";
+        public static final String GREEN_SLIME = "Green Slime";
     }
 
     /**
