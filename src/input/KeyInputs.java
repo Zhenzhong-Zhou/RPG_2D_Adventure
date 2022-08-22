@@ -103,7 +103,7 @@ public class KeyInputs implements KeyListener {
                 }
             }
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT  -> {
-                if(scene.getGui().getSlotCol() != 5) {
+                if(scene.getGui().getSlotCol() != 4) {
                     scene.getGui().slotColIncrease();
                     scene.getAudioManager().playEffect(CURSOR);
                 }

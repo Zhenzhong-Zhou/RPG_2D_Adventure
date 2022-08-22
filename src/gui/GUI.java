@@ -331,10 +331,21 @@ public class GUI {
         final int slotYstart = frameY + 20;
         int slotX = slotXstart;
         int slotY = slotYstart;
+        int slotSize = TILE_SIZE+3;
+
+        // DRAW PLAYER'S ITEMS
+        for(int i = 0; i<scene.getPlayer().getInventory().size(); i++) {
+            graphics2D.drawImage(scene.getPlayer().getInventory().get(i).getDown1(), slotX, slotY, null);
+            slotX+= slotSize;
+            if(i == 4 || i == 9|| i==14 ||i==19) {
+                slotX = slotXstart;
+                slotY+=slotSize;
+            }
+        }
 
         // CURSOR
-        int cursorX = slotXstart + (TILE_SIZE * slotCol);
-        int cursorY = slotYstart + (TILE_SIZE * slotRow);
+        int cursorX = slotXstart + (slotSize * slotCol);
+        int cursorY = slotYstart + (slotSize * slotRow);
         int cursorWidth = TILE_SIZE;
         int cursorHeight = TILE_SIZE;
         // DRAW CURSOR

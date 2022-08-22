@@ -2,11 +2,13 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
+import objects.Key;
 import objects.Shield_Wood;
 import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static main.GameState.DIALOGUE;
 import static main.GameState.gameState;
@@ -22,6 +24,7 @@ public class Player extends Entity {
     private final KeyInputs keyInputs;
     private int standCounter = 0;
     private boolean attackCanceled;
+    private ArrayList<Entity> inventory = new ArrayList<>();
 
     public Player(Scene scene, KeyInputs keyInputs) {
         super(scene);
@@ -34,6 +37,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     private void initBox() {
@@ -97,6 +101,13 @@ public class Player extends Entity {
         attackDown2 = GetAttackImage(ATTACK_DOWN_2_IMAGE, TILE_SIZE,TILE_SIZE*2);
         attackRight1 = GetAttackImage(ATTACK_RIGHT_1_IMAGE, TILE_SIZE*2, TILE_SIZE);
         attackRight2 = GetAttackImage(ATTACK_RIGHT_2_IMAGE, TILE_SIZE*2, TILE_SIZE);
+    }
+
+    private void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new Key(scene));
+        inventory.add(new Key(scene));
     }
 
     public void update() {
@@ -391,5 +402,9 @@ public class Player extends Entity {
 
     public void setAttackCanceled(boolean attackCanceled) {
         this.attackCanceled = attackCanceled;
+    }
+
+    public ArrayList<Entity> getInventory() {
+        return inventory;
     }
 }
