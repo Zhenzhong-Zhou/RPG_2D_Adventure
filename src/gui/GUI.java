@@ -358,7 +358,6 @@ public class GUI {
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
         int dFrameHeight = TILE_SIZE*3;
-        drawSubWindow(dFrameX,dFrameY,dFrameWidth, dFrameHeight);
         // DRAW DESCRIPTION TEXT
         int textX = dFrameX+20;
         int textY =dFrameY+TILE_SIZE;
@@ -367,6 +366,7 @@ public class GUI {
 
         int itemIndex = getItemIndexOnSlot();
         if(itemIndex < scene.getPlayer().getInventory().size()) {
+            drawSubWindow(dFrameX,dFrameY,dFrameWidth, dFrameHeight);
             for(String line: scene.getPlayer().getInventory().get(itemIndex).getDescription().split("\n")) {
                 graphics2D.drawString(line, textX, textY);
                 textY+=32;
