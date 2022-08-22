@@ -21,8 +21,8 @@ public class GUI {
     private String currentDialogue = "";
     private int commandNum = 0;
     private BufferedImage heart_full, heart_half, heart_blank;
-    private ArrayList<String> messages = new ArrayList<>();
-    private ArrayList<Integer> messageCounter = new ArrayList<>();
+    private final ArrayList<String> messages = new ArrayList<>();
+    private final ArrayList<Integer> messageCounter = new ArrayList<>();
     private int slotCol = 0;
     private int slotRow = 0;
 
@@ -46,8 +46,8 @@ public class GUI {
     }
 
     public void addMessage(String text) {
-       messages.add(text);
-       messageCounter.add(0);
+        messages.add(text);
+        messageCounter.add(0);
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -138,19 +138,19 @@ public class GUI {
     }
 
     private void drawMessages() {
-        int messageY = TILE_SIZE*4;
+        int messageY = TILE_SIZE * 4;
         graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 25F));
 
         for(int i = 0; i < messages.size(); i++) {
             if(messages.get(i) != null) {
                 graphics2D.setColor(Color.BLACK);
-                graphics2D.drawString(messages.get(i), TILE_SIZE+2, messageY+2);
+                graphics2D.drawString(messages.get(i), TILE_SIZE + 2, messageY + 2);
 
                 graphics2D.setColor(Color.WHITE);
                 graphics2D.drawString(messages.get(i), TILE_SIZE, messageY);
                 int counter = messageCounter.get(i) + 1;    // messageCounter++
                 messageCounter.set(i, counter);     // set the counter to the array
-                messageY +=50;
+                messageY += 50;
 
                 if(messageCounter.get(i) > 180) {
                     messages.remove(i);
@@ -221,125 +221,125 @@ public class GUI {
 
     private void drawCharacterScreen() {
         // CREATE A FRAME
-        final int frameX = TILE_SIZE *2;
+        final int frameX = TILE_SIZE * 2;
         final int frameY = TILE_SIZE;
-        final int frameWidth = TILE_SIZE *6;
-        final int frameHeight = TILE_SIZE *11;
-        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+        final int frameWidth = TILE_SIZE * 6;
+        final int frameHeight = TILE_SIZE * 11;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         // TEXT
         graphics2D.setColor(Color.WHITE);
         graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 32F));
 
-        int textX = frameX +20;
-        int textY = frameY +TILE_SIZE;
+        int textX = frameX + 20;
+        int textY = frameY + TILE_SIZE;
         final int lineHeight = 40;
 
         // NAME
         graphics2D.drawString("Level", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Life", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Strength", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Dexterity", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Attack", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Defense", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Exp", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Next Level", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
         graphics2D.drawString("Coin", textX, textY);
-        textY+=lineHeight+5;
+        textY += lineHeight + 5;
         graphics2D.drawString("Weapon", textX, textY);
-        textY+=lineHeight+11;
+        textY += lineHeight + 11;
         graphics2D.drawString("Shield", textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         // VALUES
-        int tailX  = (frameX + frameWidth) - 30;
+        int tailX = (frameX + frameWidth) - 30;
         // Rest textY
-        textY = frameY +TILE_SIZE;
+        textY = frameY + TILE_SIZE;
         String value;
 
         Player player = scene.getPlayer();
         value = String.valueOf(player.getLevel());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = player.getLife() + "/" + player.getMaxLives();
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getStrength());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getDexterity());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getAttack());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getDefense());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getExp());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getNextLevelExp());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
         value = String.valueOf(player.getCoin());
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
-        textY+=lineHeight;
+        textY += lineHeight;
 
-        graphics2D.drawImage(scene.getPlayer().getCurrentWeapon().getDown1(), tailX-TILE_SIZE, textY-25, null);
-        textY+=TILE_SIZE;
+        graphics2D.drawImage(scene.getPlayer().getCurrentWeapon().getDown1(), tailX - TILE_SIZE, textY - 25, null);
+        textY += TILE_SIZE;
 
-        graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX-TILE_SIZE, textY-25, null);
-        textY+=TILE_SIZE;
+        graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX - TILE_SIZE, textY - 25, null);
+        textY += TILE_SIZE;
     }
 
     private void drawInventory() {
         // CREATE A FRAME
-        int frameX = TILE_SIZE*16;
+        int frameX = TILE_SIZE * 16;
         int frameY = TILE_SIZE;
-        int frameWidth = TILE_SIZE*6;
-        int frameHeight = TILE_SIZE*6;
-        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+        int frameWidth = TILE_SIZE * 6;
+        int frameHeight = TILE_SIZE * 6;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         // SLOT
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;
         int slotX = slotXstart;
         int slotY = slotYstart;
-        int slotSize = TILE_SIZE+3;
+        int slotSize = TILE_SIZE + 3;
 
         // DRAW PLAYER'S ITEMS
-        for(int i = 0; i<scene.getPlayer().getInventory().size(); i++) {
+        for(int i = 0; i < scene.getPlayer().getInventory().size(); i++) {
             graphics2D.drawImage(scene.getPlayer().getInventory().get(i).getDown1(), slotX, slotY, null);
-            slotX+= slotSize;
-            if(i == 4 || i == 9|| i==14 ||i==19) {
+            slotX += slotSize;
+            if(i == 4 || i == 9 || i == 14 || i == 19) {
                 slotX = slotXstart;
-                slotY+=slotSize;
+                slotY += slotSize;
             }
         }
 
@@ -351,7 +351,7 @@ public class GUI {
         // DRAW CURSOR
         graphics2D.setColor(Color.WHITE);
         graphics2D.setStroke(new BasicStroke(3));
-        graphics2D.drawRoundRect(cursorX,cursorY,cursorWidth,cursorHeight, 10,10);
+        graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
     }
 
     private int getHorizonForAlignToRightText(String text, int tailX) {
@@ -416,19 +416,19 @@ public class GUI {
     }
 
     public void slotColDecrease() {
-        this.slotCol --;
+        this.slotCol--;
     }
 
     public void slotColIncrease() {
-        this.slotCol ++;
+        this.slotCol++;
     }
 
     public void slotRowDecrease() {
-        this.slotRow --;
+        this.slotRow--;
     }
 
     public void slotRowIncrease() {
-        this.slotRow ++;
+        this.slotRow++;
     }
 
     public int getSlotCol() {

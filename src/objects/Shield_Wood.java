@@ -4,7 +4,8 @@ import entities.Entity;
 import main.Scene;
 
 import static utilities.Constants.EquipmentConstant.WOOD_SHIELD;
-import static utilities.LoadSave.*;
+import static utilities.LoadSave.GetSpriteAtlas;
+import static utilities.LoadSave.SHIELD_WOOD_IMAGE;
 
 public class Shield_Wood extends Entity {
     public Shield_Wood(Scene scene) {

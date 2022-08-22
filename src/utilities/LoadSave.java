@@ -200,7 +200,7 @@ public class LoadSave {
             byte[] buffer = new byte[1024];
 
             int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
+            while((bytesRead = is.read(buffer)) != - 1) {
                 out.write(buffer, 0, bytesRead);
             }
         } catch(IOException e) {

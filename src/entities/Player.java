@@ -24,7 +24,7 @@ public class Player extends Entity {
     private final KeyInputs keyInputs;
     private int standCounter = 0;
     private boolean attackCanceled;
-    private ArrayList<Entity> inventory = new ArrayList<>();
+    private final ArrayList<Entity> inventory = new ArrayList<>();
 
     public Player(Scene scene, KeyInputs keyInputs) {
         super(scene);
@@ -74,11 +74,11 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
-        return attack = strength*currentWeapon.attackValue;
+        return attack = strength * currentWeapon.attackValue;
     }
 
     public int getDefense() {
-        return defense = dexterity* currentShield.defenseValue;
+        return defense = dexterity * currentShield.defenseValue;
     }
 
     private void getPlayerImage() {
@@ -93,14 +93,14 @@ public class Player extends Entity {
     }
 
     private void getPlayerAttackImage() {
-        attackUp1 = GetAttackImage(ATTACK_UP_1_IMAGE, TILE_SIZE,TILE_SIZE*2);
-        attackUp2 = GetAttackImage(ATTACK_UP_2_IMAGE, TILE_SIZE,TILE_SIZE*2);
-        attackLeft1 = GetAttackImage(ATTACK_LEFT_1_IMAGE, TILE_SIZE*2, TILE_SIZE);
-        attackLeft2 = GetAttackImage(ATTACK_LEFT_2_IMAGE, TILE_SIZE*2, TILE_SIZE);
-        attackDown1 = GetAttackImage(ATTACK_DOWN_1_IMAGE, TILE_SIZE,TILE_SIZE*2);
-        attackDown2 = GetAttackImage(ATTACK_DOWN_2_IMAGE, TILE_SIZE,TILE_SIZE*2);
-        attackRight1 = GetAttackImage(ATTACK_RIGHT_1_IMAGE, TILE_SIZE*2, TILE_SIZE);
-        attackRight2 = GetAttackImage(ATTACK_RIGHT_2_IMAGE, TILE_SIZE*2, TILE_SIZE);
+        attackUp1 = GetAttackImage(ATTACK_UP_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackUp2 = GetAttackImage(ATTACK_UP_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackLeft1 = GetAttackImage(ATTACK_LEFT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackLeft2 = GetAttackImage(ATTACK_LEFT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackDown1 = GetAttackImage(ATTACK_DOWN_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackDown2 = GetAttackImage(ATTACK_DOWN_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackRight1 = GetAttackImage(ATTACK_RIGHT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackRight2 = GetAttackImage(ATTACK_RIGHT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
     }
 
     private void setItems() {
@@ -119,8 +119,8 @@ public class Player extends Entity {
 
     private void attacking() {
         spriteCounter++;
-        if(spriteCounter<=10) spriteNum = 1;
-        if(spriteCounter>10 && spriteCounter<=35) {
+        if(spriteCounter <= 10) spriteNum = 1;
+        if(spriteCounter > 10 && spriteCounter <= 35) {
             spriteNum = 2;
 
             // Save the current worldX, worldY, hitbox
@@ -151,7 +151,7 @@ public class Player extends Entity {
             hitbox.width = hitboxWidth;
             hitbox.height = hitboxHeight;
         }
-        if(spriteCounter>35) {
+        if(spriteCounter > 35) {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
@@ -269,7 +269,7 @@ public class Player extends Entity {
     private void damageMonster(int monsterIndex) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[monsterIndex];
-            if(!monster.invincible) {
+            if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
                 int damage = attack - monster.defense;
                 if(damage < 0) {
@@ -293,7 +293,7 @@ public class Player extends Entity {
     private void checkLevelUp() {
         if(exp >= nextLevelExp) {
             level++;
-            nextLevelExp = nextLevelExp*2;
+            nextLevelExp = nextLevelExp * 2;
             maxLives += 2;
             strength++;
             dexterity++;
@@ -316,7 +316,7 @@ public class Player extends Entity {
 
         switch(direction) {
             case UP -> {
-                if(!attacking) {
+                if(! attacking) {
                     if(spriteNum == 1) image = up1;
                     if(spriteNum == 2) image = up2;
                 }
@@ -327,7 +327,7 @@ public class Player extends Entity {
                 }
             }
             case LEFT -> {
-                if(!attacking) {
+                if(! attacking) {
                     if(spriteNum == 1) image = left1;
                     if(spriteNum == 2) image = left2;
                 }
@@ -338,7 +338,7 @@ public class Player extends Entity {
                 }
             }
             case DOWN -> {
-                if(!attacking) {
+                if(! attacking) {
                     if(spriteNum == 1) image = down1;
                     if(spriteNum == 2) image = down2;
                 }
@@ -348,7 +348,7 @@ public class Player extends Entity {
                 }
             }
             case RIGHT -> {
-                if(!attacking) {
+                if(! attacking) {
                     if(spriteNum == 1) image = right1;
                     if(spriteNum == 2) image = right2;
                 }

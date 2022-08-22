@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import static utilities.Constants.AudioManager.RECEIVED_DAMAGE;
-import static utilities.Constants.AudioManager.SWING_WEAPON;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
@@ -73,7 +72,8 @@ public abstract class Entity {
         }
     }
 
-    protected void damageReaction() {}
+    protected void damageReaction() {
+    }
 
     protected void speak() {
         if(dialogues[dialogueIndex] == null) {
@@ -222,19 +222,19 @@ public abstract class Entity {
 
     private void drawHealthBar(Graphics2D graphics2D, int screenX, int screenY) {
         if(entityType == 2 && hpBarOn) {
-            double oneScale =  (double) TILE_SIZE/ maxLives;
-            double hpValue = oneScale *life;
+            double oneScale = (double) TILE_SIZE / maxLives;
+            double hpValue = oneScale * life;
 
-            graphics2D.setColor(new Color(35,35,35));
-            graphics2D.fillRect(screenX-1, screenY-11, TILE_SIZE+2, 12);
+            graphics2D.setColor(new Color(35, 35, 35));
+            graphics2D.fillRect(screenX - 1, screenY - 11, TILE_SIZE + 2, 12);
 
-            graphics2D.setColor(new Color(255,0,30));
-            graphics2D.fillRect(screenX, screenY-10, (int) hpValue, 10);
+            graphics2D.setColor(new Color(255, 0, 30));
+            graphics2D.fillRect(screenX, screenY - 10, (int) hpValue, 10);
 
             hpBarCounter++;
             if(hpBarCounter > 600) {
-                hpBarCounter = 0 ;
-                hpBarOn= false;
+                hpBarCounter = 0;
+                hpBarOn = false;
             }
         }
     }

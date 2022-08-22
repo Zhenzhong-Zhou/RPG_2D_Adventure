@@ -75,7 +75,7 @@ public class Constants {
     public static class EquipmentConstant {
         // Equipment Name
         public static final String NORMAL_SWORD = "NORMAL_SWORD";
-        public static final String WOOD_SHIELD= "WOOD_SHIELD";
+        public static final String WOOD_SHIELD = "WOOD_SHIELD";
         public static final String BLUE_SHIELD = "BLUE_SHIELD";
     }
 

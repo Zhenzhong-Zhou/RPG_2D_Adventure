@@ -77,9 +77,13 @@ public class KeyInputs implements KeyListener {
         }
     }
 
-    private void pause(KeyEvent e) {if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;}
+    private void pause(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_P) gameState = PLAY;
+    }
 
-    private void dialogue(KeyEvent e) { if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;}
+    private void dialogue(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) gameState = PLAY;
+    }
 
     private void character(KeyEvent e) {
         switch(e.getKeyCode()) {
@@ -102,7 +106,7 @@ public class KeyInputs implements KeyListener {
                     scene.getAudioManager().playEffect(CURSOR);
                 }
             }
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT  -> {
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                 if(scene.getGui().getSlotCol() != 4) {
                     scene.getGui().slotColIncrease();
                     scene.getAudioManager().playEffect(CURSOR);
