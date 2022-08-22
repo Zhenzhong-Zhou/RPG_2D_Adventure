@@ -188,22 +188,38 @@ public class LoadSave {
         }
     }
 
-    private static File getFile(String filename) {
-        String fileRoot = "res/";
-        return new File(fileRoot + filename);
+    private static File GetFile(String filename) {
+        File file = null;
+        InputStream is = LoadSave.class.getResourceAsStream("/" + filename);
+        try {
+            assert is != null;
+            file = File.createTempFile(String.valueOf(is.hashCode()), ".tmp");
+            file.deleteOnExit();
+
+            FileOutputStream out = new FileOutputStream(file);
+            byte[] buffer = new byte[1024];
+
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     public static void CreateLevel(String filename, int[][] idArray) {
-        if(getFile(filename).exists()) {
-            System.out.println("File: " + getFile(filename) + " is already exists.");
+        if(GetFile(filename).exists()) {
+            System.out.println("File: " + GetFile(filename) + " is already exists.");
         } else {
             try {
-                getFile(filename).createNewFile();
+                GetFile(filename).createNewFile();
             } catch(IOException e) {
                 e.printStackTrace();
             }
 
-            WriteToFile(getFile(filename), idArray);
+            WriteToFile(GetFile(filename), idArray);
         }
     }
 
@@ -225,11 +241,11 @@ public class LoadSave {
     }
 
     public static void SaveLevel(String filename, int[][] idArray) {
-        if(getFile(filename).exists()) {
-            WriteToFile(getFile(filename), idArray);
+        if(GetFile(filename).exists()) {
+            WriteToFile(GetFile(filename), idArray);
         } else {
             //TODO: new level
-            System.out.println("File: " + getFile(filename) + " is already exists.");
+            System.out.println("File: " + GetFile(filename) + " is already exists.");
         }
     }
 
@@ -260,10 +276,10 @@ public class LoadSave {
     }
 
     public static int[][] GetLevelData(String filename) {
-        if(getFile(filename).exists()) {
-            return ReadFromFile(getFile(filename));
+        if(GetFile(filename).exists()) {
+            return ReadFromFile(GetFile(filename));
         } else {
-            System.out.println("File: " + getFile(filename) + " does not exist!");
+            System.out.println("File: " + GetFile(filename) + " does not exist!");
             return null;
         }
     }
