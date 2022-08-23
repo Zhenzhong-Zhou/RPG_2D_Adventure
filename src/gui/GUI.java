@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static main.GameState.gameState;
+import static main.GameState.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
 
@@ -138,6 +138,7 @@ public class GUI {
             case 0 -> options_top(frameX, frameY);
             case 1 -> options_fullScreenNotification(frameX, frameY);
             case 2 -> options_control(frameX, frameY);
+            case 3 -> options_endGameConfirmation(frameX, frameY);
         }
         scene.getKeyInputs().setEnterPressed(false);
     }
@@ -222,11 +223,19 @@ public class GUI {
         textY += TILE_SIZE;
         drawState("End Game", textX, textY, i);
         i++;
+        if(commandNum == 6 && scene.getKeyInputs().isEnterPressed()) {
+            subState = 3;
+            commandNum = 0;
+        }
 
         // BACK
         textY += TILE_SIZE*2;
         drawState("Back", textX, textY, i);
         i++;
+        if(commandNum == 7 && scene.getKeyInputs().isEnterPressed()) {
+            gameState = PLAY;
+            commandNum = 0;
+        }
 
         // FULL SCREEN CHECK BOX
         textX = frameX + (int) (TILE_SIZE*6.5);
@@ -331,6 +340,45 @@ public class GUI {
         drawState("Back", textX, textY, 0);
         if(scene.getKeyInputs().isEnterPressed()) {
             subState = 0;
+            commandNum = 5;
+        }
+    }
+
+    private void options_endGameConfirmation(int frameX, int frameY) {
+        int textX = frameX + TILE_SIZE;
+        int textY = frameY + TILE_SIZE*3;
+
+        currentDialogue = "Do you want to quite game \nand return to the main menu?";
+
+        for(String line : currentDialogue.split("\n")) {
+            graphics2D.drawString(line, textX, textY);
+            textY+=40;
+        }
+
+        // YES
+        String text = "Yes";
+        textX = getHorizonCenteredText(text);
+        textY += TILE_SIZE*3;
+        graphics2D.drawString(text, textX, textY);
+        if(commandNum == 0) {
+            graphics2D.drawString(">", textX-25, textY);
+            if(scene.getKeyInputs().isEnterPressed()) {
+                subState = 0;
+                gameState = MENU;
+            }
+        }
+
+        // NO
+        text = "No";
+        textX = getHorizonCenteredText(text);
+        textY += TILE_SIZE;
+        graphics2D.drawString(text, textX, textY);
+        if(commandNum == 1) {
+            graphics2D.drawString(">", textX-25, textY);
+            if(scene.getKeyInputs().isEnterPressed()) {
+                subState = 0;
+                commandNum = 6;
+            }
         }
     }
 

@@ -135,16 +135,17 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_ENTER -> enterPressed = true;
         }
         int maxCommandNum = 0;
-        switch(maxCommandNum) {
-            case 0: maxCommandNum =7;
+        switch(scene.getGui().getSubState()) {
+            case 0 -> maxCommandNum =7;
+            case 3 ->  maxCommandNum =1;
         }
-            if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() ==KeyEvent.VK_UP) {
-                scene.getGui().decrementCommandNum();
-                scene.getAudioManager().playEffect(CURSOR);
-                if(scene.getGui().getCommandNum() < 0) {
-                    scene.getGui().setCommandNum(maxCommandNum);
-                }
+        if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() ==KeyEvent.VK_UP) {
+            scene.getGui().decrementCommandNum();
+            scene.getAudioManager().playEffect(CURSOR);
+            if(scene.getGui().getCommandNum() < 0) {
+                scene.getGui().setCommandNum(maxCommandNum);
             }
+        }
         if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() ==KeyEvent.VK_DOWN) {
                 scene.getGui().incrementCommandNum();
                 scene.getAudioManager().playEffect(CURSOR);
