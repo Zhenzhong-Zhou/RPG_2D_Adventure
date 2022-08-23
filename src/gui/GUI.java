@@ -270,6 +270,8 @@ public class GUI {
         if(scene.isSe()) {
             graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
+
+        scene.getConfig().saveConfig();
     }
 
     private void drawState(String state, int textX, int textY, int i) {

@@ -10,6 +10,7 @@ import input.KeyInputs;
 import levels.LevelManager;
 import utilities.AssetSetter;
 import utilities.CollisionDetection;
+import utilities.Config;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,7 @@ public class Scene extends JPanel implements Runnable {
     private Options options;
     private AssetSetter assetSetter;
     private boolean fullScreen, music, se;
+    private Config config;
 
     public Scene() {
         setFocusable(true);
@@ -67,8 +69,11 @@ public class Scene extends JPanel implements Runnable {
         gui = new GUI(this);
         options = new Options(this);
 
-        // Setter
+        // Setter Class
         assetSetter = new AssetSetter(this);
+
+        // Config Class
+        config = new Config(this);
     }
 
     private void setSceneSize() {
@@ -287,6 +292,10 @@ public class Scene extends JPanel implements Runnable {
 
     public AssetSetter getAssetSetter() {
         return assetSetter;
+    }
+
+    public Config getConfig() {
+        return config;
     }
 
     public Entity[] getGameObjects() {

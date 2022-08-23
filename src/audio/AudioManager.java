@@ -119,8 +119,16 @@ public class AudioManager {
         return volumeBGMScale;
     }
 
+    public void setVolumeBGMScale(int volumeBGMScale) {
+        this.volumeBGMScale = volumeBGMScale;
+    }
+
     public int getVolumeSEScale() {
         return volumeSEScale;
+    }
+
+    public void setVolumeSEScale(int volumeSEScale) {
+        this.volumeSEScale = volumeSEScale;
     }
 
     public void decreaseBGMVolume() {
