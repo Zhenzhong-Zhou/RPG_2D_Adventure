@@ -131,7 +131,7 @@ public class KeyInputs implements KeyListener {
 
     private void cursor(KeyEvent e) {
         switch(e.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE -> gameState = MENU;
+            case KeyEvent.VK_ESCAPE -> gameState = PLAY;
             case KeyEvent.VK_ENTER -> enterPressed = true;
         }
         int maxCommandNum = 0;

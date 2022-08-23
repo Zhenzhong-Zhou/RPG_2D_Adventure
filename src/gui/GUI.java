@@ -180,30 +180,34 @@ public class GUI {
         textY += TILE_SIZE;
         drawState("Mute Music", textX, textY, i);
         i++;
-//        if(scene.getKeyInputs().isEnterPressed()) {
-//            if(!scene.isMusic()) {
-//                scene.setMusic(true);
-//            }else if(scene.isMusic()) {
-//                scene.setMusic(false);
-//            }
-//        }
+        if(commandNum == 2 && scene.getKeyInputs().isEnterPressed()) {
+            if(!scene.isMusic()) {
+                scene.setMusic(true);
+                scene.getAudioManager().toggleMusicMute();
+            }else if(scene.isMusic()) {
+                scene.setMusic(false);
+                scene.getAudioManager().toggleMusicMute();
+            }
+        }
 
         // SE
         textY += TILE_SIZE;
         drawState("Sound Effect", textX, textY, i);
         i++;
 
-        // MUTE MUSIC
+        // MUTE SE
         textY += TILE_SIZE;
         drawState("Mute Sound Effect", textX, textY, i);
         i++;
-//        if(scene.getKeyInputs().isEnterPressed()) {
-//            if(!scene.isMusic()) {
-//                scene.setMusic(true);
-//            }else if(scene.isMusic()) {
-//                scene.setMusic(false);
-//            }
-//        }
+        if(commandNum == 4 && scene.getKeyInputs().isEnterPressed()) {
+            if(!scene.isSe()) {
+                scene.setSe(true);
+                scene.getAudioManager().toggleEffectMute();
+            }else if(scene.isSe()) {
+                scene.setSe(false);
+                scene.getAudioManager().toggleEffectMute();
+            }
+        }
 
         // CONTROL
         textY += TILE_SIZE;

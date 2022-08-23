@@ -1,9 +1,10 @@
 package audio;
 
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import static utilities.Constants.AudioManager.MENU;
+import static utilities.Constants.AudioManager.*;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
@@ -83,6 +84,25 @@ public class AudioManager {
             case 5 -> volume = 6f;
         }
         gainControl.setValue(volume);
+    }
+
+    public void toggleMusicMute() {
+        this.musicMute = ! musicMute;
+        for(Clip clip : musics) {
+            BooleanControl booleanControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+            booleanControl.setValue(musicMute);
+        }
+    }
+
+    public void toggleEffectMute() {
+        this.effectMute = ! effectMute;
+        for(Clip clip : effects) {
+            BooleanControl booleanControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+            booleanControl.setValue(effectMute);
+        }
+        if(! effectMute) {
+            playEffect(CURSOR);
+        }
     }
 
     public float getVolume() {
