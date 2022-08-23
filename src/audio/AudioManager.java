@@ -13,8 +13,8 @@ public class AudioManager {
     private Clip[] musics, effects;
     private int currentMusicId;
     private boolean musicMute, effectMute;
-    private int volumeBGMScale = 3;
-    private int volumeSEScale = 3;
+    public int volumeBGMScale = 3;
+    public int volumeSEScale = 3;
 
     public AudioManager() {
         loadMusics();

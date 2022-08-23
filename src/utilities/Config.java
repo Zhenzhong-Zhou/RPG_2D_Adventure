@@ -4,10 +4,8 @@ import main.Scene;
 
 import java.io.*;
 
-import static utilities.Constants.AudioManager.CURSOR;
-
 public class Config {
-    private Scene scene;
+    private final Scene scene;
 
     public Config(Scene scene) {
         this.scene = scene;
@@ -28,19 +26,19 @@ public class Config {
 
             // Mute Music
             if(scene.isMusic()) {
-                bufferedWriter.write("MUTE");
+                bufferedWriter.write("-1");
             }
             if(!scene.isMusic()) {
-                bufferedWriter.write("UNMUTE");
+                bufferedWriter.write("0");
             }
             bufferedWriter.newLine();
 
             // Mute SE
             if(scene.isSe()) {
-                bufferedWriter.write("MUTE");
+                bufferedWriter.write("-1");
             }
             if(!scene.isSe()) {
-                bufferedWriter.write("UNMUTE");
+                bufferedWriter.write("0");
             }
             bufferedWriter.newLine();
 
@@ -72,44 +70,32 @@ public class Config {
 //            }
 
             // Mute Music
-            if(s.equals("MUTE")) {
+            if(s.equals("-1")) {
                 scene.setMusic(true);
                 scene.getAudioManager().toggleMusicMute();
             }
-            if(s.equals("UNMUTE")) {
+            if(s.equals("0")) {
                 scene.setMusic(false);
                 scene.getAudioManager().toggleMusicMute();
             }
 
             // Mute SE
-            if(s.equals("MUTE")) {
+            if(s.equals("-1")) {
                 scene.setSe(true);
                 scene.getAudioManager().toggleEffectMute();
             }
-            if(s.equals("UNMUTE")) {
+            if(s.equals("0")) {
                 scene.setSe(false);
                 scene.getAudioManager().toggleEffectMute();
             }
 
             // Music Volume
             s = bufferedReader.readLine();
-//            int x = scene.getAudioManager().loadMusicScale(Integer.parseInt(s));
-//            scene.getAudioManager().setVolume(x);
-
-//            if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeBGMScale() < 5 && !scene.isMusic()) {
-//                scene.getAudioManager().increaseBGMVolume();
-//                scene.getAudioManager().setVolume(x);
-//                scene.getAudioManager().playEffect(CURSOR);
-//            }
-//            int x = scene.getAudioManager().getVolumeBGMScale();
-//            scene.getAudioManager().increaseBGMVolume();
-//            scene.getAudioManager().setVolume(scene.getAudioManager().setVolumeBGMScale(Integer.parseInt(s)));
-
+            scene.getAudioManager().volumeBGMScale = Integer.parseInt(s);
 
             // SE Volume
             s = bufferedReader.readLine();
-//            scene.getAudioManager().setVolume(Integer.parseInt(s));
-//            scene.getAudioManager().setVolumeSEScale(Integer.parseInt(s));
+            scene.getAudioManager().volumeSEScale = Integer.parseInt(s);
 
             bufferedReader.close();
         }  catch(Exception e) {
