@@ -136,8 +136,8 @@ public class GUI {
 
         switch(subState) {
             case 0 -> options_top(frameX, frameY);
-            case 1 -> {}
-            case 2 -> System.out.println(subState);
+            case 1 -> System.out.println("Full Screen");
+            case 2 -> options_control(frameX, frameY);
         }
         scene.getKeyInputs().setEnterPressed(false);
     }
@@ -162,6 +162,13 @@ public class GUI {
         int i = 0;
         drawState("Full Screen", textX, textY, i);
         i++;
+//        if(scene.getKeyInputs().isEnterPressed()) {
+//            if(!scene.isFullScreen()) {
+//                scene.setFullScreen(true);
+//            } else if(scene.isFullScreen()) {
+//                scene.setFullScreen(false);
+//            }
+//        }
 
         // MUSIC
         textY += TILE_SIZE;
@@ -172,6 +179,13 @@ public class GUI {
         textY += TILE_SIZE;
         drawState("Mute Music", textX, textY, i);
         i++;
+//        if(scene.getKeyInputs().isEnterPressed()) {
+//            if(!scene.isMusic()) {
+//                scene.setMusic(true);
+//            }else if(scene.isMusic()) {
+//                scene.setMusic(false);
+//            }
+//        }
 
         // SE
         textY += TILE_SIZE;
@@ -182,11 +196,22 @@ public class GUI {
         textY += TILE_SIZE;
         drawState("Mute Sound Effect", textX, textY, i);
         i++;
+//        if(scene.getKeyInputs().isEnterPressed()) {
+//            if(!scene.isMusic()) {
+//                scene.setMusic(true);
+//            }else if(scene.isMusic()) {
+//                scene.setMusic(false);
+//            }
+//        }
 
         // CONTROL
         textY += TILE_SIZE;
         drawState("Control", textX, textY, i);
         i++;
+        if(scene.getKeyInputs().isEnterPressed()) {
+            subState = 2;
+            commandNum = 0;
+        }
 
         // END GAME
         textY += TILE_SIZE;
@@ -229,16 +254,14 @@ public class GUI {
         graphics2D.drawString(state, textX, textY);
         if(commandNum == i) {
             graphics2D.drawString(">", textX - 25, textY);
+            //TODO: fix bugs
             if(scene.getKeyInputs().isEnterPressed()) {
-                if(!scene.isFullScreen()) {
-                    scene.setFullScreen(true);
-                } else if(scene.isFullScreen()) {
-                    scene.setFullScreen(false);
-                } else if(!scene.isMusic()) {
+                if(!scene.isMusic()) {
                     scene.setMusic(true);
                 }else if(scene.isMusic()) {
                     scene.setMusic(false);
-                } else if(!scene.isSe()) {
+                }
+                if(!scene.isSe()) {
                     scene.setSe(true);
                 }else if(scene.isSe()) {
                     scene.setSe(false);
@@ -256,6 +279,43 @@ public class GUI {
             graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
         } else if(scene.isSe()) {
             graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        }
+    }
+
+    private void options_control(int frameX, int frameY) {
+        int textX;
+        int textY;
+
+        // TITLE
+        String text = "Control";
+        textX = getHorizonCenteredText(text);
+        textY = frameY + TILE_SIZE;
+        graphics2D.drawString(text, textX,textY+10);
+
+        textX = frameX + TILE_SIZE;
+        textY += TILE_SIZE*2;
+        graphics2D.drawString("Move", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("Confirm/Attack", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("Shoot/Cast", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("Player Status", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("Pause", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("Options", textX, textY); textY+=TILE_SIZE;
+
+        textX = frameX + (int) (TILE_SIZE*6.5);
+        textY = frameY +TILE_SIZE*3;
+        graphics2D.drawString("WASD", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("ENTER", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("F", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("C", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("P", textX, textY); textY+=TILE_SIZE;
+        graphics2D.drawString("ESC", textX, textY); textY+=TILE_SIZE;
+
+        // BACK
+        textX = frameX + TILE_SIZE;
+        textY = frameY + TILE_SIZE * 9;
+        drawState("Back", textX, textY, 0);
+        if(scene.getKeyInputs().isEnterPressed()) {
+            subState = 0;
         }
     }
 
