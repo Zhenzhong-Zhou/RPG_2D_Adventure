@@ -136,7 +136,7 @@ public class GUI {
 
         switch(subState) {
             case 0 -> options_top(frameX, frameY);
-            case 1 -> System.out.println("Full Screen");
+            case 1 -> options_fullScreenNotification(frameX, frameY);
             case 2 -> options_control(frameX, frameY);
         }
         scene.getKeyInputs().setEnterPressed(false);
@@ -162,13 +162,14 @@ public class GUI {
         int i = 0;
         drawState("Full Screen", textX, textY, i);
         i++;
-//        if(scene.getKeyInputs().isEnterPressed()) {
-//            if(!scene.isFullScreen()) {
-//                scene.setFullScreen(true);
-//            } else if(scene.isFullScreen()) {
-//                scene.setFullScreen(false);
-//            }
-//        }
+        if(commandNum == 0 && scene.getKeyInputs().isEnterPressed()) {
+            if(!scene.isFullScreen()) {
+                scene.setFullScreen(true);
+            } else if(scene.isFullScreen()) {
+                scene.setFullScreen(false);
+            }
+            subState = 1;
+        }
 
         // MUSIC
         textY += TILE_SIZE;
@@ -208,7 +209,7 @@ public class GUI {
         textY += TILE_SIZE;
         drawState("Control", textX, textY, i);
         i++;
-        if(scene.getKeyInputs().isEnterPressed()) {
+        if(commandNum == 5 && scene.getKeyInputs().isEnterPressed()) {
             subState = 2;
             commandNum = 0;
         }
@@ -227,6 +228,9 @@ public class GUI {
         textX = frameX + (int) (TILE_SIZE*6.5);
         textY = frameY + TILE_SIZE*2 +TILE_SIZE/2;
         drawCheckBox(textX, textY);
+        if(scene.isFullScreen()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        }
 
         // MUSIC VOLUME
         textY += TILE_SIZE;
@@ -237,6 +241,9 @@ public class GUI {
         // MUTE MUSIC CHECK BOX
         textY = frameY + TILE_SIZE*4 + TILE_SIZE/2;
         drawCheckBox(textX, textY);
+        if(scene.isMusic()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        }
 
         // SE VOLUME
         textY += TILE_SIZE;
@@ -247,6 +254,9 @@ public class GUI {
         // MUTE SE VOLUME CHECK BOX
         textY = frameY + TILE_SIZE*6 + TILE_SIZE/2;
         drawCheckBox(textX, textY);
+        if(scene.isSe()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        }
     }
 
     private void drawState(String state, int textX, int textY, int i) {
@@ -254,31 +264,32 @@ public class GUI {
         graphics2D.drawString(state, textX, textY);
         if(commandNum == i) {
             graphics2D.drawString(">", textX - 25, textY);
-            //TODO: fix bugs
-            if(scene.getKeyInputs().isEnterPressed()) {
-                if(!scene.isMusic()) {
-                    scene.setMusic(true);
-                }else if(scene.isMusic()) {
-                    scene.setMusic(false);
-                }
-                if(!scene.isSe()) {
-                    scene.setSe(true);
-                }else if(scene.isSe()) {
-                    scene.setSe(false);
-                }
-            }
         }
     }
 
     private void drawCheckBox(int textX, int textY) {
         graphics2D.setStroke(new BasicStroke(3));
         graphics2D.drawRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
-        if(scene.isFullScreen()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
-        } else if(scene.isMusic()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
-        } else if(scene.isSe()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+    }
+
+    private void options_fullScreenNotification(int frameX, int frameY) {
+        int textX = frameX + TILE_SIZE;
+        int textY = frameY + TILE_SIZE*3;
+
+        currentDialogue = "The change will take\neffect after restarting \nthe game.";
+        for(String line : currentDialogue.split("\n")) {
+            graphics2D.drawString(line, textX, textY);
+            textY += 40;
+        }
+
+        // BACK
+        textY = frameY + TILE_SIZE*9;
+        graphics2D.drawString("Back", textX, textY);
+        if(commandNum == 0) {
+            graphics2D.drawString(">", textX-25, textY);
+            if(scene.getKeyInputs().isEnterPressed()) {
+                subState = 0;
+            }
         }
     }
 
@@ -591,18 +602,6 @@ public class GUI {
 
     public Font getMaruMonica() {
         return maruMonica;
-    }
-
-    public Font getPurisaB() {
-        return purisaB;
-    }
-
-    public boolean isGameCompleted() {
-        return gameCompleted;
-    }
-
-    public void setGameCompleted(boolean gameCompleted) {
-        this.gameCompleted = gameCompleted;
     }
 
     public String getCurrentDialogue() {
