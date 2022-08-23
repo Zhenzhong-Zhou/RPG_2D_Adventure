@@ -154,13 +154,13 @@ public class KeyInputs implements KeyListener {
             }
             case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
                 if(scene.getGui().getSubState() == 0) {
-                    if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale() > 0 && !scene.isMusic()) {
-                        scene.getAudioManager().decreaseVolume();
+                    if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeBGMScale() > 0 && !scene.isMusic()) {
+                        scene.getAudioManager().decreaseBGMVolume();
                         scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                         scene.getAudioManager().playEffect(CURSOR);
                     }
-                    if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale() > 0 && !scene.isSe()) {
-                        scene.getAudioManager().decreaseVolume();
+                    if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeSEScale() > 0 && !scene.isSe()) {
+                        scene.getAudioManager().decreaseSEVolume();
                         scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                         scene.getAudioManager().playEffect(CURSOR);
                     }
@@ -168,13 +168,13 @@ public class KeyInputs implements KeyListener {
             }
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                 if(scene.getGui().getSubState() == 0) {
-                    if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale() < 5 && !scene.isMusic()) {
-                        scene.getAudioManager().increaseVolume();
+                    if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeBGMScale() < 5 && !scene.isMusic()) {
+                        scene.getAudioManager().increaseBGMVolume();
                         scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                         scene.getAudioManager().playEffect(CURSOR);
                     }
-                    if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale() < 5 && !scene.isSe()) {
-                        scene.getAudioManager().increaseVolume();
+                    if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeSEScale() < 5 && !scene.isSe()) {
+                        scene.getAudioManager().increaseSEVolume();
                         scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                         scene.getAudioManager().playEffect(CURSOR);
                     }

@@ -248,7 +248,7 @@ public class GUI {
         // MUSIC VOLUME
         textY += TILE_SIZE;
         graphics2D.drawRect(textX, textY, 120, TILE_SIZE / 2);    // 120/5 =24
-        int volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
+        int volumeWidth = 24 * scene.getAudioManager().getVolumeBGMScale();
         graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE / 2);
 
         // MUTE MUSIC CHECK BOX
@@ -261,7 +261,7 @@ public class GUI {
         // SE VOLUME
         textY += TILE_SIZE;
         graphics2D.drawRect(textX, textY, 120, TILE_SIZE / 2);
-        volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
+        volumeWidth = 24 * scene.getAudioManager().getVolumeSEScale();
         graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE / 2);
 
         // MUTE SE VOLUME CHECK BOX

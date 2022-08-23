@@ -13,7 +13,8 @@ public class AudioManager {
     private Clip[] musics, effects;
     private int currentMusicId;
     private boolean musicMute, effectMute;
-    private int volumeScale = 3;
+    private int volumeBGMScale = 3;
+    private int volumeSEScale = 3;
 
     public AudioManager() {
         loadMusics();
@@ -59,18 +60,7 @@ public class AudioManager {
 
     private void updateMusicsVolume() {
         FloatControl gainControl = (FloatControl) musics[currentMusicId].getControl(FloatControl.Type.MASTER_GAIN);
-        controlBar(gainControl);
-    }
-
-    private void updateEffectsVolume() {
-        for(Clip clip : effects) {
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            controlBar(gainControl);
-        }
-    }
-
-    private void controlBar(FloatControl gainControl) {
-        switch(volumeScale) {
+        switch(volumeBGMScale) {
             case 0 -> volume = - 80f;
             case 1 -> volume = - 20f;
             case 2 -> volume = - 12f;
@@ -79,6 +69,21 @@ public class AudioManager {
             case 5 -> volume = 6f;
         }
         gainControl.setValue(volume);
+    }
+
+    private void updateEffectsVolume() {
+        for(Clip clip : effects) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            switch(volumeSEScale) {
+                case 0 -> volume = - 80f;
+                case 1 -> volume = - 20f;
+                case 2 -> volume = - 12f;
+                case 3 -> volume = - 5f;
+                case 4 -> volume = 1f;
+                case 5 -> volume = 6f;
+            }
+            gainControl.setValue(volume);
+        }
     }
 
     public void toggleMusicMute() {
@@ -110,15 +115,27 @@ public class AudioManager {
         updateEffectsVolume();
     }
 
-    public int getVolumeScale() {
-        return volumeScale;
+    public int getVolumeBGMScale() {
+        return volumeBGMScale;
     }
 
-    public void decreaseVolume() {
-        this.volumeScale--;
+    public int getVolumeSEScale() {
+        return volumeSEScale;
     }
 
-    public void increaseVolume() {
-        this.volumeScale++;
+    public void decreaseBGMVolume() {
+        this.volumeBGMScale--;
+    }
+
+    public void decreaseSEVolume() {
+        this.volumeSEScale--;
+    }
+
+    public void increaseBGMVolume() {
+        this.volumeBGMScale++;
+    }
+
+    public void increaseSEVolume() {
+        this.volumeSEScale++;
     }
 }
