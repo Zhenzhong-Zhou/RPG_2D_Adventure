@@ -22,9 +22,9 @@ import static utilities.LoadSave.*;
 public class Player extends Entity {
     private final int screenX, screenY;
     private final KeyInputs keyInputs;
+    private final ArrayList<Entity> inventory = new ArrayList<>();
     private int standCounter = 0;
     private boolean attackCanceled;
-    private final ArrayList<Entity> inventory = new ArrayList<>();
 
     public Player(Scene scene, KeyInputs keyInputs) {
         super(scene);

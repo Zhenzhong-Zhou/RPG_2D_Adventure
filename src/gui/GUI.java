@@ -15,14 +15,14 @@ import static utilities.LoadSave.*;
 
 public class GUI {
     private final Scene scene;
+    private final ArrayList<String> messages = new ArrayList<>();
+    private final ArrayList<Integer> messageCounter = new ArrayList<>();
     private Graphics2D graphics2D;
     private Font maruMonica, purisaB;
     private boolean gameCompleted;
     private String currentDialogue = "";
     private int commandNum = 0;
     private BufferedImage heart_full, heart_half, heart_blank;
-    private final ArrayList<String> messages = new ArrayList<>();
-    private final ArrayList<Integer> messageCounter = new ArrayList<>();
     private int slotCol = 0;
     private int slotRow = 0;
     private int subState = 0;
@@ -128,11 +128,11 @@ public class GUI {
     //TODO: ADD later
     private void drawOptionsScreen() {
         // SUB WINDOW
-        int frameX = TILE_SIZE*7;
-        int frameY = TILE_SIZE*3;
-        int frameWidth = TILE_SIZE*10;
-        int frameHeight = TILE_SIZE*12;
-        drawSubWindow(frameX, frameY, frameWidth,frameHeight);
+        int frameX = TILE_SIZE * 7;
+        int frameY = TILE_SIZE * 3;
+        int frameWidth = TILE_SIZE * 10;
+        int frameHeight = TILE_SIZE * 12;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         switch(subState) {
             case 0 -> options_top(frameX, frameY);
@@ -153,18 +153,18 @@ public class GUI {
         String text = "Options";
         textX = getHorizonCenteredText(text);
         textY = frameY + TILE_SIZE;
-        graphics2D.drawString(text, textX,textY+10);
+        graphics2D.drawString(text, textX, textY + 10);
 
         graphics2D.setColor(Color.WHITE);
         graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 30F));
         // FULL SCREEN ON/OFF
         textX = frameX + TILE_SIZE;
-        textY += TILE_SIZE*2;
+        textY += TILE_SIZE * 2;
         int i = 0;
         drawState("Full Screen", textX, textY, i);
         i++;
         if(commandNum == 0 && scene.getKeyInputs().isEnterPressed()) {
-            if(!scene.isFullScreen()) {
+            if(! scene.isFullScreen()) {
                 scene.setFullScreen(true);
             } else if(scene.isFullScreen()) {
                 scene.setFullScreen(false);
@@ -182,10 +182,10 @@ public class GUI {
         drawState("Mute Music", textX, textY, i);
         i++;
         if(commandNum == 2 && scene.getKeyInputs().isEnterPressed()) {
-            if(!scene.isMusic()) {
+            if(! scene.isMusic()) {
                 scene.setMusic(true);
                 scene.getAudioManager().toggleMusicMute();
-            }else if(scene.isMusic()) {
+            } else if(scene.isMusic()) {
                 scene.setMusic(false);
                 scene.getAudioManager().toggleMusicMute();
             }
@@ -201,10 +201,10 @@ public class GUI {
         drawState("Mute Sound Effect", textX, textY, i);
         i++;
         if(commandNum == 4 && scene.getKeyInputs().isEnterPressed()) {
-            if(!scene.isSe()) {
+            if(! scene.isSe()) {
                 scene.setSe(true);
                 scene.getAudioManager().toggleEffectMute();
-            }else if(scene.isSe()) {
+            } else if(scene.isSe()) {
                 scene.setSe(false);
                 scene.getAudioManager().toggleEffectMute();
             }
@@ -229,7 +229,7 @@ public class GUI {
         }
 
         // BACK
-        textY += TILE_SIZE*2;
+        textY += TILE_SIZE * 2;
         drawState("Back", textX, textY, i);
         i++;
         if(commandNum == 7 && scene.getKeyInputs().isEnterPressed()) {
@@ -238,37 +238,37 @@ public class GUI {
         }
 
         // FULL SCREEN CHECK BOX
-        textX = frameX + (int) (TILE_SIZE*6.5);
-        textY = frameY + TILE_SIZE*2 +TILE_SIZE/2;
+        textX = frameX + (int) (TILE_SIZE * 6.5);
+        textY = frameY + TILE_SIZE * 2 + TILE_SIZE / 2;
         drawCheckBox(textX, textY);
         if(scene.isFullScreen()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+            graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
 
         // MUSIC VOLUME
         textY += TILE_SIZE;
-        graphics2D.drawRect(textX, textY, 120, TILE_SIZE/2);    // 120/5 =24
+        graphics2D.drawRect(textX, textY, 120, TILE_SIZE / 2);    // 120/5 =24
         int volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
-        graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE/2);
+        graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE / 2);
 
         // MUTE MUSIC CHECK BOX
-        textY = frameY + TILE_SIZE*4 + TILE_SIZE/2;
+        textY = frameY + TILE_SIZE * 4 + TILE_SIZE / 2;
         drawCheckBox(textX, textY);
         if(scene.isMusic()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+            graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
 
         // SE VOLUME
         textY += TILE_SIZE;
-        graphics2D.drawRect(textX, textY, 120, TILE_SIZE/2);
+        graphics2D.drawRect(textX, textY, 120, TILE_SIZE / 2);
         volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
-        graphics2D.fillRect(textX,textY,  volumeWidth, TILE_SIZE/2);
+        graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE / 2);
 
         // MUTE SE VOLUME CHECK BOX
-        textY = frameY + TILE_SIZE*6 + TILE_SIZE/2;
+        textY = frameY + TILE_SIZE * 6 + TILE_SIZE / 2;
         drawCheckBox(textX, textY);
         if(scene.isSe()) {
-            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+            graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
     }
 
@@ -282,12 +282,12 @@ public class GUI {
 
     private void drawCheckBox(int textX, int textY) {
         graphics2D.setStroke(new BasicStroke(3));
-        graphics2D.drawRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        graphics2D.drawRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
     }
 
     private void options_fullScreenNotification(int frameX, int frameY) {
         int textX = frameX + TILE_SIZE;
-        int textY = frameY + TILE_SIZE*3;
+        int textY = frameY + TILE_SIZE * 3;
 
         currentDialogue = "The change will take\neffect after restarting \nthe game.";
         for(String line : currentDialogue.split("\n")) {
@@ -296,10 +296,10 @@ public class GUI {
         }
 
         // BACK
-        textY = frameY + TILE_SIZE*9;
+        textY = frameY + TILE_SIZE * 9;
         graphics2D.drawString("Back", textX, textY);
         if(commandNum == 0) {
-            graphics2D.drawString(">", textX-25, textY);
+            graphics2D.drawString(">", textX - 25, textY);
             if(scene.getKeyInputs().isEnterPressed()) {
                 subState = 0;
             }
@@ -314,25 +314,37 @@ public class GUI {
         String text = "Control";
         textX = getHorizonCenteredText(text);
         textY = frameY + TILE_SIZE;
-        graphics2D.drawString(text, textX,textY+10);
+        graphics2D.drawString(text, textX, textY + 10);
 
         textX = frameX + TILE_SIZE;
-        textY += TILE_SIZE*2;
-        graphics2D.drawString("Move", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("Confirm/Attack", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("Shoot/Cast", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("Player Status", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("Pause", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("Options", textX, textY); textY+=TILE_SIZE;
+        textY += TILE_SIZE * 2;
+        graphics2D.drawString("Move", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("Confirm/Attack", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("Shoot/Cast", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("Player Status", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("Pause", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("Options", textX, textY);
+        textY += TILE_SIZE;
 
-        textX = frameX + (int) (TILE_SIZE*6.5);
-        textY = frameY +TILE_SIZE*3;
-        graphics2D.drawString("WASD", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("ENTER", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("F", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("C", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("P", textX, textY); textY+=TILE_SIZE;
-        graphics2D.drawString("ESC", textX, textY); textY+=TILE_SIZE;
+        textX = frameX + (int) (TILE_SIZE * 6.5);
+        textY = frameY + TILE_SIZE * 3;
+        graphics2D.drawString("WASD", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("ENTER", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("F", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("C", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("P", textX, textY);
+        textY += TILE_SIZE;
+        graphics2D.drawString("ESC", textX, textY);
+        textY += TILE_SIZE;
 
         // BACK
         textX = frameX + TILE_SIZE;
@@ -346,22 +358,22 @@ public class GUI {
 
     private void options_endGameConfirmation(int frameX, int frameY) {
         int textX = frameX + TILE_SIZE;
-        int textY = frameY + TILE_SIZE*3;
+        int textY = frameY + TILE_SIZE * 3;
 
         currentDialogue = "Do you want to quite game \nand return to the main menu?";
 
         for(String line : currentDialogue.split("\n")) {
             graphics2D.drawString(line, textX, textY);
-            textY+=40;
+            textY += 40;
         }
 
         // YES
         String text = "Yes";
         textX = getHorizonCenteredText(text);
-        textY += TILE_SIZE*3;
+        textY += TILE_SIZE * 3;
         graphics2D.drawString(text, textX, textY);
         if(commandNum == 0) {
-            graphics2D.drawString(">", textX-25, textY);
+            graphics2D.drawString(">", textX - 25, textY);
             if(scene.getKeyInputs().isEnterPressed()) {
                 subState = 0;
                 gameState = MENU;
@@ -374,7 +386,7 @@ public class GUI {
         textY += TILE_SIZE;
         graphics2D.drawString(text, textX, textY);
         if(commandNum == 1) {
-            graphics2D.drawString(">", textX-25, textY);
+            graphics2D.drawString(">", textX - 25, textY);
             if(scene.getKeyInputs().isEnterPressed()) {
                 subState = 0;
                 commandNum = 6;
@@ -610,25 +622,25 @@ public class GUI {
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
-        int dFrameHeight = TILE_SIZE*3;
+        int dFrameHeight = TILE_SIZE * 3;
         // DRAW DESCRIPTION TEXT
-        int textX = dFrameX+20;
-        int textY =dFrameY+TILE_SIZE;
+        int textX = dFrameX + 20;
+        int textY = dFrameY + TILE_SIZE;
         graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 23F));
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         int itemIndex = getItemIndexOnSlot();
         if(itemIndex < scene.getPlayer().getInventory().size()) {
-            drawSubWindow(dFrameX,dFrameY,dFrameWidth, dFrameHeight);
-            for(String line: scene.getPlayer().getInventory().get(itemIndex).getDescription().split("\n")) {
+            drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+            for(String line : scene.getPlayer().getInventory().get(itemIndex).getDescription().split("\n")) {
                 graphics2D.drawString(line, textX, textY);
-                textY+=32;
+                textY += 32;
             }
         }
     }
 
     private int getItemIndexOnSlot() {
-        return slotCol + (slotRow*5);
+        return slotCol + (slotRow * 5);
     }
 
     private int getHorizonForAlignToRightText(String text, int tailX) {

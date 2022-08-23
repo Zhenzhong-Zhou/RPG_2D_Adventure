@@ -9,7 +9,7 @@ import static main.GameState.gameState;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 
 public class Options {
-    private Scene scene;
+    private final Scene scene;
     private Graphics2D graphics2D;
 
     public Options(Scene scene) {

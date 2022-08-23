@@ -4,7 +4,8 @@ import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import static utilities.Constants.AudioManager.*;
+import static utilities.Constants.AudioManager.CURSOR;
+import static utilities.Constants.AudioManager.MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
@@ -34,12 +35,6 @@ public class AudioManager {
         for(int i = 0; i < effects.length; i++) {
             effects[i] = GetClip(effectNames[i]);
         }
-    }
-
-    public void setVolume(float volume) {
-        this.volume = volume;
-        updateMusicsVolume();
-        updateEffectsVolume();
     }
 
     public void stopSound() {
@@ -76,10 +71,10 @@ public class AudioManager {
 
     private void controlBar(FloatControl gainControl) {
         switch(volumeScale) {
-            case 0 -> volume = -80f;
-            case 1 -> volume = -20f;
-            case 2 -> volume = -12f;
-            case 3 -> volume = -5f;
+            case 0 -> volume = - 80f;
+            case 1 -> volume = - 20f;
+            case 2 -> volume = - 12f;
+            case 3 -> volume = - 5f;
             case 4 -> volume = 1f;
             case 5 -> volume = 6f;
         }
@@ -107,6 +102,12 @@ public class AudioManager {
 
     public float getVolume() {
         return volume;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+        updateMusicsVolume();
+        updateEffectsVolume();
     }
 
     public int getVolumeScale() {

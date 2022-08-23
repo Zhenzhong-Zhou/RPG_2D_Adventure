@@ -136,45 +136,45 @@ public class KeyInputs implements KeyListener {
         }
         int maxCommandNum = 0;
         switch(scene.getGui().getSubState()) {
-            case 0 -> maxCommandNum =7;
-            case 3 ->  maxCommandNum =1;
+            case 0 -> maxCommandNum = 7;
+            case 3 -> maxCommandNum = 1;
         }
-        if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() ==KeyEvent.VK_UP) {
+        if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
             scene.getGui().decrementCommandNum();
             scene.getAudioManager().playEffect(CURSOR);
             if(scene.getGui().getCommandNum() < 0) {
                 scene.getGui().setCommandNum(maxCommandNum);
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() ==KeyEvent.VK_DOWN) {
-                scene.getGui().incrementCommandNum();
-                scene.getAudioManager().playEffect(CURSOR);
-                if(scene.getGui().getCommandNum() > maxCommandNum) {
-                    scene.getGui().setCommandNum(0);
-                }
+        if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
+            scene.getGui().incrementCommandNum();
+            scene.getAudioManager().playEffect(CURSOR);
+            if(scene.getGui().getCommandNum() > maxCommandNum) {
+                scene.getGui().setCommandNum(0);
             }
-        if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() ==KeyEvent.VK_LEFT) {
+        }
+        if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
             if(scene.getGui().getSubState() == 0) {
-                if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale()>0) {
+                if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale() > 0) {
                     scene.getAudioManager().decreaseVolume();
                     scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                     scene.getAudioManager().playEffect(CURSOR);
                 }
-                if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale()>0) {
+                if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale() > 0) {
                     scene.getAudioManager().decreaseVolume();
                     scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                     scene.getAudioManager().playEffect(CURSOR);
                 }
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() ==KeyEvent.VK_RIGHT) {
+        if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if(scene.getGui().getSubState() == 0) {
-                if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale()<5) {
+                if(scene.getGui().getCommandNum() == 1 && scene.getAudioManager().getVolumeScale() < 5) {
                     scene.getAudioManager().increaseVolume();
                     scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                     scene.getAudioManager().playEffect(CURSOR);
                 }
-                if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale()<5) {
+                if(scene.getGui().getCommandNum() == 3 && scene.getAudioManager().getVolumeScale() < 5) {
                     scene.getAudioManager().increaseVolume();
                     scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                     scene.getAudioManager().playEffect(CURSOR);
