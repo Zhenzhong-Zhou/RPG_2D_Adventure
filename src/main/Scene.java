@@ -5,6 +5,7 @@ import entities.Entity;
 import entities.Player;
 import events.EventManager;
 import gui.GUI;
+import gui.Options;
 import input.KeyInputs;
 import levels.LevelManager;
 import utilities.AssetSetter;
@@ -34,7 +35,9 @@ public class Scene extends JPanel implements Runnable {
     private CollisionDetection collisionDetection;
     private AudioManager audioManager;
     private GUI gui;
+    private Options options;
     private AssetSetter assetSetter;
+    private boolean fullScreen, music, se;
 
     public Scene() {
         setFocusable(true);
@@ -62,6 +65,7 @@ public class Scene extends JPanel implements Runnable {
 
         // GUI Class
         gui = new GUI(this);
+        options = new Options(this);
 
         // Setter
         assetSetter = new AssetSetter(this);
@@ -115,6 +119,8 @@ public class Scene extends JPanel implements Runnable {
     public void draw(Graphics2D graphics2D) {
         if(gameState == MENU) {
             gui.draw(graphics2D);
+        } else if(gameState == SETTINGS) {
+            options.draw(graphics2D);
         } else {
             // MAP
             levelManager.draw(graphics2D, player);
@@ -275,6 +281,10 @@ public class Scene extends JPanel implements Runnable {
         return gui;
     }
 
+    public Options getOptions() {
+        return options;
+    }
+
     public AssetSetter getAssetSetter() {
         return assetSetter;
     }
@@ -289,5 +299,29 @@ public class Scene extends JPanel implements Runnable {
 
     public Entity[] getMonsters() {
         return monsters;
+    }
+
+    public boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    public void setFullScreen(boolean fullScreen) {
+        this.fullScreen = fullScreen;
+    }
+
+    public boolean isMusic() {
+        return music;
+    }
+
+    public void setMusic(boolean music) {
+        this.music = music;
+    }
+
+    public boolean isSe() {
+        return se;
+    }
+
+    public void setSe(boolean se) {
+        this.se = se;
     }
 }

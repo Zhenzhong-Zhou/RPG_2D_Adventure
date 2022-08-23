@@ -7,10 +7,11 @@ import static utilities.Constants.AudioManager.MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
-    private final float volume = 0.5f;
+    private float volume;
     private Clip[] musics, effects;
     private int currentMusicId;
     private boolean musicMute, effectMute;
+    private int volumeScale = 3;
 
     public AudioManager() {
         loadMusics();
@@ -32,6 +33,12 @@ public class AudioManager {
         for(int i = 0; i < effects.length; i++) {
             effects[i] = GetClip(effectNames[i]);
         }
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+        updateMusicsVolume();
+        updateEffectsVolume();
     }
 
     public void stopSound() {
@@ -56,8 +63,41 @@ public class AudioManager {
 
     private void updateMusicsVolume() {
         FloatControl gainControl = (FloatControl) musics[currentMusicId].getControl(FloatControl.Type.MASTER_GAIN);
-        float range = gainControl.getMaximum() - gainControl.getMinimum();
-        float gain = (range * volume) + gainControl.getMinimum();
-        gainControl.setValue(gain);
+        controlBar(gainControl);
+    }
+
+    private void updateEffectsVolume() {
+        for(Clip clip : effects) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            controlBar(gainControl);
+        }
+    }
+
+    private void controlBar(FloatControl gainControl) {
+        switch(volumeScale) {
+            case 0 -> volume = -80f;
+            case 1 -> volume = -20f;
+            case 2 -> volume = -12f;
+            case 3 -> volume = -5f;
+            case 4 -> volume = 1f;
+            case 5 -> volume = 6f;
+        }
+        gainControl.setValue(volume);
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public int getVolumeScale() {
+        return volumeScale;
+    }
+
+    public void decreaseVolume() {
+        this.volumeScale--;
+    }
+
+    public void increaseVolume() {
+        this.volumeScale++;
     }
 }

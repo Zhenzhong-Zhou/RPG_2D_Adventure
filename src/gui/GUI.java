@@ -25,6 +25,7 @@ public class GUI {
     private final ArrayList<Integer> messageCounter = new ArrayList<>();
     private int slotCol = 0;
     private int slotRow = 0;
+    private int subState = 0;
 
     public GUI(Scene scene) {
         this.scene = scene;
@@ -62,7 +63,6 @@ public class GUI {
                 drawPlayerStatus();
                 drawMessages();
             }
-            case OPTIONS -> drawOptionsScreen();
             case PAUSE -> {
                 drawPlayerStatus();
                 drawPauseScreen();
@@ -75,6 +75,7 @@ public class GUI {
                 drawCharacterScreen();
                 drawInventory();
             }
+            case OPTIONS -> drawOptionsScreen();
         }
     }
 
@@ -126,7 +127,136 @@ public class GUI {
 
     //TODO: ADD later
     private void drawOptionsScreen() {
+        // SUB WINDOW
+        int frameX = TILE_SIZE*7;
+        int frameY = TILE_SIZE*3;
+        int frameWidth = TILE_SIZE*10;
+        int frameHeight = TILE_SIZE*12;
+        drawSubWindow(frameX, frameY, frameWidth,frameHeight);
 
+        switch(subState) {
+            case 0 -> options_top(frameX, frameY);
+            case 1 -> {}
+            case 2 -> System.out.println(subState);
+        }
+        scene.getKeyInputs().setEnterPressed(false);
+    }
+
+    private void options_top(int frameX, int frameY) {
+        int textX;
+        int textY;
+
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 40F));
+        // TITLE
+        String text = "Options";
+        textX = getHorizonCenteredText(text);
+        textY = frameY + TILE_SIZE;
+        graphics2D.drawString(text, textX,textY+10);
+
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 30F));
+        // FULL SCREEN ON/OFF
+        textX = frameX + TILE_SIZE;
+        textY += TILE_SIZE*2;
+        int i = 0;
+        drawState("Full Screen", textX, textY, i);
+        i++;
+
+        // MUSIC
+        textY += TILE_SIZE;
+        drawState("Music", textX, textY, i);
+        i++;
+
+        // MUTE MUSIC
+        textY += TILE_SIZE;
+        drawState("Mute Music", textX, textY, i);
+        i++;
+
+        // SE
+        textY += TILE_SIZE;
+        drawState("Sound Effect", textX, textY, i);
+        i++;
+
+        // MUTE MUSIC
+        textY += TILE_SIZE;
+        drawState("Mute Sound Effect", textX, textY, i);
+        i++;
+
+        // CONTROL
+        textY += TILE_SIZE;
+        drawState("Control", textX, textY, i);
+        i++;
+
+        // END GAME
+        textY += TILE_SIZE;
+        drawState("End Game", textX, textY, i);
+        i++;
+
+        // BACK
+        textY += TILE_SIZE*2;
+        drawState("Back", textX, textY, i);
+        i++;
+
+        // FULL SCREEN CHECK BOX
+        textX = frameX + (int) (TILE_SIZE*6.5);
+        textY = frameY + TILE_SIZE*2 +TILE_SIZE/2;
+        drawCheckBox(textX, textY);
+
+        // MUSIC VOLUME
+        textY += TILE_SIZE;
+        graphics2D.drawRect(textX, textY, 120, TILE_SIZE/2);    // 120/5 =24
+        int volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
+        graphics2D.fillRect(textX, textY, volumeWidth, TILE_SIZE/2);
+
+        // MUTE MUSIC CHECK BOX
+        textY = frameY + TILE_SIZE*4 + TILE_SIZE/2;
+        drawCheckBox(textX, textY);
+
+        // SE VOLUME
+        textY += TILE_SIZE;
+        graphics2D.drawRect(textX, textY, 120, TILE_SIZE/2);
+        volumeWidth = 24 * scene.getAudioManager().getVolumeScale();
+        graphics2D.fillRect(textX,textY,  volumeWidth, TILE_SIZE/2);
+
+        // MUTE SE VOLUME CHECK BOX
+        textY = frameY + TILE_SIZE*6 + TILE_SIZE/2;
+        drawCheckBox(textX, textY);
+    }
+
+    private void drawState(String state, int textX, int textY, int i) {
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 30F));
+        graphics2D.drawString(state, textX, textY);
+        if(commandNum == i) {
+            graphics2D.drawString(">", textX - 25, textY);
+            if(scene.getKeyInputs().isEnterPressed()) {
+                if(!scene.isFullScreen()) {
+                    scene.setFullScreen(true);
+                } else if(scene.isFullScreen()) {
+                    scene.setFullScreen(false);
+                } else if(!scene.isMusic()) {
+                    scene.setMusic(true);
+                }else if(scene.isMusic()) {
+                    scene.setMusic(false);
+                } else if(!scene.isSe()) {
+                    scene.setSe(true);
+                }else if(scene.isSe()) {
+                    scene.setSe(false);
+                }
+            }
+        }
+    }
+
+    private void drawCheckBox(int textX, int textY) {
+        graphics2D.setStroke(new BasicStroke(3));
+        graphics2D.drawRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        if(scene.isFullScreen()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        } else if(scene.isMusic()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        } else if(scene.isSe()) {
+            graphics2D.fillRect(textX, textY, TILE_SIZE/2, TILE_SIZE/2);
+        }
     }
 
     private void drawPlayerStatus() {
@@ -461,5 +591,13 @@ public class GUI {
 
     public int getSlotRow() {
         return slotRow;
+    }
+
+    public int getSubState() {
+        return subState;
+    }
+
+    public void setSubState(int subState) {
+        this.subState = subState;
     }
 }
