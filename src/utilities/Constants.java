@@ -79,6 +79,7 @@ public class Constants {
         public static final String CHEST = "Chest";
         public static final String BOOT = "Boot";
         public static final String HEART = "HEART";
+        public static final String POTION_RED = "Red Potion";
     }
 
     /**

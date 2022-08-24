@@ -5,6 +5,7 @@ import main.Scene;
 import monsters.GreenSlime;
 import objects.Axe;
 import objects.Key;
+import objects.Potion_Red;
 import objects.Shield_Blue;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -41,6 +42,16 @@ public class AssetSetter {
         scene.getGameObjects()[i] = new Shield_Blue(scene);
         scene.getGameObjects()[i].setWorldX(28 * TILE_SIZE);
         scene.getGameObjects()[i].setWorldY(20 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new Potion_Red(scene);
+        scene.getGameObjects()[i].setWorldX(22 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(30 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new Potion_Red(scene);
+        scene.getGameObjects()[i].setWorldX(22 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(40 * TILE_SIZE);
         i++;
     }
 
