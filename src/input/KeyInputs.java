@@ -121,6 +121,7 @@ public class KeyInputs implements KeyListener {
                     scene.getAudioManager().playEffect(CURSOR);
                 }
             }
+            case KeyEvent.VK_ENTER -> scene.getPlayer().selectItem();
         }
     }
 

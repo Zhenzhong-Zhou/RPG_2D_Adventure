@@ -3,7 +3,7 @@ package objects;
 import entities.Entity;
 import main.Scene;
 
-import static utilities.Constants.ObjectConstant.HEART;
+import static utilities.Constants.EntityConstant.HEART;
 import static utilities.LoadSave.*;
 
 public class Heart extends Entity {

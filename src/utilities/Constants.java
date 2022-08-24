@@ -50,33 +50,35 @@ public class Constants {
     }
 
     /**
-     * OBJECT SETTINGS
+     * ENTITY SETTINGS
      */
-    public static class ObjectConstant {
-        // Object Name
+    public static class EntityConstant {
+        // Entity Type
+        public static final int PLAYER = 0;
+        public static final int NPC = 1;
+        public static final int MONSTER = 2;
+        public static final int SWORD = 3;
+        public static final int AXE = 4;
+        public static final int SHIELD = 5;
+        public static final int CONSUMABLE = 6;
+
+        // Weapon Name
+        public static final String NORMAL_SWORD = "Normal Sword";
+        public static final String WOODCUTTER_AXE = "Woodcutter's Axe";
+
+        // Shield Name
+        public static final String WOOD_SHIELD = "Wood Shield";
+        public static final String BLUE_SHIELD = "Blue Shield";
+
+        // Monster Name
+        public static final String GREEN_SLIME = "Green Slime";
+
+        // CONSUMABLE Name
         public static final String KEY = "Key";
         public static final String DOOR = "Door";
         public static final String CHEST = "Chest";
         public static final String BOOT = "Boot";
         public static final String HEART = "HEART";
-    }
-
-    /**
-     * MONSTER SETTINGS
-     */
-    public static class MonsterConstant {
-        // Monster Name
-        public static final String GREEN_SLIME = "Green Slime";
-    }
-
-    /**
-     * EQUIPMENT SETTINGS
-     */
-    public static class EquipmentConstant {
-        // Equipment Name
-        public static final String NORMAL_SWORD = "NORMAL_SWORD";
-        public static final String WOOD_SHIELD = "WOOD_SHIELD";
-        public static final String BLUE_SHIELD = "BLUE_SHIELD";
     }
 
     /**

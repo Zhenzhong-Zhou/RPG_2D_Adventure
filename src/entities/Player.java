@@ -14,6 +14,7 @@ import static main.GameState.DIALOGUE;
 import static main.GameState.gameState;
 import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
+import static utilities.Constants.EntityConstant.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
@@ -44,9 +45,6 @@ public class Player extends Entity {
         hitbox = new Rectangle(8, 16, 32, 32);
         hitboxDefaultX = hitbox.x;
         hitboxDefaultY = hitbox.y;
-
-        attackBox.width = 36;
-        attackBox.height = 36;
     }
 
     private void setDefaultValues() {
@@ -74,6 +72,7 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
+        attackBox = currentWeapon.attackBox;
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -237,7 +236,16 @@ public class Player extends Entity {
 
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
-
+            String text;
+            if(inventory.size()!= 25) {
+                inventory.add(scene.getGameObjects()[objectIndex]);
+                scene.getAudioManager().playEffect(COIN);
+                text = "Pickup a " + scene.getGameObjects()[objectIndex].getObjectName() + "!";
+            }else {
+                text = "You bag is full!";
+            }
+            scene.getGui().addMessage(text);
+            scene.getGameObjects()[objectIndex] = null;
         }
     }
 
@@ -302,6 +310,25 @@ public class Player extends Entity {
             scene.getAudioManager().playEffect(LEVEL_UP);
             gameState = DIALOGUE;
             scene.getGui().setCurrentDialogue("You are level " + level + " now!\nYou feel stronger!");
+        }
+    }
+
+    public void selectItem() {
+        int itemIndex = scene.getGui().getItemIndexOnSlot();
+
+        if(itemIndex < inventory.size()) {
+            Entity selectedItem = inventory.get(itemIndex);
+            if(selectedItem.entityType == SWORD || selectedItem.entityType == AXE) {
+                currentWeapon = selectedItem;
+                attack = getAttack();
+            }
+            if(selectedItem.entityType == SHIELD) {
+                currentShield = selectedItem;
+                defense = getDefense();
+            }
+            if(selectedItem.entityType == CONSUMABLE) {
+                // TODO:Later
+            }
         }
     }
 

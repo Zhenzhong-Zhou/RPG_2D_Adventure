@@ -5,7 +5,8 @@ import main.Scene;
 
 import java.awt.*;
 
-import static utilities.Constants.MonsterConstant.GREEN_SLIME;
+import static utilities.Constants.EntityConstant.GREEN_SLIME;
+import static utilities.Constants.EntityConstant.MONSTER;
 import static utilities.LoadSave.*;
 
 public class GreenSlime extends Entity {
@@ -21,7 +22,7 @@ public class GreenSlime extends Entity {
     }
 
     private void setDefaultValues() {
-        entityType = 2;
+        entityType = MONSTER;
         objectName = GREEN_SLIME;
         speed = 1;
         maxLives = 4;

@@ -5,7 +5,7 @@ import main.Scene;
 
 import java.awt.*;
 
-import static utilities.Constants.ObjectConstant.DOOR;
+import static utilities.Constants.EntityConstant.DOOR;
 import static utilities.LoadSave.DOOR_IMAGE;
 import static utilities.LoadSave.GetSpriteAtlas;
 

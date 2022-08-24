@@ -601,6 +601,9 @@ public class GUI {
         int frameHeight = TILE_SIZE * 6;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
+        Player player = scene.getPlayer();
+        ArrayList<Entity> inventory = player.getInventory();
+
         // SLOT
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;
@@ -609,8 +612,14 @@ public class GUI {
         int slotSize = TILE_SIZE + 3;
 
         // DRAW PLAYER'S ITEMS
-        for(int i = 0; i < scene.getPlayer().getInventory().size(); i++) {
-            graphics2D.drawImage(scene.getPlayer().getInventory().get(i).getDown1(), slotX, slotY, null);
+        for(int i = 0; i < inventory.size(); i++) {
+            // EQUIP CURSOR
+            if(inventory.get(i) == player.getCurrentWeapon() || inventory.get(i) == player.getCurrentShield()) {
+                graphics2D.setColor(new Color(240,190,90));
+                graphics2D.fillRoundRect(slotX,slotY, TILE_SIZE, TILE_SIZE, 10, 10);
+            }
+
+            graphics2D.drawImage(inventory.get(i).getDown1(), slotX, slotY, null);
             slotX += slotSize;
             if(i == 4 || i == 9 || i == 14 || i == 19) {
                 slotX = slotXstart;
@@ -636,20 +645,20 @@ public class GUI {
         // DRAW DESCRIPTION TEXT
         int textX = dFrameX + 20;
         int textY = dFrameY + TILE_SIZE;
-        graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 23F));
+        graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 20F));
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         int itemIndex = getItemIndexOnSlot();
-        if(itemIndex < scene.getPlayer().getInventory().size()) {
+        if(itemIndex < inventory.size()) {
             drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-            for(String line : scene.getPlayer().getInventory().get(itemIndex).getDescription().split("\n")) {
+            for(String line : inventory.get(itemIndex).getDescription().split("\n")) {
                 graphics2D.drawString(line, textX, textY);
                 textY += 32;
             }
         }
     }
 
-    private int getItemIndexOnSlot() {
+    public int getItemIndexOnSlot() {
         return slotCol + (slotRow * 5);
     }
 

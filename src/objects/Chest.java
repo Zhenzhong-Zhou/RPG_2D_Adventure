@@ -3,7 +3,7 @@ package objects;
 import entities.Entity;
 import main.Scene;
 
-import static utilities.Constants.ObjectConstant.CHEST;
+import static utilities.Constants.EntityConstant.CHEST;
 import static utilities.LoadSave.CHEST_IMAGE;
 import static utilities.LoadSave.GetSpriteAtlas;
 

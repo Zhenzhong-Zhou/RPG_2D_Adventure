@@ -3,7 +3,7 @@ package objects;
 import entities.Entity;
 import main.Scene;
 
-import static utilities.Constants.ObjectConstant.KEY;
+import static utilities.Constants.EntityConstant.KEY;
 import static utilities.LoadSave.GetSpriteAtlas;
 import static utilities.LoadSave.KEY_IMAGE;
 

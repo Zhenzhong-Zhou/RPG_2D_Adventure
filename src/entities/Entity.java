@@ -8,6 +8,7 @@ import java.util.Random;
 
 import static utilities.Constants.AudioManager.RECEIVED_DAMAGE;
 import static utilities.Constants.DirectionConstant.*;
+import static utilities.Constants.EntityConstant.MONSTER;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
@@ -102,7 +103,7 @@ public abstract class Entity {
         scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
         boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
 
-        if(this.entityType == 2 && interactPlayer) {
+        if(this.entityType == MONSTER && interactPlayer) {
             if(! scene.getPlayer().invincible) {
                 // Player get damaged
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);

@@ -101,6 +101,7 @@ public class LoadSave {
 
     // EQUIPMENTS
     public static final String NORMAL_SWORD_IMAGE = "objects/sword_normal.png";
+    public static final String AXE_IMAGE = "objects/axe.png";
     public static final String SHIELD_WOOD_IMAGE = "objects/shield_wood.png";
     public static final String SHIELD_BLUE_IMAGE = "objects/shield_blue.png";
 
