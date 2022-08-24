@@ -216,7 +216,6 @@ public abstract class Entity {
         if(deadCounter > i * 7 && deadCounter <= i * 8) changeAlpha(graphics2D, 1f);
 
         if(deadCounter > i * 8) {
-            dead = false;
             alive = false;
         }
     }

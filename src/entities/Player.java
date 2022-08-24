@@ -268,7 +268,7 @@ public class Player extends Entity {
 
     private void interactMonster(int monsterIndex) {
         if(monsterIndex != 999) {
-            if(! invincible) {
+            if(! invincible && !scene.getMonsters()[monsterIndex].isDead()) {
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
                 int damage = scene.getMonsters()[monsterIndex].attack - scene.getPlayer().defense;
                 if(damage < 0) {
