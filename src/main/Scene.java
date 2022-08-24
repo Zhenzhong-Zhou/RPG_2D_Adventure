@@ -3,6 +3,7 @@ package main;
 import audio.AudioManager;
 import entities.Entity;
 import entities.Player;
+import entities.Projectile;
 import events.EventManager;
 import gui.GUI;
 import gui.Options;
@@ -27,8 +28,9 @@ public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
     private final Entity[] gameObjects = new Entity[10];
     private final Entity[] NPCs = new Entity[10];
-    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private final Entity[] monsters = new Entity[20];
+    private ArrayList<Projectile> projectileArrayList = new ArrayList<>();
+    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -115,6 +117,19 @@ public class Scene extends JPanel implements Runnable {
                         }
                     }
                 }
+
+                // PROJECTILE
+                for(int i = 0; i < projectileArrayList.size(); i++) {
+                    Projectile projectile = projectileArrayList.get(i);
+                    if(projectile != null) {
+                        if(projectile.isAlive()) {
+                            projectile.update();
+                        }
+                        if(!projectile.isAlive()) {
+                            projectileArrayList.remove(projectile);
+                        }
+                    }
+                }
             }
             case PAUSE -> {
             }
@@ -147,6 +162,12 @@ public class Scene extends JPanel implements Runnable {
             for(Entity monster : monsters) {
                 if(monster != null) {
                     entityArrayList.add(monster);
+                }
+            }
+
+            for(Projectile projectile : projectileArrayList) {
+                if(projectile != null) {
+                    entityArrayList.add(projectile);
                 }
             }
 
@@ -308,6 +329,10 @@ public class Scene extends JPanel implements Runnable {
 
     public Entity[] getMonsters() {
         return monsters;
+    }
+
+    public ArrayList<Projectile> getProjectileArrayList() {
+        return projectileArrayList;
     }
 
     public boolean isFullScreen() {

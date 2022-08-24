@@ -31,7 +31,7 @@ public class AudioManager {
     }
 
     public void loadEffects() {
-        String[] effectNames = {"coin", "powerup", "unlock", "fanfare", "hitmonster", "receivedamage", "swingweapon", "levelup", "cursor"};
+        String[] effectNames = {"coin", "powerup", "unlock", "fanfare", "hitmonster", "receivedamage", "swingweapon", "levelup", "cursor", "burning"};
         effects = new Clip[effectNames.length];
         for(int i = 0; i < effects.length; i++) {
             effects[i] = GetClip(effectNames[i]);

@@ -30,6 +30,7 @@ public abstract class Entity {
     protected int dialogueIndex = 0;
     protected String objectName;
     protected int maxLives, life;
+    protected int maxMana, mana;
     protected boolean invincible;
     protected int invincibleCounter = 0;
     protected int entityType;
@@ -50,9 +51,11 @@ public abstract class Entity {
     protected int coin;
     protected Entity currentWeapon;
     protected Entity currentShield;
+    protected Projectile projectile;
     protected int attackValue;
     protected int defenseValue;
     protected String description = "";
+    protected int useCost;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -397,6 +400,22 @@ public abstract class Entity {
 
     public void gainLife(int value) {
         this.life += value;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 
     public boolean isAlive() {

@@ -59,6 +59,16 @@ public class LoadSave {
     public static final String OLD_MAN_RIGHT_1_IMAGE = "npc/oldman_right_1.png";
     public static final String OLD_MAN_RIGHT_2_IMAGE = "npc/oldman_right_2.png";
 
+    // PROJECTILE
+    public static final String FIREBALL_UP_1_IMAGE = "projectile/fireball_up_1.png";
+    public static final String FIREBALL_UP_2_IMAGE = "projectile/fireball_up_2.png";
+    public static final String FIREBALL_LEFT_1_IMAGE = "projectile/fireball_left_1.png";
+    public static final String FIREBALL_LEFT_2_IMAGE = "projectile/fireball_left_2.png";
+    public static final String FIREBALL_DOWN_1_IMAGE = "projectile/fireball_down_1.png";
+    public static final String FIREBALL_DOWN_2_IMAGE = "projectile/fireball_down_2.png";
+    public static final String FIREBALL_RIGHT_1_IMAGE = "projectile/fireball_right_1.png";
+    public static final String FIREBALL_RIGHT_2_IMAGE = "projectile/fireball_right_2.png";
+
     // MONSTER: Green Slime
     public static final String GREEN_SLIME_DOWN_1_IMAGE = "monster/greenslime_down_1.png";
     public static final String GREEN_SLIME_DOWN_2_IMAGE = "monster/greenslime_down_2.png";

@@ -1,0 +1,47 @@
+package entities;
+
+import main.Scene;
+
+import static utilities.Constants.DirectionConstant.*;
+import static utilities.Constants.DirectionConstant.RIGHT;
+
+public class Projectile extends Entity{
+    private Entity user;
+
+    public Projectile(Scene scene) {
+        super(scene);
+    }
+
+    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {
+        this.worldX = worldX;
+        this.worldY = worldY;
+        this.direction = direction;
+        this.alive = alive;
+        this.user = user;
+        this.life = this.maxLives;
+    }
+
+    public void update() {
+        switch(direction) {
+            case UP -> worldY -= speed;
+            case LEFT -> worldX -= speed;
+            case DOWN -> worldY += speed;
+            case RIGHT -> worldX += speed;
+        }
+
+        life--;
+        if(life<=0) {
+            alive = false;
+        }
+
+        spriteCounter++;
+        if(spriteCounter > 12) {
+            if(spriteNum == 1) {
+                spriteNum =2;
+            } else if(spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
+    }
+}

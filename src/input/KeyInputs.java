@@ -11,7 +11,7 @@ import static utilities.Constants.AudioManager.START;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
-    private boolean upPressed, leftPressed, downPressed, rightPressed, enterPressed;
+    private boolean upPressed, leftPressed, downPressed, rightPressed, enterPressed, shotPressed;
     private boolean displayDebugInfo;
 
     public KeyInputs(Scene scene) {
@@ -73,6 +73,7 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = true;
             case KeyEvent.VK_S -> downPressed = true;
             case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_F -> shotPressed = true;
             case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
             case KeyEvent.VK_R -> System.out.println("Refresh map!");
             case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
@@ -190,6 +191,7 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = false;
             case KeyEvent.VK_S -> downPressed = false;
             case KeyEvent.VK_D -> rightPressed = false;
+            case KeyEvent.VK_F -> shotPressed = false;
         }
     }
 
@@ -239,5 +241,13 @@ public class KeyInputs implements KeyListener {
 
     public void setEnterPressed(boolean enterPressed) {
         this.enterPressed = enterPressed;
+    }
+
+    public boolean isShotPressed() {
+        return shotPressed;
+    }
+
+    public void setShotPressed(boolean shotPressed) {
+        this.shotPressed = shotPressed;
     }
 }

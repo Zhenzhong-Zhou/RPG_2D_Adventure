@@ -73,13 +73,16 @@ public class Constants {
         // Monster Name
         public static final String GREEN_SLIME = "Green Slime";
 
-        // CONSUMABLE Name
+        // Consumable Name
         public static final String KEY = "Key";
         public static final String DOOR = "Door";
         public static final String CHEST = "Chest";
         public static final String BOOT = "Boot";
         public static final String HEART = "HEART";
         public static final String POTION_RED = "Red Potion";
+
+        // Projectile Name
+        public static final String FIREBALL = "Fireball";
     }
 
     /**
@@ -100,6 +103,7 @@ public class Constants {
         public static final int SWING_WEAPON = 6;
         public static final int LEVEL_UP = 7;
         public static final int CURSOR = 8;
+        public static final int BURNING = 9;
 
         // OPTIONS CONTROL
         public static final String MUTE_ON = "-1";

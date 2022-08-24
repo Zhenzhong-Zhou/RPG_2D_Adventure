@@ -2,6 +2,7 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
+import objects.Fireball;
 import objects.Key;
 import objects.Shield_Wood;
 import objects.Sword_Normal;
@@ -67,6 +68,7 @@ public class Player extends Entity {
         coin = 0;
         currentWeapon = new Sword_Normal(scene);
         currentShield = new Shield_Wood(scene);
+        projectile = new Fireball(scene);
         attack = getAttack();   // The total attack value is decided by strength and weapon.
         defense = getDefense(); // The total defense value is decided by dexterity and shield.
     }
@@ -181,6 +183,16 @@ public class Player extends Entity {
                 spriteNum = 1;
                 standCounter = 0;
             }
+        }
+
+        if(keyInputs.isShotPressed() && ! projectile.alive) {
+            // SET DEFAULT COORDINATES, DIRECTION AND USER
+            projectile.set(worldX, worldY, direction, true, this);
+
+            // ADD IT TO THE LIST
+            scene.getProjectileArrayList().add(projectile);
+
+            scene.getAudioManager().playEffect(BURNING);
         }
 
         // This needs to be outside of key if statement!
