@@ -151,7 +151,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX/Y and hitbox
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
 
             // After checking collision, restore the original data
             worldX = currentWorldX;
@@ -185,18 +185,24 @@ public class Player extends Entity {
             }
         }
 
-        if(keyInputs.isShotPressed() && ! projectile.alive) {
+        if(keyInputs.isShotPressed() && ! projectile.alive && shotAvailableCounter == 30) {
             // SET DEFAULT COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
 
             // ADD IT TO THE LIST
             scene.getProjectileArrayList().add(projectile);
 
+            shotAvailableCounter = 0;
+
             scene.getAudioManager().playEffect(BURNING);
         }
 
         // This needs to be outside of key if statement!
         invincibleCounter();
+
+        if(shotAvailableCounter < 30) {
+            shotAvailableCounter++ ;
+        }
     }
 
     public void playerCanMove() {
@@ -293,7 +299,7 @@ public class Player extends Entity {
         }
     }
 
-    private void damageMonster(int monsterIndex) {
+    public void damageMonster(int monsterIndex, int attack) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[monsterIndex];
             if(! monster.invincible) {

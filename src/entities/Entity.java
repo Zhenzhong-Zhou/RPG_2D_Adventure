@@ -56,6 +56,7 @@ public abstract class Entity {
     protected int defenseValue;
     protected String description = "";
     protected int useCost;
+    protected int shotAvailableCounter;
 
     public Entity(Scene scene) {
         this.scene = scene;

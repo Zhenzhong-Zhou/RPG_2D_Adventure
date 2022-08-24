@@ -22,6 +22,17 @@ public class Projectile extends Entity{
     }
 
     public void update() {
+        if(user == scene.getPlayer()) {
+            int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
+            if(monsterIndex != 999) {
+                scene.getPlayer().damageMonster(monsterIndex, attack);
+                alive = false;
+            }
+        }
+
+        if(user!= scene.getPlayer()) {
+
+        }
         switch(direction) {
             case UP -> worldY -= speed;
             case LEFT -> worldX -= speed;
