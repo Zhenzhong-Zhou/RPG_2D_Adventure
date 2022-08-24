@@ -101,6 +101,7 @@ public class EventManager {
         scene.getGui().setCurrentDialogue("You fall into a pit!");
         scene.getPlayer().lostLife();
         canTouchEvent = false;
+        scene.getAssetSetter().setMonsters();
     }
 
     private void healingPool(int col, int row, GameState gameState) {
