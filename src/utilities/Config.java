@@ -4,6 +4,8 @@ import main.Scene;
 
 import java.io.*;
 
+import static utilities.LoadSave.dataFile;
+
 public class Config {
     private final Scene scene;
 
@@ -13,17 +15,7 @@ public class Config {
 
     public void saveConfig() {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("config.txt"));
-
-            // Full Screen
-//            if(scene.isFullScreen()) {
-//                bufferedWriter.write("On");
-//            }
-//            if(!scene.isFullScreen()) {
-//                bufferedWriter.write("Off");
-//            }
-//            bufferedWriter.newLine();
-
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(dataFile));
             // Mute Music
             if(scene.isMusic()) {
                 bufferedWriter.write("-1");
@@ -58,7 +50,7 @@ public class Config {
 
     public void loadConfig() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(dataFile));
             String s = bufferedReader.readLine();
 
             // Full Screen
@@ -71,21 +63,21 @@ public class Config {
 
             // Mute Music
             if(s.equals("-1")) {
-                scene.setMusic(true);
+                scene.setMusic(false);
                 scene.getAudioManager().toggleMusicMute();
             }
             if(s.equals("0")) {
-                scene.setMusic(false);
+                scene.setMusic(true);
                 scene.getAudioManager().toggleMusicMute();
             }
 
             // Mute SE
             if(s.equals("-1")) {
-                scene.setSe(true);
+                scene.setSe(false);
                 scene.getAudioManager().toggleEffectMute();
             }
             if(s.equals("0")) {
-                scene.setSe(false);
+                scene.setSe(true);
                 scene.getAudioManager().toggleEffectMute();
             }
 

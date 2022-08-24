@@ -114,9 +114,9 @@ public class LoadSave {
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
     public static String saveFolder = "Blue Boy Adventure";
-    public static String configFile = "";
+    public static String configFile = "config.txt";
     public static String filePath = homePath + File.separator + saveFolder + File.separator + configFile;
-    private static final File dataFile = new File(filePath);
+    public static final File dataFile = new File(filePath);
 
     public static void CreatedFolder() {
         File folder = new File(homePath + File.separator + saveFolder);
@@ -207,6 +207,32 @@ public class LoadSave {
             e.printStackTrace();
         }
         return file;
+    }
+
+    public static void CreateConfigFile(int[] array){
+        if(dataFile.exists()) {
+            System.out.println("File: " + dataFile + " is already exists.");
+        } else {
+            try {
+                dataFile.createNewFile();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            WriteToConfigFile(array);
+        }
+    }
+
+    private static void WriteToConfigFile(int[] id_Array) {
+        try {
+            PrintWriter printWriter = new PrintWriter(dataFile);
+            for(Integer id : id_Array) {
+                printWriter.println(id);
+            }
+
+            printWriter.close();
+        } catch(FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
     }
 
     public static void CreateLevel(String filename, int[][] idArray) {

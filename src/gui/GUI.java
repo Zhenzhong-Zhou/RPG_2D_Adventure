@@ -8,6 +8,7 @@ import objects.Heart;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static main.GameState.*;
 import static utilities.Constants.SceneConstant.*;
@@ -32,6 +33,7 @@ public class GUI {
 
         initFont();
         getPlayerLifeImage();
+        createDefaultLevel();
     }
 
     private void initFont() {
@@ -272,6 +274,12 @@ public class GUI {
         }
 
         scene.getConfig().saveConfig();
+    }
+
+    private void createDefaultLevel() {
+        int[] array = new int[4];
+        Arrays.fill(array, 3);
+        CreateConfigFile(array);
     }
 
     private void drawState(String state, int textX, int textY, int i) {
