@@ -60,7 +60,6 @@ public class KeyInputs implements KeyListener {
                     // TODO: if crash remove this part
                     case 2 -> {
                         gameState = SETTINGS;
-                        scene.getOptions();
                     }
                     case 3 -> System.exit(0);
                 }

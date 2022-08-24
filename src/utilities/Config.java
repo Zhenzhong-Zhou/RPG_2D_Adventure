@@ -91,6 +91,10 @@ public class Config {
             s = bufferedReader.readLine();
             scene.getAudioManager().volumeSEScale = Integer.parseInt(s);
 
+            // TODO: need to one more line to display volume bar, and load options one second delay
+            s = bufferedReader.readLine();
+            scene.getAudioManager().volumeBGMScale = Integer.parseInt(s);
+
             bufferedReader.close();
         }  catch(Exception e) {
             throw new RuntimeException(e);
