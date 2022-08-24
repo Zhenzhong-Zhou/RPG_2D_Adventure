@@ -91,7 +91,8 @@ public class Config {
             s = bufferedReader.readLine();
             scene.getAudioManager().volumeSEScale = Integer.parseInt(s);
 
-            // TODO: need to one more line to display volume bar, and load options one second delay
+            // TODO: need to one more line to display volume bar, and load options one-second delay
+            // TODO: toggle cannot be fixed when load game
             s = bufferedReader.readLine();
             scene.getAudioManager().volumeBGMScale = Integer.parseInt(s);
 
