@@ -92,14 +92,21 @@ public class Player extends Entity {
     }
 
     private void getPlayerAttackImage() {
-        attackUp1 = GetAttackImage(ATTACK_UP_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        attackUp2 = GetAttackImage(ATTACK_UP_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        attackLeft1 = GetAttackImage(ATTACK_LEFT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        attackLeft2 = GetAttackImage(ATTACK_LEFT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        attackDown1 = GetAttackImage(ATTACK_DOWN_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        attackDown2 = GetAttackImage(ATTACK_DOWN_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        attackRight1 = GetAttackImage(ATTACK_RIGHT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        attackRight2 = GetAttackImage(ATTACK_RIGHT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackImages(SWORD, ATTACK_UP_1_IMAGE, ATTACK_UP_2_IMAGE, ATTACK_LEFT_1_IMAGE, ATTACK_LEFT_2_IMAGE, ATTACK_DOWN_1_IMAGE, ATTACK_DOWN_2_IMAGE, ATTACK_RIGHT_1_IMAGE, ATTACK_RIGHT_2_IMAGE);
+        attackImages(AXE, AXE_UP_1_IMAGE, AXE_UP_2_IMAGE, AXE_LEFT_1_IMAGE, AXE_LEFT_2_IMAGE, AXE_DOWN_1_IMAGE, AXE_DOWN_2_IMAGE, AXE_RIGHT_1_IMAGE, AXE_RIGHT_2_IMAGE);
+    }
+
+    private void attackImages(int sword, String attackUp1Image, String attackUp2Image, String attackLeft1Image, String attackLeft2Image, String attackDown1Image, String attackDown2Image, String attackRight1Image, String attackRight2Image) {
+        if(currentWeapon.entityType == sword) {
+            attackUp1 = GetAttackImage(attackUp1Image, TILE_SIZE, TILE_SIZE * 2);
+            attackUp2 = GetAttackImage(attackUp2Image, TILE_SIZE, TILE_SIZE * 2);
+            attackLeft1 = GetAttackImage(attackLeft1Image, TILE_SIZE * 2, TILE_SIZE);
+            attackLeft2 = GetAttackImage(attackLeft2Image, TILE_SIZE * 2, TILE_SIZE);
+            attackDown1 = GetAttackImage(attackDown1Image, TILE_SIZE, TILE_SIZE * 2);
+            attackDown2 = GetAttackImage(attackDown2Image, TILE_SIZE, TILE_SIZE * 2);
+            attackRight1 = GetAttackImage(attackRight1Image, TILE_SIZE * 2, TILE_SIZE);
+            attackRight2 = GetAttackImage(attackRight2Image, TILE_SIZE * 2, TILE_SIZE);
+        }
     }
 
     private void setItems() {
@@ -321,6 +328,7 @@ public class Player extends Entity {
             if(selectedItem.entityType == SWORD || selectedItem.entityType == AXE) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
+                getPlayerAttackImage();
             }
             if(selectedItem.entityType == SHIELD) {
                 currentShield = selectedItem;
