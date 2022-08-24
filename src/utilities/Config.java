@@ -4,6 +4,8 @@ import main.Scene;
 
 import java.io.*;
 
+import static utilities.Constants.AudioManager.MUTE_OFF;
+import static utilities.Constants.AudioManager.MUTE_ON;
 import static utilities.LoadSave.dataFile;
 
 public class Config {
@@ -17,20 +19,20 @@ public class Config {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(dataFile));
             // Mute Music
-            if(scene.isMusic()) {
-                bufferedWriter.write("-1");
+            if(scene.isMusicMute()) {
+                bufferedWriter.write(MUTE_ON);
             }
-            if(!scene.isMusic()) {
-                bufferedWriter.write("0");
+            if(!scene.isMusicMute()) {
+                bufferedWriter.write(MUTE_OFF);
             }
             bufferedWriter.newLine();
 
             // Mute SE
-            if(scene.isSe()) {
-                bufferedWriter.write("-1");
+            if(scene.isSeMute()) {
+                bufferedWriter.write(MUTE_ON);
             }
-            if(!scene.isSe()) {
-                bufferedWriter.write("0");
+            if(!scene.isSeMute()) {
+                bufferedWriter.write(MUTE_OFF);
             }
             bufferedWriter.newLine();
 
@@ -62,22 +64,22 @@ public class Config {
 //            }
 
             // Mute Music
-            if(s.equals("-1")) {
-                scene.setMusic(false);
+            if(s.equals(MUTE_ON)) {
+                scene.setMusicMute(true);
                 scene.getAudioManager().toggleMusicMute();
             }
-            if(s.equals("0")) {
-                scene.setMusic(true);
+            if(s.equals(MUTE_OFF)) {
+                scene.setMusicMute(false);
                 scene.getAudioManager().toggleMusicMute();
             }
 
             // Mute SE
-            if(s.equals("-1")) {
-                scene.setSe(false);
+            if(s.equals(MUTE_ON)) {
+                scene.setSeMute(true);
                 scene.getAudioManager().toggleEffectMute();
             }
-            if(s.equals("0")) {
-                scene.setSe(true);
+            if(s.equals(MUTE_OFF)) {
+                scene.setSeMute(false);
                 scene.getAudioManager().toggleEffectMute();
             }
 

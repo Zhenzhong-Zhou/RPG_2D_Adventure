@@ -38,7 +38,7 @@ public class Scene extends JPanel implements Runnable {
     private GUI gui;
     private Options options;
     private AssetSetter assetSetter;
-    private boolean fullScreen, music, se;
+    private boolean fullScreen, musicMute, seMute;
     private Config config;
 
     public Scene() {
@@ -318,19 +318,19 @@ public class Scene extends JPanel implements Runnable {
         this.fullScreen = fullScreen;
     }
 
-    public boolean isMusic() {
-        return music;
+    public boolean isMusicMute() {
+        return musicMute;
     }
 
-    public void setMusic(boolean music) {
-        this.music = music;
+    public void setMusicMute(boolean musicMute) {
+        this.musicMute = musicMute;
     }
 
-    public boolean isSe() {
-        return se;
+    public boolean isSeMute() {
+        return seMute;
     }
 
-    public void setSe(boolean se) {
-        this.se = se;
+    public void setSeMute(boolean seMute) {
+        this.seMute = seMute;
     }
 }

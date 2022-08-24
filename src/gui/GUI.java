@@ -184,11 +184,11 @@ public class GUI {
         drawState("Mute Music", textX, textY, i);
         i++;
         if(commandNum == 2 && scene.getKeyInputs().isEnterPressed()) {
-            if(! scene.isMusic()) {
-                scene.setMusic(true);
+            if(! scene.isMusicMute()) {
+                scene.setMusicMute(true);
                 scene.getAudioManager().toggleMusicMute();
-            } else if(scene.isMusic()) {
-                scene.setMusic(false);
+            } else if(scene.isMusicMute()) {
+                scene.setMusicMute(false);
                 scene.getAudioManager().toggleMusicMute();
             }
         }
@@ -203,11 +203,11 @@ public class GUI {
         drawState("Mute Sound Effect", textX, textY, i);
         i++;
         if(commandNum == 4 && scene.getKeyInputs().isEnterPressed()) {
-            if(! scene.isSe()) {
-                scene.setSe(true);
+            if(! scene.isSeMute()) {
+                scene.setSeMute(true);
                 scene.getAudioManager().toggleEffectMute();
-            } else if(scene.isSe()) {
-                scene.setSe(false);
+            } else if(scene.isSeMute()) {
+                scene.setSeMute(false);
                 scene.getAudioManager().toggleEffectMute();
             }
         }
@@ -256,7 +256,7 @@ public class GUI {
         // MUTE MUSIC CHECK BOX
         textY = frameY + TILE_SIZE * 4 + TILE_SIZE / 2;
         drawCheckBox(textX, textY);
-        if(scene.isMusic()) {
+        if(scene.isMusicMute()) {
             graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
 
@@ -269,7 +269,7 @@ public class GUI {
         // MUTE SE VOLUME CHECK BOX
         textY = frameY + TILE_SIZE * 6 + TILE_SIZE / 2;
         drawCheckBox(textX, textY);
-        if(scene.isSe()) {
+        if(scene.isSeMute()) {
             graphics2D.fillRect(textX, textY, TILE_SIZE / 2, TILE_SIZE / 2);
         }
 
