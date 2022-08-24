@@ -9,12 +9,12 @@ import static utilities.Constants.AudioManager.MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
+    public int volumeBGMScale = 3;
+    public int volumeSEScale = 3;
     private float volume;
     private Clip[] musics, effects;
     private int currentMusicId;
     private boolean musicMute, effectMute;
-    public int volumeBGMScale = 3;
-    public int volumeSEScale = 3;
 
     public AudioManager() {
         loadMusics();

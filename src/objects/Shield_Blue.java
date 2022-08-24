@@ -3,8 +3,10 @@ package objects;
 import entities.Entity;
 import main.Scene;
 
-import static utilities.Constants.EntityConstant.*;
-import static utilities.LoadSave.*;
+import static utilities.Constants.EntityConstant.BLUE_SHIELD;
+import static utilities.Constants.EntityConstant.SHIELD;
+import static utilities.LoadSave.GetSpriteAtlas;
+import static utilities.LoadSave.SHIELD_BLUE_IMAGE;
 
 public class Shield_Blue extends Entity {
     public Shield_Blue(Scene scene) {

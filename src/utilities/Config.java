@@ -22,7 +22,7 @@ public class Config {
             if(scene.isMusicMute()) {
                 bufferedWriter.write(MUTE_ON);
             }
-            if(!scene.isMusicMute()) {
+            if(! scene.isMusicMute()) {
                 bufferedWriter.write(MUTE_OFF);
             }
             bufferedWriter.newLine();
@@ -31,7 +31,7 @@ public class Config {
             if(scene.isSeMute()) {
                 bufferedWriter.write(MUTE_ON);
             }
-            if(!scene.isSeMute()) {
+            if(! scene.isSeMute()) {
                 bufferedWriter.write(MUTE_OFF);
             }
             bufferedWriter.newLine();
@@ -96,7 +96,7 @@ public class Config {
             scene.getAudioManager().volumeBGMScale = Integer.parseInt(s);
 
             bufferedReader.close();
-        }  catch(Exception e) {
+        } catch(Exception e) {
             throw new RuntimeException(e);
         }
     }

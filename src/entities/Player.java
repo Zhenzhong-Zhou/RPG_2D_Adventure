@@ -244,11 +244,11 @@ public class Player extends Entity {
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
             String text;
-            if(inventory.size()!= 25) {
+            if(inventory.size() != 25) {
                 inventory.add(scene.getGameObjects()[objectIndex]);
                 scene.getAudioManager().playEffect(COIN);
                 text = "Pickup a " + scene.getGameObjects()[objectIndex].getObjectName() + "!";
-            }else {
+            } else {
                 text = "You bag is full!";
             }
             scene.getGui().addMessage(text);

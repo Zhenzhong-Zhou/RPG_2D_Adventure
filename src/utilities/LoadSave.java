@@ -223,7 +223,7 @@ public class LoadSave {
         return file;
     }
 
-    public static void CreateConfigFile(int[] array){
+    public static void CreateConfigFile(int[] array) {
         if(dataFile.exists()) {
             System.out.println("File: " + dataFile + " is already exists.");
         } else {

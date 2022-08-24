@@ -615,8 +615,8 @@ public class GUI {
         for(int i = 0; i < inventory.size(); i++) {
             // EQUIP CURSOR
             if(inventory.get(i) == player.getCurrentWeapon() || inventory.get(i) == player.getCurrentShield()) {
-                graphics2D.setColor(new Color(240,190,90));
-                graphics2D.fillRoundRect(slotX,slotY, TILE_SIZE, TILE_SIZE, 10, 10);
+                graphics2D.setColor(new Color(240, 190, 90));
+                graphics2D.fillRoundRect(slotX, slotY, TILE_SIZE, TILE_SIZE, 10, 10);
             }
 
             graphics2D.drawImage(inventory.get(i).getDown1(), slotX, slotY, null);

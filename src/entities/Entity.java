@@ -92,7 +92,8 @@ public abstract class Entity {
         }
     }
 
-    public void use(Entity entity) {}
+    public void use(Entity entity) {
+    }
 
     public void update() {
         setAction();
@@ -396,7 +397,7 @@ public abstract class Entity {
     }
 
     public void gainLife(int value) {
-        this.life+=value;
+        this.life += value;
     }
 
     public boolean isAlive() {
