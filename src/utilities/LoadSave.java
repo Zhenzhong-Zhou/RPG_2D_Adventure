@@ -24,15 +24,25 @@ public class LoadSave {
     public static final String RIGHT_1_IMAGE = "player/walk/boy_right_1.png";
     public static final String RIGHT_2_IMAGE = "player/walk/boy_right_2.png";
 
-    // PLAYER ATTACK
-    public static final String ATTACK_UP_1_IMAGE = "player/attack/boy_attack_up_1.png";
-    public static final String ATTACK_UP_2_IMAGE = "player/attack/boy_attack_up_2.png";
-    public static final String ATTACK_LEFT_1_IMAGE = "player/attack/boy_attack_left_1.png";
-    public static final String ATTACK_LEFT_2_IMAGE = "player/attack/boy_attack_left_2.png";
-    public static final String ATTACK_DOWN_1_IMAGE = "player/attack/boy_attack_down_1.png";
-    public static final String ATTACK_DOWN_2_IMAGE = "player/attack/boy_attack_down_2.png";
-    public static final String ATTACK_RIGHT_1_IMAGE = "player/attack/boy_attack_right_1.png";
-    public static final String ATTACK_RIGHT_2_IMAGE = "player/attack/boy_attack_right_2.png";
+    // PLAYER ATTACK: Sword
+    public static final String ATTACK_UP_1_IMAGE = "player/attack/sword/boy_attack_up_1.png";
+    public static final String ATTACK_UP_2_IMAGE = "player/attack/sword/boy_attack_up_2.png";
+    public static final String ATTACK_LEFT_1_IMAGE = "player/attack/sword/boy_attack_left_1.png";
+    public static final String ATTACK_LEFT_2_IMAGE = "player/attack/sword/boy_attack_left_2.png";
+    public static final String ATTACK_DOWN_1_IMAGE = "player/attack/sword/boy_attack_down_1.png";
+    public static final String ATTACK_DOWN_2_IMAGE = "player/attack/sword/boy_attack_down_2.png";
+    public static final String ATTACK_RIGHT_1_IMAGE = "player/attack/sword/boy_attack_right_1.png";
+    public static final String ATTACK_RIGHT_2_IMAGE = "player/attack/sword/boy_attack_right_2.png";
+
+    // PLAYER ATTACK: Axe
+    public static final String AXE_UP_1_IMAGE = "player/attack/axe/boy_axe_up_1.png";
+    public static final String AXE_UP_2_IMAGE = "player/attack/axe/boy_axe_up_2.png";
+    public static final String AXE_LEFT_1_IMAGE = "player/attack/axe/boy_axe_left_1.png";
+    public static final String AXE_LEFT_2_IMAGE = "player/attack/axe/boy_axe_left_2.png";
+    public static final String AXE_DOWN_1_IMAGE = "player/attack/axe/boy_axe_down_1.png";
+    public static final String AXE_DOWN_2_IMAGE = "player/attack/axe/boy_axe_down_2.png";
+    public static final String AXE_RIGHT_1_IMAGE = "player/attack/axe/boy_axe_right_1.png";
+    public static final String AXE_RIGHT_2_IMAGE = "player/attack/axe/boy_axe_right_2.png";
 
     // PLAYER LIFE
     public static final String HEART_FULL = "objects/heart_full.png";
