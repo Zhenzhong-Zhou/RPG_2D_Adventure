@@ -4,6 +4,8 @@ import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
 import objects.*;
+import tile_interactive.DryTree;
+import tile_interactive.InteractiveTile;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 
@@ -73,6 +75,12 @@ public class AssetSetter {
             scene.getMonsters()[j] = new GreenSlime(scene);
             scene.getMonsters()[j].setWorldX((19 + j) * TILE_SIZE);
             scene.getMonsters()[j].setWorldY((35 + j) * TILE_SIZE);
+        }
+    }
+
+    public void setInteractiveTile() {
+        for(int i=0; i<7;i++) {
+            scene.getInteractiveTiles()[i] = new DryTree(scene, (27+i), 11);
         }
     }
 }

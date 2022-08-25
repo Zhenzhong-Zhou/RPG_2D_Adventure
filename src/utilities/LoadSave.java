@@ -120,6 +120,10 @@ public class LoadSave {
     public static final String WALL_IMAGE = "tile/wall.png";
     public static final String TREE_IMAGE = "tile/tree.png";
 
+    // INTERACTIVE TILE: Tree
+    public static final String DRY_TREE_IMAGE = "tiles_interactive/drytree.png";
+    public static final String TRUNK_IMAGE = "tiles_interactive/trunk.png";
+
     // OBJECTS
     public static final String KEY_IMAGE = "objects/key.png";
     public static final String DOOR_IMAGE = "objects/door.png";

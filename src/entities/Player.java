@@ -156,6 +156,10 @@ public class Player extends Entity {
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
             damageMonster(monsterIndex, attack);
 
+            // CHECK INTERACTIVE TILE COLLISION
+            int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
+            damageInteractiveTile(interactiveTileIndex);
+
             // After checking collision, restore the original data
             worldX = currentWorldX;
             worldY = currentWorldY;
@@ -341,6 +345,12 @@ public class Player extends Entity {
                     checkLevelUp();
                 }
             }
+        }
+    }
+
+    private void damageInteractiveTile(int interactiveTileIndex) {
+        if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible) {
+            scene.getInteractiveTiles()[interactiveTileIndex] = null;
         }
     }
 

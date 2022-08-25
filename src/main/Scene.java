@@ -9,6 +9,7 @@ import gui.GUI;
 import gui.Options;
 import input.KeyInputs;
 import levels.LevelManager;
+import tile_interactive.InteractiveTile;
 import utilities.AssetSetter;
 import utilities.CollisionDetection;
 import utilities.Config;
@@ -29,6 +30,7 @@ public class Scene extends JPanel implements Runnable {
     private final Entity[] gameObjects = new Entity[50];
     private final Entity[] NPCs = new Entity[10];
     private final Entity[] monsters = new Entity[30];
+    private InteractiveTile[] interactiveTiles = new InteractiveTile[100];
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private final ArrayList<Projectile> projectileArrayList = new ArrayList<>();
     private Thread thread;
@@ -90,6 +92,7 @@ public class Scene extends JPanel implements Runnable {
         assetSetter.setObjects();
         assetSetter.setNPCs();
         assetSetter.setMonsters();
+        assetSetter.setInteractiveTile();
     }
 
     public void update() {
@@ -131,6 +134,13 @@ public class Scene extends JPanel implements Runnable {
                         }
                     }
                 }
+
+                // INTERACTIVE TILE
+                for(Entity interactiveTile : interactiveTiles) {
+                    if(interactiveTile != null) {
+                        interactiveTile.update();
+                    }
+                }
             }
             case PAUSE -> {
             }
@@ -145,6 +155,13 @@ public class Scene extends JPanel implements Runnable {
         } else {
             // MAP
             levelManager.draw(graphics2D, player);
+
+            // INTERACTIVE TILE
+            for(InteractiveTile interactiveTile : interactiveTiles) {
+                if(interactiveTile != null) {
+                    interactiveTile.draw(graphics2D);
+                }
+            }
 
             // ADD ENTITIES TO THE LIST
             entityArrayList.add(player);
@@ -330,6 +347,10 @@ public class Scene extends JPanel implements Runnable {
 
     public Entity[] getMonsters() {
         return monsters;
+    }
+
+    public InteractiveTile[] getInteractiveTiles() {
+        return interactiveTiles;
     }
 
     public ArrayList<Projectile> getProjectileArrayList() {
