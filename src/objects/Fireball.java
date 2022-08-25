@@ -34,11 +34,11 @@ public class Fireball extends Projectile {
         right2 = GetSpriteAtlas(FIREBALL_RIGHT_2_IMAGE);
     }
 
-    public boolean hasMana(Entity user) {
+    public boolean hasEnergy(Entity user) {
         return user.getMana() >= useCost;
     }
 
-    public void subtractMana(Entity user) {
+    public void subtractEnergy(Entity user) {
         user.subtractMana(useCost);
     }
 }

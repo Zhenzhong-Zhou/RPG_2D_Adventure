@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Entity;
 import entities.Projectile;
 import main.Scene;
 
@@ -32,5 +33,13 @@ public class Rock extends Projectile {
         down2 = GetSpriteAtlas(ROCK_IMAGE);
         right1 = GetSpriteAtlas(ROCK_IMAGE);
         right2 = GetSpriteAtlas(ROCK_IMAGE);
+    }
+
+    public boolean hasEnergy(Entity user) {
+        return user.getAmmo() >= useCost;
+    }
+
+    public void subtractEnergy(Entity user) {
+        user.subtractAmmo(useCost);
     }
 }

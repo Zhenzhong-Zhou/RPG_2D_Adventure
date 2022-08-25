@@ -109,8 +109,9 @@ public class EventManager {
             GameState.gameState = gameState;
             scene.getPlayer().setAttackCanceled(true);
             scene.getAudioManager().playEffect(POWER_UP);
-            scene.getGui().setCurrentDialogue("You life has been recovered!");
+            scene.getGui().setCurrentDialogue("You drink the water.\nYour life and mana have been recovered!");
             scene.getPlayer().setLife(scene.getPlayer().getMaxLives());
+            scene.getPlayer().setMana(scene.getPlayer().getMaxMana());
             eventBox[col][row].setEventHappened(true);
             scene.getAssetSetter().setMonsters();
         }

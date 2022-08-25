@@ -60,10 +60,10 @@ public class Projectile extends Entity{
         }
     }
 
-    public boolean hasMana(Entity user) {
+    public boolean hasEnergy(Entity user) {
         return false;
     }
 
-    public void subtractMana(Entity user) {
+    public void subtractEnergy(Entity user) {
     }
 }

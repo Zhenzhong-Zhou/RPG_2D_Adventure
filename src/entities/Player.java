@@ -2,10 +2,7 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.Fireball;
-import objects.Key;
-import objects.Shield_Wood;
-import objects.Sword_Normal;
+import objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -188,12 +185,12 @@ public class Player extends Entity {
             }
         }
 
-        if(keyInputs.isShotPressed() && ! projectile.alive && shotAvailableCounter == 30 && projectile.hasMana(this)) {
+        if(keyInputs.isShotPressed() && ! projectile.alive && shotAvailableCounter == 30 && projectile.hasEnergy(this)) {
             // SET DEFAULT COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
 
             // SUBTRACT THE COST (MANA, AMMO ETC.)
-            projectile.subtractMana(this);
+            projectile.subtractEnergy(this);
 
             // ADD IT TO THE LIST
             scene.getProjectileArrayList().add(projectile);

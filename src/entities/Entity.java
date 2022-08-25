@@ -31,6 +31,7 @@ public abstract class Entity {
     protected String objectName;
     protected int maxLives, life;
     protected int maxMana, mana;
+    protected int ammo;
     protected boolean invincible;
     protected int invincibleCounter = 0;
     protected int entityType;
@@ -38,9 +39,9 @@ public abstract class Entity {
     protected Rectangle attackBox;
     protected boolean alive = true;
     protected boolean dead;
-    protected int deadCounter = 0;
+    protected int deadCounter;
     protected boolean hpBarOn;
-    protected int hpBarCounter = 0;
+    protected int hpBarCounter;
     protected int level;
     protected int strength;
     protected int dexterity;
@@ -429,6 +430,18 @@ public abstract class Entity {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+    }
+
+    public void subtractAmmo(int useCost) {
+        this.ammo -= useCost;
     }
 
     public boolean isAlive() {
