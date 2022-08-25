@@ -191,6 +191,7 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_A -> leftPressed = false;
             case KeyEvent.VK_S -> downPressed = false;
             case KeyEvent.VK_D -> rightPressed = false;
+            case KeyEvent.VK_ENTER -> enterPressed = false;
             case KeyEvent.VK_F -> shotPressed = false;
         }
     }

@@ -51,7 +51,7 @@ public class Player extends Entity {
         // TODO: not center
         worldX = 23 * TILE_SIZE;
         worldY = 21 * TILE_SIZE;
-        speed = 2;
+        speed = 4;
         direction = DOWN;
 
         // PLAYER STATUS
@@ -127,8 +127,8 @@ public class Player extends Entity {
 
     private void attacking() {
         spriteCounter++;
-        if(spriteCounter <= 10) spriteNum = 1;
-        if(spriteCounter > 10 && spriteCounter <= 35) {
+        if(spriteCounter <= 5) spriteNum = 1;
+        if(spriteCounter > 5 && spriteCounter <= 25) {
             spriteNum = 2;
 
             // Save the current worldX, worldY, hitbox
