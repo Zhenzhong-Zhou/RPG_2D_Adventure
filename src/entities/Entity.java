@@ -348,16 +348,8 @@ public abstract class Entity {
         return hitboxDefaultX;
     }
 
-    public void setHitboxDefaultX(int hitboxDefaultX) {
-        this.hitboxDefaultX = hitboxDefaultX;
-    }
-
     public int getHitboxDefaultY() {
         return hitboxDefaultY;
-    }
-
-    public void setHitboxDefaultY(int hitboxDefaultY) {
-        this.hitboxDefaultY = hitboxDefaultY;
     }
 
     public boolean isCollision() {
@@ -366,10 +358,6 @@ public abstract class Entity {
 
     public void setCollision(boolean collision) {
         this.collision = collision;
-    }
-
-    public String[] getDialogues() {
-        return dialogues;
     }
 
     public String getObjectName() {
@@ -392,10 +380,6 @@ public abstract class Entity {
         return maxLives;
     }
 
-    public void setMaxLives(int maxLives) {
-        this.maxLives = maxLives;
-    }
-
     public int getLife() {
         return life;
     }
@@ -416,10 +400,6 @@ public abstract class Entity {
         return maxMana;
     }
 
-    public void setMaxMana(int maxMana) {
-        this.maxMana = maxMana;
-    }
-
     public void subtractMana(int useCost) {
         this.mana -= useCost;
     }
@@ -436,10 +416,6 @@ public abstract class Entity {
         return ammo;
     }
 
-    public void setAmmo(int ammo) {
-        this.ammo = ammo;
-    }
-
     public void subtractAmmo(int useCost) {
         this.ammo -= useCost;
     }
@@ -448,111 +424,43 @@ public abstract class Entity {
         return alive;
     }
 
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
     public boolean isDead() {
         return dead;
-    }
-
-    public void setDead(boolean dead) {
-        this.dead = dead;
     }
 
     public int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public int getStrength() {
         return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
     }
 
     public int getDexterity() {
         return dexterity;
     }
 
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
     public int getExp() {
         return exp;
-    }
-
-    public void setExp(int exp) {
-        this.exp = exp;
     }
 
     public int getNextLevelExp() {
         return nextLevelExp;
     }
 
-    public void setNextLevelExp(int nextLevelExp) {
-        this.nextLevelExp = nextLevelExp;
-    }
-
     public int getCoin() {
         return coin;
-    }
-
-    public void setCoin(int coin) {
-        this.coin = coin;
     }
 
     public Entity getCurrentWeapon() {
         return currentWeapon;
     }
 
-    public void setCurrentWeapon(Entity currentWeapon) {
-        this.currentWeapon = currentWeapon;
-    }
-
     public Entity getCurrentShield() {
         return currentShield;
     }
 
-    public void setCurrentShield(Entity currentShield) {
-        this.currentShield = currentShield;
-    }
-
-    public int getAttackValue() {
-        return attackValue;
-    }
-
-    public void setAttackValue(int attackValue) {
-        this.attackValue = attackValue;
-    }
-
-    public int getDefenseValue() {
-        return defenseValue;
-    }
-
-    public void setDefenseValue(int defenseValue) {
-        this.defenseValue = defenseValue;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

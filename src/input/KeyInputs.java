@@ -232,10 +232,6 @@ public class KeyInputs implements KeyListener {
         return displayDebugInfo;
     }
 
-    public void setDisplayDebugInfo(boolean displayDebugInfo) {
-        this.displayDebugInfo = displayDebugInfo;
-    }
-
     public boolean isEnterPressed() {
         return enterPressed;
     }
@@ -246,9 +242,5 @@ public class KeyInputs implements KeyListener {
 
     public boolean isShotPressed() {
         return shotPressed;
-    }
-
-    public void setShotPressed(boolean shotPressed) {
-        this.shotPressed = shotPressed;
     }
 }

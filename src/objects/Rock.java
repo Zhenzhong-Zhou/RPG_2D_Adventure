@@ -9,11 +9,8 @@ import static utilities.LoadSave.GetSpriteAtlas;
 import static utilities.LoadSave.ROCK_IMAGE;
 
 public class Rock extends Projectile {
-    private final Scene scene;
-
     public Rock(Scene scene) {
         super(scene);
-        this.scene = scene;
 
         objectName = ROCK;
         speed = 8;
