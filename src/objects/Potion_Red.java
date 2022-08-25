@@ -12,13 +12,12 @@ import static utilities.LoadSave.GetSpriteAtlas;
 import static utilities.LoadSave.RED_POTION_IMAGE;
 
 public class Potion_Red extends Entity {
-    public int value = 5;
-
     public Potion_Red(Scene scene) {
         super(scene);
 
         entityType = CONSUMABLE;
         objectName = POTION_RED;
+        value = 5;
         down1 = GetSpriteAtlas(RED_POTION_IMAGE);
         description = "[" + objectName + "]\nHeals your life by " + value + ".";
     }

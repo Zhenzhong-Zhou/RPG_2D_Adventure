@@ -135,6 +135,9 @@ public class LoadSave {
     // CONSUMABLE
     public static final String RED_POTION_IMAGE = "objects/potion_red.png";
 
+    // PICKUP
+    public static final String COIN_IMAGE = "objects/coin_bronze.png";
+
     // FONTS
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";

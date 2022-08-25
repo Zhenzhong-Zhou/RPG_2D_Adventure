@@ -61,6 +61,7 @@ public class Constants {
         public static final int AXE = 4;
         public static final int SHIELD = 5;
         public static final int CONSUMABLE = 6;
+        public static final int PICKUP = 7;
 
         // Weapon Name
         public static final String NORMAL_SWORD = "Normal Sword";
@@ -81,6 +82,9 @@ public class Constants {
         public static final String HEART = "HEART";
         public static final String MANA = "Mana Crystal";
         public static final String POTION_RED = "Red Potion";
+
+        // Pickup Name
+        public static final String BRONZE_COIN = "Bronze Coin";
 
         // Projectile Name
         public static final String FIREBALL = "Fireball";

@@ -50,6 +50,7 @@ public abstract class Entity {
     protected int exp;
     protected int nextLevelExp;
     protected int coin;
+    protected int value;
     protected Entity currentWeapon;
     protected Entity currentShield;
     protected Projectile projectile;
@@ -451,6 +452,18 @@ public abstract class Entity {
 
     public int getCoin() {
         return coin;
+    }
+
+    public int pickupCoin(int value) {
+        return coin+=value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public Entity getCurrentWeapon() {

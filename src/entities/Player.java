@@ -267,15 +267,23 @@ public class Player extends Entity {
 
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
-            String text;
-            if(inventory.size() != 25) {
-                inventory.add(scene.getGameObjects()[objectIndex]);
-                scene.getAudioManager().playEffect(COIN);
-                text = "Pickup a " + scene.getGameObjects()[objectIndex].getObjectName() + "!";
-            } else {
-                text = "You bag is full!";
+            Entity object = scene.getGameObjects()[objectIndex];
+            // PICKUP ITEMS
+            if(object.entityType == PICKUP) {
+                object.use(this);
             }
-            scene.getGui().addMessage(text);
+            // INVENTORY ITEMS
+            else {
+                String text;
+                if(inventory.size() != 25) {
+                    inventory.add(object);
+                    scene.getAudioManager().playEffect(COIN);
+                    text = "Pickup a " + object.getObjectName() + "!";
+                } else {
+                    text = "You bag is full!";
+                }
+                scene.getGui().addMessage(text);
+            }
             scene.getGameObjects()[objectIndex] = null;
         }
     }

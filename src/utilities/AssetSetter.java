@@ -3,10 +3,7 @@ package utilities;
 import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
-import objects.Axe;
-import objects.Key;
-import objects.Potion_Red;
-import objects.Shield_Blue;
+import objects.*;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 
@@ -22,6 +19,16 @@ public class AssetSetter {
         scene.getGameObjects()[i] = new Key(scene);
         scene.getGameObjects()[i].setWorldX(25 * TILE_SIZE);
         scene.getGameObjects()[i].setWorldY(19 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new Coin_Bronze(scene);
+        scene.getGameObjects()[i].setWorldX(25 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(23 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new Coin_Bronze(scene);
+        scene.getGameObjects()[i].setWorldX(24 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(23 * TILE_SIZE);
         i++;
 
         scene.getGameObjects()[i] = new Key(scene);
