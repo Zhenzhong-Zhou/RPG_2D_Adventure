@@ -272,6 +272,10 @@ public class Player extends Entity {
         int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
         interactMonster(monsterIndex);
 
+        // CHECK INTERACTIVE TILE COLLISION
+        int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
+        contactInteractiveTile(interactiveTileIndex);
+
         // CHECK EVENT
         scene.getEventManager().checkEvent();
     }
@@ -348,8 +352,15 @@ public class Player extends Entity {
         }
     }
 
+    private void contactInteractiveTile(int interactiveTileIndex) {
+        if(interactiveTileIndex != 999) {
+
+        }
+    }
+
     private void damageInteractiveTile(int interactiveTileIndex) {
-        if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible) {
+        if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible
+                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this)) {
             scene.getInteractiveTiles()[interactiveTileIndex] = null;
         }
     }

@@ -356,6 +356,10 @@ public abstract class Entity {
         return direction;
     }
 
+    public int getEntityType() {
+        return entityType;
+    }
+
     public Rectangle getHitbox() {
         return hitbox;
     }
