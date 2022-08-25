@@ -49,9 +49,9 @@ public class GreenSlime extends Entity {
     public void setAction() {
         super.setAction();
 
-        int i = new Random().nextInt(100)+1;
-        if(i > 99 && !projectile.isAlive() && shotAvailableCounter == 30) {
-            projectile.set(worldX,worldY, direction,true, this);
+        int i = new Random().nextInt(100) + 1;
+        if(i > 99 && ! projectile.isAlive() && shotAvailableCounter == 30) {
+            projectile.set(worldX, worldY, direction, true, this);
             scene.getProjectileArrayList().add(projectile);
             shotAvailableCounter = 0;
         }

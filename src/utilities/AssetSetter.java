@@ -62,10 +62,10 @@ public class AssetSetter {
     }
 
     public void setMonsters() {
-        for(int j =0; j < 7; j++) {
+        for(int j = 0; j < 7; j++) {
             scene.getMonsters()[j] = new GreenSlime(scene);
-            scene.getMonsters()[j].setWorldX((19+j) * TILE_SIZE);
-            scene.getMonsters()[j].setWorldY((35+j) * TILE_SIZE);
+            scene.getMonsters()[j].setWorldX((19 + j) * TILE_SIZE);
+            scene.getMonsters()[j].setWorldY((35 + j) * TILE_SIZE);
         }
     }
 }

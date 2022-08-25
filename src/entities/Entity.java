@@ -25,7 +25,7 @@ public abstract class Entity {
     protected Rectangle hitbox;
     protected int hitboxDefaultX, hitboxDefaultY;
     protected boolean collision;
-    protected int actionLockCounter = 0;
+    protected int actionLockCounter;
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
     protected String objectName;
@@ -33,7 +33,7 @@ public abstract class Entity {
     protected int maxMana, mana;
     protected int ammo;
     protected boolean invincible;
-    protected int invincibleCounter = 0;
+    protected int invincibleCounter;
     protected int entityType;
     protected boolean attacking;
     protected Rectangle attackBox;
@@ -112,7 +112,7 @@ public abstract class Entity {
         boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
 
         if(this.entityType == MONSTER && interactPlayer) {
-           damagePlayer(attack);
+            damagePlayer(attack);
         }
 
         playerCanMove();
@@ -120,7 +120,7 @@ public abstract class Entity {
         invincibleCounter();
 
         if(shotAvailableCounter < 30) {
-            shotAvailableCounter++ ;
+            shotAvailableCounter++;
         }
     }
 

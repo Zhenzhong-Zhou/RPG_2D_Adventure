@@ -2,7 +2,10 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.*;
+import objects.Fireball;
+import objects.Key;
+import objects.Shield_Wood;
+import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -204,7 +207,7 @@ public class Player extends Entity {
         invincibleCounter();
 
         if(shotAvailableCounter < 30) {
-            shotAvailableCounter++ ;
+            shotAvailableCounter++;
         }
     }
 
@@ -289,7 +292,7 @@ public class Player extends Entity {
 
     private void interactMonster(int monsterIndex) {
         if(monsterIndex != 999) {
-            if(! invincible && !scene.getMonsters()[monsterIndex].isDead()) {
+            if(! invincible && ! scene.getMonsters()[monsterIndex].isDead()) {
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
                 int damage = scene.getMonsters()[monsterIndex].attack - scene.getPlayer().defense;
                 if(damage < 0) {

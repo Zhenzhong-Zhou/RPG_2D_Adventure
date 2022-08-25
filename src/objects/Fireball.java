@@ -8,10 +8,8 @@ import static utilities.Constants.EntityConstant.FIREBALL;
 import static utilities.LoadSave.*;
 
 public class Fireball extends Projectile {
-    private Scene scene;
     public Fireball(Scene scene) {
         super(scene);
-        this.scene = scene;
 
         objectName = FIREBALL;
         speed = 5;

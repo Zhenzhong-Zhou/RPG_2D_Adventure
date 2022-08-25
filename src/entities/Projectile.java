@@ -3,9 +3,8 @@ package entities;
 import main.Scene;
 
 import static utilities.Constants.DirectionConstant.*;
-import static utilities.Constants.DirectionConstant.RIGHT;
 
-public class Projectile extends Entity{
+public class Projectile extends Entity {
     private Entity user;
 
     public Projectile(Scene scene) {
@@ -30,9 +29,9 @@ public class Projectile extends Entity{
             }
         }
 
-        if(user!= scene.getPlayer()) {
+        if(user != scene.getPlayer()) {
             boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
-            if(!scene.getPlayer().invincible && interactPlayer){
+            if(! scene.getPlayer().invincible && interactPlayer) {
                 damagePlayer(attack);
                 alive = false;
             }
@@ -45,14 +44,14 @@ public class Projectile extends Entity{
         }
 
         life--;
-        if(life<=0) {
+        if(life <= 0) {
             alive = false;
         }
 
         spriteCounter++;
         if(spriteCounter > 12) {
             if(spriteNum == 1) {
-                spriteNum =2;
+                spriteNum = 2;
             } else if(spriteNum == 2) {
                 spriteNum = 1;
             }

@@ -478,8 +478,8 @@ public class GUI {
     }
 
     private void drawMaxMana() {
-        int x = (TILE_SIZE / 2)-5;
-        int y = (int) (TILE_SIZE *1.5);
+        int x = (TILE_SIZE / 2) - 5;
+        int y = (int) (TILE_SIZE * 1.5);
         int i = 0;
 
         while(i < scene.getPlayer().getMaxMana()) {
@@ -490,8 +490,8 @@ public class GUI {
     }
 
     private void drawCurrentMna() {
-        int x = (TILE_SIZE / 2)-5;
-        int y = (int) (TILE_SIZE *1.5);
+        int x = (TILE_SIZE / 2) - 5;
+        int y = (int) (TILE_SIZE * 1.5);
         int i = 0;
 
         while(i < scene.getPlayer().getMana()) {

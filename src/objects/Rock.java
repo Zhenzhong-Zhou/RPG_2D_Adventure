@@ -4,12 +4,13 @@ import entities.Entity;
 import entities.Projectile;
 import main.Scene;
 
-
 import static utilities.Constants.EntityConstant.ROCK;
-import static utilities.LoadSave.*;
+import static utilities.LoadSave.GetSpriteAtlas;
+import static utilities.LoadSave.ROCK_IMAGE;
 
 public class Rock extends Projectile {
-    private Scene scene;
+    private final Scene scene;
+
     public Rock(Scene scene) {
         super(scene);
         this.scene = scene;

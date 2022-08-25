@@ -29,8 +29,8 @@ public class Scene extends JPanel implements Runnable {
     private final Entity[] gameObjects = new Entity[10];
     private final Entity[] NPCs = new Entity[10];
     private final Entity[] monsters = new Entity[20];
-    private ArrayList<Projectile> projectileArrayList = new ArrayList<>();
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
+    private final ArrayList<Projectile> projectileArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -125,7 +125,7 @@ public class Scene extends JPanel implements Runnable {
                         if(projectile.isAlive()) {
                             projectile.update();
                         }
-                        if(!projectile.isAlive()) {
+                        if(! projectile.isAlive()) {
                             projectileArrayList.remove(projectile);
                         }
                     }
