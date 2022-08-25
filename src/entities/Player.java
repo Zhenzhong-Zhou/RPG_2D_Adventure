@@ -436,13 +436,14 @@ public class Player extends Entity {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         // DEBUG: Draw hitbox
-        graphics2D.setColor(Color.RED);
-        graphics2D.drawRect(tempScreenX + hitbox.x, tempScreenY + hitbox.y, hitbox.width, hitbox.height);
+        //TODO: Delete it later
+//        graphics2D.setColor(Color.RED);
+//        graphics2D.drawRect(tempScreenX + hitbox.x, tempScreenY + hitbox.y, hitbox.width, hitbox.height);
 
         // DEBUG: Invincible counter
-        graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
+//        graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));
+//        graphics2D.setColor(Color.WHITE);
+//        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
     }
 
     public void resetDirectionBoolean() {

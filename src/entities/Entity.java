@@ -312,8 +312,9 @@ public abstract class Entity {
         }
 
         // Draw hitbox
-        graphics2D.setColor(Color.BLUE);
-        graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, getHitbox().width, getHitbox().height);
+        //TODO: Delete it later
+//        graphics2D.setColor(Color.BLUE);
+//        graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, getHitbox().width, getHitbox().height);
     }
 
     public int getWorldX() {
