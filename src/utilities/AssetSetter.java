@@ -31,16 +31,6 @@ public class AssetSetter {
         scene.getGameObjects()[i].setWorldY(23 * TILE_SIZE);
         i++;
 
-        scene.getGameObjects()[i] = new Key(scene);
-        scene.getGameObjects()[i].setWorldX(33 * TILE_SIZE);
-        scene.getGameObjects()[i].setWorldY(21 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[i] = new Key(scene);
-        scene.getGameObjects()[i].setWorldX(35 * TILE_SIZE);
-        scene.getGameObjects()[i].setWorldY(21 * TILE_SIZE);
-        i++;
-
         scene.getGameObjects()[i] = new Axe(scene);
         scene.getGameObjects()[i].setWorldX(21 * TILE_SIZE);
         scene.getGameObjects()[i].setWorldY(19 * TILE_SIZE);
@@ -59,6 +49,16 @@ public class AssetSetter {
         scene.getGameObjects()[i] = new Potion_Red(scene);
         scene.getGameObjects()[i].setWorldX(22 * TILE_SIZE);
         scene.getGameObjects()[i].setWorldY(40 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new Heart(scene);
+        scene.getGameObjects()[i].setWorldX(22 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(29 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[i] = new ManaCrystal(scene);
+        scene.getGameObjects()[i].setWorldX(22 * TILE_SIZE);
+        scene.getGameObjects()[i].setWorldY(31 * TILE_SIZE);
         i++;
     }
 

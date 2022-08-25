@@ -26,9 +26,6 @@ public class Potion_Red extends Entity {
         gameState = DIALOGUE;
         scene.getGui().setCurrentDialogue("You drink the " + objectName + "!\n" + "Your life has been recovered by " + value + ".");
         player.gainLife(value);
-        if(player.getLife() > player.getMaxLives()) {
-            player.setLife(player.getMaxLives());
-        }
         scene.getAudioManager().playEffect(POWER_UP);
     }
 }

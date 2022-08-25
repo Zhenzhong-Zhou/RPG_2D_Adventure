@@ -414,6 +414,10 @@ public abstract class Entity {
         this.mana = mana;
     }
 
+    public void pickupMana(int value) {
+        this.mana += value;
+    }
+
     public int getAmmo() {
         return ammo;
     }
@@ -454,8 +458,8 @@ public abstract class Entity {
         return coin;
     }
 
-    public int pickupCoin(int value) {
-        return coin+=value;
+    public void pickupCoin(int value) {
+        coin += value;
     }
 
     public int getValue() {
