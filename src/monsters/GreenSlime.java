@@ -2,6 +2,9 @@ package monsters;
 
 import entities.Entity;
 import main.Scene;
+import objects.Coin_Bronze;
+import objects.Heart;
+import objects.ManaCrystal;
 import objects.Rock;
 
 import java.awt.*;
@@ -60,5 +63,21 @@ public class GreenSlime extends Entity {
     public void damageReaction() {
         actionLockCounter = 0;
         direction = scene.getPlayer().getDirection();
+    }
+
+    public void checkDrop() {
+        // CAST A DEAD
+        int i = new Random().nextInt(100) + 1;
+
+        // SET THE MONSTER DROP
+        if(i<50){
+            dropItem(new Coin_Bronze(scene));
+        }
+        if(i>=50 && i <75) {
+            dropItem(new Heart(scene));
+        }
+        if(i>=75 &&i<100) {
+            dropItem(new ManaCrystal(scene));
+        }
     }
 }

@@ -101,6 +101,20 @@ public abstract class Entity {
     public void use(Entity entity) {
     }
 
+    public void checkDrop() {}
+
+    public void dropItem(Entity droppedItem) {
+        for(int i = 0; i<scene.getGameObjects().length; i++) {
+            Entity[] objects = scene.getGameObjects();
+            if(objects[i] == null) {
+                objects[i] = droppedItem;
+                objects[i].worldX = worldX; // the dead monster's worldX
+                objects[i].worldY = worldY;
+                break;
+            }
+        }
+    }
+
     public void update() {
         setAction();
 

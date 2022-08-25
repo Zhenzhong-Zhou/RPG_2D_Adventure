@@ -26,9 +26,9 @@ import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
-    private final Entity[] gameObjects = new Entity[10];
+    private final Entity[] gameObjects = new Entity[50];
     private final Entity[] NPCs = new Entity[10];
-    private final Entity[] monsters = new Entity[20];
+    private final Entity[] monsters = new Entity[30];
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private final ArrayList<Projectile> projectileArrayList = new ArrayList<>();
     private Thread thread;
@@ -113,6 +113,7 @@ public class Scene extends JPanel implements Runnable {
                             monster.update();
                         }
                         if(! monster.isAlive()) {
+                            monster.checkDrop();
                             monsters[i] = null;
                         }
                     }
