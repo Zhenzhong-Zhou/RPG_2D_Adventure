@@ -31,7 +31,11 @@ public class Projectile extends Entity{
         }
 
         if(user!= scene.getPlayer()) {
-
+            boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
+            if(!scene.getPlayer().invincible && interactPlayer){
+                damagePlayer(attack);
+                alive = false;
+            }
         }
         switch(direction) {
             case UP -> worldY -= speed;

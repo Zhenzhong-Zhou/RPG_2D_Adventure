@@ -2,8 +2,10 @@ package monsters;
 
 import entities.Entity;
 import main.Scene;
+import objects.Rock;
 
 import java.awt.*;
+import java.util.Random;
 
 import static utilities.Constants.EntityConstant.GREEN_SLIME;
 import static utilities.Constants.EntityConstant.MONSTER;
@@ -30,6 +32,7 @@ public class GreenSlime extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
+        projectile = new Rock(scene);
     }
 
     private void getGreenSlimeImage() {
@@ -45,6 +48,13 @@ public class GreenSlime extends Entity {
 
     public void setAction() {
         super.setAction();
+
+        int i = new Random().nextInt(100)+1;
+        if(i > 99 && !projectile.isAlive() && shotAvailableCounter == 30) {
+            projectile.set(worldX,worldY, direction,true, this);
+            scene.getProjectileArrayList().add(projectile);
+            shotAvailableCounter = 0;
+        }
     }
 
     public void damageReaction() {

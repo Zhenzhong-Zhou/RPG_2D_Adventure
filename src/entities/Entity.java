@@ -111,22 +111,30 @@ public abstract class Entity {
         boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
 
         if(this.entityType == MONSTER && interactPlayer) {
-            if(! scene.getPlayer().invincible) {
-                // Player get damaged
-                scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
-                int damage = attack - scene.getPlayer().defense;
-                if(damage < 0) {
-                    damage = 0;
-                }
-                scene.getPlayer().life -= damage;
-                scene.getGui().addMessage("-" + damage + " damage!");
-                scene.getPlayer().invincible = true;
-            }
+           damagePlayer(attack);
         }
 
         playerCanMove();
         updateAnimation();
         invincibleCounter();
+
+        if(shotAvailableCounter < 30) {
+            shotAvailableCounter++ ;
+        }
+    }
+
+    protected void damagePlayer(int attack) {
+        if(! scene.getPlayer().invincible) {
+            // Player get damaged
+            scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
+            int damage = attack - scene.getPlayer().defense;
+            if(damage < 0) {
+                damage = 0;
+            }
+            scene.getPlayer().life -= damage;
+            scene.getGui().addMessage("-" + damage + " damage!");
+            scene.getPlayer().invincible = true;
+        }
     }
 
     protected void playerCanMove() {

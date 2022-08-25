@@ -1,5 +1,7 @@
 package utilities;
 
+import objects.Rock;
+
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 
 public class Constants {
@@ -83,6 +85,7 @@ public class Constants {
 
         // Projectile Name
         public static final String FIREBALL = "Fireball";
+        public static final String ROCK = "Rock";
     }
 
     /**
