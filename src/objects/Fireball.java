@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Entity;
 import entities.Projectile;
 import main.Scene;
 
@@ -31,5 +32,13 @@ public class Fireball extends Projectile {
         down2 = GetSpriteAtlas(FIREBALL_DOWN_2_IMAGE);
         right1 = GetSpriteAtlas(FIREBALL_RIGHT_1_IMAGE);
         right2 = GetSpriteAtlas(FIREBALL_RIGHT_2_IMAGE);
+    }
+
+    public boolean hasMana(Entity user) {
+        return user.getMana() >= useCost;
+    }
+
+    public void subtractMana(Entity user) {
+        user.subtractMana(useCost);
     }
 }

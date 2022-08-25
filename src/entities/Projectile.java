@@ -59,4 +59,11 @@ public class Projectile extends Entity{
             spriteCounter = 0;
         }
     }
+
+    public boolean hasMana(Entity user) {
+        return false;
+    }
+
+    public void subtractMana(Entity user) {
+    }
 }

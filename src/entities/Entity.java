@@ -419,6 +419,10 @@ public abstract class Entity {
         this.maxMana = maxMana;
     }
 
+    public void subtractMana(int useCost) {
+        this.mana -= useCost;
+    }
+
     public int getMana() {
         return mana;
     }
