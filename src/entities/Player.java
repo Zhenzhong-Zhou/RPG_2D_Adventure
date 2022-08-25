@@ -61,6 +61,8 @@ public class Player extends Entity {
         level = 0;
         maxLives = 6;
         life = maxLives;
+        maxMana = 4;
+        mana = maxMana;
         strength = 1;   // The more strength he has, the more damage he gives.
         dexterity = 1;  // The more dexterity he has, the less damage he receives.
         exp = 0;
@@ -114,6 +116,7 @@ public class Player extends Entity {
     private void setItems() {
         inventory.add(currentWeapon);
         inventory.add(currentShield);
+        // TODO: default items in player's bag
         inventory.add(new Key(scene));
         inventory.add(new Key(scene));
     }

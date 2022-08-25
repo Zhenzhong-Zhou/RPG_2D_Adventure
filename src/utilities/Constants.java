@@ -1,7 +1,5 @@
 package utilities;
 
-import objects.Rock;
-
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 
 public class Constants {
@@ -81,6 +79,7 @@ public class Constants {
         public static final String CHEST = "Chest";
         public static final String BOOT = "Boot";
         public static final String HEART = "HEART";
+        public static final String MANA = "Mana Crystal";
         public static final String POTION_RED = "Red Potion";
 
         // Projectile Name

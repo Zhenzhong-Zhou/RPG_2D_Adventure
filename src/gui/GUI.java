@@ -4,6 +4,7 @@ import entities.Entity;
 import entities.Player;
 import main.Scene;
 import objects.Heart;
+import objects.ManaCrystal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,7 @@ public class GUI {
     private boolean gameCompleted;
     private String currentDialogue = "";
     private int commandNum = 0;
-    private BufferedImage heart_full, heart_half, heart_blank;
+    private BufferedImage heart_full, heart_half, heart_blank, manna_full, manna_blank;
     private int slotCol = 0;
     private int slotRow = 0;
     private int subState = 0;
@@ -33,6 +34,7 @@ public class GUI {
 
         initFont();
         getPlayerLifeImage();
+        getPlayerMannaImage();
         createDefaultLevel();
     }
 
@@ -46,6 +48,12 @@ public class GUI {
         heart_full = heart.getDown1();
         heart_half = heart.getDown2();
         heart_blank = heart.getLeft1();
+    }
+
+    private void getPlayerMannaImage() {
+        Entity manaCrystal = new ManaCrystal(scene);
+        manna_full = manaCrystal.getDown1();
+        manna_blank = manaCrystal.getDown2();
     }
 
     public void addMessage(String text) {
@@ -410,6 +418,12 @@ public class GUI {
 
         // CURRENT LIFE
         drawCurrentLife();
+
+        // MAX MANA
+        drawMaxMana();
+
+        // CURRENT MANA
+        drawCurrentMna();
     }
 
     private void drawMessages() {
@@ -463,6 +477,30 @@ public class GUI {
         }
     }
 
+    private void drawMaxMana() {
+        int x = (TILE_SIZE / 2)-5;
+        int y = (int) (TILE_SIZE *1.5);
+        int i = 0;
+
+        while(i < scene.getPlayer().getMaxMana()) {
+            graphics2D.drawImage(manna_blank, x, y, null);
+            i++;
+            x += 35;
+        }
+    }
+
+    private void drawCurrentMna() {
+        int x = (TILE_SIZE / 2)-5;
+        int y = (int) (TILE_SIZE *1.5);
+        int i = 0;
+
+        while(i < scene.getPlayer().getMana()) {
+            graphics2D.drawImage(manna_full, x, y, null);
+            i++;
+            x += 35;
+        }
+    }
+
     private void drawPauseScreen() {
         graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 80F));
         graphics2D.setColor(new Color(0, 0, 0, 150));
@@ -499,7 +537,7 @@ public class GUI {
         final int frameX = TILE_SIZE * 2;
         final int frameY = TILE_SIZE;
         final int frameWidth = TILE_SIZE * 6;
-        final int frameHeight = TILE_SIZE * 11;
+        final int frameHeight = TILE_SIZE * 11 + 5;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         // TEXT
@@ -514,6 +552,8 @@ public class GUI {
         graphics2D.drawString("Level", textX, textY);
         textY += lineHeight;
         graphics2D.drawString("Life", textX, textY);
+        textY += lineHeight;
+        graphics2D.drawString("Mana", textX, textY);
         textY += lineHeight;
         graphics2D.drawString("Strength", textX, textY);
         textY += lineHeight;
@@ -547,6 +587,11 @@ public class GUI {
         textY += lineHeight;
 
         value = player.getLife() + "/" + player.getMaxLives();
+        textX = getHorizonForAlignToRightText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = player.getMana() + "/" + player.getMaxMana();
         textX = getHorizonForAlignToRightText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;

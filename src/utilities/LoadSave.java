@@ -49,6 +49,10 @@ public class LoadSave {
     public static final String HEART_HALF = "objects/heart_half.png";
     public static final String HEART_BLANK = "objects/heart_blank.png";
 
+    // PLAYER MANNA
+    public static final String MANA_FULL = "objects/manacrystal_full.png";
+    public static final String MANA_BLANK = "objects/manacrystal_blank.png";
+
     // NPC: Old Man
     public static final String OLD_MAN_UP_1_IMAGE = "npc/oldman_up_1.png";
     public static final String OLD_MAN_UP_2_IMAGE = "npc/oldman_up_2.png";
