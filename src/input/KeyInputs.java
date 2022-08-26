@@ -154,13 +154,14 @@ public class KeyInputs implements KeyListener {
                 switch(scene.getGui().getCommandNum()) {
                     case 0 -> {
                         gameState = PLAY;
-                        scene.getAudioManager().playMusic(START);
                         scene.retry();
+                        scene.getAudioManager().playMusic(START);
                     }
                     case 1 -> {
                         gameState = MENU;
                         scene.getAudioManager().playMusic(MAIN_MENU);
                         scene.restart();
+                        scene.getGui().setCommandNum(-1);
                     }
                 }
             }

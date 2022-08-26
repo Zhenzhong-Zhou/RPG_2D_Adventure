@@ -234,6 +234,9 @@ public class Player extends Entity {
         }
         if(life <= 0) {
             gameState = DEAD;
+            scene.getGui().setCommandNum(-1);
+            scene.getAudioManager().stopSound();
+            scene.getAudioManager().playEffect(DIE);
             scene.getAudioManager().playEffect(GAME_OVER);
         }
     }

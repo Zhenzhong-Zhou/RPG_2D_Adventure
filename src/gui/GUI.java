@@ -2,7 +2,6 @@ package gui;
 
 import entities.Entity;
 import entities.Player;
-import main.GameState;
 import main.Scene;
 import objects.Heart;
 import objects.ManaCrystal;
@@ -23,7 +22,6 @@ public class GUI {
     private final ArrayList<Integer> messageCounter = new ArrayList<>();
     private Graphics2D graphics2D;
     private Font maruMonica, purisaB;
-    private boolean gameCompleted;
     private String currentDialogue = "";
     private int commandNum = 0;
     private BufferedImage heart_full, heart_half, heart_blank, manna_full, manna_blank;
