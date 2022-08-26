@@ -2,6 +2,7 @@ package gui;
 
 import entities.Entity;
 import entities.Player;
+import main.GameState;
 import main.Scene;
 import objects.Heart;
 import objects.ManaCrystal;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import static main.GameState.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
+import static utilities.Constants.AudioManager.MENU;
 
 public class GUI {
     private final Scene scene;
@@ -86,6 +88,7 @@ public class GUI {
                 drawInventory();
             }
             case OPTIONS -> drawOptionsScreen();
+            case DEAD -> drawDeadScreen();
         }
     }
 
@@ -135,7 +138,6 @@ public class GUI {
         }
     }
 
-    //TODO: ADD later
     private void drawOptionsScreen() {
         // SUB WINDOW
         int frameX = TILE_SIZE * 7;
@@ -394,7 +396,8 @@ public class GUI {
             graphics2D.drawString(">", textX - 25, textY);
             if(scene.getKeyInputs().isEnterPressed()) {
                 subState = 0;
-                gameState = MENU;
+                gameState = GameState.MENU;
+                scene.getAudioManager().playMusic(MENU);
             }
         }
 
@@ -701,6 +704,34 @@ public class GUI {
                 textY += 32;
             }
         }
+    }
+
+    private void drawDeadScreen() {
+        graphics2D.setColor(new Color(0,0,0,150));
+        graphics2D.fillRect(0, 0,SCENE_WIDTH, SCENE_HEIGHT);
+
+        int x;
+        int y;
+        String text;
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 110F));
+
+        text = "YOU DEAD!";
+        // Shadow
+        graphics2D.setColor(Color.BLACK);
+        x = getHorizonCenteredText(text);
+        y = TILE_SIZE*6;
+        graphics2D.drawString(text,x,y);
+        // Main
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.drawString(text, x-4,y-4);
+
+        // Retry
+        text = "Retry";
+        drawMenu(text, 0);
+
+        // Back to Main Menu
+        text = "Menu";
+        drawMenu(text,1);
     }
 
     public int getItemIndexOnSlot() {

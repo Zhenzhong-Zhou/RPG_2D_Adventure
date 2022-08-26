@@ -95,6 +95,20 @@ public class Scene extends JPanel implements Runnable {
         assetSetter.setInteractiveTile();
     }
 
+    public void retry() {
+        player.resetDefaultPositions();
+        player.restoreLifeAndMana();
+        assetSetter.setNPCs();
+        assetSetter.setMonsters();
+    }
+
+    public void restart() {
+        player.resetDefaultPositions();
+        player.restoreLifeAndMana();
+        player.selectItem();
+        setupGame();
+    }
+
     public void update() {
         switch(gameState) {
             case PLAY -> {

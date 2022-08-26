@@ -1,5 +1,6 @@
 package input;
 
+import main.GameState;
 import main.Scene;
 
 import java.awt.event.KeyEvent;
@@ -8,6 +9,7 @@ import java.awt.event.KeyListener;
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.CURSOR;
 import static utilities.Constants.AudioManager.START;
+import static utilities.Constants.AudioManager.MENU;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
@@ -33,6 +35,7 @@ public class KeyInputs implements KeyListener {
             case DIALOGUE -> dialogue(e);
             case CHARACTER -> character(e);
             case OPTIONS -> options(e);
+            case DEAD -> dead(e);
         }
     }
 
@@ -55,6 +58,7 @@ public class KeyInputs implements KeyListener {
                     case 0 -> {
                         gameState = PLAY;
                         scene.getAudioManager().playMusic(START);
+                        scene.restart();
                     }
                     case 1 -> System.out.println("LOAD GAME");
                     // TODO: if crash remove this part
@@ -128,6 +132,39 @@ public class KeyInputs implements KeyListener {
 
     private void options(KeyEvent e) {
         cursor(e);
+    }
+
+    private void dead(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                scene.getGui().decrementCommandNum();
+                scene.getAudioManager().playEffect(CURSOR);
+                if(scene.getGui().getCommandNum() < 0) {
+                    scene.getGui().setCommandNum(1);
+                }
+            }
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                scene.getGui().incrementCommandNum();
+                scene.getAudioManager().playEffect(CURSOR);
+                if(scene.getGui().getCommandNum() > 1) {
+                    scene.getGui().setCommandNum(0);
+                }
+            }
+            case KeyEvent.VK_ENTER -> {
+                switch(scene.getGui().getCommandNum()) {
+                    case 0 -> {
+                        gameState = PLAY;
+                        scene.getAudioManager().playMusic(START);
+                        scene.retry();
+                    }
+                    case 1 -> {
+                        gameState = GameState.MENU;
+                        scene.getAudioManager().playMusic(MENU);
+                        scene.restart();
+                    }
+                }
+            }
+        }
     }
 
     private void cursor(KeyEvent e) {

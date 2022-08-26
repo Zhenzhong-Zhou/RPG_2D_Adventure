@@ -2,17 +2,13 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.Axe;
-import objects.Fireball;
-import objects.Key;
-import objects.Shield_Wood;
+import objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static main.GameState.DIALOGUE;
-import static main.GameState.gameState;
+import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.EntityConstant.*;
@@ -68,8 +64,7 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-//        currentWeapon = new Sword_Normal(scene);
-        currentWeapon = new Axe(scene);
+        currentWeapon = new Sword_Normal(scene);
         currentShield = new Shield_Wood(scene);
         projectile = new Fireball(scene);
         attack = getAttack();   // The total attack value is decided by strength and weapon.
@@ -114,7 +109,23 @@ public class Player extends Entity {
         }
     }
 
+    public void resetDefaultPositions() {
+//        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
+//        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
+        // TODO: not center
+        worldX = 23 * TILE_SIZE;
+        worldY = 21 * TILE_SIZE;
+        direction = DOWN;
+    }
+
+    public void restoreLifeAndMana() {
+        life = maxLives;
+        mana = maxMana;
+        invincible = false;
+    }
+
     private void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         // TODO: default items in player's bag
@@ -220,6 +231,10 @@ public class Player extends Entity {
         }
         if(mana > maxMana) {
             mana = maxMana;
+        }
+        if(life <= 0) {
+            gameState = DEAD;
+            scene.getAudioManager().playEffect(GAME_OVER);
         }
     }
 

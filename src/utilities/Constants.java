@@ -111,6 +111,7 @@ public class Constants {
         public static final int CURSOR = 8;
         public static final int BURNING = 9;
         public static final int CUT_TREE = 10;
+        public static final int GAME_OVER = 11;
 
         // OPTIONS CONTROL
         public static final String MUTE_ON = "-1";
