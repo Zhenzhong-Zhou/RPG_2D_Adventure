@@ -15,7 +15,7 @@ import java.util.Arrays;
 import static main.GameState.*;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
-import static utilities.Constants.AudioManager.MENU;
+import static utilities.Constants.AudioManager.MAIN_MENU;
 
 public class GUI {
     private final Scene scene;
@@ -396,8 +396,8 @@ public class GUI {
             graphics2D.drawString(">", textX - 25, textY);
             if(scene.getKeyInputs().isEnterPressed()) {
                 subState = 0;
-                gameState = GameState.MENU;
-                scene.getAudioManager().playMusic(MENU);
+                gameState = MENU;
+                scene.getAudioManager().playMusic(MAIN_MENU);
             }
         }
 

@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.CURSOR;
 import static utilities.Constants.AudioManager.START;
-import static utilities.Constants.AudioManager.MENU;
+import static utilities.Constants.AudioManager.MAIN_MENU;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
@@ -158,8 +158,8 @@ public class KeyInputs implements KeyListener {
                         scene.retry();
                     }
                     case 1 -> {
-                        gameState = GameState.MENU;
-                        scene.getAudioManager().playMusic(MENU);
+                        gameState = MENU;
+                        scene.getAudioManager().playMusic(MAIN_MENU);
                         scene.restart();
                     }
                 }

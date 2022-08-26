@@ -96,7 +96,7 @@ public class Constants {
      */
     public static class AudioManager {
         // MUSICS
-        public static final int MENU = 0;
+        public static final int MAIN_MENU = 0;
         public static final int START = 1;
 
         // SOUND EFFECTS

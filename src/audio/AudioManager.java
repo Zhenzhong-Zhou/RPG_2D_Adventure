@@ -5,7 +5,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 import static utilities.Constants.AudioManager.CURSOR;
-import static utilities.Constants.AudioManager.MENU;
+import static utilities.Constants.AudioManager.MAIN_MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
@@ -19,7 +19,7 @@ public class AudioManager {
     public AudioManager() {
         loadMusics();
         loadEffects();
-        playMusic(MENU);
+        playMusic(MAIN_MENU);
     }
 
     public void loadMusics() {
