@@ -1,6 +1,7 @@
 package entities;
 
 import main.Scene;
+import objects.Fireball;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -124,6 +125,7 @@ public abstract class Entity {
         scene.getCollisionDetection().checkObject(this, false);
         scene.getCollisionDetection().checkEntity(this, scene.getNPCs());
         scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
+        scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
         boolean interactPlayer = scene.getCollisionDetection().checkPlayer(this);
 
         if(this.entityType == MONSTER && interactPlayer) {

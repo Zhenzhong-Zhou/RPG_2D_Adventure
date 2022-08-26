@@ -360,8 +360,14 @@ public class Player extends Entity {
 
     private void damageInteractiveTile(int interactiveTileIndex) {
         if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible
-                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this)) {
-            scene.getInteractiveTiles()[interactiveTileIndex] = null;
+                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this) && !scene.getInteractiveTiles()[interactiveTileIndex].invincible) {
+            scene.getInteractiveTiles()[interactiveTileIndex].playEffect();
+            scene.getInteractiveTiles()[interactiveTileIndex].life --;
+            scene.getInteractiveTiles()[interactiveTileIndex].invincible = true;
+
+            if(scene.getInteractiveTiles()[interactiveTileIndex].life == 0) {
+                scene.getInteractiveTiles()[interactiveTileIndex] = scene.getInteractiveTiles()[interactiveTileIndex].getDestroyedForm();
+            }
         }
     }
 

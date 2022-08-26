@@ -110,6 +110,7 @@ public class Constants {
         public static final int LEVEL_UP = 7;
         public static final int CURSOR = 8;
         public static final int BURNING = 9;
+        public static final int CUT_TREE = 10;
 
         // OPTIONS CONTROL
         public static final String MUTE_ON = "-1";
