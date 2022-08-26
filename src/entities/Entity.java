@@ -2,6 +2,7 @@ package entities;
 
 import main.Scene;
 import objects.Fireball;
+import tile_interactive.InteractiveTile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -323,7 +324,10 @@ public abstract class Entity {
             if(invincible) {
                 hpBarOn = true;
                 hpBarCounter = 0;
-                changeAlpha(graphics2D, 0.4f);
+                // DISABLE TRANSPARENT WITH INTERACTIVE TILE
+                if (!(this instanceof InteractiveTile)) {
+                    changeAlpha(graphics2D, 0.4f);
+                }
             }
             if(dead) deadAnimation(graphics2D);
 
