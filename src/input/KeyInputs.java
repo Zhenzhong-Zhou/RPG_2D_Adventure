@@ -79,7 +79,14 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_D -> rightPressed = true;
             case KeyEvent.VK_F -> shotPressed = true;
             case KeyEvent.VK_H -> displayDebugInfo = ! displayDebugInfo;
-            case KeyEvent.VK_R -> System.out.println("Refresh map!");
+            case KeyEvent.VK_R -> {
+                switch(scene.currentMap) {
+                    //TODO: loadMap
+                    case 0:  System.out.println("Refresh map! 0");
+                    case 1:  System.out.println("Refresh map! 1");
+                }
+
+            }
             case KeyEvent.VK_P -> gameState = PAUSE; //TODO: Combine with ESC
             case KeyEvent.VK_C -> gameState = CHARACTER;
             case KeyEvent.VK_ENTER -> enterPressed = true;

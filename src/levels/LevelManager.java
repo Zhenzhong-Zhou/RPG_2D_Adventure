@@ -1,44 +1,32 @@
 package levels;
 
 import entities.Player;
+import main.Scene;
 import tiles.TileManager;
 
 import java.awt.*;
+import java.util.Arrays;
 
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.*;
 import static utilities.LoadSave.*;
 
 public class LevelManager {
+    private Scene scene;
     private final TileManager tileManager;
-    private int[][] level;
+    private int[][][] level;
 
-    public LevelManager() {
+    public LevelManager(Scene scene) {
+        this.scene = scene;
         tileManager = new TileManager();
-        createDefaultLevel();
         loadDefaultLevel();
-        saveLevel();
-    }
-
-    private void createDefaultLevel() {
-        int cols = MAX_WORLD_COL;
-        int rows = MAX_WORLD_ROW;
-        int[][] array = new int[cols][rows];
-
-        for(int i = 0; i < cols; i++) {
-            for(int j = 0; j < rows; j++) {
-                array[i][j] = 0;
-            }
-        }
-        CreateLevel(DEFAULT_LEVEL, array);
-    }
-
-    public void saveLevel() {
-        SaveLevel(DEFAULT_LEVEL, level);
     }
 
     private void loadDefaultLevel() {
-        level = GetLevelData(DEFAULT_LEVEL);
+//        level = GetLevelData(DEFAULT_LEVEL, 0);
+        level = GetLevelData(LEVEL_1, 0);
+        System.out.println("LEVEL_1" + Arrays.deepToString(level));
+        level = GetLevelData(LEVEL_2, 1);
     }
 
     public void draw(Graphics2D graphics2D, Player player) {
@@ -46,7 +34,7 @@ public class LevelManager {
         int worldRow = 0;
 
         while(worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
-            int id = level[worldCol][worldRow];
+            int id = level[scene.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * TILE_SIZE;
             int worldY = worldRow * TILE_SIZE;
@@ -98,7 +86,7 @@ public class LevelManager {
         }
     }
 
-    public int[][] getTileId() {
+    public int[][][] getTileId() {
         return level;
     }
 

@@ -5,9 +5,12 @@ import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Scanner;
 
+import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
 import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
@@ -152,6 +155,7 @@ public class LoadSave {
     // MAP NAME
     public static final String DEFAULT_LEVEL = "maps/default_level.txt";
     public static final String LEVEL_1 = "maps/worldV3.txt";
+    public static final String LEVEL_2 = "maps/interior01.txt";
 
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
@@ -277,48 +281,8 @@ public class LoadSave {
         }
     }
 
-    public static void CreateLevel(String filename, int[][] idArray) {
-        if(GetFile(filename).exists()) {
-            System.out.println("File: " + GetFile(filename) + " is already exists.");
-        } else {
-            try {
-                GetFile(filename).createNewFile();
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-
-            WriteToFile(GetFile(filename), idArray);
-        }
-    }
-
-    private static void WriteToFile(File file, int[][] idArray) {
-        try {
-            PrintWriter printWriter = new PrintWriter(file);
-            for(int y = 0; y < idArray.length; y++) {
-                for(int x = 0; x < idArray[y].length; x++) {
-                    if(x < idArray[y].length) {
-                        printWriter.print(idArray[x][y] + "\t");
-                    }
-                }
-                printWriter.append("\n");
-            }
-            printWriter.close();
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void SaveLevel(String filename, int[][] idArray) {
-        if(GetFile(filename).exists()) {
-            WriteToFile(GetFile(filename), idArray);
-        } else {
-            //TODO: new level
-            System.out.println("File: " + GetFile(filename) + " is already exists.");
-        }
-    }
-
-    private static int[][] ReadFromFile(File file) {
-        int[][] matrix = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
+    private static int[][][] ReadFromFile(File file, int currentMap) {
+        int[][][] matrix = new int[MAX_MAP][MAX_WORLD_COL][MAX_WORLD_ROW];
         try {
             Scanner scanner = new Scanner(file);
             int col = 0;
@@ -328,7 +292,10 @@ public class LoadSave {
                 while(col < MAX_WORLD_COL) {
                     String[] numbers = line.split("\t");
                     int num = Integer.parseInt(numbers[col]);
-                    matrix[col][row] = num;
+                    matrix[currentMap][col][row] = num;
+//                    System.out.println(currentMap);
+//                    System.out.print(num);
+                    System.out.print(Arrays.deepToString(matrix));
                     col++;
                 }
                 if(col == MAX_WORLD_COL) {
@@ -343,11 +310,12 @@ public class LoadSave {
         return matrix;
     }
 
-    public static int[][] GetLevelData(String filename) {
+    public static int[][][] GetLevelData(String filename, int currentMap) {
         if(GetFile(filename).exists()) {
-            return ReadFromFile(GetFile(filename));
+            System.out.println( "File: " + filename + " Map Index: " + currentMap);
+            return ReadFromFile(GetFile(filename), currentMap);
         } else {
-            System.out.println("File: " + GetFile(filename) + " does not exist!");
+            System.out.println("File: " + GetFile(filename) + currentMap + " does not exist!");
             return null;
         }
     }

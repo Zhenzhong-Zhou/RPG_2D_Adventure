@@ -48,8 +48,10 @@ public class Player extends Entity {
 //        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
 //        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         // TODO: not center
-        worldX = 23 * TILE_SIZE;
-        worldY = 21 * TILE_SIZE;
+//        worldX = 23 * TILE_SIZE;
+//        worldY = 21 * TILE_SIZE;
+        worldX = 12 * TILE_SIZE;
+        worldY = 13 * TILE_SIZE;
         speed = 4;
         direction = DOWN;
 
@@ -277,7 +279,7 @@ public class Player extends Entity {
     private void checkCollision() {
         // CHECK TILE COLLISION
         collision = false;
-        scene.getCollisionDetection().checkTile(this);
+//        scene.getCollisionDetection().checkTile(this);
 
         // CHECK OBJECT COLLISION
         int objectIndex = scene.getCollisionDetection().checkObject(this, true);
@@ -301,7 +303,7 @@ public class Player extends Entity {
 
     private void collectObject(int objectIndex) {
         if(objectIndex != 999) {
-            Entity object = scene.getGameObjects()[objectIndex];
+            Entity object = scene.getGameObjects()[scene.currentMap][objectIndex];
             // PICKUP ITEMS
             if(object.entityType == PICKUP) {
                 object.use(this);
@@ -318,7 +320,7 @@ public class Player extends Entity {
                 }
                 scene.getGui().addMessage(text);
             }
-            scene.getGameObjects()[objectIndex] = null;
+            scene.getGameObjects()[scene.currentMap][objectIndex] = null;
         }
     }
 
@@ -327,16 +329,16 @@ public class Player extends Entity {
             if(npcIndex != 999) {
                 attackCanceled = true;
                 gameState = DIALOGUE;
-                scene.getNPCs()[npcIndex].speak();
+                scene.getNPCs()[scene.currentMap][npcIndex].speak();
             }
         }
     }
 
     private void interactMonster(int monsterIndex) {
         if(monsterIndex != 999) {
-            if(! invincible && ! scene.getMonsters()[monsterIndex].isDead()) {
+            if(! invincible && ! scene.getMonsters()[scene.currentMap][monsterIndex].isDead()) {
                 scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
-                int damage = scene.getMonsters()[monsterIndex].attack - scene.getPlayer().defense;
+                int damage = scene.getMonsters()[scene.currentMap][monsterIndex].attack - scene.getPlayer().defense;
                 if(damage < 0) {
                     damage = 0;
                 }
@@ -349,7 +351,7 @@ public class Player extends Entity {
 
     public void damageMonster(int monsterIndex, int attack) {
         if(monsterIndex != 999) {
-            Entity monster = scene.getMonsters()[monsterIndex];
+            Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
                 int damage = attack - monster.defense;
@@ -361,7 +363,7 @@ public class Player extends Entity {
                 monster.invincible = true;
                 monster.damageReaction();
                 if(monster.life <= 0) {
-                    scene.getMonsters()[monsterIndex].dead = true;
+                    scene.getMonsters()[scene.currentMap][monsterIndex].dead = true;
                     scene.getGui().addMessage("killed the " + monster.getObjectName() + "!");
                     exp += monster.getExp();
                     scene.getGui().addMessage("Exp + " + monster.getExp());
@@ -378,17 +380,17 @@ public class Player extends Entity {
     }
 
     private void damageInteractiveTile(int interactiveTileIndex) {
-        if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible
-                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this) && ! scene.getInteractiveTiles()[interactiveTileIndex].invincible) {
-            scene.getInteractiveTiles()[interactiveTileIndex].playEffect();
-            scene.getInteractiveTiles()[interactiveTileIndex].life--;
-            scene.getInteractiveTiles()[interactiveTileIndex].invincible = true;
+        if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].destructible
+                && scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].isCorrectItem(this) && ! scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].invincible) {
+            scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].playEffect();
+            scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].life--;
+            scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].invincible = true;
 
             // Generate Particle
-            generateParticle(scene.getInteractiveTiles()[interactiveTileIndex], scene.getInteractiveTiles()[interactiveTileIndex]);
+            generateParticle(scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex], scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex]);
 
-            if(scene.getInteractiveTiles()[interactiveTileIndex].life == 0) {
-                scene.getInteractiveTiles()[interactiveTileIndex] = scene.getInteractiveTiles()[interactiveTileIndex].getDestroyedForm();
+            if(scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].life == 0) {
+                scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex] = scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].getDestroyedForm();
             }
         }
     }
