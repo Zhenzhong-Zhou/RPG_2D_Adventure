@@ -5,8 +5,8 @@ import main.Scene;
 import tiles.TileManager;
 
 import java.awt.*;
-import java.util.Arrays;
 
+import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.*;
 import static utilities.LoadSave.*;
@@ -25,15 +25,15 @@ public class LevelManager {
     private void loadDefaultLevel() {
 //        level = GetLevelData(DEFAULT_LEVEL, 0);
         level = GetLevelData(LEVEL_1, 0);
-        System.out.println("LEVEL_1" + Arrays.deepToString(level));
         level = GetLevelData(LEVEL_2, 1);
     }
 
     public void draw(Graphics2D graphics2D, Player player) {
+        int map = 0;
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
+        while(map < MAX_MAP && worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
             int id = level[scene.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * TILE_SIZE;
@@ -82,6 +82,10 @@ public class LevelManager {
             if(worldCol == MAX_WORLD_COL) {
                 worldCol = 0;
                 worldRow++;
+                if(worldRow == MAX_WORLD_ROW) {
+                    worldRow =0;
+                    map++;
+                }
             }
         }
     }

@@ -48,10 +48,10 @@ public class Player extends Entity {
 //        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
 //        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         // TODO: not center
-//        worldX = 23 * TILE_SIZE;
-//        worldY = 21 * TILE_SIZE;
-        worldX = 12 * TILE_SIZE;
-        worldY = 13 * TILE_SIZE;
+        worldX = 23 * TILE_SIZE;
+        worldY = 21 * TILE_SIZE;
+//        worldX = 12 * TILE_SIZE;
+//        worldY = 13 * TILE_SIZE;
         speed = 4;
         direction = DOWN;
 
@@ -279,7 +279,7 @@ public class Player extends Entity {
     private void checkCollision() {
         // CHECK TILE COLLISION
         collision = false;
-//        scene.getCollisionDetection().checkTile(this);
+        scene.getCollisionDetection().checkTile(this);
 
         // CHECK OBJECT COLLISION
         int objectIndex = scene.getCollisionDetection().checkObject(this, true);

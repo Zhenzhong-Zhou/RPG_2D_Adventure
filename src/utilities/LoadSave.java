@@ -293,9 +293,6 @@ public class LoadSave {
                     String[] numbers = line.split("\t");
                     int num = Integer.parseInt(numbers[col]);
                     matrix[currentMap][col][row] = num;
-//                    System.out.println(currentMap);
-//                    System.out.print(num);
-                    System.out.print(Arrays.deepToString(matrix));
                     col++;
                 }
                 if(col == MAX_WORLD_COL) {
@@ -312,7 +309,6 @@ public class LoadSave {
 
     public static int[][][] GetLevelData(String filename, int currentMap) {
         if(GetFile(filename).exists()) {
-            System.out.println( "File: " + filename + " Map Index: " + currentMap);
             return ReadFromFile(GetFile(filename), currentMap);
         } else {
             System.out.println("File: " + GetFile(filename) + currentMap + " does not exist!");

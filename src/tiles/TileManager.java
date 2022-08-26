@@ -63,7 +63,7 @@ public class TileManager {
         tiles.add(new Tile(GetSpriteAtlas(EARTH_IMAGE), false));
         tiles.add(new Tile(GetSpriteAtlas(WALL_IMAGE), true));
         tiles.add(new Tile(GetSpriteAtlas(TREE_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(HUT_IMAGE), true));
+        tiles.add(new Tile(GetSpriteAtlas(HUT_IMAGE), false));
         tiles.add(new Tile(GetSpriteAtlas(FLOOR_IMAGE), false));
         tiles.add(new Tile(GetSpriteAtlas(TABLE_IMAGE), true));
     }
