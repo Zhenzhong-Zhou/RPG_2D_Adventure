@@ -119,8 +119,8 @@ public abstract class Entity {
     public void generateParticle(Entity generator, Entity target) {
         Color color = generator.getParticleColor();
         int size = generator.getParticleSize();
-        int speed = generator.getSpeed();
-        int maxLives = generator.getMaxLives();
+        int speed = generator.getParticleSpeed();
+        int maxLives = generator.getParticleMaxLives();
 
         Particle particle1 = new Particle(scene, target, color, size, speed, maxLives, -2, -1);
         Particle particle2 = new Particle(scene, target, color, size, speed, maxLives, 2, -1);

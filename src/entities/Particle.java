@@ -33,20 +33,8 @@ public class Particle extends Entity{
     public void update() {
         life--;
 
-        Player player = scene.getPlayer();
-        int playerWorldX = player.getWorldX();
-        int playerWorldY = player.getWorldY();
-        int playerScreenX = player.getScreenX();
-        int playerScreenY = player.getScreenY();
-
-        int screenX = worldX - playerWorldX + playerScreenX;
-        int screenY = worldY - playerWorldY + playerScreenY;
-
-        screenX += xd*speed;
-        screenY += yd*speed;
-
-//        worldX += xd*speed;
-//        worldY += yd*speed;
+        worldX += xd*speed;
+        worldY += yd*speed;
 
         if(life == 0) {
             alive = false;
@@ -54,11 +42,6 @@ public class Particle extends Entity{
     }
 
     public void draw(Graphics2D graphics2D) {
-//        Player player = scene.getPlayer();
-//        int screenX = worldX - player.worldX;
-//        int screenY = worldY - player.worldY;
-//        graphics2D.setColor(color);
-//        graphics2D.fillRect(screenX,screenY,size,size);
         Player player = scene.getPlayer();
         int playerWorldX = player.getWorldX();
         int playerWorldY = player.getWorldY();
