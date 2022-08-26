@@ -2,10 +2,7 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.Fireball;
-import objects.Key;
-import objects.Shield_Wood;
-import objects.Sword_Normal;
+import objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -68,7 +65,8 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-        currentWeapon = new Sword_Normal(scene);
+//        currentWeapon = new Sword_Normal(scene);
+        currentWeapon = new Axe(scene);
         currentShield = new Shield_Wood(scene);
         projectile = new Fireball(scene);
         attack = getAttack();   // The total attack value is decided by strength and weapon.
@@ -364,6 +362,9 @@ public class Player extends Entity {
             scene.getInteractiveTiles()[interactiveTileIndex].playEffect();
             scene.getInteractiveTiles()[interactiveTileIndex].life --;
             scene.getInteractiveTiles()[interactiveTileIndex].invincible = true;
+
+            // Generate Particle
+            generateParticle(scene.getInteractiveTiles()[interactiveTileIndex], scene.getInteractiveTiles()[interactiveTileIndex]);
 
             if(scene.getInteractiveTiles()[interactiveTileIndex].life == 0) {
                 scene.getInteractiveTiles()[interactiveTileIndex] = scene.getInteractiveTiles()[interactiveTileIndex].getDestroyedForm();

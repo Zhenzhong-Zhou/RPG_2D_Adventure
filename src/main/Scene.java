@@ -32,7 +32,8 @@ public class Scene extends JPanel implements Runnable {
     private final Entity[] monsters = new Entity[30];
     private InteractiveTile[] interactiveTiles = new InteractiveTile[100];
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
-    private final ArrayList<Projectile> projectileArrayList = new ArrayList<>();
+    private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
+    private ArrayList<Entity> particleArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -123,17 +124,32 @@ public class Scene extends JPanel implements Runnable {
                 }
 
                 // PROJECTILE
-                for(int i = 0; i < projectileArrayList.size(); i++) {
-                    Projectile projectile = projectileArrayList.get(i);
-                    if(projectile != null) {
-                        if(projectile.isAlive()) {
-                            projectile.update();
-                        }
-                        if(! projectile.isAlive()) {
-                            projectileArrayList.remove(projectile);
-                        }
-                    }
-                }
+//                for(int i = 0; i < projectileArrayList.size(); i++) {
+//                    Entity projectile = projectileArrayList.get(i);
+//                    if(projectile != null) {
+//                        if(projectile.isAlive()) {
+//                            projectile.update();
+//                        }
+//                        if(! projectile.isAlive()) {
+//                            projectileArrayList.remove(projectile);
+//                        }
+//                    }
+//                }
+                arrayList(projectileArrayList);
+                arrayList(particleArrayList);
+
+                // PARTICLE
+//                for(int i = 0; i < particleArrayList.size(); i++) {
+//                    Entity particle = particleArrayList.get(i);
+//                    if(particle != null) {
+//                        if(particle.isAlive()) {
+//                            particle.update();
+//                        }
+//                        if(! particle.isAlive()) {
+//                            particleArrayList.remove(particle);
+//                        }
+//                    }
+//                }
 
                 // INTERACTIVE TILE
                 for(Entity interactiveTile : interactiveTiles) {
@@ -143,6 +159,20 @@ public class Scene extends JPanel implements Runnable {
                 }
             }
             case PAUSE -> {
+            }
+        }
+    }
+
+    private void arrayList(ArrayList<Entity> particleArrayList) {
+        for(int i = 0; i < particleArrayList.size(); i++) {
+            Entity particle = particleArrayList.get(i);
+            if(particle != null) {
+                if(particle.isAlive()) {
+                    particle.update();
+                }
+                if(! particle.isAlive()) {
+                    particleArrayList.remove(particle);
+                }
             }
         }
     }
@@ -183,9 +213,15 @@ public class Scene extends JPanel implements Runnable {
                 }
             }
 
-            for(Projectile projectile : projectileArrayList) {
+            for(Entity projectile : projectileArrayList) {
                 if(projectile != null) {
                     entityArrayList.add(projectile);
+                }
+            }
+
+            for(Entity particle : particleArrayList) {
+                if(particle != null) {
+                    entityArrayList.add(particle);
                 }
             }
 
@@ -353,8 +389,12 @@ public class Scene extends JPanel implements Runnable {
         return interactiveTiles;
     }
 
-    public ArrayList<Projectile> getProjectileArrayList() {
+    public ArrayList<Entity> getProjectileArrayList() {
         return projectileArrayList;
+    }
+
+    public ArrayList<Entity> getParticleArrayList() {
+        return particleArrayList;
     }
 
     public boolean isFullScreen() {

@@ -116,6 +116,22 @@ public abstract class Entity {
         }
     }
 
+    public void generateParticle(Entity generator, Entity target) {
+        Color color = generator.getParticleColor();
+        int size = generator.getParticleSize();
+        int speed = generator.getSpeed();
+        int maxLives = generator.getMaxLives();
+
+        Particle particle1 = new Particle(scene, target, color, size, speed, maxLives, -2, -1);
+        Particle particle2 = new Particle(scene, target, color, size, speed, maxLives, 2, -1);
+        Particle particle3 = new Particle(scene, target, color, size, speed, maxLives, -2, 1);
+        Particle particle4 = new Particle(scene, target, color, size, speed, maxLives, 2, 1);
+        scene.getParticleArrayList().add(particle1);
+        scene.getParticleArrayList().add(particle2);
+        scene.getParticleArrayList().add(particle3);
+        scene.getParticleArrayList().add(particle4);
+    }
+
     public void update() {
         setAction();
 
@@ -482,14 +498,6 @@ public abstract class Entity {
         coin += value;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public Entity getCurrentWeapon() {
         return currentWeapon;
     }
@@ -500,5 +508,21 @@ public abstract class Entity {
 
     public String getDescription() {
         return description;
+    }
+
+    public Color getParticleColor() {
+        return null;
+    }
+
+    public int getParticleSize() {
+        return 0;
+    }
+
+    public int getParticleSpeed() {
+        return 0;
+    }
+
+    public int getParticleMaxLives() {
+        return 0;
     }
 }

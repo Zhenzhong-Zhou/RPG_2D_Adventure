@@ -3,6 +3,8 @@ package tile_interactive;
 import entities.Entity;
 import main.Scene;
 
+import java.awt.*;
+
 import static utilities.Constants.AudioManager.CUT_TREE;
 import static utilities.Constants.EntityConstant.AXE;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -30,5 +32,21 @@ public class DryTree extends InteractiveTile{
 
     public InteractiveTile getDestroyedForm() {
         return new Trunk(scene,worldX/TILE_SIZE, worldY/TILE_SIZE);
+    }
+
+    public Color getParticleColor() {
+        return new Color(65,50,30);
+    }
+
+    public int getParticleSize() {
+        return 6;   // 6 pixels
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLives() {
+        return 20;
     }
 }
