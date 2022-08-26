@@ -4,6 +4,8 @@ import entities.Entity;
 import entities.Projectile;
 import main.Scene;
 
+import java.awt.*;
+
 import static utilities.Constants.EntityConstant.FIREBALL;
 import static utilities.LoadSave.*;
 
@@ -38,5 +40,21 @@ public class Fireball extends Projectile {
 
     public void subtractEnergy(Entity user) {
         user.subtractMana(useCost);
+    }
+
+    public Color getParticleColor() {
+        return new Color(240,50,0);
+    }
+
+    public int getParticleSize() {
+        return 10;
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLives() {
+        return 20;
     }
 }

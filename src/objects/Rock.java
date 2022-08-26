@@ -4,6 +4,8 @@ import entities.Entity;
 import entities.Projectile;
 import main.Scene;
 
+import java.awt.*;
+
 import static utilities.Constants.EntityConstant.ROCK;
 import static utilities.LoadSave.GetSpriteAtlas;
 import static utilities.LoadSave.ROCK_IMAGE;
@@ -39,5 +41,21 @@ public class Rock extends Projectile {
 
     public void subtractEnergy(Entity user) {
         user.subtractAmmo(useCost);
+    }
+
+    public Color getParticleColor() {
+        return new Color(40,50,0);
+    }
+
+    public int getParticleSize() {
+        return 10;
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLives() {
+        return 20;
     }
 }
