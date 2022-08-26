@@ -1,7 +1,6 @@
 package entities;
 
 import main.Scene;
-import objects.Fireball;
 import tile_interactive.InteractiveTile;
 
 import java.awt.*;
@@ -103,10 +102,11 @@ public abstract class Entity {
     public void use(Entity entity) {
     }
 
-    public void checkDrop() {}
+    public void checkDrop() {
+    }
 
     public void dropItem(Entity droppedItem) {
-        for(int i = 0; i<scene.getGameObjects().length; i++) {
+        for(int i = 0; i < scene.getGameObjects().length; i++) {
             Entity[] objects = scene.getGameObjects();
             if(objects[i] == null) {
                 objects[i] = droppedItem;
@@ -123,9 +123,9 @@ public abstract class Entity {
         int speed = generator.getParticleSpeed();
         int maxLives = generator.getParticleMaxLives();
 
-        Particle particle1 = new Particle(scene, target, color, size, speed, maxLives, -2, -1);
-        Particle particle2 = new Particle(scene, target, color, size, speed, maxLives, 2, -1);
-        Particle particle3 = new Particle(scene, target, color, size, speed, maxLives, -2, 1);
+        Particle particle1 = new Particle(scene, target, color, size, speed, maxLives, - 2, - 1);
+        Particle particle2 = new Particle(scene, target, color, size, speed, maxLives, 2, - 1);
+        Particle particle3 = new Particle(scene, target, color, size, speed, maxLives, - 2, 1);
         Particle particle4 = new Particle(scene, target, color, size, speed, maxLives, 2, 1);
         scene.getParticleArrayList().add(particle1);
         scene.getParticleArrayList().add(particle2);
@@ -325,7 +325,7 @@ public abstract class Entity {
                 hpBarOn = true;
                 hpBarCounter = 0;
                 // DISABLE TRANSPARENT WITH INTERACTIVE TILE
-                if (!(this instanceof InteractiveTile)) {
+                if(! (this instanceof InteractiveTile)) {
                     changeAlpha(graphics2D, 0.4f);
                 }
             }

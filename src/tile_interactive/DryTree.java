@@ -11,7 +11,7 @@ import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.LoadSave.DRY_TREE_IMAGE;
 import static utilities.LoadSave.GetSpriteAtlas;
 
-public class DryTree extends InteractiveTile{
+public class DryTree extends InteractiveTile {
     public DryTree(Scene scene, int col, int row) {
         super(scene);
         this.worldX = col * TILE_SIZE;
@@ -31,11 +31,11 @@ public class DryTree extends InteractiveTile{
     }
 
     public InteractiveTile getDestroyedForm() {
-        return new Trunk(scene,worldX/TILE_SIZE, worldY/TILE_SIZE);
+        return new Trunk(scene, worldX / TILE_SIZE, worldY / TILE_SIZE);
     }
 
     public Color getParticleColor() {
-        return new Color(65,50,30);
+        return new Color(65, 50, 30);
     }
 
     public int getParticleSize() {

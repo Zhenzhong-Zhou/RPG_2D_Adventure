@@ -44,7 +44,7 @@ public class Rock extends Projectile {
     }
 
     public Color getParticleColor() {
-        return new Color(40,50,0);
+        return new Color(40, 50, 0);
     }
 
     public int getParticleSize() {

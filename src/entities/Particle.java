@@ -5,14 +5,15 @@ import main.Scene;
 import java.awt.*;
 
 import static utilities.Constants.SceneConstant.*;
-import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 
-public class Particle extends Entity{
-    private Entity generator;
-    private Color color;
-    private int size, xd, yd;
+public class Particle extends Entity {
+    private final Entity generator;
+    private final Color color;
+    private int size;
+    private final int xd;
+    private int yd;
 
     public Particle(Scene scene, Entity generator, Color color, int size, int speed, int maxLives, int xd, int yd) {
         super(scene);
@@ -25,7 +26,7 @@ public class Particle extends Entity{
         this.yd = yd;
 
         life = maxLives;
-        int offset = (TILE_SIZE/2) - (size/2);
+        int offset = (TILE_SIZE / 2) - (size / 2);
         worldX = generator.worldX + offset;
         worldY = generator.worldY + offset;
     }
@@ -33,12 +34,12 @@ public class Particle extends Entity{
     public void update() {
         life--;
 
-        if(life < maxLives/3) {
+        if(life < maxLives / 3) {
             yd++;
             size--;
         }
-        worldX += xd*speed;
-        worldY += yd*speed;
+        worldX += xd * speed;
+        worldY += yd * speed;
 
         if(life == 0) {
             alive = false;
@@ -72,13 +73,13 @@ public class Particle extends Entity{
 
         if(worldX + TILE_SIZE > left && worldX - TILE_SIZE < right && worldY + TILE_SIZE > up && worldY - TILE_SIZE < down) {
             graphics2D.setColor(color);
-            graphics2D.fillRect(screenX,screenY,size,size);
+            graphics2D.fillRect(screenX, screenY, size, size);
         } else if(playerScreenX > playerWorldX ||       //TODO: need to fix later
                 playerScreenY > playerWorldY ||
                 rightOffset > WORLD_WIDTH - playerWorldX ||
                 bottomOffset > WORLD_HEIGHT - playerWorldY) {
             graphics2D.setColor(color);
-            graphics2D.fillRect(screenX,screenY,size,size);
+            graphics2D.fillRect(screenX, screenY, size, size);
         }
     }
 }

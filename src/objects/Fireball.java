@@ -43,7 +43,7 @@ public class Fireball extends Projectile {
     }
 
     public Color getParticleColor() {
-        return new Color(240,50,0);
+        return new Color(240, 50, 0);
     }
 
     public int getParticleSize() {

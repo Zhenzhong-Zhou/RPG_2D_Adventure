@@ -14,14 +14,14 @@ public class Coin_Bronze extends Entity {
         super(scene);
 
         objectName = BRONZE_COIN;
-        entityType =PICKUP;
+        entityType = PICKUP;
         value = 1;
         down1 = GetSpriteAtlas(COIN_IMAGE);
     }
 
     public void use(Entity player) {
-       scene.getAudioManager().playEffect(COIN);
-       scene.getGui().addMessage("Coin + " + value);
-       scene.getPlayer().pickupCoin(value);
+        scene.getAudioManager().playEffect(COIN);
+        scene.getGui().addMessage("Coin + " + value);
+        scene.getPlayer().pickupCoin(value);
     }
 }

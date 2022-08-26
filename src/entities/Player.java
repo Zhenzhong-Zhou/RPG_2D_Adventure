@@ -2,7 +2,10 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.*;
+import objects.Axe;
+import objects.Fireball;
+import objects.Key;
+import objects.Shield_Wood;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -358,9 +361,9 @@ public class Player extends Entity {
 
     private void damageInteractiveTile(int interactiveTileIndex) {
         if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[interactiveTileIndex].destructible
-                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this) && !scene.getInteractiveTiles()[interactiveTileIndex].invincible) {
+                && scene.getInteractiveTiles()[interactiveTileIndex].isCorrectItem(this) && ! scene.getInteractiveTiles()[interactiveTileIndex].invincible) {
             scene.getInteractiveTiles()[interactiveTileIndex].playEffect();
-            scene.getInteractiveTiles()[interactiveTileIndex].life --;
+            scene.getInteractiveTiles()[interactiveTileIndex].life--;
             scene.getInteractiveTiles()[interactiveTileIndex].invincible = true;
 
             // Generate Particle

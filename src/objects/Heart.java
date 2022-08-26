@@ -3,7 +3,6 @@ package objects;
 import entities.Entity;
 import main.Scene;
 
-import static utilities.Constants.AudioManager.COIN;
 import static utilities.Constants.AudioManager.POWER_UP;
 import static utilities.Constants.EntityConstant.HEART;
 import static utilities.Constants.EntityConstant.PICKUP;

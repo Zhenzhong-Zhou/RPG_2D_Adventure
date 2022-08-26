@@ -14,7 +14,8 @@ public class InteractiveTile extends Entity {
         return false;
     }
 
-    public void playEffect() {}
+    public void playEffect() {
+    }
 
     public InteractiveTile getDestroyedForm() {
         return null;
