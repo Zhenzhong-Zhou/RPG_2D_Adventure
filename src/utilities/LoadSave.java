@@ -115,10 +115,13 @@ public class LoadSave {
     public static final String ROAD_11_IMAGE = "tile/road/road11.png";
     public static final String ROAD_12_IMAGE = "tile/road/road12.png";
 
-    // TILES: Earth, Wall and Tree
+    // TILES: Earth, Wall, Tree, Hut, Floor and Table
     public static final String EARTH_IMAGE = "tile/earth.png";
     public static final String WALL_IMAGE = "tile/wall.png";
     public static final String TREE_IMAGE = "tile/tree.png";
+    public static final String HUT_IMAGE = "tile/hut.png";
+    public static final String FLOOR_IMAGE = "tile/floor01.png";
+    public static final String TABLE_IMAGE = "tile/table01.png";
 
     // INTERACTIVE TILE: Tree
     public static final String DRY_TREE_IMAGE = "tiles_interactive/drytree.png";
@@ -146,8 +149,9 @@ public class LoadSave {
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
 
-    // FILE NAME
+    // MAP NAME
     public static final String DEFAULT_LEVEL = "maps/default_level.txt";
+    public static final String LEVEL_1 = "maps/worldV3.txt";
 
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");

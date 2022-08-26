@@ -44,6 +44,7 @@ public class Scene extends JPanel implements Runnable {
     private AssetSetter assetSetter;
     private boolean fullScreen, musicMute, seMute;
     private Config config;
+    public int currentMap;
 
     public Scene() {
         setFocusable(true);
