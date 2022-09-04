@@ -20,7 +20,6 @@ import static utilities.LoadSave.*;
 public class Player extends Entity {
     private final int screenX, screenY;
     private final KeyInputs keyInputs;
-    private final ArrayList<Entity> inventory = new ArrayList<>();
     private int standCounter = 0;
     private boolean attackCanceled;
 
@@ -48,8 +47,10 @@ public class Player extends Entity {
 //        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
 //        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         // TODO: not center
-        worldX = 23 * TILE_SIZE;
-        worldY = 21 * TILE_SIZE;
+//        worldX = 23 * TILE_SIZE;
+//        worldY = 21 * TILE_SIZE;
+        worldX = 12 * TILE_SIZE;
+        worldY = 23 * TILE_SIZE;
         speed = 4;
         direction = DOWN;
 
@@ -309,7 +310,7 @@ public class Player extends Entity {
             // INVENTORY ITEMS
             else {
                 String text;
-                if(inventory.size() != 25) {
+                if(inventory.size() != maxInventorySize) {
                     inventory.add(object);
                     scene.getAudioManager().playEffect(COIN);
                     text = "Pickup a " + object.getObjectName() + "!";
@@ -409,7 +410,7 @@ public class Player extends Entity {
     }
 
     public void selectItem() {
-        int itemIndex = scene.getGui().getItemIndexOnSlot();
+        int itemIndex = scene.getGui().getItemIndexOnSlot(scene.getGui().getPlayerSlotCol(), scene.getGui().getPlayerSlotRow());
 
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
@@ -527,9 +528,5 @@ public class Player extends Entity {
 
     public void setAttackCanceled(boolean attackCanceled) {
         this.attackCanceled = attackCanceled;
-    }
-
-    public ArrayList<Entity> getInventory() {
-        return inventory;
     }
 }

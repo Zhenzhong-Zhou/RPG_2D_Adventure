@@ -1,6 +1,5 @@
 package input;
 
-import main.GameState;
 import main.Scene;
 
 import java.awt.event.KeyEvent;
@@ -36,6 +35,7 @@ public class KeyInputs implements KeyListener {
             case CHARACTER -> character(e);
             case OPTIONS -> options(e);
             case DEAD -> dead(e);
+            case TRADE -> trade(e);
         }
     }
 
@@ -102,32 +102,9 @@ public class KeyInputs implements KeyListener {
     private void character(KeyEvent e) {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_C -> gameState = PLAY;
-            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
-                if(scene.getGui().getSlotRow() != 0) {
-                    scene.getGui().slotRowDecrease();
-                    scene.getAudioManager().playEffect(CURSOR);
-                }
-            }
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
-                if(scene.getGui().getSlotCol() != 0) {
-                    scene.getGui().slotColDecrease();
-                    scene.getAudioManager().playEffect(CURSOR);
-                }
-            }
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
-                if(scene.getGui().getSlotRow() != 4) {
-                    scene.getGui().slotRowIncrease();
-                    scene.getAudioManager().playEffect(CURSOR);
-                }
-            }
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
-                if(scene.getGui().getSlotCol() != 4) {
-                    scene.getGui().slotColIncrease();
-                    scene.getAudioManager().playEffect(CURSOR);
-                }
-            }
             case KeyEvent.VK_ENTER -> scene.getPlayer().selectItem();
         }
+        playerInventory(e);
     }
 
     private void options(KeyEvent e) {
@@ -142,6 +119,7 @@ public class KeyInputs implements KeyListener {
                 if(scene.getGui().getCommandNum() < 0) {
                     scene.getGui().setCommandNum(1);
                 }
+                scene.getAudioManager().playEffect(CURSOR);
             }
             case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
                 scene.getGui().incrementCommandNum();
@@ -149,6 +127,7 @@ public class KeyInputs implements KeyListener {
                 if(scene.getGui().getCommandNum() > 1) {
                     scene.getGui().setCommandNum(0);
                 }
+                scene.getAudioManager().playEffect(CURSOR);
             }
             case KeyEvent.VK_ENTER -> {
                 switch(scene.getGui().getCommandNum()) {
@@ -164,6 +143,35 @@ public class KeyInputs implements KeyListener {
                         scene.getGui().setCommandNum(-1);
                     }
                 }
+            }
+        }
+    }
+
+    private void trade(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) enterPressed = true;
+        switch(scene.getGui().getSubState()) {
+            case 0 -> {
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                        scene.getGui().decrementCommandNum();
+                        if(scene.getGui().getCommandNum() < 0) {
+                            scene.getGui().setCommandNum(2);
+                        }
+                        scene.getAudioManager().playEffect(CURSOR);
+                    }
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                        scene.getGui().incrementCommandNum();
+                        scene.getAudioManager().playEffect(CURSOR);
+                        if(scene.getGui().getCommandNum() > 2) {
+                            scene.getGui().setCommandNum(0);
+                        }
+                        scene.getAudioManager().playEffect(CURSOR);
+                    }
+                }
+            }
+            case 1 -> {
+                npcInventory(e);
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) scene.getGui().setSubState(0);
             }
         }
     }
@@ -217,6 +225,64 @@ public class KeyInputs implements KeyListener {
                         scene.getAudioManager().setVolume(scene.getAudioManager().getVolume());
                         scene.getAudioManager().playEffect(CURSOR);
                     }
+                }
+            }
+        }
+    }
+
+    private void playerInventory(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                if(scene.getGui().getPlayerSlotRow() != 0) {
+                    scene.getGui().playerSlotRowDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                if(scene.getGui().getPlayerSlotCol() != 0) {
+                    scene.getGui().playerSlotColDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                if(scene.getGui().getPlayerSlotRow() != 4) {
+                    scene.getGui().playerSlotRowIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                if(scene.getGui().getPlayerSlotCol() != 4) {
+                    scene.getGui().playerSlotColIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+        }
+    }
+
+    private void npcInventory(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                if(scene.getGui().getNpcSlotRow() != 0) {
+                    scene.getGui().npcSlotRowDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                if(scene.getGui().getNpcSlotCol() != 0) {
+                    scene.getGui().npcSlotColDecrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                if(scene.getGui().getNpcSlotRow() != 4) {
+                    scene.getGui().npcSlotRowIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
+                }
+            }
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                if(scene.getGui().getNpcSlotCol() != 4) {
+                    scene.getGui().npcSlotColIncrease();
+                    scene.getAudioManager().playEffect(CURSOR);
                 }
             }
         }

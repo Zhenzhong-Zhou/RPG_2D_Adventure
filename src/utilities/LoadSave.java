@@ -63,6 +63,10 @@ public class LoadSave {
     public static final String OLD_MAN_RIGHT_1_IMAGE = "npc/oldman_right_1.png";
     public static final String OLD_MAN_RIGHT_2_IMAGE = "npc/oldman_right_2.png";
 
+    // NPC: Merchant
+    public static final String MERCHANT_DOWN_1_IMAGE = "npc/merchant_down_1.png";
+    public static final String MERCHANT_DOWN_2_IMAGE = "npc/merchant_down_2.png";
+
     // PROJECTILE: Fireball
     public static final String FIREBALL_UP_1_IMAGE = "projectile/fireball_up_1.png";
     public static final String FIREBALL_UP_2_IMAGE = "projectile/fireball_up_2.png";

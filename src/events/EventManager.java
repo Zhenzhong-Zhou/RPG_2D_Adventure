@@ -1,10 +1,12 @@
 package events;
 
+import entities.Entity;
 import entities.Player;
 import main.GameState;
 import main.Scene;
 
 import static main.GameState.DIALOGUE;
+import static main.GameState.gameState;
 import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -57,14 +59,16 @@ public class EventManager {
             if(trigger(27, 16, RIGHT)) {
                 damagePit(27, 16, DIALOGUE);
             }
-            if(trigger(23, 19, ANY)) {
+            else if(trigger(23, 19, ANY)) {
                 damagePit(27, 16, DIALOGUE);
             }
-            if(trigger(23, 12, UP)) {
+            else if(trigger(23, 12, UP)) {
                 healingPool(23, 12, DIALOGUE);
             }
-            if(trigger(13, 21, LEFT)) {
+            else if(trigger(13, 21, LEFT)) {
                 teleport(13, 21, DIALOGUE);
+            } else if(trigger(12, 22, UP)) {
+                speak(scene.getNPCs());
             }
         }
     }
@@ -123,5 +127,14 @@ public class EventManager {
         scene.getGui().setCurrentDialogue("Teleport!");
         scene.getPlayer().setWorldX(37 * TILE_SIZE);
         scene.getPlayer().setWorldY(10 * TILE_SIZE);
+    }
+
+
+    private void speak(Entity[] npc) {
+        if(scene.getKeyInputs().isEnterPressed()) {
+            gameState = DIALOGUE;
+            scene.getPlayer().setAttackCanceled(true);
+            npc[1].speak();
+        }
     }
 }

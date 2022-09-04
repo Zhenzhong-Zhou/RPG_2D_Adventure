@@ -5,6 +5,7 @@ import tile_interactive.InteractiveTile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static utilities.Constants.AudioManager.RECEIVED_DAMAGE;
@@ -60,6 +61,8 @@ public abstract class Entity {
     protected String description = "";
     protected int useCost;
     protected int shotAvailableCounter;
+    protected final ArrayList<Entity> inventory = new ArrayList<>();
+    protected final int maxInventorySize = 25;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -84,7 +87,7 @@ public abstract class Entity {
     protected void damageReaction() {
     }
 
-    protected void speak() {
+    public void speak() {
         if(dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         } else {
@@ -528,5 +531,13 @@ public abstract class Entity {
 
     public int getParticleMaxLives() {
         return 0;
+    }
+
+    public ArrayList<Entity> getInventory() {
+        return inventory;
+    }
+
+    public int getMaxInventorySize() {
+        return maxInventorySize;
     }
 }

@@ -3,6 +3,7 @@ package gui;
 import entities.Entity;
 import entities.Player;
 import main.Scene;
+import objects.Coin_Bronze;
 import objects.Heart;
 import objects.ManaCrystal;
 
@@ -24,10 +25,13 @@ public class GUI {
     private Font maruMonica, purisaB;
     private String currentDialogue = "";
     private int commandNum = 0;
-    private BufferedImage heart_full, heart_half, heart_blank, manna_full, manna_blank;
-    private int slotCol = 0;
-    private int slotRow = 0;
+    private BufferedImage heart_full, heart_half, heart_blank, manna_full, manna_blank, coin;
+    private int playerSlotCol = 0;
+    private int playerSlotRow = 0;
+    private int npcSlotCol = 0;
+    private int npcSlotRow = 0;
     private int subState = 0;
+    private Entity npc;
 
     public GUI(Scene scene) {
         this.scene = scene;
@@ -35,6 +39,7 @@ public class GUI {
         initFont();
         getPlayerLifeImage();
         getPlayerMannaImage();
+        getCoinImage();
         createDefaultLevel();
     }
 
@@ -54,6 +59,11 @@ public class GUI {
         Entity manaCrystal = new ManaCrystal(scene);
         manna_full = manaCrystal.getDown1();
         manna_blank = manaCrystal.getDown2();
+    }
+
+    private void getCoinImage() {
+        Entity bronzeCoin = new Coin_Bronze(scene);
+        coin = bronzeCoin.getDown1();
     }
 
     public void addMessage(String text) {
@@ -83,10 +93,12 @@ public class GUI {
             }
             case CHARACTER -> {
                 drawCharacterScreen();
-                drawInventory();
+                drawInventory(scene.getPlayer(), true);
             }
             case OPTIONS -> drawOptionsScreen();
             case DEAD -> drawDeadScreen();
+            case TRANSITION -> drawTransition();
+            case TRADE -> drawTradeScreen();
         }
     }
 
@@ -518,9 +530,9 @@ public class GUI {
         graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 23F));
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         // WINDOW
-        int x = TILE_SIZE * 2;
+        int x = TILE_SIZE * 4;
         int y = TILE_SIZE / 2;
-        int width = SCENE_WIDTH - (TILE_SIZE * 4);
+        int width = SCENE_WIDTH - (TILE_SIZE * 8);
         int height = TILE_SIZE * 5;
         drawSubWindow(x, y, width, height);
 
@@ -639,16 +651,33 @@ public class GUI {
         textY += TILE_SIZE;
     }
 
-    private void drawInventory() {
+    private void drawInventory(Entity entity, boolean cursor) {
+        int frameX;
+        int frameY;
+        int frameWidth;
+        int frameHeight;
+        int slotCol;
+        int slotRow;
+
+        if(entity == scene.getPlayer()) {
+            frameX = TILE_SIZE * 16;
+            frameY = TILE_SIZE;
+            frameWidth = TILE_SIZE * 6;
+            frameHeight = TILE_SIZE * 6;
+            slotCol = playerSlotCol;
+            slotRow = playerSlotRow;
+        } else {
+            frameX = TILE_SIZE * 2;
+            frameY = TILE_SIZE;
+            frameWidth = TILE_SIZE * 6;
+            frameHeight = TILE_SIZE * 6;
+            slotCol = npcSlotCol;
+            slotRow = npcSlotRow;
+        }
         // CREATE A FRAME
-        int frameX = TILE_SIZE * 16;
-        int frameY = TILE_SIZE;
-        int frameWidth = TILE_SIZE * 6;
-        int frameHeight = TILE_SIZE * 6;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
-        Player player = scene.getPlayer();
-        ArrayList<Entity> inventory = player.getInventory();
+        ArrayList<Entity> inventory = entity.getInventory();
 
         // SLOT
         final int slotXstart = frameX + 20;
@@ -660,7 +689,7 @@ public class GUI {
         // DRAW PLAYER'S ITEMS
         for(int i = 0; i < inventory.size(); i++) {
             // EQUIP CURSOR
-            if(inventory.get(i) == player.getCurrentWeapon() || inventory.get(i) == player.getCurrentShield()) {
+            if(inventory.get(i) == entity.getCurrentWeapon() || inventory.get(i) == entity.getCurrentShield()) {
                 graphics2D.setColor(new Color(240, 190, 90));
                 graphics2D.fillRoundRect(slotX, slotY, TILE_SIZE, TILE_SIZE, 10, 10);
             }
@@ -674,32 +703,34 @@ public class GUI {
         }
 
         // CURSOR
-        int cursorX = slotXstart + (slotSize * slotCol);
-        int cursorY = slotYstart + (slotSize * slotRow);
-        int cursorWidth = TILE_SIZE;
-        int cursorHeight = TILE_SIZE;
-        // DRAW CURSOR
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.setStroke(new BasicStroke(3));
-        graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        if(cursor) {
+            int cursorX = slotXstart + (slotSize * slotCol);
+            int cursorY = slotYstart + (slotSize * slotRow);
+            int cursorWidth = TILE_SIZE;
+            int cursorHeight = TILE_SIZE;
+            // DRAW CURSOR
+            graphics2D.setColor(Color.WHITE);
+            graphics2D.setStroke(new BasicStroke(3));
+            graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
-        // DESCRIPTION FRAME
-        int dFrameX = frameX;
-        int dFrameY = frameY + frameHeight;
-        int dFrameWidth = frameWidth;
-        int dFrameHeight = TILE_SIZE * 3;
-        // DRAW DESCRIPTION TEXT
-        int textX = dFrameX + 20;
-        int textY = dFrameY + TILE_SIZE;
-        graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 20F));
-        graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            // DESCRIPTION FRAME
+            int dFrameX = frameX;
+            int dFrameY = frameY + frameHeight;
+            int dFrameWidth = frameWidth;
+            int dFrameHeight = TILE_SIZE * 3;
+            // DRAW DESCRIPTION TEXT
+            int textX = dFrameX + 20;
+            int textY = dFrameY + TILE_SIZE;
+            graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 20F));
+            graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        int itemIndex = getItemIndexOnSlot();
-        if(itemIndex < inventory.size()) {
-            drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-            for(String line : inventory.get(itemIndex).getDescription().split("\n")) {
-                graphics2D.drawString(line, textX, textY);
-                textY += 32;
+            int itemIndex = getItemIndexOnSlot(slotCol, slotRow);
+            if(itemIndex < inventory.size()) {
+                drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+                for(String line : inventory.get(itemIndex).getDescription().split("\n")) {
+                    graphics2D.drawString(line, textX, textY);
+                    textY += 32;
+                }
             }
         }
     }
@@ -732,7 +763,92 @@ public class GUI {
         drawMenu(text,1);
     }
 
-    public int getItemIndexOnSlot() {
+    private void drawTransition() {}
+
+    private void drawTradeScreen() {
+        switch(subState) {
+            case 0 -> trade_select();
+            case 1 -> trade_buy();
+            case 2 -> trade_sell();
+        }
+        scene.getKeyInputs().setEnterPressed(false);
+    }
+
+    private void trade_select() {
+        drawDialogueOverlay();
+
+        // DRAW WINDOW
+        int x = TILE_SIZE * 17;
+        int y = TILE_SIZE * 6;
+        int width = (int) (TILE_SIZE * 3.5);
+        int height = (int) (TILE_SIZE * 3.5);
+        drawSubWindow(x,y,width,height);
+
+        // DRAW TEXTS
+        x+=TILE_SIZE;
+        y+=TILE_SIZE;
+
+        drawState("Buy", x,y, 0);
+        if(scene.getKeyInputs().isEnterPressed() && commandNum == 0) subState = 1;
+        y+=TILE_SIZE;
+
+        drawState("Sell", x,y, 1);
+        if(scene.getKeyInputs().isEnterPressed() && commandNum == 1) subState = 2;
+        y+=TILE_SIZE;
+
+        drawState("Leave", x,y, 2);
+        if(scene.getKeyInputs().isEnterPressed() && commandNum == 2) {
+            subState = 3;
+            commandNum = 0;
+            gameState = DIALOGUE;
+            currentDialogue = "Come again, hehe!";
+        }
+    }
+
+    private void trade_buy() {
+        // DRAW PLAYER INVENTORY
+        drawInventory(scene.getPlayer(), false);
+        // DRAW MERCHANT INVENTORY
+        drawInventory(npc, true);
+
+        int x;
+        int y;
+        int width;
+        int height;
+
+        // DRAW HINT WINDOW
+        x = TILE_SIZE * 2;
+        y = TILE_SIZE * 10;
+        width = TILE_SIZE * 6;
+        height = TILE_SIZE * 2;
+        drawSubWindow(x,y,width,height);
+        graphics2D.drawString("[ESC] Back", x+24, y+55);
+
+        // DRAW PLAYER COIN WINDOW
+        x = TILE_SIZE * 16;
+        y = TILE_SIZE * 10;
+        width = TILE_SIZE * 6;
+        height = TILE_SIZE * 2;
+        drawSubWindow(x,y,width,height);
+        graphics2D.drawString("Your Coin: " + scene.getPlayer().getCoin(), x+24, y+55);
+
+        // DRAW PRICE WINDOW
+        int itemIndex = getItemIndexOnSlot(npcSlotCol,  npcSlotRow);
+        if(itemIndex <  npc.getInventory().size()) {
+            x = (int) (TILE_SIZE * 5.5);
+            y = (int) (TILE_SIZE * 6.5);
+            width = (int) (TILE_SIZE * 2.5);
+            height = TILE_SIZE;
+            drawSubWindow(x,y,width,height);
+            graphics2D.drawImage(coin, x+10,y+7, 32,32,null);
+        }
+    }
+
+    private void trade_sell() {
+
+    }
+
+    public int getItemIndexOnSlot(int slotCol, int slotRow) {
         return slotCol + (slotRow * 5);
     }
 
@@ -785,28 +901,52 @@ public class GUI {
         this.commandNum++;
     }
 
-    public void slotColDecrease() {
-        this.slotCol--;
+    public void playerSlotColDecrease() {
+        this.playerSlotCol--;
     }
 
-    public void slotColIncrease() {
-        this.slotCol++;
+    public void playerSlotColIncrease() {
+        this.playerSlotCol++;
     }
 
-    public void slotRowDecrease() {
-        this.slotRow--;
+    public void playerSlotRowDecrease() {
+        this.playerSlotRow--;
     }
 
-    public void slotRowIncrease() {
-        this.slotRow++;
+    public void playerSlotRowIncrease() {
+        this.playerSlotRow++;
     }
 
-    public int getSlotCol() {
-        return slotCol;
+    public int getPlayerSlotCol() {
+        return playerSlotCol;
     }
 
-    public int getSlotRow() {
-        return slotRow;
+    public int getPlayerSlotRow() {
+        return playerSlotRow;
+    }
+
+    public void npcSlotColDecrease() {
+        this.npcSlotCol--;
+    }
+
+    public void npcSlotColIncrease() {
+        this.npcSlotCol++;
+    }
+
+    public void npcSlotRowDecrease() {
+        this.npcSlotRow--;
+    }
+
+    public void npcSlotRowIncrease() {
+        this.npcSlotRow++;
+    }
+
+    public int getNpcSlotCol() {
+        return npcSlotCol;
+    }
+
+    public int getNpcSlotRow() {
+        return npcSlotRow;
     }
 
     public int getSubState() {
@@ -815,5 +955,9 @@ public class GUI {
 
     public void setSubState(int subState) {
         this.subState = subState;
+    }
+
+    public void setNpc(Entity npc) {
+        this.npc = npc;
     }
 }

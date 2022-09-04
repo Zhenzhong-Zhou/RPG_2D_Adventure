@@ -1,5 +1,6 @@
 package utilities;
 
+import entities.NPC_Merchant;
 import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
@@ -64,9 +65,15 @@ public class AssetSetter {
     }
 
     public void setNPCs() {
-        scene.getNPCs()[0] = new NPC_OldMan(scene);
-        scene.getNPCs()[0].setWorldX(21 * TILE_SIZE);
-        scene.getNPCs()[0].setWorldY(21 * TILE_SIZE);
+        int i = 0;
+        scene.getNPCs()[i] = new NPC_OldMan(scene);
+        scene.getNPCs()[i].setWorldX(21 * TILE_SIZE);
+        scene.getNPCs()[i].setWorldY(21 * TILE_SIZE);
+        i++;
+
+        scene.getNPCs()[i] = new NPC_Merchant(scene);
+        scene.getNPCs()[i].setWorldX(12 * TILE_SIZE);
+        scene.getNPCs()[i].setWorldY(20 * TILE_SIZE);
     }
 
     public void setMonsters() {
