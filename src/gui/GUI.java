@@ -253,7 +253,6 @@ public class GUI {
         // BACK
         textY += TILE_SIZE * 2;
         drawState("Back", textX, textY, i);
-        i++;
         if(commandNum == 7 && scene.getKeyInputs().isEnterPressed()) {
             gameState = PLAY;
             commandNum = 0;
@@ -340,12 +339,16 @@ public class GUI {
         int textX;
         int textY;
 
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setFont(maruMonica.deriveFont(Font.PLAIN, 40F));
         // TITLE
         String text = "Control";
         textX = getHorizonCenteredText(text);
         textY = frameY + TILE_SIZE;
         graphics2D.drawString(text, textX, textY + 10);
 
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.setFont(maruMonica.deriveFont(Font.BOLD, 30F));
         textX = frameX + TILE_SIZE;
         textY += TILE_SIZE * 2;
         graphics2D.drawString("Move", textX, textY);
@@ -359,7 +362,6 @@ public class GUI {
         graphics2D.drawString("Pause", textX, textY);
         textY += TILE_SIZE;
         graphics2D.drawString("Options", textX, textY);
-        textY += TILE_SIZE;
 
         textX = frameX + (int) (TILE_SIZE * 6.5);
         textY = frameY + TILE_SIZE * 3;
@@ -374,12 +376,12 @@ public class GUI {
         graphics2D.drawString("P", textX, textY);
         textY += TILE_SIZE;
         graphics2D.drawString("ESC", textX, textY);
-        textY += TILE_SIZE;
 
         // BACK
         textX = frameX + TILE_SIZE;
-        textY = frameY + TILE_SIZE * 9;
-        drawState("Back", textX, textY, 0);
+        textY = frameY + TILE_SIZE * 11;
+        graphics2D.drawString("Back", textX, textY);
+        graphics2D.drawString(">", textX - 25, textY);
         if(scene.getKeyInputs().isEnterPressed()) {
             subState = 0;
             commandNum = 5;
@@ -548,7 +550,7 @@ public class GUI {
     private void drawCharacterScreen() {
         // CREATE A FRAME
         final int frameX = TILE_SIZE * 2;
-        final int frameY = TILE_SIZE;
+        final int frameY = TILE_SIZE*3;
         final int frameWidth = TILE_SIZE * 6;
         final int frameHeight = TILE_SIZE * 11 + 5;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -585,7 +587,6 @@ public class GUI {
         graphics2D.drawString("Weapon", textX, textY);
         textY += lineHeight + 11;
         graphics2D.drawString("Shield", textX, textY);
-        textY += lineHeight;
 
         // VALUES
         int tailX = (frameX + frameWidth) - 30;
@@ -648,7 +649,6 @@ public class GUI {
         textY += TILE_SIZE;
 
         graphics2D.drawImage(player.getCurrentShield().getDown1(), tailX - TILE_SIZE, textY - 25, null);
-        textY += TILE_SIZE;
     }
 
     private void drawInventory(Entity entity, boolean cursor) {
@@ -661,14 +661,14 @@ public class GUI {
 
         if(entity == scene.getPlayer()) {
             frameX = TILE_SIZE * 16;
-            frameY = TILE_SIZE;
+            frameY = TILE_SIZE*3;
             frameWidth = TILE_SIZE * 6;
             frameHeight = TILE_SIZE * 6;
             slotCol = playerSlotCol;
             slotRow = playerSlotRow;
         } else {
             frameX = TILE_SIZE * 2;
-            frameY = TILE_SIZE;
+            frameY = TILE_SIZE*3;
             frameWidth = TILE_SIZE * 6;
             frameHeight = TILE_SIZE * 6;
             slotCol = npcSlotCol;
@@ -706,27 +706,23 @@ public class GUI {
         if(cursor) {
             int cursorX = slotXstart + (slotSize * slotCol);
             int cursorY = slotYstart + (slotSize * slotRow);
-            int cursorWidth = TILE_SIZE;
-            int cursorHeight = TILE_SIZE;
             // DRAW CURSOR
             graphics2D.setColor(Color.WHITE);
             graphics2D.setStroke(new BasicStroke(3));
-            graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            graphics2D.drawRoundRect(cursorX, cursorY, TILE_SIZE, TILE_SIZE, 10, 10);
 
             // DESCRIPTION FRAME
-            int dFrameX = frameX;
             int dFrameY = frameY + frameHeight;
-            int dFrameWidth = frameWidth;
             int dFrameHeight = TILE_SIZE * 3;
             // DRAW DESCRIPTION TEXT
-            int textX = dFrameX + 20;
+            int textX = frameX + 20;
             int textY = dFrameY + TILE_SIZE;
             graphics2D.setFont(purisaB.deriveFont(Font.PLAIN, 20F));
             graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
             int itemIndex = getItemIndexOnSlot(slotCol, slotRow);
             if(itemIndex < inventory.size()) {
-                drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+                drawSubWindow(frameX, dFrameY, frameWidth, dFrameHeight);
                 for(String line : inventory.get(itemIndex).getDescription().split("\n")) {
                     graphics2D.drawString(line, textX, textY);
                     textY += 32;
@@ -818,7 +814,7 @@ public class GUI {
 
         // DRAW HINT WINDOW
         x = TILE_SIZE * 2;
-        y = TILE_SIZE * 10;
+        y = TILE_SIZE * 13;
         width = TILE_SIZE * 6;
         height = TILE_SIZE * 2;
         drawSubWindow(x,y,width,height);
@@ -826,9 +822,6 @@ public class GUI {
 
         // DRAW PLAYER COIN WINDOW
         x = TILE_SIZE * 16;
-        y = TILE_SIZE * 10;
-        width = TILE_SIZE * 6;
-        height = TILE_SIZE * 2;
         drawSubWindow(x,y,width,height);
         graphics2D.drawString("Your Coin: " + scene.getPlayer().getCoin(), x+24, y+55);
 
@@ -836,7 +829,7 @@ public class GUI {
         int itemIndex = getItemIndexOnSlot(npcSlotCol,  npcSlotRow);
         if(itemIndex <  npc.getInventory().size()) {
             x = (int) (TILE_SIZE * 5.5);
-            y = (int) (TILE_SIZE * 6.5);
+            y = (int) (TILE_SIZE * 8.5);
             width = (int) (TILE_SIZE * 2.5);
             height = TILE_SIZE;
             drawSubWindow(x,y,width,height);
