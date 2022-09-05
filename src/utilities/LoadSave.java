@@ -158,8 +158,6 @@ public class LoadSave {
 
     // MAP NAME
     public static final String DEFAULT_LEVEL = "maps/default_level.txt";
-//    public static final String LEVEL_1 = "maps/worldV3.txt";
-//    public static final String LEVEL_2 = "maps/interior01.txt";
     public static final String LEVEL_1 = "/maps/worldV3.txt";
     public static final String LEVEL_2 = "/maps/interior01.txt";
 

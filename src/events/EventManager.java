@@ -5,8 +5,7 @@ import entities.Player;
 import main.GameState;
 import main.Scene;
 
-import static main.GameState.DIALOGUE;
-import static main.GameState.gameState;
+import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.GameConstant.MAX_MAP;
@@ -17,6 +16,7 @@ import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 public class EventManager {
     private final Scene scene;
     private final EventBox[][][] eventBox;
+    private int tempMap, tempCol, tempRow;
     private int previousEventX, previousEventY;
     private boolean canTouchEvent;
 
@@ -64,19 +64,19 @@ public class EventManager {
 
         if(canTouchEvent) {
             if(trigger(0,27, 16, RIGHT)) {
-                damagePit(DIALOGUE);
+                damagePit();
             }
             else if(trigger(0,23, 19, ANY)) {
-                damagePit(DIALOGUE);
+                damagePit();
             }
             else if(trigger(0,23, 12, UP)) {
-                healingPool(DIALOGUE);
+                healingPool();
             }
-            else if(trigger(0,19, 21, ANY)) {
-                teleport(1,12,13,DIALOGUE);
+            else if(trigger(0,12, 12, ANY)) {
+                teleport(1,12,12);
             }
-            else if(trigger(1,12,13, ANY)) {
-                teleport(0,19, 21,DIALOGUE);
+            else if(trigger(1,12,12, ANY)) {
+                teleport(0,12, 12);
             }
             else if(trigger(1,12, 9, UP)) {
                 speak(scene.getNPCs()[1][0]);
@@ -112,8 +112,8 @@ public class EventManager {
         return trigger;
     }
 
-    private void damagePit(GameState gameState) {
-        GameState.gameState = gameState;
+    private void damagePit() {
+        gameState = DIALOGUE;
         scene.getAudioManager().playEffect(RECEIVED_DAMAGE);
         scene.getGui().setCurrentDialogue("You fall into a pit!");
         scene.getPlayer().lostLife();
@@ -121,9 +121,9 @@ public class EventManager {
         scene.getAssetSetter().setMonsters();
     }
 
-    private void healingPool(GameState gameState) {
+    private void healingPool() {
         if(scene.getKeyInputs().isEnterPressed()) {
-            GameState.gameState = gameState;
+            gameState = DIALOGUE;
             scene.getPlayer().setAttackCanceled(true);
             scene.getAudioManager().playEffect(POWER_UP);
             scene.getGui().setCurrentDialogue("You drink the water.\nYour life and mana have been recovered!");
@@ -134,16 +134,13 @@ public class EventManager {
         }
     }
 
-    private void teleport(int map, int col, int row, GameState gameState) {
-        GameState.gameState = gameState;
-        scene.currentMap = map;
-        scene.getPlayer().setWorldX(TILE_SIZE * col);
-        scene.getPlayer().setWorldY(TILE_SIZE * row);
-        previousEventX = scene.getPlayer().getWorldX();
-        previousEventY = scene.getPlayer().getWorldY();
+    private void teleport(int map, int col, int row) {
+        gameState = TRANSITION;
+        tempMap = map;
+        tempCol = col;
+        tempRow = row;
         canTouchEvent = false;
         scene.getAudioManager().playEffect(FAN_FARE);
-        scene.getGui().setCurrentDialogue("Teleport!");
     }
 
 
@@ -153,5 +150,25 @@ public class EventManager {
             scene.getPlayer().setAttackCanceled(true);
             npc.speak();
         }
+    }
+
+    public int getTempMap() {
+        return tempMap;
+    }
+
+    public int getTempCol() {
+        return tempCol;
+    }
+
+    public int getTempRow() {
+        return tempRow;
+    }
+
+    public void setPreviousEventX(int previousEventX) {
+        this.previousEventX = previousEventX;
+    }
+
+    public void setPreviousEventY(int previousEventY) {
+        this.previousEventY = previousEventY;
     }
 }

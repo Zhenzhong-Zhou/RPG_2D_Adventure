@@ -49,11 +49,11 @@ public class Player extends Entity {
 //        worldX = (MAX_WORLD_COL / 2 - 1) * TILE_SIZE;
 //        worldY = (MAX_WORLD_ROW / 2 - 1) * TILE_SIZE;
         // TODO: not center
-        worldX = 23 * TILE_SIZE;
-        worldY = 21 * TILE_SIZE;
+//        worldX = 23 * TILE_SIZE;
+//        worldY = 21 * TILE_SIZE;
         // TODO: remove
-//        worldX = 12 * TILE_SIZE;
-//        worldY = 23 * TILE_SIZE;
+        worldX = 12 * TILE_SIZE;
+        worldY = 14 * TILE_SIZE;
         speed = 4;
         direction = DOWN;
 

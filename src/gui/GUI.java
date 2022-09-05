@@ -31,6 +31,7 @@ public class GUI {
     private int npcSlotCol = 0;
     private int npcSlotRow = 0;
     private int subState = 0;
+    private int transitionCounter;
     private Entity npc;
 
     public GUI(Scene scene) {
@@ -87,10 +88,7 @@ public class GUI {
                 drawPlayerStatus();
                 drawPauseScreen();
             }
-            case DIALOGUE -> {
-                drawPlayerStatus();
-                drawDialogueOverlay();
-            }
+            case DIALOGUE -> drawDialogueOverlay();
             case CHARACTER -> {
                 drawCharacterScreen();
                 drawInventory(scene.getPlayer(), true);
@@ -760,6 +758,19 @@ public class GUI {
     }
 
     private void drawTransition() {
+        transitionCounter++;
+        graphics2D.setColor(new Color(0,0,0,transitionCounter*5));
+        graphics2D.fillRect(0,0,SCENE_WIDTH, SCENE_HEIGHT);
+
+        if(transitionCounter == 50) {
+            transitionCounter = 0;
+            gameState = PLAY;
+            scene.currentMap = scene.getEventManager().getTempMap();
+            scene.getPlayer().setWorldX(TILE_SIZE * scene.getEventManager().getTempCol());
+            scene.getPlayer().setWorldX(TILE_SIZE * scene.getEventManager().getTempRow());
+            scene.getEventManager().setPreviousEventX(scene.getPlayer().getWorldX());
+            scene.getEventManager().setPreviousEventY(scene.getPlayer().getWorldY());
+        }
     }
 
     private void drawTradeScreen() {
