@@ -794,7 +794,7 @@ public class GUI {
 
         drawState("Leave", x,y, 2);
         if(scene.getKeyInputs().isEnterPressed() && commandNum == 2) {
-            subState = 3;
+            subState = 0;
             commandNum = 0;
             gameState = DIALOGUE;
             currentDialogue = "Come again, hehe!";
@@ -853,7 +853,7 @@ public class GUI {
                     gameState = DIALOGUE;
                     currentDialogue = "Your package is full!\nYou cannot carry " + npc.getInventory().get(itemIndex).getObjectName() + "!";
                 } else {
-                    scene.getPlayer().setCoin(npc.getInventory().get(itemIndex).getPrice());
+                    scene.getPlayer().buyItem(npc.getInventory().get(itemIndex).getPrice());
                     scene.getPlayer().getInventory().add(npc.getInventory().get(itemIndex));
                 }
             }
@@ -861,7 +861,59 @@ public class GUI {
     }
 
     private void trade_sell() {
+        Player player = scene.getPlayer();
+        ArrayList<Entity> inventory = player.getInventory();
 
+        // DRAW PLAYER INVENTORY
+        drawInventory(player, true);
+
+        int x;
+        int y;
+        int width;
+        int height;
+
+        // DRAW HINT WINDOW
+        x = TILE_SIZE * 2;
+        y = TILE_SIZE * 13;
+        width = TILE_SIZE * 6;
+        height = TILE_SIZE * 2;
+        drawSubWindow(x,y,width,height);
+        graphics2D.drawString("[ESC] Back", x+24, y+55);
+
+        // DRAW PLAYER COIN WINDOW
+        x = TILE_SIZE * 16;
+        drawSubWindow(x,y,width,height);
+        graphics2D.drawString("Your Coin: " + player.getCoin(), x+24, y+55);
+
+        // DRAW PRICE WINDOW
+        int itemIndex = getItemIndexOnSlot(playerSlotCol, playerSlotRow);
+        if(itemIndex <  inventory.size()) {
+            x = (int) (TILE_SIZE * 19.5);
+            y = (int) (TILE_SIZE * 8.5);
+            width = (int) (TILE_SIZE * 2.5);
+            height = TILE_SIZE;
+            drawSubWindow(x,y,width,height);
+            graphics2D.drawImage(coin, x+10,y+7, 32,32,null);
+
+            int price = inventory.get(itemIndex).getPrice() / 2;
+            String text = "" + price;
+            x = getHorizonForAlignToRightText(text, TILE_SIZE*22-20);
+            graphics2D.drawString(text, x, y+30);
+
+            // SELL AN ITEM
+            if(scene.getKeyInputs().isEnterPressed()) {
+                if(inventory.get(itemIndex) == player.getCurrentWeapon() ||
+                        inventory.get(itemIndex) == player.getCurrentShield()) {
+                    commandNum = 0;
+                    subState = 0;
+                    gameState = DIALOGUE;
+                    currentDialogue = "You cannot sell an equipped item!";
+                } else {
+                    inventory.remove(itemIndex);
+                    player.sellItem(price);
+                }
+            }
+        }
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {

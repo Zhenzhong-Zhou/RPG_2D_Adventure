@@ -546,7 +546,11 @@ public abstract class Entity {
         return price;
     }
 
-    public void setCoin(int price) {
+    public void buyItem(int price) {
         this.coin -= price;
+    }
+
+    public void sellItem(int price) {
+        this.coin += price;
     }
 }

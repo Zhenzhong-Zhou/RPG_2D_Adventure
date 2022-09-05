@@ -65,7 +65,7 @@ public class Player extends Entity {
         dexterity = 1;  // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
-        coin = 4175; // TODO: Remove
+        coin = 500; // TODO: Remove
         currentWeapon = new Sword_Normal(scene);
         currentShield = new Shield_Wood(scene);
         projectile = new Fireball(scene);

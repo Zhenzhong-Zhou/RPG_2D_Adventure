@@ -173,6 +173,10 @@ public class KeyInputs implements KeyListener {
                 npcInventory(e);
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) scene.getGui().setSubState(0);
             }
+            case 2 -> {
+                playerInventory(e);
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) scene.getGui().setSubState(0);
+            }
         }
     }
 
