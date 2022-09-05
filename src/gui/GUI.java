@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static main.GameState.*;
+import static utilities.Constants.AudioManager.MAIN_MENU;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
-import static utilities.Constants.AudioManager.MAIN_MENU;
 
 public class GUI {
     private final Scene scene;
@@ -550,7 +550,7 @@ public class GUI {
     private void drawCharacterScreen() {
         // CREATE A FRAME
         final int frameX = TILE_SIZE * 2;
-        final int frameY = TILE_SIZE*3;
+        final int frameY = TILE_SIZE * 3;
         final int frameWidth = TILE_SIZE * 6;
         final int frameHeight = TILE_SIZE * 11 + 5;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -661,14 +661,14 @@ public class GUI {
 
         if(entity == scene.getPlayer()) {
             frameX = TILE_SIZE * 16;
-            frameY = TILE_SIZE*3;
+            frameY = TILE_SIZE * 3;
             frameWidth = TILE_SIZE * 6;
             frameHeight = TILE_SIZE * 6;
             slotCol = playerSlotCol;
             slotRow = playerSlotRow;
         } else {
             frameX = TILE_SIZE * 2;
-            frameY = TILE_SIZE*3;
+            frameY = TILE_SIZE * 3;
             frameWidth = TILE_SIZE * 6;
             frameHeight = TILE_SIZE * 6;
             slotCol = npcSlotCol;
@@ -732,8 +732,8 @@ public class GUI {
     }
 
     private void drawDeadScreen() {
-        graphics2D.setColor(new Color(0,0,0,150));
-        graphics2D.fillRect(0, 0,SCENE_WIDTH, SCENE_HEIGHT);
+        graphics2D.setColor(new Color(0, 0, 0, 150));
+        graphics2D.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
         int x;
         int y;
@@ -744,11 +744,11 @@ public class GUI {
         // Shadow
         graphics2D.setColor(Color.BLACK);
         x = getHorizonCenteredText(text);
-        y = TILE_SIZE*6;
-        graphics2D.drawString(text,x,y);
+        y = TILE_SIZE * 6;
+        graphics2D.drawString(text, x, y);
         // Main
         graphics2D.setColor(Color.WHITE);
-        graphics2D.drawString(text, x-4,y-4);
+        graphics2D.drawString(text, x - 4, y - 4);
 
         // Retry
         text = "Retry";
@@ -756,10 +756,11 @@ public class GUI {
 
         // Back to Main Menu
         text = "Menu";
-        drawMenu(text,1);
+        drawMenu(text, 1);
     }
 
-    private void drawTransition() {}
+    private void drawTransition() {
+    }
 
     private void drawTradeScreen() {
         switch(subState) {
@@ -778,21 +779,21 @@ public class GUI {
         int y = TILE_SIZE * 6;
         int width = (int) (TILE_SIZE * 3.5);
         int height = (int) (TILE_SIZE * 3.5);
-        drawSubWindow(x,y,width,height);
+        drawSubWindow(x, y, width, height);
 
         // DRAW TEXTS
-        x+=TILE_SIZE;
-        y+=TILE_SIZE;
+        x += TILE_SIZE;
+        y += TILE_SIZE;
 
-        drawState("Buy", x,y, 0);
+        drawState("Buy", x, y, 0);
         if(scene.getKeyInputs().isEnterPressed() && commandNum == 0) subState = 1;
-        y+=TILE_SIZE;
+        y += TILE_SIZE;
 
-        drawState("Sell", x,y, 1);
+        drawState("Sell", x, y, 1);
         if(scene.getKeyInputs().isEnterPressed() && commandNum == 1) subState = 2;
-        y+=TILE_SIZE;
+        y += TILE_SIZE;
 
-        drawState("Leave", x,y, 2);
+        drawState("Leave", x, y, 2);
         if(scene.getKeyInputs().isEnterPressed() && commandNum == 2) {
             subState = 0;
             commandNum = 0;
@@ -817,28 +818,28 @@ public class GUI {
         y = TILE_SIZE * 13;
         width = TILE_SIZE * 6;
         height = TILE_SIZE * 2;
-        drawSubWindow(x,y,width,height);
-        graphics2D.drawString("[ESC] Back", x+24, y+55);
+        drawSubWindow(x, y, width, height);
+        graphics2D.drawString("[ESC] Back", x + 24, y + 55);
 
         // DRAW PLAYER COIN WINDOW
         x = TILE_SIZE * 16;
-        drawSubWindow(x,y,width,height);
-        graphics2D.drawString("Your Coin: " + scene.getPlayer().getCoin(), x+24, y+55);
+        drawSubWindow(x, y, width, height);
+        graphics2D.drawString("Your Coin: " + scene.getPlayer().getCoin(), x + 24, y + 55);
 
         // DRAW PRICE WINDOW
-        int itemIndex = getItemIndexOnSlot(npcSlotCol,  npcSlotRow);
-        if(itemIndex <  npc.getInventory().size()) {
+        int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
+        if(itemIndex < npc.getInventory().size()) {
             x = (int) (TILE_SIZE * 5.5);
             y = (int) (TILE_SIZE * 8.5);
             width = (int) (TILE_SIZE * 2.5);
             height = TILE_SIZE;
-            drawSubWindow(x,y,width,height);
-            graphics2D.drawImage(coin, x+10,y+7, 32,32,null);
+            drawSubWindow(x, y, width, height);
+            graphics2D.drawImage(coin, x + 10, y + 7, 32, 32, null);
 
             int price = npc.getInventory().get(itemIndex).getPrice();
             String text = "" + price;
-            x = getHorizonForAlignToRightText(text, TILE_SIZE*8-20);
-            graphics2D.drawString(text, x, y+30);
+            x = getHorizonForAlignToRightText(text, TILE_SIZE * 8 - 20);
+            graphics2D.drawString(text, x, y + 30);
 
             // BUY AN ITEM
             if(scene.getKeyInputs().isEnterPressed()) {
@@ -847,8 +848,7 @@ public class GUI {
                     gameState = DIALOGUE;
                     currentDialogue = "You need more coins to buy " + npc.getInventory().get(itemIndex).getObjectName() + "!";
                     drawDeadScreen();
-                }
-                else if(scene.getPlayer().getInventory().size() == scene.getPlayer().getMaxInventorySize()) {
+                } else if(scene.getPlayer().getInventory().size() == scene.getPlayer().getMaxInventorySize()) {
                     subState = 0;
                     gameState = DIALOGUE;
                     currentDialogue = "Your package is full!\nYou cannot carry " + npc.getInventory().get(itemIndex).getObjectName() + "!";
@@ -877,28 +877,28 @@ public class GUI {
         y = TILE_SIZE * 13;
         width = TILE_SIZE * 6;
         height = TILE_SIZE * 2;
-        drawSubWindow(x,y,width,height);
-        graphics2D.drawString("[ESC] Back", x+24, y+55);
+        drawSubWindow(x, y, width, height);
+        graphics2D.drawString("[ESC] Back", x + 24, y + 55);
 
         // DRAW PLAYER COIN WINDOW
         x = TILE_SIZE * 16;
-        drawSubWindow(x,y,width,height);
-        graphics2D.drawString("Your Coin: " + player.getCoin(), x+24, y+55);
+        drawSubWindow(x, y, width, height);
+        graphics2D.drawString("Your Coin: " + player.getCoin(), x + 24, y + 55);
 
         // DRAW PRICE WINDOW
         int itemIndex = getItemIndexOnSlot(playerSlotCol, playerSlotRow);
-        if(itemIndex <  inventory.size()) {
+        if(itemIndex < inventory.size()) {
             x = (int) (TILE_SIZE * 19.5);
             y = (int) (TILE_SIZE * 8.5);
             width = (int) (TILE_SIZE * 2.5);
             height = TILE_SIZE;
-            drawSubWindow(x,y,width,height);
-            graphics2D.drawImage(coin, x+10,y+7, 32,32,null);
+            drawSubWindow(x, y, width, height);
+            graphics2D.drawImage(coin, x + 10, y + 7, 32, 32, null);
 
             int price = inventory.get(itemIndex).getPrice() / 2;
             String text = "" + price;
-            x = getHorizonForAlignToRightText(text, TILE_SIZE*22-20);
-            graphics2D.drawString(text, x, y+30);
+            x = getHorizonForAlignToRightText(text, TILE_SIZE * 22 - 20);
+            graphics2D.drawString(text, x, y + 30);
 
             // SELL AN ITEM
             if(scene.getKeyInputs().isEnterPressed()) {

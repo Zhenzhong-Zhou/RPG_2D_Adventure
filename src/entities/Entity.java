@@ -16,6 +16,8 @@ import static utilities.Constants.WorldConstant.WORLD_HEIGHT;
 import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 
 public abstract class Entity {
+    protected final ArrayList<Entity> inventory = new ArrayList<>();
+    protected final int maxInventorySize = 25;
     protected Scene scene;
     protected int worldX, worldY, speed;
     protected BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
@@ -61,8 +63,6 @@ public abstract class Entity {
     protected String description = "";
     protected int useCost;
     protected int shotAvailableCounter;
-    protected final ArrayList<Entity> inventory = new ArrayList<>();
-    protected final int maxInventorySize = 25;
     protected int price;
 
     public Entity(Scene scene) {

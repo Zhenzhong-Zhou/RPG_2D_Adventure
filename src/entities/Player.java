@@ -2,11 +2,13 @@ package entities;
 
 import input.KeyInputs;
 import main.Scene;
-import objects.*;
+import objects.Fireball;
+import objects.Key;
+import objects.Shield_Wood;
+import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
@@ -236,7 +238,7 @@ public class Player extends Entity {
         }
         if(life <= 0) {
             gameState = DEAD;
-            scene.getGui().setCommandNum(-1);
+            scene.getGui().setCommandNum(- 1);
             scene.getAudioManager().stopSound();
             scene.getAudioManager().playEffect(DIE);
             scene.getAudioManager().playEffect(GAME_OVER);

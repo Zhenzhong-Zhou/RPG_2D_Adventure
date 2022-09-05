@@ -1,12 +1,12 @@
 package entities;
 
-import main.GameState;
 import main.Scene;
 import objects.*;
 
 import java.awt.*;
 
-import static main.GameState.*;
+import static main.GameState.TRADE;
+import static main.GameState.gameState;
 import static utilities.Constants.DirectionConstant.DOWN;
 import static utilities.LoadSave.*;
 

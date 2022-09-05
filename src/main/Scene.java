@@ -33,6 +33,7 @@ public class Scene extends JPanel implements Runnable {
     private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
     private final InteractiveTile[] interactiveTiles = new InteractiveTile[100];
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
+    public int currentMap;
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -44,7 +45,6 @@ public class Scene extends JPanel implements Runnable {
     private AssetSetter assetSetter;
     private boolean fullScreen, musicMute, seMute;
     private Config config;
-    public int currentMap;
 
     public Scene() {
         setFocusable(true);

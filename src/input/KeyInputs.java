@@ -6,9 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static main.GameState.*;
-import static utilities.Constants.AudioManager.CURSOR;
-import static utilities.Constants.AudioManager.START;
-import static utilities.Constants.AudioManager.MAIN_MENU;
+import static utilities.Constants.AudioManager.*;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
@@ -140,7 +138,7 @@ public class KeyInputs implements KeyListener {
                         gameState = MENU;
                         scene.getAudioManager().playMusic(MAIN_MENU);
                         scene.restart();
-                        scene.getGui().setCommandNum(-1);
+                        scene.getGui().setCommandNum(- 1);
                     }
                 }
             }

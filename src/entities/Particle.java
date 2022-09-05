@@ -11,8 +11,8 @@ import static utilities.Constants.WorldConstant.WORLD_WIDTH;
 public class Particle extends Entity {
     private final Entity generator;
     private final Color color;
-    private int size;
     private final int xd;
+    private int size;
     private int yd;
 
     public Particle(Scene scene, Entity generator, Color color, int size, int speed, int maxLives, int xd, int yd) {

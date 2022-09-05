@@ -58,14 +58,11 @@ public class EventManager {
         if(canTouchEvent) {
             if(trigger(27, 16, RIGHT)) {
                 damagePit(27, 16, DIALOGUE);
-            }
-            else if(trigger(23, 19, ANY)) {
+            } else if(trigger(23, 19, ANY)) {
                 damagePit(27, 16, DIALOGUE);
-            }
-            else if(trigger(23, 12, UP)) {
+            } else if(trigger(23, 12, UP)) {
                 healingPool(23, 12, DIALOGUE);
-            }
-            else if(trigger(13, 21, LEFT)) {
+            } else if(trigger(13, 21, LEFT)) {
                 teleport(13, 21, DIALOGUE);
             } else if(trigger(12, 22, UP)) {
                 speak(scene.getNPCs());
