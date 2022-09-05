@@ -5,6 +5,9 @@ import main.Scene;
 import tiles.TileManager;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.*;
@@ -12,7 +15,7 @@ import static utilities.Constants.WorldConstant.*;
 import static utilities.LoadSave.*;
 
 public class LevelManager {
-    private Scene scene;
+    private final Scene scene;
     private final TileManager tileManager;
     private int[][][] level;
 
@@ -23,9 +26,38 @@ public class LevelManager {
     }
 
     private void loadDefaultLevel() {
-//        level = GetLevelData(DEFAULT_LEVEL, 0);
-        level = GetLevelData(LEVEL_1, 0);
-        level = GetLevelData(LEVEL_2, 1);
+        level = new int[MAX_MAP][MAX_WORLD_COL][MAX_WORLD_ROW];
+        loadMap(LEVEL_1, 0);
+        loadMap(LEVEL_2, 1);
+    }
+
+    public void loadMap(String filepath, int map) {
+        InputStream is = getClass().getResourceAsStream(filepath);
+        assert is != null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+        int col = 0;
+        int row = 0;
+
+        try {
+            while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
+                String line = br.readLine();
+                while(col < MAX_WORLD_COL) {
+                    String[] numbers = line.split("\t");
+                    int num = Integer.parseInt(numbers[col]);
+                    level[map][col][row] = num;
+                    col++;
+                }
+
+                if(col == MAX_WORLD_COL) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(Graphics2D graphics2D, Player player) {

@@ -154,8 +154,10 @@ public class LoadSave {
 
     // MAP NAME
     public static final String DEFAULT_LEVEL = "maps/default_level.txt";
-    public static final String LEVEL_1 = "maps/worldV3.txt";
-    public static final String LEVEL_2 = "maps/interior01.txt";
+//    public static final String LEVEL_1 = "maps/worldV3.txt";
+//    public static final String LEVEL_2 = "maps/interior01.txt";
+    public static final String LEVEL_1 = "/maps/worldV3.txt";
+    public static final String LEVEL_2 = "/maps/interior01.txt";
 
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
@@ -234,27 +236,6 @@ public class LoadSave {
         }
     }
 
-    private static File GetFile(String filename) {
-        File file = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/" + filename);
-        try {
-            assert is != null;
-            file = File.createTempFile(String.valueOf(is.hashCode()), ".tmp");
-            file.deleteOnExit();
-
-            FileOutputStream out = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
-
-            int bytesRead;
-            while((bytesRead = is.read(buffer)) != - 1) {
-                out.write(buffer, 0, bytesRead);
-            }
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
-
     public static void CreateConfigFile(int[] array) {
         if(dataFile.exists()) {
             System.out.println("File: " + dataFile + " is already exists.");
@@ -278,41 +259,6 @@ public class LoadSave {
             printWriter.close();
         } catch(FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
-        }
-    }
-
-    private static int[][][] ReadFromFile(File file, int currentMap) {
-        int[][][] matrix = new int[MAX_MAP][MAX_WORLD_COL][MAX_WORLD_ROW];
-        try {
-            Scanner scanner = new Scanner(file);
-            int col = 0;
-            int row = 0;
-            while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
-                String line = scanner.nextLine();
-                while(col < MAX_WORLD_COL) {
-                    String[] numbers = line.split("\t");
-                    int num = Integer.parseInt(numbers[col]);
-                    matrix[currentMap][col][row] = num;
-                    col++;
-                }
-                if(col == MAX_WORLD_COL) {
-                    col = 0;
-                    row++;
-                }
-            }
-            scanner.close();
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return matrix;
-    }
-
-    public static int[][][] GetLevelData(String filename, int currentMap) {
-        if(GetFile(filename).exists()) {
-            return ReadFromFile(GetFile(filename), currentMap);
-        } else {
-            System.out.println("File: " + GetFile(filename) + currentMap + " does not exist!");
-            return null;
         }
     }
 }
