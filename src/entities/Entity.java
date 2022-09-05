@@ -64,6 +64,7 @@ public abstract class Entity {
     protected int useCost;
     protected int shotAvailableCounter;
     protected int price;
+    protected boolean onPath;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -137,9 +138,7 @@ public abstract class Entity {
         scene.getParticleArrayList().add(particle4);
     }
 
-    public void update() {
-        setAction();
-
+    private void checkCollision() {
         collision = false;
         scene.getCollisionDetection().checkTile(this);
 
@@ -152,7 +151,11 @@ public abstract class Entity {
         if(this.entityType == MONSTER && interactPlayer) {
             damagePlayer(attack);
         }
+    }
 
+    public void update() {
+        setAction();
+        checkCollision();
         playerCanMove();
         updateAnimation();
         invincibleCounter();
@@ -358,6 +361,74 @@ public abstract class Entity {
 //        graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, getHitbox().width, getHitbox().height);
     }
 
+    protected void searchPath(int goalCol, int goalRow) {
+        int startCol = (worldX + hitbox.x) / TILE_SIZE;
+        int startRow = (worldY + hitbox.y) / TILE_SIZE;
+
+        scene.getPathFinder().setNodes(startCol, startRow, goalCol, goalRow);
+
+        if(scene.getPathFinder().search()) {
+            // Next worldX & worldY
+            int nextX = scene.getPathFinder().getPathList().get(0).getCol() * TILE_SIZE;
+            int nextY = scene.getPathFinder().getPathList().get(0).getRow() * TILE_SIZE;
+            // Entity's hitbox position
+            int enLeftX = worldX + hitbox.x;
+            int enRightX = worldX + hitbox.x + hitbox.width;
+            int enTopY = worldY + hitbox.y;
+            int enBottomY = worldY + hitbox.y + hitbox.height;
+
+            if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
+                direction = UP;
+            } else if(enTopY < nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
+                direction = DOWN;
+            } else if(enTopY >= nextY && enBottomY < nextY +TILE_SIZE) {
+                // left or right
+                if(enLeftX > nextX) {
+                    direction = LEFT;
+                }
+                if(enLeftX < nextX) {
+                    direction = RIGHT;
+                }
+            } else if(enTopY > nextY && enLeftX > nextX) {
+                // up or left
+                direction = UP;
+                checkCollision();
+                if(collision) {
+                    direction = LEFT;
+                }
+            } else if(enTopY > nextY && enLeftX < nextX) {
+                // up or right
+                direction = UP;
+                checkCollision();
+                if(collision) {
+                    direction = RIGHT;
+                }
+            } else if(enTopY < nextY && enLeftX > nextX) {
+                // down or left
+                direction = DOWN;
+                checkCollision();
+                if(collision) {
+                    direction = LEFT;
+                }
+            }
+            else if(enTopY < nextY && enLeftX < nextX) {
+                // down or right
+                direction = DOWN;
+                checkCollision();
+                if(collision) {
+                    direction = RIGHT;
+                }
+            }
+
+            // If reaches the goal, stop the search
+            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
+            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
+            if(nextCol == goalCol && nextRow == goalRow) {
+                onPath = false;
+            }
+        }
+    }
+
     public int getWorldX() {
         return worldX;
     }
@@ -552,5 +623,13 @@ public abstract class Entity {
 
     public void sellItem(int price) {
         this.coin += price;
+    }
+
+    public boolean isOnPath() {
+        return onPath;
+    }
+
+    public void setOnPath(boolean onPath) {
+        this.onPath = onPath;
     }
 }

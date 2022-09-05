@@ -72,6 +72,10 @@ public class TileManager {
         return tiles.get(id).getSprite();
     }
 
+    public boolean getTileCollision(int id) {
+        return tiles.get(id).isCollision();
+    }
+
     public ArrayList<Tile> getTiles() {
         return tiles;
     }

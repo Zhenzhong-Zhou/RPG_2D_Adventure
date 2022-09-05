@@ -44,10 +44,18 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setAction() {
-        super.setAction();
+        if(onPath) {
+            int goalCol = 12;
+            int goalRow = 9;
+
+            searchPath(goalCol, goalRow);
+        } else {
+            super.setAction();
+        }
     }
 
     public void speak() {
         super.speak();
+        onPath = true;
     }
 }

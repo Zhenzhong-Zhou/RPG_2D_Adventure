@@ -1,5 +1,6 @@
 package main;
 
+import ai.PathFinder;
 import audio.AudioManager;
 import entities.Entity;
 import entities.Player;
@@ -44,6 +45,7 @@ public class Scene extends JPanel implements Runnable {
     private AssetSetter assetSetter;
     private boolean fullScreen, musicMute, seMute;
     private Config config;
+    private PathFinder pathFinder;
 
     public Scene() {
         setFocusable(true);
@@ -78,6 +80,9 @@ public class Scene extends JPanel implements Runnable {
 
         // Config Class
         config = new Config(this);
+
+        // AI Class
+        pathFinder = new PathFinder(this);
     }
 
     private void setSceneSize() {
@@ -364,6 +369,10 @@ public class Scene extends JPanel implements Runnable {
 
     public Config getConfig() {
         return config;
+    }
+
+    public PathFinder getPathFinder() {
+        return pathFinder;
     }
 
     public Entity[][] getGameObjects() {
