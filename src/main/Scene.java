@@ -31,8 +31,8 @@ public class Scene extends JPanel implements Runnable {
     private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
     private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
-    public int currentMap;
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
+    public int currentMap;
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -116,7 +116,7 @@ public class Scene extends JPanel implements Runnable {
                 player.update();
 
                 // NPC
-                for(int i = 0;i< NPCs[1].length;i++) {
+                for(int i = 0; i < NPCs[1].length; i++) {
                     if(NPCs[currentMap][i] != null) {
                         NPCs[currentMap][i].update();
                     }
@@ -144,7 +144,7 @@ public class Scene extends JPanel implements Runnable {
                 arrayList(particleArrayList);
 
                 // INTERACTIVE TILE
-                for(int i = 0; i< interactiveTiles[1].length; i++) {
+                for(int i = 0; i < interactiveTiles[1].length; i++) {
                     if(interactiveTiles[currentMap][i] != null) {
                         interactiveTiles[currentMap][i].update();
                     }
@@ -179,8 +179,8 @@ public class Scene extends JPanel implements Runnable {
             levelManager.draw(graphics2D, player);
 
             // INTERACTIVE TILE
-            for(int i = 0; i<interactiveTiles[1].length; i++) {
-                if(interactiveTiles[currentMap][i] != null){
+            for(int i = 0; i < interactiveTiles[1].length; i++) {
+                if(interactiveTiles[currentMap][i] != null) {
                     interactiveTiles[currentMap][i].draw(graphics2D);
                 }
             }
@@ -188,19 +188,19 @@ public class Scene extends JPanel implements Runnable {
             // ADD ENTITIES TO THE LIST
             entityArrayList.add(player);
 
-            for(int i = 0; i <NPCs[1].length;i ++) {
+            for(int i = 0; i < NPCs[1].length; i++) {
                 if(NPCs[currentMap][i] != null) {
                     entityArrayList.add(NPCs[currentMap][i]);
                 }
             }
 
-            for(int i = 0; i <gameObjects[1].length;i ++) {
+            for(int i = 0; i < gameObjects[1].length; i++) {
                 if(gameObjects[currentMap][i] != null) {
                     entityArrayList.add(gameObjects[currentMap][i]);
                 }
             }
 
-            for(int i = 0; i <monsters[1].length;i ++) {
+            for(int i = 0; i < monsters[1].length; i++) {
                 if(monsters[currentMap][i] != null) {
                     entityArrayList.add(monsters[currentMap][i]);
                 }

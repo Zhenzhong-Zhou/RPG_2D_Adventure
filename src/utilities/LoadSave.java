@@ -5,15 +5,9 @@ import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Scanner;
 
-import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
-import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
-import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 import static utilities.Tool.ScaleImage;
 
 public class LoadSave {

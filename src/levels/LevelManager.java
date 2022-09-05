@@ -12,7 +12,8 @@ import java.io.InputStreamReader;
 import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.*;
-import static utilities.LoadSave.*;
+import static utilities.LoadSave.LEVEL_1;
+import static utilities.LoadSave.LEVEL_2;
 
 public class LevelManager {
     private final Scene scene;
@@ -115,7 +116,7 @@ public class LevelManager {
                 worldCol = 0;
                 worldRow++;
                 if(worldRow == MAX_WORLD_ROW) {
-                    worldRow =0;
+                    worldRow = 0;
                     map++;
                 }
             }

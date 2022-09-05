@@ -759,8 +759,8 @@ public class GUI {
 
     private void drawTransition() {
         transitionCounter++;
-        graphics2D.setColor(new Color(0,0,0,transitionCounter*5));
-        graphics2D.fillRect(0,0,SCENE_WIDTH, SCENE_HEIGHT);
+        graphics2D.setColor(new Color(0, 0, 0, transitionCounter * 5));
+        graphics2D.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
         if(transitionCounter == 50) {
             transitionCounter = 0;

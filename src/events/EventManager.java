@@ -2,7 +2,6 @@ package events;
 
 import entities.Entity;
 import entities.Player;
-import main.GameState;
 import main.Scene;
 
 import static main.GameState.*;
@@ -63,22 +62,17 @@ public class EventManager {
         }
 
         if(canTouchEvent) {
-            if(trigger(0,27, 16, RIGHT)) {
+            if(trigger(0, 27, 16, RIGHT)) {
                 damagePit();
-            }
-            else if(trigger(0,23, 19, ANY)) {
+            } else if(trigger(0, 23, 19, ANY)) {
                 damagePit();
-            }
-            else if(trigger(0,23, 12, UP)) {
+            } else if(trigger(0, 23, 12, UP)) {
                 healingPool();
-            }
-            else if(trigger(0,12, 12, ANY)) {
-                teleport(1,12,12);
-            }
-            else if(trigger(1,12,12, ANY)) {
-                teleport(0,12, 12);
-            }
-            else if(trigger(1,12, 9, UP)) {
+            } else if(trigger(0, 12, 12, ANY)) {
+                teleport(1, 12, 12);
+            } else if(trigger(1, 12, 12, ANY)) {
+                teleport(0, 12, 12);
+            } else if(trigger(1, 12, 9, UP)) {
                 speak(scene.getNPCs()[1][0]);
             }
         }

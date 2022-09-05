@@ -80,8 +80,10 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_R -> {
                 switch(scene.currentMap) {
                     //TODO: loadMap
-                    case 0:  System.out.println("Refresh map! 0");
-                    case 1:  System.out.println("Refresh map! 1");
+                    case 0:
+                        System.out.println("Refresh map! 0");
+                    case 1:
+                        System.out.println("Refresh map! 1");
                 }
 
             }
