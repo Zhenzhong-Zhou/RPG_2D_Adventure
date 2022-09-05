@@ -20,20 +20,19 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import static main.GameState.*;
-import static utilities.Constants.GameConstant.FPS_SET;
-import static utilities.Constants.GameConstant.UPS_SET;
+import static utilities.Constants.GameConstant.*;
 import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
-    private final Entity[] gameObjects = new Entity[50];
-    private final Entity[] NPCs = new Entity[10];
-    private final Entity[] monsters = new Entity[30];
-    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
+    private final Entity[][] gameObjects = new Entity[MAX_MAP][50];
+    private final Entity[][] NPCs = new Entity[MAX_MAP][10];
+    private final Entity[][] monsters = new Entity[MAX_MAP][30];
+    private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
     private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
-    private final InteractiveTile[] interactiveTiles = new InteractiveTile[100];
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
     public int currentMap;
+    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -61,7 +60,7 @@ public class Scene extends JPanel implements Runnable {
         player = new Player(this, keyInputs);
 
         // Manager Classes
-        levelManager = new LevelManager();
+        levelManager = new LevelManager(this);
         eventManager = new EventManager(this);
 
         // Collision Detection
@@ -117,22 +116,22 @@ public class Scene extends JPanel implements Runnable {
                 player.update();
 
                 // NPC
-                for(Entity npc : NPCs) {
-                    if(npc != null) {
-                        npc.update();
+                for(int i = 0;i< NPCs[1].length;i++) {
+                    if(NPCs[currentMap][i] != null) {
+                        NPCs[currentMap][i].update();
                     }
                 }
 
                 // MONSTER
-                for(int i = 0; i < monsters.length; i++) {
-                    Entity monster = monsters[i];
+                for(int i = 0; i < monsters[1].length; i++) {
+                    Entity monster = monsters[currentMap][i];
                     if(monster != null) {
                         if(monster.isAlive() && ! monster.isDead()) {
                             monster.update();
                         }
                         if(! monster.isAlive()) {
                             monster.checkDrop();
-                            monsters[i] = null;
+                            monsters[currentMap][i] = null;
                         }
                     }
                 }
@@ -145,9 +144,9 @@ public class Scene extends JPanel implements Runnable {
                 arrayList(particleArrayList);
 
                 // INTERACTIVE TILE
-                for(Entity interactiveTile : interactiveTiles) {
-                    if(interactiveTile != null) {
-                        interactiveTile.update();
+                for(int i = 0; i< interactiveTiles[1].length; i++) {
+                    if(interactiveTiles[currentMap][i] != null) {
+                        interactiveTiles[currentMap][i].update();
                     }
                 }
             }
@@ -180,29 +179,30 @@ public class Scene extends JPanel implements Runnable {
             levelManager.draw(graphics2D, player);
 
             // INTERACTIVE TILE
-            for(InteractiveTile interactiveTile : interactiveTiles) {
-                if(interactiveTile != null) {
-                    interactiveTile.draw(graphics2D);
+            for(int i = 0; i<interactiveTiles[1].length; i++) {
+                if(interactiveTiles[currentMap][i] != null){
+                    interactiveTiles[currentMap][i].draw(graphics2D);
                 }
             }
 
             // ADD ENTITIES TO THE LIST
             entityArrayList.add(player);
-            for(Entity npc : NPCs) {
-                if(npc != null) {
-                    entityArrayList.add(npc);
+
+            for(int i = 0; i <NPCs[1].length;i ++) {
+                if(NPCs[currentMap][i] != null) {
+                    entityArrayList.add(NPCs[currentMap][i]);
                 }
             }
 
-            for(Entity gameObject : gameObjects) {
-                if(gameObject != null) {
-                    entityArrayList.add(gameObject);
+            for(int i = 0; i <gameObjects[1].length;i ++) {
+                if(gameObjects[currentMap][i] != null) {
+                    entityArrayList.add(gameObjects[currentMap][i]);
                 }
             }
 
-            for(Entity monster : monsters) {
-                if(monster != null) {
-                    entityArrayList.add(monster);
+            for(int i = 0; i <monsters[1].length;i ++) {
+                if(monsters[currentMap][i] != null) {
+                    entityArrayList.add(monsters[currentMap][i]);
                 }
             }
 
@@ -366,19 +366,19 @@ public class Scene extends JPanel implements Runnable {
         return config;
     }
 
-    public Entity[] getGameObjects() {
+    public Entity[][] getGameObjects() {
         return gameObjects;
     }
 
-    public Entity[] getNPCs() {
+    public Entity[][] getNPCs() {
         return NPCs;
     }
 
-    public Entity[] getMonsters() {
+    public Entity[][] getMonsters() {
         return monsters;
     }
 
-    public InteractiveTile[] getInteractiveTiles() {
+    public InteractiveTile[][] getInteractiveTiles() {
         return interactiveTiles;
     }
 

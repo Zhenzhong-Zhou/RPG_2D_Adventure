@@ -29,8 +29,8 @@ public class CollisionDetection {
         switch(entity.getDirection()) {
             case UP -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
                 boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
 
@@ -40,8 +40,8 @@ public class CollisionDetection {
             }
             case LEFT -> {
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
                 boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
 
@@ -51,8 +51,8 @@ public class CollisionDetection {
             }
             case DOWN -> {
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
                 boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
 
@@ -62,8 +62,8 @@ public class CollisionDetection {
             }
             case RIGHT -> {
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
                 boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
                 boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
 
@@ -91,9 +91,9 @@ public class CollisionDetection {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        Entity[] objects = scene.getGameObjects();
-        for(int i = 0; i < objects.length; i++) {
-            Entity object = objects[i];
+        Entity[][] objects = scene.getGameObjects();
+        for(int i = 0; i < objects[1].length; i++) {
+            Entity object = objects[scene.currentMap][i];
             if(object != null) {
                 // Get entity's hitbox position
                 entityPosition(entity);
@@ -123,11 +123,11 @@ public class CollisionDetection {
     }
 
     // NPC OR MONSTER
-    public int checkEntity(Entity entity, Entity[] targets) {
+    public int checkEntity(Entity entity, Entity[][] targets) {
         int index = 999;
 
-        for(int i = 0; i < targets.length; i++) {
-            Entity target = targets[i];
+        for(int i = 0; i < targets[1].length; i++) {
+            Entity target = targets[scene.currentMap][i];
             if(target != null) {
                 // Get entity's hitbox position
                 entityPosition(entity);

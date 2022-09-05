@@ -110,12 +110,12 @@ public abstract class Entity {
     }
 
     public void dropItem(Entity droppedItem) {
-        for(int i = 0; i < scene.getGameObjects().length; i++) {
-            Entity[] objects = scene.getGameObjects();
-            if(objects[i] == null) {
-                objects[i] = droppedItem;
-                objects[i].worldX = worldX; // the dead monster's worldX
-                objects[i].worldY = worldY;
+        for(int i = 0; i < scene.getGameObjects()[1].length; i++) {
+//            Entity[] objects = scene.getGameObjects()[scene.currentMap];
+            if(scene.getGameObjects()[scene.currentMap][i] == null) {
+                scene.getGameObjects()[scene.currentMap][i] = droppedItem;
+                scene.getGameObjects()[scene.currentMap][i].worldX = worldX; // the dead monster's worldX
+                scene.getGameObjects()[scene.currentMap][i].worldY = worldY;
                 break;
             }
         }
