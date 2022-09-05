@@ -17,5 +17,6 @@ public class Shield_Blue extends Entity {
         down1 = GetSpriteAtlas(SHIELD_BLUE_IMAGE);
         defenseValue = 2;
         description = "[" + objectName + "]\nA shiny blue shield.";
+        price = 200;
     }
 }

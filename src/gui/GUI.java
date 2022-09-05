@@ -834,6 +834,29 @@ public class GUI {
             height = TILE_SIZE;
             drawSubWindow(x,y,width,height);
             graphics2D.drawImage(coin, x+10,y+7, 32,32,null);
+
+            int price = npc.getInventory().get(itemIndex).getPrice();
+            String text = "" + price;
+            x = getHorizonForAlignToRightText(text, TILE_SIZE*8-20);
+            graphics2D.drawString(text, x, y+30);
+
+            // BUY AN ITEM
+            if(scene.getKeyInputs().isEnterPressed()) {
+                if(npc.getInventory().get(itemIndex).getPrice() > scene.getPlayer().getCoin()) {
+                    subState = 0;
+                    gameState = DIALOGUE;
+                    currentDialogue = "You need more coins to buy " + npc.getInventory().get(itemIndex).getObjectName() + "!";
+                    drawDeadScreen();
+                }
+                else if(scene.getPlayer().getInventory().size() == scene.getPlayer().getMaxInventorySize()) {
+                    subState = 0;
+                    gameState = DIALOGUE;
+                    currentDialogue = "Your package is full!\nYou cannot carry " + npc.getInventory().get(itemIndex).getObjectName() + "!";
+                } else {
+                    scene.getPlayer().setCoin(npc.getInventory().get(itemIndex).getPrice());
+                    scene.getPlayer().getInventory().add(npc.getInventory().get(itemIndex));
+                }
+            }
         }
     }
 

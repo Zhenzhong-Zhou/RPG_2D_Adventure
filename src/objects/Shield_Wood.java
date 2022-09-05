@@ -17,5 +17,6 @@ public class Shield_Wood extends Entity {
         down1 = GetSpriteAtlas(SHIELD_WOOD_IMAGE);
         defenseValue = 1;
         description = "[" + objectName + "]\nMade by wood.";
+        price = 150;
     }
 }

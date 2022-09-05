@@ -20,6 +20,7 @@ public class Potion_Red extends Entity {
         value = 5;
         down1 = GetSpriteAtlas(RED_POTION_IMAGE);
         description = "[" + objectName + "]\nHeals your life by " + value + ".";
+        price = 125;
     }
 
     public void use(Entity player) {

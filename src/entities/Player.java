@@ -49,6 +49,7 @@ public class Player extends Entity {
         // TODO: not center
 //        worldX = 23 * TILE_SIZE;
 //        worldY = 21 * TILE_SIZE;
+        // TODO: remove
         worldX = 12 * TILE_SIZE;
         worldY = 23 * TILE_SIZE;
         speed = 4;
@@ -64,7 +65,7 @@ public class Player extends Entity {
         dexterity = 1;  // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
+        coin = 4175; // TODO: Remove
         currentWeapon = new Sword_Normal(scene);
         currentShield = new Shield_Wood(scene);
         projectile = new Fireball(scene);

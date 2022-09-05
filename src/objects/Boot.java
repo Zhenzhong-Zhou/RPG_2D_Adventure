@@ -13,5 +13,6 @@ public class Boot extends Entity {
 
         objectName = BOOT;
         down1 = GetSpriteAtlas(BOOT_IMAGE);
+        price = 25;
     }
 }

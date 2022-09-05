@@ -63,6 +63,7 @@ public abstract class Entity {
     protected int shotAvailableCounter;
     protected final ArrayList<Entity> inventory = new ArrayList<>();
     protected final int maxInventorySize = 25;
+    protected int price;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -539,5 +540,13 @@ public abstract class Entity {
 
     public int getMaxInventorySize() {
         return maxInventorySize;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setCoin(int price) {
+        this.coin -= price;
     }
 }
