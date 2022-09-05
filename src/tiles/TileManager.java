@@ -1,82 +1,85 @@
 package tiles;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import static utilities.LoadSave.*;
+import static utilities.LoadSave.GetSpriteAtlas;
 
 public class TileManager {
-    private final ArrayList<Tile> tiles;
+    private Tile[] tiles;
 
     public TileManager() {
-        tiles = new ArrayList<>();
+        tiles = new Tile[50];
         getTileImage();
     }
 
     private void getTileImage() {
+        int i = 0;
         // GRASS
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(GRASS_01_IMAGE), false));
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_00_IMAGE, false); i++;
+        setup(i, GRASS_01_IMAGE, false); i++;
 
         // WATER
-        tiles.add(new Tile(GetSpriteAtlas(WATER_00_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_01_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_02_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_03_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_04_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_05_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_06_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_07_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_08_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_09_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_10_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_11_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_12_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(WATER_13_IMAGE), true));
+        setup(i, WATER_00_IMAGE, true); i++;
+        setup(i, WATER_01_IMAGE, true); i++;
+        setup(i, WATER_02_IMAGE, true); i++;
+        setup(i, WATER_03_IMAGE, true); i++;
+        setup(i, WATER_04_IMAGE, true); i++;
+        setup(i, WATER_05_IMAGE, true); i++;
+        setup(i, WATER_06_IMAGE, true); i++;
+        setup(i, WATER_07_IMAGE, true); i++;
+        setup(i, WATER_08_IMAGE, true); i++;
+        setup(i, WATER_09_IMAGE, true); i++;
+        setup(i, WATER_10_IMAGE, true); i++;
+        setup(i, WATER_11_IMAGE, true); i++;
+        setup(i, WATER_12_IMAGE, true); i++;
+        setup(i, WATER_13_IMAGE, true); i++;
 
         // ROAD
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_00_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_01_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_02_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_03_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_04_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_05_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_06_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_07_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_08_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_09_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_10_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_11_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(ROAD_12_IMAGE), false));
+        setup(i, ROAD_00_IMAGE, false); i++;
+        setup(i, ROAD_01_IMAGE, false); i++;
+        setup(i, ROAD_02_IMAGE, false); i++;
+        setup(i, ROAD_03_IMAGE, false); i++;
+        setup(i, ROAD_04_IMAGE, false); i++;
+        setup(i, ROAD_05_IMAGE, false); i++;
+        setup(i, ROAD_06_IMAGE, false); i++;
+        setup(i, ROAD_07_IMAGE, false); i++;
+        setup(i, ROAD_08_IMAGE, false); i++;
+        setup(i, ROAD_09_IMAGE, false); i++;
+        setup(i, ROAD_10_IMAGE, false); i++;
+        setup(i, ROAD_11_IMAGE, false); i++;
+        setup(i, ROAD_12_IMAGE, false); i++;
 
         // EARTH, WALL and TREE
-        tiles.add(new Tile(GetSpriteAtlas(EARTH_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(WALL_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(TREE_IMAGE), true));
-        tiles.add(new Tile(GetSpriteAtlas(HUT_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(FLOOR_IMAGE), false));
-        tiles.add(new Tile(GetSpriteAtlas(TABLE_IMAGE), true));
+        setup(i, EARTH_IMAGE, false); i++;
+        setup(i, WALL_IMAGE, true); i++;
+        setup(i, TREE_IMAGE, true); i++;
+        setup(i, HUT_IMAGE, false); i++;
+        setup(i, FLOOR_IMAGE, false); i++;
+        setup(i, TABLE_IMAGE, true);
+    }
+
+    private void setup(int index, String imageName, boolean collision ) {
+        tiles[index] = new Tile();
+        tiles[index].setSprite(GetSpriteAtlas(imageName));
+        tiles[index].setCollision(collision);
     }
 
     public BufferedImage getTile(int id) {
-        return tiles.get(id).getSprite();
+        return tiles[id].getSprite();
     }
 
-    public boolean getTileCollision(int id) {
-        return tiles.get(id).isCollision();
-    }
-
-    public ArrayList<Tile> getTiles() {
+    public Tile[] getTiles() {
         return tiles;
     }
 }

@@ -3,6 +3,7 @@ package utilities;
 import entities.Entity;
 import entities.Player;
 import main.Scene;
+import tiles.Tile;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -26,13 +27,14 @@ public class CollisionDetection {
         int entityBottomRow = entityBottomWorldY / TILE_SIZE;
 
         int tileNum1, tileNum2;
+        Tile[] tiles = scene.getLevelManager().getTileManager().getTiles();
         switch(entity.getDirection()) {
             case UP -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -42,8 +44,8 @@ public class CollisionDetection {
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -53,8 +55,8 @@ public class CollisionDetection {
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
                 tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -64,8 +66,8 @@ public class CollisionDetection {
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
                 tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);

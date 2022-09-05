@@ -80,7 +80,7 @@ public class PathFinder {
             // SET SOLID NODE
             // CHECK TILES
             int tileNum = scene.getLevelManager().getTileId()[scene.currentMap][col][row];
-            if(scene.getLevelManager().getTileManager().getTileCollision(tileNum)) {
+            if(scene.getLevelManager().getTileManager().getTiles()[tileNum].isCollision()) {
                 node[col][row].setSolid(true);
             }
             // CHECK INTERACTIVE TILES
