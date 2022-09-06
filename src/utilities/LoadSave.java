@@ -151,7 +151,7 @@ public class LoadSave {
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
 
     // MAP NAME
-    public static final String DEFAULT_LEVEL = "maps/default_level.txt";
+    public static final String DEFAULT_LEVEL = "/maps/default_level.txt";
     public static final String LEVEL_1 = "/maps/worldV3.txt";
     public static final String LEVEL_2 = "/maps/interior01.txt";
 
