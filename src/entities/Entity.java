@@ -420,11 +420,12 @@ public abstract class Entity {
             }
 
             // If reaches the goal, stop the search
-            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
-            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
-            if(nextCol == goalCol && nextRow == goalRow) {
-                onPath = false;
-            }
+            //TODO: disable for NPC following player
+//            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
+//            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
+//            if(nextCol == goalCol && nextRow == goalRow) {
+//                onPath = false;
+//            }
         }
     }
 

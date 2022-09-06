@@ -5,6 +5,7 @@ import main.Scene;
 import java.awt.*;
 
 import static utilities.Constants.DirectionConstant.DOWN;
+import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.LoadSave.*;
 
 public class NPC_OldMan extends Entity {
@@ -45,8 +46,11 @@ public class NPC_OldMan extends Entity {
 
     public void setAction() {
         if(onPath) {
-            int goalCol = 12;
-            int goalRow = 9;
+//            int goalCol = 12;
+//            int goalRow = 9;
+            //TODO: NPC follows player
+            int goalCol = (scene.getPlayer().worldX + scene.getPlayer().hitbox.x) / TILE_SIZE;
+            int goalRow = (scene.getPlayer().worldY + scene.getPlayer().hitbox.y) / TILE_SIZE;
 
             searchPath(goalCol, goalRow);
         } else {
