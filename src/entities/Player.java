@@ -1,5 +1,6 @@
 package entities;
 
+import ai.Node;
 import input.KeyInputs;
 import main.Scene;
 import objects.Fireball;
@@ -9,6 +10,7 @@ import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
@@ -509,6 +511,21 @@ public class Player extends Entity {
 //        graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));
 //        graphics2D.setColor(Color.WHITE);
 //        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
+
+        //TODO: Draw NPC pathfinding
+        if(scene.getLevelManager().isDrawPath()) {
+            Player player = scene.getPlayer();
+            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
+            graphics2D.setColor(new Color(255,0,0,70));
+            for(Node node : pathList) {
+                int worldX = node.getCol() * TILE_SIZE;
+                int worldY = node.getRow() * TILE_SIZE;
+                int screenX = worldX - player.getWorldX() + player.getScreenX();
+                int screenY = worldY - player.getWorldY() + player.getScreenY();
+
+                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+            }
+        }
     }
 
     public void resetDirectionBoolean() {
