@@ -181,7 +181,7 @@ public class PathFinder {
 
         while(current != startNode) {
             pathList.add(0, current);
-            current = currentNode.parent;
+            current = current.parent;
         }
     }
 }
