@@ -369,8 +369,8 @@ public abstract class Entity {
 
         if(scene.getPathFinder().search()) {
             // Next worldX & worldY
-            int nextX = scene.getPathFinder().pathList.get(0).col * TILE_SIZE;
-            int nextY = scene.getPathFinder().pathList.get(0).row * TILE_SIZE;
+            int nextX = scene.getPathFinder().getPathList().get(0).getCol() * TILE_SIZE;
+            int nextY = scene.getPathFinder().getPathList().get(0).getRow() * TILE_SIZE;
             // Entity's hitbox position
             int enLeftX = worldX + hitbox.x;
             int enRightX = worldX + hitbox.x + hitbox.width;
@@ -420,8 +420,8 @@ public abstract class Entity {
             }
 
             // If reaches the goal, stop the search
-            int nextCol = scene.getPathFinder().pathList.get(0).col;
-            int nextRow = scene.getPathFinder().pathList.get(0).row;
+            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
+            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
             if(nextCol == goalCol && nextRow == goalRow) {
                 onPath = false;
             }

@@ -9,13 +9,13 @@ import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
 import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 
 public class PathFinder {
-    public ArrayList<Node> pathList = new ArrayList<>();
-    Scene scene;
-    Node[][] node;
-    ArrayList<Node> openList = new ArrayList<>();
-    Node startNode, goalNode, currentNode;
-    boolean goalReached;
-    int step;
+    private ArrayList<Node> pathList = new ArrayList<>();
+    private Scene scene;
+    private Node[][] node;
+    private ArrayList<Node> openList = new ArrayList<>();
+    private Node startNode, goalNode, currentNode;
+    private boolean goalReached;
+    private int step;
 
     public PathFinder(Scene scene) {
         this.scene = scene;
@@ -46,9 +46,9 @@ public class PathFinder {
 
         while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
             // Rest open, checked and solid state
-            node[col][row].solid = false;
-            node[col][row].open = false;
-            node[col][row].checked = false;
+            node[col][row].setSolid(false);
+            node[col][row].setOpen(false);
+            node[col][row].setChecked(false);
 
             col++;
             if(col == MAX_WORLD_COL) {
@@ -81,14 +81,14 @@ public class PathFinder {
             // CHECK TILES
             int tileNum = scene.getLevelManager().getTileId()[scene.currentMap][col][row];
             if(scene.getLevelManager().getTileManager().getTiles()[tileNum].isCollision()) {
-                node[col][row].solid = true;
+                node[col][row].setSolid(true);
             }
             // CHECK INTERACTIVE TILES
             for(int i = 0; i < scene.getInteractiveTiles()[1].length; i++) {
                 if(scene.getInteractiveTiles()[scene.currentMap][i] != null && scene.getInteractiveTiles()[scene.currentMap][i].destructible) {
                     int itCol = scene.getInteractiveTiles()[scene.currentMap][i].getWorldX() / TILE_SIZE;
                     int itRow = scene.getInteractiveTiles()[scene.currentMap][i].getWorldY() / TILE_SIZE;
-                    node[itCol][itRow].solid = true;
+                    node[itCol][itRow].setSolid(true);
                 }
             }
             // SET COST
@@ -104,24 +104,24 @@ public class PathFinder {
 
     private void getCost(Node node) {
         // G Cost
-        int xDistance = Math.abs(node.col - startNode.col);
-        int yDistance = Math.abs(node.row - startNode.row);
-        node.gCost = xDistance + yDistance;
+        int xDistance = Math.abs(node.getCol() - startNode.getCol());
+        int yDistance = Math.abs(node.getRow() - startNode.getRow());
+        node.setgCost(xDistance + yDistance);
         // H Cost
-        xDistance = Math.abs(node.col - goalNode.col);
-        yDistance = Math.abs(node.row - goalNode.row);
-        node.hCost = xDistance + yDistance;
+        xDistance = Math.abs(node.getCol() - goalNode.getCol());
+        yDistance = Math.abs(node.getRow() - goalNode.getRow());
+        node.sethCost(xDistance + yDistance);
         // F Cost
-        node.fCost = node.gCost + node.hCost;
+        node.setfCost(node.getgCost() + node.gethCost());
     }
 
     public boolean search() {
         while(! goalReached && step < 500) {
-            int col = currentNode.col;
-            int row = currentNode.row;
+            int col = currentNode.getCol();
+            int row = currentNode.getRow();
 
             // Check the current node
-            currentNode.checked = true;
+            currentNode.setChecked(true);
             openList.remove(currentNode);
 
             // Open the Up node
@@ -139,13 +139,13 @@ public class PathFinder {
 
             for(int i = 0; i < openList.size(); i++) {
                 // Check if this node's F cost is better
-                if(openList.get(i).fCost < bestNodefCost) {
+                if(openList.get(i).getfCost() < bestNodefCost) {
                     bestNodeIndex = i;
-                    bestNodefCost = openList.get(i).fCost;
+                    bestNodefCost = openList.get(i).getfCost();
                 }
                 // If F cost is equal, check the G cost
-                else if(openList.get(i).fCost == bestNodefCost) {
-                    if(openList.get(i).gCost < openList.get(bestNodeIndex).gCost) {
+                else if(openList.get(i).getfCost() == bestNodefCost) {
+                    if(openList.get(i).getgCost() < openList.get(bestNodeIndex).getgCost()) {
                         bestNodeIndex = i;
                     }
                 }
@@ -169,9 +169,9 @@ public class PathFinder {
     }
 
     private void openNode(Node node) {
-        if(! node.open && ! node.checked && ! node.solid) {
-            node.open = true;
-            node.parent = currentNode;
+        if(! node.isOpen() && ! node.isChecked() && ! node.isSolid()) {
+            node.setOpen(true);
+            node.setParent(currentNode);
             openList.add(node);
         }
     }
@@ -181,7 +181,11 @@ public class PathFinder {
 
         while(current != startNode) {
             pathList.add(0, current);
-            current = current.parent;
+            current = current.getParent();
         }
+    }
+
+    public ArrayList<Node> getPathList() {
+        return pathList;
     }
 }
