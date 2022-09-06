@@ -381,7 +381,7 @@ public abstract class Entity {
                 direction = UP;
             } else if(enTopY < nextY && enLeftX >= nextX && enRightX < nextX + TILE_SIZE) {
                 direction = DOWN;
-            } else if(enTopY >= nextY && enBottomY < nextY +TILE_SIZE) {
+            } else if(enTopY >= nextY && enBottomY < nextY + TILE_SIZE) {
                 // left or right
                 if(enLeftX > nextX) {
                     direction = LEFT;
@@ -410,8 +410,7 @@ public abstract class Entity {
                 if(collision) {
                     direction = LEFT;
                 }
-            }
-            else if(enTopY < nextY && enLeftX < nextX) {
+            } else if(enTopY < nextY && enLeftX < nextX) {
                 // down or right
                 direction = DOWN;
                 checkCollision();

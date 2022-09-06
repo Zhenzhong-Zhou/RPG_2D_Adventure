@@ -1,6 +1,5 @@
 package ai;
 
-import entities.Entity;
 import main.Scene;
 
 import java.util.ArrayList;
@@ -10,10 +9,10 @@ import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
 import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 
 public class PathFinder {
+    public ArrayList<Node> pathList = new ArrayList<>();
     Scene scene;
     Node[][] node;
     ArrayList<Node> openList = new ArrayList<>();
-    public ArrayList<Node> pathList = new ArrayList<>();
     Node startNode, goalNode, currentNode;
     boolean goalReached;
     int step;
@@ -87,8 +86,8 @@ public class PathFinder {
             // CHECK INTERACTIVE TILES
             for(int i = 0; i < scene.getInteractiveTiles()[1].length; i++) {
                 if(scene.getInteractiveTiles()[scene.currentMap][i] != null && scene.getInteractiveTiles()[scene.currentMap][i].destructible) {
-                    int itCol = scene.getInteractiveTiles()[scene.currentMap][i].getWorldX()/TILE_SIZE;
-                    int itRow = scene.getInteractiveTiles()[scene.currentMap][i].getWorldY()/TILE_SIZE;
+                    int itCol = scene.getInteractiveTiles()[scene.currentMap][i].getWorldX() / TILE_SIZE;
+                    int itRow = scene.getInteractiveTiles()[scene.currentMap][i].getWorldY() / TILE_SIZE;
                     node[itCol][itRow].solid = true;
                 }
             }
@@ -117,7 +116,7 @@ public class PathFinder {
     }
 
     public boolean search() {
-        while(!goalReached && step < 500) {
+        while(! goalReached && step < 500) {
             int col = currentNode.col;
             int row = currentNode.row;
 
@@ -126,19 +125,19 @@ public class PathFinder {
             openList.remove(currentNode);
 
             // Open the Up node
-            if(row - 1 >= 0) openNode(node[col][row-1]);
+            if(row - 1 >= 0) openNode(node[col][row - 1]);
             // Open the Left node
-            if(col - 1 >= 0) openNode(node[col-1][row]);
+            if(col - 1 >= 0) openNode(node[col - 1][row]);
             // Open the Down node
-            if(row + 1 < MAX_WORLD_ROW) openNode(node[col][row+1]);
+            if(row + 1 < MAX_WORLD_ROW) openNode(node[col][row + 1]);
             // Open the Right node
-            if(col + 1 < MAX_WORLD_COL) openNode(node[col+1][row]);
+            if(col + 1 < MAX_WORLD_COL) openNode(node[col + 1][row]);
 
             // Find the best node
             int bestNodeIndex = 0;
             int bestNodefCost = 999;
 
-            for(int i=0; i<openList.size();i++) {
+            for(int i = 0; i < openList.size(); i++) {
                 // Check if this node's F cost is better
                 if(openList.get(i).fCost < bestNodefCost) {
                     bestNodeIndex = i;
@@ -170,7 +169,7 @@ public class PathFinder {
     }
 
     private void openNode(Node node) {
-        if(!node.open && !node.checked && ! node.solid) {
+        if(! node.open && ! node.checked && ! node.solid) {
             node.open = true;
             node.parent = currentNode;
             openList.add(node);
