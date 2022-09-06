@@ -12,6 +12,7 @@ import java.util.Random;
 
 import static utilities.Constants.EntityConstant.GREEN_SLIME;
 import static utilities.Constants.EntityConstant.MONSTER;
+import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.LoadSave.*;
 
 public class GreenSlime extends Entity {
@@ -49,20 +50,44 @@ public class GreenSlime extends Entity {
         right2 = GetSpriteAtlas(GREEN_SLIME_DOWN_2_IMAGE);
     }
 
-    public void setAction() {
-        super.setAction();
+    public void update() {
+        super.update();
 
-        int i = new Random().nextInt(100) + 1;
-        if(i > 99 && ! projectile.isAlive() && shotAvailableCounter == 30) {
-            projectile.set(worldX, worldY, direction, true, this);
-            scene.getProjectileArrayList().add(projectile);
-            shotAvailableCounter = 0;
+        int xDistance = Math.abs(worldX - scene.getPlayer().getWorldX());
+        int yDistance = Math.abs(worldY - scene.getPlayer().getWorldY());
+        int tileDistance = (xDistance + yDistance) / TILE_SIZE;
+
+        if(!onPath && tileDistance < 5) {
+            int i = new Random().nextInt(100) + 1;
+            if(i > 50) onPath = true;
+        }
+        //TODO: other rules
+//        if(onPath && tileDistance > 20) {
+//            onPath = false;
+//        }
+    }
+
+    public void setAction() {
+        if(onPath) {
+            int goalCol = (scene.getPlayer().getWorldX() + scene.getPlayer().getHitbox().x) / TILE_SIZE;
+            int goalRow = (scene.getPlayer().getWorldY() + scene.getPlayer().getHitbox().y) / TILE_SIZE;
+
+            searchPath(goalCol, goalRow);
+
+            int i = new Random().nextInt(200) + 1;
+            if(i > 197 && ! projectile.isAlive() && shotAvailableCounter == 30) {
+                projectile.set(worldX, worldY, direction, true, this);
+                scene.getProjectileArrayList().add(projectile);
+                shotAvailableCounter = 0;
+            }
+        } else {
+            super.setAction();
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
-        direction = scene.getPlayer().getDirection();
+        onPath = true;
     }
 
     public void checkDrop() {
