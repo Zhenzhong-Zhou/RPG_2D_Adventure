@@ -16,12 +16,12 @@ public class Window extends JFrame {
         addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-
+                scene.requestFocusInWindow();
             }
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                // TODO: Add later
+                scene.windowFocusLost();
             }
         });
     }

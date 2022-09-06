@@ -1,33 +1,51 @@
 package main;
 
+import ai.PathFinder;
 import audio.AudioManager;
+import entities.Entity;
 import entities.Player;
+import events.EventManager;
 import gui.GUI;
+import gui.Options;
 import input.KeyInputs;
 import levels.LevelManager;
-import objects.GameObject;
+import tile_interactive.InteractiveTile;
 import utilities.AssetSetter;
 import utilities.CollisionDetection;
+import utilities.Config;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-import static utilities.Constants.AudioManager.START;
-import static utilities.Constants.GameConstant.FPS_SET;
-import static utilities.Constants.GameConstant.UPS_SET;
+import static main.GameState.*;
+import static utilities.Constants.GameConstant.*;
 import static utilities.Constants.SceneConstant.*;
 
 public class Scene extends JPanel implements Runnable {
     private final KeyInputs keyInputs = new KeyInputs(this);
-    private final GameObject[] gameObject = new GameObject[10];
+    private final Entity[][] gameObjects = new Entity[MAX_MAP][50];
+    private final Entity[][] NPCs = new Entity[MAX_MAP][10];
+    private final Entity[][] monsters = new Entity[MAX_MAP][30];
+    private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
+    private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
+    private final ArrayList<Entity> particleArrayList = new ArrayList<>();
+    private final ArrayList<Entity> entityArrayList = new ArrayList<>();
+    public int currentMap;
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
+    private EventManager eventManager;
     private CollisionDetection collisionDetection;
     private AudioManager audioManager;
     private GUI gui;
+    private Options options;
     private AssetSetter assetSetter;
+    private boolean fullScreen, musicMute, seMute;
+    private Config config;
+    private PathFinder pathFinder;
 
     public Scene() {
         setFocusable(true);
@@ -43,8 +61,9 @@ public class Scene extends JPanel implements Runnable {
         // Entity Classes
         player = new Player(this, keyInputs);
 
-        // Manager Class
-        levelManager = new LevelManager();
+        // Manager Classes
+        levelManager = new LevelManager(this);
+        eventManager = new EventManager(this);
 
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
@@ -54,9 +73,16 @@ public class Scene extends JPanel implements Runnable {
 
         // GUI Class
         gui = new GUI(this);
+        options = new Options(this);
 
-        // Setter
+        // Setter Class
         assetSetter = new AssetSetter(this);
+
+        // Config Class
+        config = new Config(this);
+
+        // AI Class
+        pathFinder = new PathFinder(this);
     }
 
     private void setSceneSize() {
@@ -68,30 +94,149 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        assetSetter.setObject();
-        audioManager.playMusic(START);//TODO: change to MENU later
+        assetSetter.setObjects();
+        assetSetter.setNPCs();
+        assetSetter.setMonsters();
+        assetSetter.setInteractiveTile();
+    }
+
+    public void retry() {
+        player.resetDefaultPositions();
+        player.restoreLifeAndMana();
+        assetSetter.setNPCs();
+        assetSetter.setMonsters();
+    }
+
+    public void restart() {
+        player.resetDefaultPositions();
+        player.restoreLifeAndMana();
+        player.selectItem();
+        setupGame();
     }
 
     public void update() {
-        player.update();
+        switch(gameState) {
+            case PLAY -> {
+                // PLAYER
+                player.update();
+
+                // NPC
+                for(int i = 0; i < NPCs[1].length; i++) {
+                    if(NPCs[currentMap][i] != null) {
+                        NPCs[currentMap][i].update();
+                    }
+                }
+
+                // MONSTER
+                for(int i = 0; i < monsters[1].length; i++) {
+                    Entity monster = monsters[currentMap][i];
+                    if(monster != null) {
+                        if(monster.isAlive() && ! monster.isDead()) {
+                            monster.update();
+                        }
+                        if(! monster.isAlive()) {
+                            monster.checkDrop();
+                            monsters[currentMap][i] = null;
+                        }
+                    }
+                }
+
+                // PROJECTILE
+                arrayList(projectileArrayList);
+
+
+                // PARTICLE
+                arrayList(particleArrayList);
+
+                // INTERACTIVE TILE
+                for(int i = 0; i < interactiveTiles[1].length; i++) {
+                    if(interactiveTiles[currentMap][i] != null) {
+                        interactiveTiles[currentMap][i].update();
+                    }
+                }
+            }
+            case PAUSE -> {
+            }
+        }
+    }
+
+    private void arrayList(ArrayList<Entity> particleArrayList) {
+        for(int i = 0; i < particleArrayList.size(); i++) {
+            Entity particle = particleArrayList.get(i);
+            if(particle != null) {
+                if(particle.isAlive()) {
+                    particle.update();
+                }
+                if(! particle.isAlive()) {
+                    particleArrayList.remove(particle);
+                }
+            }
+        }
     }
 
     public void draw(Graphics2D graphics2D) {
-        // MAP
-        levelManager.draw(graphics2D, player);
+        if(gameState == MENU) {
+            gui.draw(graphics2D);
+        } else if(gameState == SETTINGS) {
+            options.draw(graphics2D);
+        } else {
+            // MAP
+            levelManager.draw(graphics2D, player);
 
-        // OBJECTS
-        for(GameObject object : gameObject) {
-            if(object != null) {
-                object.draw(graphics2D, this);
+            // INTERACTIVE TILE
+            for(int i = 0; i < interactiveTiles[1].length; i++) {
+                if(interactiveTiles[currentMap][i] != null) {
+                    interactiveTiles[currentMap][i].draw(graphics2D);
+                }
             }
+
+            // ADD ENTITIES TO THE LIST
+            entityArrayList.add(player);
+
+            for(int i = 0; i < NPCs[1].length; i++) {
+                if(NPCs[currentMap][i] != null) {
+                    entityArrayList.add(NPCs[currentMap][i]);
+                }
+            }
+
+            for(int i = 0; i < gameObjects[1].length; i++) {
+                if(gameObjects[currentMap][i] != null) {
+                    entityArrayList.add(gameObjects[currentMap][i]);
+                }
+            }
+
+            for(int i = 0; i < monsters[1].length; i++) {
+                if(monsters[currentMap][i] != null) {
+                    entityArrayList.add(monsters[currentMap][i]);
+                }
+            }
+
+            for(Entity projectile : projectileArrayList) {
+                if(projectile != null) {
+                    entityArrayList.add(projectile);
+                }
+            }
+
+            for(Entity particle : particleArrayList) {
+                if(particle != null) {
+                    entityArrayList.add(particle);
+                }
+            }
+
+            // SORT
+            entityArrayList.sort(Comparator.comparingInt(Entity :: getWorldY));
+
+            // DRAW ENTITIES
+            for(Entity entity : entityArrayList) {
+                entity.draw(graphics2D);
+            }
+
+            // EMPTY ENTITY LIST
+            entityArrayList.clear();
+
+            //GUI
+            gui.draw(graphics2D);
         }
-
-        // PLAYER
-        player.draw(graphics2D);
-
-        //GUI
-        gui.draw(graphics2D);
     }
 
     public void paintComponent(Graphics graphics) {
@@ -180,8 +325,14 @@ public class Scene extends JPanel implements Runnable {
         }
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void windowFocusLost() {
+        if(gameState == PLAY) {
+            getPlayer().resetDirectionBoolean();
+        }
+    }
+
+    public KeyInputs getKeyInputs() {
+        return keyInputs;
     }
 
     public Player getPlayer() {
@@ -190,6 +341,10 @@ public class Scene extends JPanel implements Runnable {
 
     public LevelManager getLevelManager() {
         return levelManager;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
     }
 
     public CollisionDetection getCollisionDetection() {
@@ -204,7 +359,67 @@ public class Scene extends JPanel implements Runnable {
         return gui;
     }
 
-    public GameObject[] getGameObject() {
-        return gameObject;
+    public Options getOptions() {
+        return options;
+    }
+
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public PathFinder getPathFinder() {
+        return pathFinder;
+    }
+
+    public Entity[][] getGameObjects() {
+        return gameObjects;
+    }
+
+    public Entity[][] getNPCs() {
+        return NPCs;
+    }
+
+    public Entity[][] getMonsters() {
+        return monsters;
+    }
+
+    public InteractiveTile[][] getInteractiveTiles() {
+        return interactiveTiles;
+    }
+
+    public ArrayList<Entity> getProjectileArrayList() {
+        return projectileArrayList;
+    }
+
+    public ArrayList<Entity> getParticleArrayList() {
+        return particleArrayList;
+    }
+
+    public boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    public void setFullScreen(boolean fullScreen) {
+        this.fullScreen = fullScreen;
+    }
+
+    public boolean isMusicMute() {
+        return musicMute;
+    }
+
+    public void setMusicMute(boolean musicMute) {
+        this.musicMute = musicMute;
+    }
+
+    public boolean isSeMute() {
+        return seMute;
+    }
+
+    public void setSeMute(boolean seMute) {
+        this.seMute = seMute;
     }
 }

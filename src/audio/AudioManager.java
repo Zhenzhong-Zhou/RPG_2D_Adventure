@@ -1,12 +1,17 @@
 package audio;
 
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+import static utilities.Constants.AudioManager.CURSOR;
+import static utilities.Constants.AudioManager.MAIN_MENU;
 import static utilities.LoadSave.GetClip;
 
 public class AudioManager {
-    private final float volume = 0.5f;
+    public int volumeBGMScale = 3;
+    public int volumeSEScale = 3;
+    private float volume;
     private Clip[] musics, effects;
     private int currentMusicId;
     private boolean musicMute, effectMute;
@@ -14,7 +19,7 @@ public class AudioManager {
     public AudioManager() {
         loadMusics();
         loadEffects();
-        playMusic(0);
+        playMusic(MAIN_MENU);
     }
 
     public void loadMusics() {
@@ -26,7 +31,8 @@ public class AudioManager {
     }
 
     public void loadEffects() {
-        String[] effectNames = {"coin", "powerup", "unlock", "fanfare"};
+        String[] effectNames = {"coin", "powerup", "unlock", "fanfare", "hitmonster", "receivedamage",
+                "swingweapon", "levelup", "cursor", "burning", "cuttree", "die", "gameover"};
         effects = new Clip[effectNames.length];
         for(int i = 0; i < effects.length; i++) {
             effects[i] = GetClip(effectNames[i]);
@@ -55,8 +61,90 @@ public class AudioManager {
 
     private void updateMusicsVolume() {
         FloatControl gainControl = (FloatControl) musics[currentMusicId].getControl(FloatControl.Type.MASTER_GAIN);
-        float range = gainControl.getMaximum() - gainControl.getMinimum();
-        float gain = (range * volume) + gainControl.getMinimum();
-        gainControl.setValue(gain);
+        switch(volumeBGMScale) {
+            case 0 -> volume = - 80f;
+            case 1 -> volume = - 20f;
+            case 2 -> volume = - 12f;
+            case 3 -> volume = - 5f;
+            case 4 -> volume = 1f;
+            case 5 -> volume = 6f;
+        }
+        gainControl.setValue(volume);
+    }
+
+    private void updateEffectsVolume() {
+        for(Clip clip : effects) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            switch(volumeSEScale) {
+                case 0 -> volume = - 80f;
+                case 1 -> volume = - 20f;
+                case 2 -> volume = - 12f;
+                case 3 -> volume = - 5f;
+                case 4 -> volume = 1f;
+                case 5 -> volume = 6f;
+            }
+            gainControl.setValue(volume);
+        }
+    }
+
+    public void toggleMusicMute() {
+        this.musicMute = ! musicMute;
+        for(Clip clip : musics) {
+            BooleanControl booleanControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+            booleanControl.setValue(musicMute);
+        }
+    }
+
+    public void toggleEffectMute() {
+        this.effectMute = ! effectMute;
+        for(Clip clip : effects) {
+            BooleanControl booleanControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+            booleanControl.setValue(effectMute);
+        }
+        if(! effectMute) {
+            playEffect(CURSOR);
+        }
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+        updateMusicsVolume();
+        updateEffectsVolume();
+    }
+
+    public int getVolumeBGMScale() {
+        return volumeBGMScale;
+    }
+
+    public void setVolumeBGMScale(int volumeBGMScale) {
+        this.volumeBGMScale = volumeBGMScale;
+    }
+
+    public int getVolumeSEScale() {
+        return volumeSEScale;
+    }
+
+    public void setVolumeSEScale(int volumeSEScale) {
+        this.volumeSEScale = volumeSEScale;
+    }
+
+    public void decreaseBGMVolume() {
+        this.volumeBGMScale--;
+    }
+
+    public void decreaseSEVolume() {
+        this.volumeSEScale--;
+    }
+
+    public void increaseBGMVolume() {
+        this.volumeBGMScale++;
+    }
+
+    public void increaseSEVolume() {
+        this.volumeSEScale++;
     }
 }

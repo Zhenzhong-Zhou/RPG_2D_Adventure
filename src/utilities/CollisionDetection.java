@@ -1,8 +1,9 @@
 package utilities;
 
 import entities.Entity;
+import entities.Player;
 import main.Scene;
-import objects.GameObject;
+import tiles.Tile;
 
 import static utilities.Constants.DirectionConstant.*;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -26,13 +27,14 @@ public class CollisionDetection {
         int entityBottomRow = entityBottomWorldY / TILE_SIZE;
 
         int tileNum1, tileNum2;
+        Tile[] tiles = scene.getLevelManager().getTileManager().getTiles();
         switch(entity.getDirection()) {
             case UP -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -40,10 +42,10 @@ public class CollisionDetection {
             }
             case LEFT -> {
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -51,10 +53,10 @@ public class CollisionDetection {
             }
             case DOWN -> {
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityLeftCol][entityBottomRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityBottomRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -62,10 +64,10 @@ public class CollisionDetection {
             }
             case RIGHT -> {
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / TILE_SIZE;
-                tileNum1 = scene.getLevelManager().getTileId()[entityRightCol][entityTopRow];
-                tileNum2 = scene.getLevelManager().getTileId()[entityRightCol][entityBottomRow];
-                boolean collision1 = scene.getLevelManager().getTileManager().getTiles().get(tileNum1).isCollision();
-                boolean collision2 = scene.getLevelManager().getTileManager().getTiles().get(tileNum2).isCollision();
+                tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityTopRow];
+                tileNum2 = scene.getLevelManager().getTileId()[scene.currentMap][entityRightCol][entityBottomRow];
+                boolean collision1 = tiles[tileNum1].isCollision();
+                boolean collision2 = tiles[tileNum2].isCollision();
 
                 if(collision1 || collision2) {
                     entity.setCollision(true);
@@ -74,69 +76,45 @@ public class CollisionDetection {
         }
     }
 
+    private void entityPosition(Entity entity) {
+        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
+        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+    }
+
+    private void entityDirection(Entity entity) {
+        switch(entity.getDirection()) {
+            case UP -> entity.getHitbox().y -= entity.getSpeed();
+            case LEFT -> entity.getHitbox().x -= entity.getSpeed();
+            case DOWN -> entity.getHitbox().y += entity.getSpeed();
+            case RIGHT -> entity.getHitbox().x += entity.getSpeed();
+        }
+    }
+
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        GameObject[] objects = scene.getGameObject();
-        for(int i = 0; i < objects.length; i++) {
-            GameObject object = objects[i];
+        Entity[][] objects = scene.getGameObjects();
+        for(int i = 0; i < objects[1].length; i++) {
+            Entity object = objects[scene.currentMap][i];
             if(object != null) {
                 // Get entity's hitbox position
-                entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-                entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+                entityPosition(entity);
 
                 // Get the object's hitbox position
                 object.getHitbox().x = object.getWorldX() + object.getHitbox().x;
                 object.getHitbox().y = object.getWorldY() + object.getHitbox().y;
 
-                switch(entity.getDirection()) {
-                    case UP -> {
-                        entity.getHitbox().y -= entity.getSpeed();
-                        if(entity.getHitbox().intersects(object.getHitbox())) {
-                            if(object.isCollision()) {
-                                entity.setCollision(true);
-                            }
-                            if(player) {
-                                index = i;
-                            }
-                        }
+                entityDirection(entity);
+
+                if(entity.getHitbox().intersects(object.getHitbox())) {
+                    if(object.isCollision()) {
+                        entity.setCollision(true);
                     }
-                    case LEFT -> {
-                        entity.getHitbox().x += entity.getSpeed();
-                        if(entity.getHitbox().intersects(object.getHitbox())) {
-                            if(object.isCollision()) {
-                                entity.setCollision(true);
-                            }
-                            if(player) {
-                                index = i;
-                            }
-                        }
-                    }
-                    case DOWN -> {
-                        entity.getHitbox().y += entity.getSpeed();
-                        if(entity.getHitbox().intersects(object.getHitbox())) {
-                            if(object.isCollision()) {
-                                entity.setCollision(true);
-                            }
-                            if(player) {
-                                index = i;
-                            }
-                        }
-                    }
-                    case RIGHT -> {
-                        entity.getHitbox().x -= entity.getSpeed();
-                        if(entity.getHitbox().intersects(object.getHitbox())) {
-                            if(object.isCollision()) {
-                                entity.setCollision(true);
-                            }
-                            if(player) {
-                                index = i;
-                            }
-                        }
-                    }
-                    default -> {
+                    if(player) {
+                        index = i;
                     }
                 }
+
                 entity.getHitbox().x = entity.getHitboxDefaultX();
                 entity.getHitbox().y = entity.getHitboxDefaultY();
                 object.getHitbox().x = object.getHitboxDefaultX();
@@ -145,99 +123,61 @@ public class CollisionDetection {
         }
         return index;
     }
-//
-//    public int checkEntity(Entity entity, Entity[] targets) {
-//        int index = 999;
-//
-//        for(int i = 0; i < targets.length; i++) {
-//            Entity target = targets[i];
-//            if(target != null) {
-//                // Get entity's hitbox position
-//                entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-//                entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
-//
-//                // Get the object's hitbox position
-//                target.getHitbox().x = target.getWorldX() + target.getHitbox().x;
-//                target.getHitbox().y = target.getWorldY() + target.getHitbox().y;
-//
-//                switch(entity.getDirection()) {
-//                    case UP -> {
-//                        entity.getHitbox().y -= entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case LEFT -> {
-//                        entity.getHitbox().x += entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case DOWN -> {
-//                        entity.getHitbox().y += entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                    case RIGHT -> {
-//                        entity.getHitbox().x -= entity.getSpeed();
-//                        if(entity.getHitbox().intersects(target.getHitbox())) {
-//                            entity.setCollision(true);
-//                            index = i;
-//                        }
-//                    }
-//                }
-//                entity.getHitbox().x = entity.getHitboxDefaultX();
-//                entity.getHitbox().y = entity.getHitboxDefaultY();
-//                target.getHitbox().x = target.getHitboxDefaultX();
-//                target.getHitbox().y = target.getHitboxDefaultY();
-//            }
-//        }
-//        return index;
-//    }
-//
-//    public void checkPlayer(Entity entity) {
-//        // Get entity's hitbox position
-//        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
-//        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
-//
-//        Player player = play.getPlayer();
-//        // Get the object's hitbox position
-//        player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
-//        player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
-//
-//        switch(entity.getDirection()) {
-//            case UP -> {
-//                entity.getHitbox().y -= entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case LEFT -> {
-//                entity.getHitbox().x += entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case DOWN -> {
-//                entity.getHitbox().y += entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//            case RIGHT -> {
-//                entity.getHitbox().x -= entity.getSpeed();
-//                if(entity.getHitbox().intersects(player.getHitbox())) {
-//                    entity.setCollision(true);
-//                }
-//            }
-//        }
-//        entity.getHitbox().x = entity.getHitboxDefaultX();
-//        entity.getHitbox().y = entity.getHitboxDefaultY();
-//        player.getHitbox().x = player.getHitboxDefaultX();
-//        player.getHitbox().y = player.getHitboxDefaultY();
-//    }
+
+    // NPC OR MONSTER
+    public int checkEntity(Entity entity, Entity[][] targets) {
+        int index = 999;
+
+        for(int i = 0; i < targets[1].length; i++) {
+            Entity target = targets[scene.currentMap][i];
+            if(target != null) {
+                // Get entity's hitbox position
+                entityPosition(entity);
+
+                // Get the object's hitbox position
+                target.getHitbox().x = target.getWorldX() + target.getHitbox().x;
+                target.getHitbox().y = target.getWorldY() + target.getHitbox().y;
+
+                entityDirection(entity);
+
+                if(entity.getHitbox().intersects(target.getHitbox())) {
+                    if(target != entity) {
+                        entity.setCollision(true);
+                        index = i;
+                    }
+                }
+
+                entity.getHitbox().x = entity.getHitboxDefaultX();
+                entity.getHitbox().y = entity.getHitboxDefaultY();
+                target.getHitbox().x = target.getHitboxDefaultX();
+                target.getHitbox().y = target.getHitboxDefaultY();
+            }
+        }
+        return index;
+    }
+
+    public boolean checkPlayer(Entity entity) {
+        boolean interactPlayer = false;
+        // Get entity's hitbox position
+        entityPosition(entity);
+
+        Player player = scene.getPlayer();
+        // Get the object's hitbox position
+        player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
+        player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
+
+        entityDirection(entity);
+
+        if(entity.getHitbox().intersects(player.getHitbox())) {
+            entity.setCollision(true);
+            interactPlayer = true;
+        }
+
+        entity.getHitbox().x = entity.getHitboxDefaultX();
+        entity.getHitbox().y = entity.getHitboxDefaultY();
+        player.getHitbox().x = player.getHitboxDefaultX();
+        player.getHitbox().y = player.getHitboxDefaultY();
+
+        return interactPlayer;
+    }
 }

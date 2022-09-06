@@ -6,11 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.Scanner;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;
-import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
-import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 import static utilities.Tool.ScaleImage;
 
 public class LoadSave {
@@ -24,10 +21,34 @@ public class LoadSave {
     public static final String RIGHT_1_IMAGE = "player/walk/boy_right_1.png";
     public static final String RIGHT_2_IMAGE = "player/walk/boy_right_2.png";
 
+    // PLAYER ATTACK: Sword
+    public static final String ATTACK_UP_1_IMAGE = "player/attack/sword/boy_attack_up_1.png";
+    public static final String ATTACK_UP_2_IMAGE = "player/attack/sword/boy_attack_up_2.png";
+    public static final String ATTACK_LEFT_1_IMAGE = "player/attack/sword/boy_attack_left_1.png";
+    public static final String ATTACK_LEFT_2_IMAGE = "player/attack/sword/boy_attack_left_2.png";
+    public static final String ATTACK_DOWN_1_IMAGE = "player/attack/sword/boy_attack_down_1.png";
+    public static final String ATTACK_DOWN_2_IMAGE = "player/attack/sword/boy_attack_down_2.png";
+    public static final String ATTACK_RIGHT_1_IMAGE = "player/attack/sword/boy_attack_right_1.png";
+    public static final String ATTACK_RIGHT_2_IMAGE = "player/attack/sword/boy_attack_right_2.png";
+
+    // PLAYER ATTACK: Axe
+    public static final String AXE_UP_1_IMAGE = "player/attack/axe/boy_axe_up_1.png";
+    public static final String AXE_UP_2_IMAGE = "player/attack/axe/boy_axe_up_2.png";
+    public static final String AXE_LEFT_1_IMAGE = "player/attack/axe/boy_axe_left_1.png";
+    public static final String AXE_LEFT_2_IMAGE = "player/attack/axe/boy_axe_left_2.png";
+    public static final String AXE_DOWN_1_IMAGE = "player/attack/axe/boy_axe_down_1.png";
+    public static final String AXE_DOWN_2_IMAGE = "player/attack/axe/boy_axe_down_2.png";
+    public static final String AXE_RIGHT_1_IMAGE = "player/attack/axe/boy_axe_right_1.png";
+    public static final String AXE_RIGHT_2_IMAGE = "player/attack/axe/boy_axe_right_2.png";
+
     // PLAYER LIFE
     public static final String HEART_FULL = "objects/heart_full.png";
     public static final String HEART_HALF = "objects/heart_half.png";
     public static final String HEART_BLANK = "objects/heart_blank.png";
+
+    // PLAYER MANNA
+    public static final String MANA_FULL = "objects/manacrystal_full.png";
+    public static final String MANA_BLANK = "objects/manacrystal_blank.png";
 
     // NPC: Old Man
     public static final String OLD_MAN_UP_1_IMAGE = "npc/oldman_up_1.png";
@@ -39,6 +60,26 @@ public class LoadSave {
     public static final String OLD_MAN_RIGHT_1_IMAGE = "npc/oldman_right_1.png";
     public static final String OLD_MAN_RIGHT_2_IMAGE = "npc/oldman_right_2.png";
 
+    // NPC: Merchant
+    public static final String MERCHANT_DOWN_1_IMAGE = "npc/merchant_down_1.png";
+    public static final String MERCHANT_DOWN_2_IMAGE = "npc/merchant_down_2.png";
+
+    // PROJECTILE: Fireball
+    public static final String FIREBALL_UP_1_IMAGE = "projectile/fireball_up_1.png";
+    public static final String FIREBALL_UP_2_IMAGE = "projectile/fireball_up_2.png";
+    public static final String FIREBALL_LEFT_1_IMAGE = "projectile/fireball_left_1.png";
+    public static final String FIREBALL_LEFT_2_IMAGE = "projectile/fireball_left_2.png";
+    public static final String FIREBALL_DOWN_1_IMAGE = "projectile/fireball_down_1.png";
+    public static final String FIREBALL_DOWN_2_IMAGE = "projectile/fireball_down_2.png";
+    public static final String FIREBALL_RIGHT_1_IMAGE = "projectile/fireball_right_1.png";
+    public static final String FIREBALL_RIGHT_2_IMAGE = "projectile/fireball_right_2.png";
+
+    // PROJECTILE: Rock
+    public static final String ROCK_IMAGE = "projectile/rock_down_1.png";
+
+    // MONSTER: Green Slime
+    public static final String GREEN_SLIME_DOWN_1_IMAGE = "monster/greenslime_down_1.png";
+    public static final String GREEN_SLIME_DOWN_2_IMAGE = "monster/greenslime_down_2.png";
 
     // TILES: Grass
     public static final String GRASS_00_IMAGE = "tile/grass/grass00.png";
@@ -75,10 +116,17 @@ public class LoadSave {
     public static final String ROAD_11_IMAGE = "tile/road/road11.png";
     public static final String ROAD_12_IMAGE = "tile/road/road12.png";
 
-    // TILES: Earth, Wall and Tree
+    // TILES: Earth, Wall, Tree, Hut, Floor and Table
     public static final String EARTH_IMAGE = "tile/earth.png";
     public static final String WALL_IMAGE = "tile/wall.png";
     public static final String TREE_IMAGE = "tile/tree.png";
+    public static final String HUT_IMAGE = "tile/hut.png";
+    public static final String FLOOR_IMAGE = "tile/floor01.png";
+    public static final String TABLE_IMAGE = "tile/table01.png";
+
+    // INTERACTIVE TILE: Tree
+    public static final String DRY_TREE_IMAGE = "tiles_interactive/drytree.png";
+    public static final String TRUNK_IMAGE = "tiles_interactive/trunk.png";
 
     // OBJECTS
     public static final String KEY_IMAGE = "objects/key.png";
@@ -86,24 +134,56 @@ public class LoadSave {
     public static final String CHEST_IMAGE = "objects/chest.png";
     public static final String BOOT_IMAGE = "objects/boots.png";
 
+    // EQUIPMENTS
+    public static final String NORMAL_SWORD_IMAGE = "objects/sword_normal.png";
+    public static final String AXE_IMAGE = "objects/axe.png";
+    public static final String SHIELD_WOOD_IMAGE = "objects/shield_wood.png";
+    public static final String SHIELD_BLUE_IMAGE = "objects/shield_blue.png";
+
+    // CONSUMABLE
+    public static final String RED_POTION_IMAGE = "objects/potion_red.png";
+
+    // PICKUP
+    public static final String COIN_IMAGE = "objects/coin_bronze.png";
+
     // FONTS
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";
 
+    // MAP NAME
+    public static final String DEFAULT_LEVEL = "/maps/default_level.txt";
+    public static final String LEVEL_1 = "/maps/worldV3.txt";
+    public static final String LEVEL_2 = "/maps/interior01.txt";
+
     // Level File Path Config
     public static String homePath = System.getProperty("user.home");
     public static String saveFolder = "Blue Boy Adventure";
-    public static String levelFile = "default_level.txt";
-    public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
-    private static final File dataFile = new File(filePath);
+    public static String configFile = "config.txt";
+    public static String filePath = homePath + File.separator + saveFolder + File.separator + configFile;
+    public static final File dataFile = new File(filePath);
+
+    public static void CreatedFolder() {
+        File folder = new File(homePath + File.separator + saveFolder);
+        if(! folder.exists()) {
+            folder.mkdir();
+        }
+    }
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
+        return getImage(fileName, TILE_SIZE, TILE_SIZE);
+    }
+
+    public static BufferedImage GetAttackImage(String fileName, int width, int height) {
+        return getImage(fileName, width, height);
+    }
+
+    private static BufferedImage getImage(String fileName, int width, int height) {
         BufferedImage image = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
         try {
             assert is != null;
             image = ImageIO.read(is);
-            image = ScaleImage(image, TILE_SIZE, TILE_SIZE);
+            image = ScaleImage(image, width, height);
         } catch(IOException e) {
             e.printStackTrace();
         } finally {
@@ -152,14 +232,7 @@ public class LoadSave {
         }
     }
 
-    public static void CreatedFolder() {
-        File folder = new File(homePath + File.separator + saveFolder);
-        if(! folder.exists()) {
-            folder.mkdir();
-        }
-    }
-
-    public static void CreateLevel(int[][] idArray) {
+    public static void CreateConfigFile(int[] array) {
         if(dataFile.exists()) {
             System.out.println("File: " + dataFile + " is already exists.");
         } else {
@@ -168,69 +241,20 @@ public class LoadSave {
             } catch(IOException e) {
                 e.printStackTrace();
             }
-
-            WriteToFile(idArray);
+            WriteToConfigFile(array);
         }
     }
 
-    private static void WriteToFile(int[][] idArray) {
+    private static void WriteToConfigFile(int[] id_Array) {
         try {
             PrintWriter printWriter = new PrintWriter(dataFile);
-            for(int y = 0; y < idArray.length; y++) {
-                for(int x = 0; x < idArray[y].length; x++) {
-                    if(x < idArray[y].length) {
-                        printWriter.print(idArray[x][y] + "\t");
-                    }
-                }
-                printWriter.append("\n");
+            for(Integer id : id_Array) {
+                printWriter.println(id);
             }
+
             printWriter.close();
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void SaveLevel(int[][] idArray) {
-        if(dataFile.exists()) {
-            WriteToFile(idArray);
-        } else {
-            //TODO: new level
-            System.out.println("File: " + dataFile + " is already exists.");
-        }
-    }
-
-    private static int[][] ReadFromFile() {
-        int[][] matrix = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
-        try {
-            Scanner scanner = new Scanner(dataFile);
-            int col = 0;
-            int row = 0;
-            while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
-                String line = scanner.nextLine();
-                while(col < MAX_WORLD_COL) {
-                    String[] numbers = line.split("\t");
-                    int num = Integer.parseInt(numbers[col]);
-                    matrix[col][row] = num;
-                    col++;
-                }
-                if(col == MAX_WORLD_COL) {
-                    col = 0;
-                    row++;
-                }
-            }
-            scanner.close();
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return matrix;
-    }
-
-    public static int[][] GetLevelData() {
-        if(dataFile.exists()) {
-            return ReadFromFile();
-        } else {
-            System.out.println("File: " + dataFile + " does not exist!");
-            return null;
+        } catch(FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         }
     }
 }

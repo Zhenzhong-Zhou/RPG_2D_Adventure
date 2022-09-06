@@ -8,6 +8,7 @@ public class Game {
 
         Scene scene = new Scene();
         new Window(scene);
+        scene.getConfig().loadConfig();
 
         scene.setupGame();
 

@@ -1,52 +1,73 @@
 package levels;
 
 import entities.Player;
+import main.Scene;
 import tiles.TileManager;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.Constants.WorldConstant.*;
-import static utilities.LoadSave.*;
+import static utilities.LoadSave.LEVEL_1;
+import static utilities.LoadSave.LEVEL_2;
 
 public class LevelManager {
+    private final Scene scene;
     private final TileManager tileManager;
-    private int[][] level;
+    private int[][][] level;
 
-    public LevelManager() {
+    public LevelManager(Scene scene) {
+        this.scene = scene;
         tileManager = new TileManager();
-        createDefaultLevel();
         loadDefaultLevel();
-        saveLevel();
-    }
-
-    private void createDefaultLevel() {
-        int cols = MAX_WORLD_COL;
-        int rows = MAX_WORLD_ROW;
-        int[][] array = new int[cols][rows];
-
-        for(int i = 0; i < cols; i++) {
-            for(int j = 0; j < rows; j++) {
-                array[i][j] = 0;
-            }
-        }
-        CreateLevel(array);
-    }
-
-    public void saveLevel() {
-        SaveLevel(level);
     }
 
     private void loadDefaultLevel() {
-        level = GetLevelData();
+        level = new int[MAX_MAP][MAX_WORLD_COL][MAX_WORLD_ROW];
+        loadMap(LEVEL_1, 0);
+        loadMap(LEVEL_2, 1);
+    }
+
+    public void loadMap(String filepath, int map) {
+        InputStream is = getClass().getResourceAsStream(filepath);
+        assert is != null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+        int col = 0;
+        int row = 0;
+
+        try {
+            while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
+                String line = br.readLine();
+                while(col < MAX_WORLD_COL) {
+                    String[] numbers = line.split("\t");
+                    int num = Integer.parseInt(numbers[col]);
+                    level[map][col][row] = num;
+                    col++;
+                }
+
+                if(col == MAX_WORLD_COL) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(Graphics2D graphics2D, Player player) {
+        int map = 0;
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
-            int id = level[worldCol][worldRow];
+        while(map < MAX_MAP && worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
+            int id = level[scene.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * TILE_SIZE;
             int worldY = worldRow * TILE_SIZE;
@@ -94,11 +115,15 @@ public class LevelManager {
             if(worldCol == MAX_WORLD_COL) {
                 worldCol = 0;
                 worldRow++;
+                if(worldRow == MAX_WORLD_ROW) {
+                    worldRow = 0;
+                    map++;
+                }
             }
         }
     }
 
-    public int[][] getTileId() {
+    public int[][][] getTileId() {
         return level;
     }
 
