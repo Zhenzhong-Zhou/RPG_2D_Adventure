@@ -1,5 +1,6 @@
 package ai;
 
+import entities.Entity;
 import main.Scene;
 
 import java.util.ArrayList;
@@ -9,13 +10,13 @@ import static utilities.Constants.WorldConstant.MAX_WORLD_COL;
 import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 
 public class PathFinder {
-    private Scene scene;
-    private Node[][] node;
-    private ArrayList<Node> openList = new ArrayList<>();
-    private ArrayList<Node> pathList = new ArrayList<>();
-    private Node startNode, goalNode, currentNode;
-    private boolean goalReached;
-    private int step;
+    Scene scene;
+    Node[][] node;
+    ArrayList<Node> openList = new ArrayList<>();
+    public ArrayList<Node> pathList = new ArrayList<>();
+    Node startNode, goalNode, currentNode;
+    boolean goalReached;
+    int step;
 
     public PathFinder(Scene scene) {
         this.scene = scene;
@@ -46,9 +47,9 @@ public class PathFinder {
 
         while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
             // Rest open, checked and solid state
-            node[col][row].setSolid(false);
-            node[col][row].setOpen(false);
-            node[col][row].setChecked(false);
+            node[col][row].solid = false;
+            node[col][row].open = false;
+            node[col][row].checked = false;
 
             col++;
             if(col == MAX_WORLD_COL) {
@@ -81,14 +82,14 @@ public class PathFinder {
             // CHECK TILES
             int tileNum = scene.getLevelManager().getTileId()[scene.currentMap][col][row];
             if(scene.getLevelManager().getTileManager().getTiles()[tileNum].isCollision()) {
-                node[col][row].setSolid(true);
+                node[col][row].solid = true;
             }
             // CHECK INTERACTIVE TILES
             for(int i = 0; i < scene.getInteractiveTiles()[1].length; i++) {
                 if(scene.getInteractiveTiles()[scene.currentMap][i] != null && scene.getInteractiveTiles()[scene.currentMap][i].destructible) {
                     int itCol = scene.getInteractiveTiles()[scene.currentMap][i].getWorldX()/TILE_SIZE;
                     int itRow = scene.getInteractiveTiles()[scene.currentMap][i].getWorldY()/TILE_SIZE;
-                    node[itCol][itRow].setSolid(true);
+                    node[itCol][itRow].solid = true;
                 }
             }
             // SET COST
@@ -104,12 +105,12 @@ public class PathFinder {
 
     private void getCost(Node node) {
         // G Cost
-        int xDistance = Math.abs(node.getCol() - startNode.getCol());
-        int yDistance = Math.abs(node.getRow() - startNode.getRow());
+        int xDistance = Math.abs(node.col - startNode.col);
+        int yDistance = Math.abs(node.row - startNode.row);
         node.gCost = xDistance + yDistance;
         // H Cost
-        xDistance = Math.abs(node.getCol() - goalNode.getCol());
-        yDistance = Math.abs(node.getRow() - goalNode.getRow());
+        xDistance = Math.abs(node.col - goalNode.col);
+        yDistance = Math.abs(node.row - goalNode.row);
         node.hCost = xDistance + yDistance;
         // F Cost
         node.fCost = node.gCost + node.hCost;
@@ -117,11 +118,11 @@ public class PathFinder {
 
     public boolean search() {
         while(!goalReached && step < 500) {
-            int col = currentNode.getCol();
-            int row = currentNode.getRow();
+            int col = currentNode.col;
+            int row = currentNode.row;
 
             // Check the current node
-            currentNode.setChecked(true);
+            currentNode.checked = true;
             openList.remove(currentNode);
 
             // Open the Up node
@@ -169,9 +170,9 @@ public class PathFinder {
     }
 
     private void openNode(Node node) {
-        if(!node.isOpen() && !node.isChecked() && ! node.isSolid()) {
-            node.setOpen(true);
-            node.setParent(currentNode);
+        if(!node.open && !node.checked && ! node.solid) {
+            node.open = true;
+            node.parent = currentNode;
             openList.add(node);
         }
     }
@@ -181,15 +182,7 @@ public class PathFinder {
 
         while(current != startNode) {
             pathList.add(0, current);
-            current = currentNode.getParent();
+            current = currentNode.parent;
         }
-    }
-
-    public ArrayList<Node> getOpenList() {
-        return openList;
-    }
-
-    public ArrayList<Node> getPathList() {
-        return pathList;
     }
 }

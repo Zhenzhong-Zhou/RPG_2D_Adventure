@@ -112,11 +112,11 @@ public abstract class Entity {
 
     public void dropItem(Entity droppedItem) {
         for(int i = 0; i < scene.getGameObjects()[1].length; i++) {
-//            Entity[] objects = scene.getGameObjects()[scene.currentMap];
-            if(scene.getGameObjects()[scene.currentMap][i] == null) {
-                scene.getGameObjects()[scene.currentMap][i] = droppedItem;
-                scene.getGameObjects()[scene.currentMap][i].worldX = worldX; // the dead monster's worldX
-                scene.getGameObjects()[scene.currentMap][i].worldY = worldY;
+            Entity[] objects = scene.getGameObjects()[scene.currentMap];
+            if(objects[i] == null) {
+                objects[i] = droppedItem;
+                objects[i].worldX = worldX; // the dead monster's worldX
+                objects[i].worldY = worldY;
                 break;
             }
         }
@@ -138,7 +138,7 @@ public abstract class Entity {
         scene.getParticleArrayList().add(particle4);
     }
 
-    private void checkCollision() {
+    protected void checkCollision() {
         collision = false;
         scene.getCollisionDetection().checkTile(this);
 
@@ -369,8 +369,8 @@ public abstract class Entity {
 
         if(scene.getPathFinder().search()) {
             // Next worldX & worldY
-            int nextX = scene.getPathFinder().getPathList().get(0).getCol() * TILE_SIZE;
-            int nextY = scene.getPathFinder().getPathList().get(0).getRow() * TILE_SIZE;
+            int nextX = scene.getPathFinder().pathList.get(0).col * TILE_SIZE;
+            int nextY = scene.getPathFinder().pathList.get(0).row * TILE_SIZE;
             // Entity's hitbox position
             int enLeftX = worldX + hitbox.x;
             int enRightX = worldX + hitbox.x + hitbox.width;
@@ -421,8 +421,8 @@ public abstract class Entity {
             }
 
             // If reaches the goal, stop the search
-            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
-            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
+            int nextCol = scene.getPathFinder().pathList.get(0).col;
+            int nextRow = scene.getPathFinder().pathList.get(0).row;
             if(nextCol == goalCol && nextRow == goalRow) {
                 onPath = false;
             }

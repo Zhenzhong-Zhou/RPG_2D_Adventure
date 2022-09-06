@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
+import static utilities.LoadSave.LEVEL_1;
+import static utilities.LoadSave.LEVEL_2;
 
 public class KeyInputs implements KeyListener {
     private final Scene scene;
@@ -81,9 +83,9 @@ public class KeyInputs implements KeyListener {
                 switch(scene.currentMap) {
                     //TODO: loadMap
                     case 0:
-                        System.out.println("Refresh map! 0");
+                        scene.getLevelManager().loadMap(LEVEL_1, 0);
                     case 1:
-                        System.out.println("Refresh map! 1");
+                        scene.getLevelManager().loadMap(LEVEL_2, 1);
                 }
 
             }

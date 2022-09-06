@@ -275,7 +275,7 @@ public class Player extends Entity {
         }
     }
 
-    private void checkCollision() {
+    public void checkCollision() {
         // CHECK TILE COLLISION
         collision = false;
         scene.getCollisionDetection().checkTile(this);
