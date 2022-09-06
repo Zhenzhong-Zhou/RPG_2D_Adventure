@@ -1,7 +1,8 @@
 package ai;
 
 public class Node {
-    private int col, row;
+    private final int col;
+    private final int row;
     private Node parent;
     private int gCost, hCost, fCost;
     private boolean solid, open, checked;
@@ -15,16 +16,8 @@ public class Node {
         return col;
     }
 
-    public void setCol(int col) {
-        this.col = col;
-    }
-
     public int getRow() {
         return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
     }
 
     public Node getParent() {

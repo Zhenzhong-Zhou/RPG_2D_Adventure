@@ -623,12 +623,4 @@ public abstract class Entity {
     public void sellItem(int price) {
         this.coin += price;
     }
-
-    public boolean isOnPath() {
-        return onPath;
-    }
-
-    public void setOnPath(boolean onPath) {
-        this.onPath = onPath;
-    }
 }
