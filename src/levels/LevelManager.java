@@ -127,7 +127,7 @@ public class LevelManager {
         //TODO: Draw NPC pathfinding
         if(scene.getLevelManager().isDrawPath()) {
             ArrayList<Node> pathList = scene.getPathFinder().getPathList();
-            graphics2D.setColor(new Color(255,0,0,70));
+            graphics2D.setColor(new Color(255, 0, 0, 70));
             for(Node node : pathList) {
                 int worldX = node.getCol() * TILE_SIZE;
                 int worldY = node.getRow() * TILE_SIZE;

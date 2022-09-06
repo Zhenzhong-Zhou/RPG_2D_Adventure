@@ -516,7 +516,7 @@ public class Player extends Entity {
         if(scene.getLevelManager().isDrawPath()) {
             Player player = scene.getPlayer();
             ArrayList<Node> pathList = scene.getPathFinder().getPathList();
-            graphics2D.setColor(new Color(255,0,0,70));
+            graphics2D.setColor(new Color(255, 0, 0, 70));
             for(Node node : pathList) {
                 int worldX = node.getCol() * TILE_SIZE;
                 int worldY = node.getRow() * TILE_SIZE;

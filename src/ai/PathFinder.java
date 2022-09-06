@@ -11,8 +11,8 @@ import static utilities.Constants.WorldConstant.MAX_WORLD_ROW;
 public class PathFinder {
     private final ArrayList<Node> pathList = new ArrayList<>();
     private final Scene scene;
-    private Node[][] node;
     private final ArrayList<Node> openList = new ArrayList<>();
+    private Node[][] node;
     private Node startNode, goalNode, currentNode;
     private boolean goalReached;
     private int step;
