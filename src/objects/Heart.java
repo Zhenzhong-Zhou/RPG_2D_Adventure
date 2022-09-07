@@ -21,9 +21,10 @@ public class Heart extends Entity {
         left1 = GetSpriteAtlas(HEART_BLANK);
     }
 
-    public void use(Entity player) {
+    public boolean use(Entity player) {
         scene.getAudioManager().playEffect(POWER_UP);
         scene.getGui().addMessage("Life + " + value);
         scene.getPlayer().gainLife(value);
+        return true;
     }
 }

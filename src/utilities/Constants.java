@@ -63,6 +63,7 @@ public class Constants {
         public static final int SHIELD = 5;
         public static final int CONSUMABLE = 6;
         public static final int PICKUP = 7;
+        public static final int OBSTACLE = 8;
 
         // Weapon Name
         public static final String NORMAL_SWORD = "Normal Sword";

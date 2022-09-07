@@ -3,10 +3,7 @@ package entities;
 import ai.Node;
 import input.KeyInputs;
 import main.Scene;
-import objects.Fireball;
-import objects.Key;
-import objects.Shield_Wood;
-import objects.Sword_Normal;
+import objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -133,6 +130,7 @@ public class Player extends Entity {
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         // TODO: default items in player's bag
+        inventory.add(new Axe(scene));
         inventory.add(new Key(scene));
         inventory.add(new Key(scene));
     }
@@ -318,6 +316,14 @@ public class Player extends Entity {
             // PICKUP ITEMS
             if(object.entityType == PICKUP) {
                 object.use(this);
+                scene.getGameObjects()[scene.currentMap][objectIndex] = null;
+            }
+            // OBSTACLE
+            else if(object.entityType == OBSTACLE) {
+                if(keyInputs.isEnterPressed()) {
+                    attackCanceled = true;
+                    object.interact();
+                }
             }
             // INVENTORY ITEMS
             else {
@@ -330,8 +336,8 @@ public class Player extends Entity {
                     text = "You bag is full!";
                 }
                 scene.getGui().addMessage(text);
+                scene.getGameObjects()[scene.currentMap][objectIndex] = null;
             }
-            scene.getGameObjects()[scene.currentMap][objectIndex] = null;
         }
     }
 
@@ -454,8 +460,9 @@ public class Player extends Entity {
                 defense = getDefense();
             }
             if(selectedItem.entityType == CONSUMABLE) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if(selectedItem.use(this)) {
+                    inventory.remove(itemIndex);
+                }
             }
         }
     }

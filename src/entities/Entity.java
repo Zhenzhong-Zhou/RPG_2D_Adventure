@@ -108,10 +108,14 @@ public abstract class Entity {
         }
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
+        return false;
     }
 
     public void checkDrop() {
+    }
+
+    public void interact() {
     }
 
     public void dropItem(Entity droppedItem) {
@@ -451,6 +455,35 @@ public abstract class Entity {
         }
     }
 
+    protected int getDetected(Entity user, Entity[][] targets, String targetName) {
+        int index = 999;
+
+        // Check the surrounding object
+        int nextWorldX = user.getLeftX();
+        int nextWorldY = user.getTopY();
+
+        switch(user.direction) {
+            case UP -> nextWorldY = user.getTopY()-1;
+            case LEFT -> nextWorldX = user.getLeftX()-1;
+            case DOWN -> nextWorldY = user.getBottomY()+1;
+            case RIGHT -> nextWorldX = user.getRightX()+1;
+        }
+
+        int col = nextWorldX/TILE_SIZE;
+        int row = nextWorldY/TILE_SIZE;
+
+        for(int i=0; i< targets[1].length; i++) {
+            Entity target = targets[scene.currentMap][i];
+            if(target != null) {
+                if(target.getCol() == col && target.getRow() == row && target.getObjectName().equals(targetName)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+
     public int getWorldX() {
         return worldX;
     }
@@ -645,5 +678,29 @@ public abstract class Entity {
 
     public void sellItem(int price) {
         this.coin += price;
+    }
+
+    public int getLeftX() {
+        return worldX + hitbox.x;
+    }
+
+    public int getRightX() {
+        return worldX + hitbox.x + hitbox.width;
+    }
+
+    public int getTopY() {
+        return worldY + hitbox.y;
+    }
+
+    public int getBottomY() {
+        return worldY + hitbox.y + hitbox.height;
+    }
+
+    public int getCol() {
+        return (worldX + hitbox.x)/TILE_SIZE;
+    }
+
+    public int getRow() {
+        return (worldY + hitbox.y)/TILE_SIZE;
     }
 }

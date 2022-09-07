@@ -20,9 +20,10 @@ public class ManaCrystal extends Entity {
         down2 = GetSpriteAtlas(MANA_BLANK);
     }
 
-    public void use(Entity player) {
+    public boolean use(Entity player) {
         scene.getAudioManager().playEffect(POWER_UP);
         scene.getGui().addMessage("Mana + " + value);
         scene.getPlayer().pickupMana(value);
+        return true;
     }
 }

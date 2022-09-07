@@ -19,49 +19,9 @@ public class AssetSetter {
     public void setObjects() {
         int mapNum = 0;
         int i = 0;
-        scene.getGameObjects()[mapNum][i] = new Key(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(25 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(19 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Coin_Bronze(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(25 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(23 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Coin_Bronze(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(24 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(23 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Axe(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(21 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(19 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Shield_Blue(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(28 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(20 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Potion_Red(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(22 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(30 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Potion_Red(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(22 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(40 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new Heart(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(22 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(29 * TILE_SIZE);
-        i++;
-
-        scene.getGameObjects()[mapNum][i] = new ManaCrystal(scene);
-        scene.getGameObjects()[mapNum][i].setWorldX(22 * TILE_SIZE);
-        scene.getGameObjects()[mapNum][i].setWorldY(31 * TILE_SIZE);
+        scene.getGameObjects()[mapNum][i] = new Door(scene);
+        scene.getGameObjects()[mapNum][i].setWorldX(14 * TILE_SIZE);
+        scene.getGameObjects()[mapNum][i].setWorldY(28 * TILE_SIZE);
         i++;
     }
 
@@ -82,7 +42,7 @@ public class AssetSetter {
         int mapNum = 0;
         for(int j = 0; j < 7; j++) {
             scene.getMonsters()[mapNum][j] = new GreenSlime(scene);
-            scene.getMonsters()[mapNum][j].setWorldX((19 + j) * TILE_SIZE);
+            scene.getMonsters()[mapNum][j].setWorldX((20 + j) * TILE_SIZE);
             scene.getMonsters()[mapNum][j].setWorldY((35 + j) * TILE_SIZE);
         }
     }
@@ -90,7 +50,7 @@ public class AssetSetter {
     public void setInteractiveTile() {
         int mapNum = 0;
         for(int i = 0; i < 7; i++) {
-            scene.getInteractiveTiles()[mapNum][i] = new DryTree(scene, (27 + i), 11);
+            scene.getInteractiveTiles()[mapNum][i] = new DryTree(scene, (27 + i), 12);
         }
     }
 }

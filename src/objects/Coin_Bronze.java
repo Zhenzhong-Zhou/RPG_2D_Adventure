@@ -19,9 +19,10 @@ public class Coin_Bronze extends Entity {
         down1 = GetSpriteAtlas(COIN_IMAGE);
     }
 
-    public void use(Entity player) {
+    public boolean use(Entity player) {
         scene.getAudioManager().playEffect(COIN);
         scene.getGui().addMessage("Coin + " + value);
         scene.getPlayer().pickupCoin(value);
+        return true;
     }
 }

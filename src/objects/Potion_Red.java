@@ -23,10 +23,11 @@ public class Potion_Red extends Entity {
         price = 125;
     }
 
-    public void use(Entity player) {
+    public boolean use(Entity player) {
         gameState = DIALOGUE;
         scene.getGui().setCurrentDialogue("You drink the " + objectName + "!\n" + "Your life has been recovered by " + value + ".");
         player.gainLife(value);
         scene.getAudioManager().playEffect(POWER_UP);
+        return true;
     }
 }

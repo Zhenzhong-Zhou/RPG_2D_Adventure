@@ -2,10 +2,7 @@ package monsters;
 
 import entities.Entity;
 import main.Scene;
-import objects.Coin_Bronze;
-import objects.Heart;
-import objects.ManaCrystal;
-import objects.Rock;
+import objects.*;
 
 import java.awt.*;
 import java.util.Random;
@@ -101,7 +98,7 @@ public class GreenSlime extends Entity {
 
     public void checkDrop() {
         // CAST A DEAD
-        int i = new Random().nextInt(100) + 1;
+        int i = new Random().nextInt(125) + 1;
 
         // SET THE MONSTER DROP
         if(i < 50) {
@@ -112,6 +109,9 @@ public class GreenSlime extends Entity {
         }
         if(i >= 75 && i < 100) {
             dropItem(new ManaCrystal(scene));
+        }
+        if(i >= 100 && i < 125) {
+            dropItem(new Potion_Red(scene));
         }
     }
 }
