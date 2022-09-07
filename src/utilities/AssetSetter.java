@@ -26,6 +26,11 @@ public class AssetSetter {
         scene.getGameObjects()[mapNum][i].setWorldY(28 * TILE_SIZE);
         i++;
 
+        scene.getGameObjects()[mapNum][i] = new Door(scene);
+        scene.getGameObjects()[mapNum][i].setWorldX(12 * TILE_SIZE);
+        scene.getGameObjects()[mapNum][i].setWorldY(12 * TILE_SIZE);
+        i++;
+
         scene.getGameObjects()[mapNum][i] = new Chest(scene, new Key(scene));
         scene.getGameObjects()[mapNum][i].setWorldX(23 * TILE_SIZE);
         scene.getGameObjects()[mapNum][i].setWorldY(25 * TILE_SIZE);
