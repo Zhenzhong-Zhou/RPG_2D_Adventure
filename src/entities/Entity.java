@@ -33,6 +33,7 @@ public abstract class Entity {
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
     protected String objectName;
+    protected int defaultSpeed;
     protected int maxLives, life;
     protected int maxMana, mana;
     protected int ammo;
@@ -65,6 +66,8 @@ public abstract class Entity {
     protected int shotAvailableCounter;
     protected int price;
     protected boolean onPath;
+    protected boolean knockBack;
+    protected int knockBackCounter;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -154,9 +157,27 @@ public abstract class Entity {
     }
 
     public void update() {
-        setAction();
-        checkCollision();
-        playerCanMove();
+        if(knockBack) {
+            checkCollision();
+            if(collision) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            playerCanMove();
+
+            knockBackCounter++;
+            if(knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        } else {
+            setAction();
+            checkCollision();
+            playerCanMove();
+        }
+
         updateAnimation();
         invincibleCounter();
 

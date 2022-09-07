@@ -53,7 +53,8 @@ public class Player extends Entity {
         // TODO: not center
         worldX = 23 * TILE_SIZE;
         worldY = 21 * TILE_SIZE;
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
         direction = DOWN;
 
         // PLAYER STATUS
@@ -364,6 +365,7 @@ public class Player extends Entity {
             Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
+                knockBack(monster);
                 int damage = attack - monster.defense;
                 if(damage < 0) {
                     damage = 0;
@@ -381,6 +383,12 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+
+    private void knockBack(Entity entity) {
+        entity.direction = direction;
+        entity.speed += 10;
+        entity.knockBack = true;
     }
 
     private void contactInteractiveTile(int interactiveTileIndex) {

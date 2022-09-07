@@ -30,7 +30,8 @@ public class GreenSlime extends Entity {
     private void setDefaultValues() {
         entityType = MONSTER;
         objectName = GREEN_SLIME;
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxLives = 4;
         life = maxLives;
         attack = 5;
