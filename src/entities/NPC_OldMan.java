@@ -12,7 +12,7 @@ public class NPC_OldMan extends Entity {
     public NPC_OldMan(Scene scene) {
         super(scene);
 
-        hitbox = new Rectangle(8, 16, 32, 32);
+        hitbox = new Rectangle(8, 16, 30, 30);
         hitboxDefaultX = hitbox.x;
         hitboxDefaultY = hitbox.y;
 

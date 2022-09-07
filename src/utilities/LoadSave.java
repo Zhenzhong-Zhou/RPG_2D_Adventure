@@ -132,6 +132,7 @@ public class LoadSave {
     public static final String KEY_IMAGE = "objects/key.png";
     public static final String DOOR_IMAGE = "objects/door.png";
     public static final String CHEST_IMAGE = "objects/chest.png";
+    public static final String CHEST_OPEN_IMAGE = "objects/chest_opened.png";
     public static final String BOOT_IMAGE = "objects/boots.png";
 
     // EQUIPMENTS
