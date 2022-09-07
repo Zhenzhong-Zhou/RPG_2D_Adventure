@@ -20,5 +20,6 @@ public class Sword_Normal extends Entity {
         attackBox.height = 36;
         description = "[" + objectName + "]\nAn old sword.";
         price = 120;
+        knockBackPower = 2;
     }
 }

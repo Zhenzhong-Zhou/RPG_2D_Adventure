@@ -30,10 +30,10 @@ public class Scene extends JPanel implements Runnable {
     private final Entity[][] NPCs = new Entity[MAX_MAP][10];
     private final Entity[][] monsters = new Entity[MAX_MAP][30];
     private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
-    private final ArrayList<Entity> projectileArrayList = new ArrayList<>();
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     public int currentMap;
+    private final Entity[][] projectiles = new Entity[MAX_MAP][30];
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
@@ -128,21 +128,10 @@ public class Scene extends JPanel implements Runnable {
                 }
 
                 // MONSTER
-                for(int i = 0; i < monsters[1].length; i++) {
-                    Entity monster = monsters[currentMap][i];
-                    if(monster != null) {
-                        if(monster.isAlive() && ! monster.isDead()) {
-                            monster.update();
-                        }
-                        if(! monster.isAlive()) {
-                            monster.checkDrop();
-                            monsters[currentMap][i] = null;
-                        }
-                    }
-                }
+                arrayUpdate(monsters);
 
                 // PROJECTILE
-                arrayList(projectileArrayList);
+                arrayUpdate(projectiles);
 
 
                 // PARTICLE
@@ -156,6 +145,21 @@ public class Scene extends JPanel implements Runnable {
                 }
             }
             case PAUSE -> {
+            }
+        }
+    }
+
+    private void arrayUpdate(Entity[][] array) {
+        for(int i = 0; i < array[1].length; i++) {
+            Entity item = array[currentMap][i];
+            if(item != null) {
+                if(item.isAlive() && ! item.isDead()) {
+                    item.update();
+                }
+                if(! item.isAlive()) {
+                    item.checkDrop();
+                    array[currentMap][i] = null;
+                }
             }
         }
     }
@@ -193,29 +197,13 @@ public class Scene extends JPanel implements Runnable {
             // ADD ENTITIES TO THE LIST
             entityArrayList.add(player);
 
-            for(int i = 0; i < NPCs[1].length; i++) {
-                if(NPCs[currentMap][i] != null) {
-                    entityArrayList.add(NPCs[currentMap][i]);
-                }
-            }
+            arrayDraw(NPCs);
 
-            for(int i = 0; i < gameObjects[1].length; i++) {
-                if(gameObjects[currentMap][i] != null) {
-                    entityArrayList.add(gameObjects[currentMap][i]);
-                }
-            }
+            arrayDraw(gameObjects);
 
-            for(int i = 0; i < monsters[1].length; i++) {
-                if(monsters[currentMap][i] != null) {
-                    entityArrayList.add(monsters[currentMap][i]);
-                }
-            }
+            arrayDraw(monsters);
 
-            for(Entity projectile : projectileArrayList) {
-                if(projectile != null) {
-                    entityArrayList.add(projectile);
-                }
-            }
+            arrayDraw(projectiles);
 
             for(Entity particle : particleArrayList) {
                 if(particle != null) {
@@ -236,6 +224,14 @@ public class Scene extends JPanel implements Runnable {
 
             //GUI
             gui.draw(graphics2D);
+        }
+    }
+
+    private void arrayDraw(Entity[][] array) {
+        for(int i = 0; i < array[1].length; i++) {
+            if(array[currentMap][i] != null) {
+                entityArrayList.add(array[currentMap][i]);
+            }
         }
     }
 
@@ -387,12 +383,12 @@ public class Scene extends JPanel implements Runnable {
         return monsters;
     }
 
-    public InteractiveTile[][] getInteractiveTiles() {
-        return interactiveTiles;
+    public Entity[][] getProjectiles() {
+        return projectiles;
     }
 
-    public ArrayList<Entity> getProjectileArrayList() {
-        return projectileArrayList;
+    public InteractiveTile[][] getInteractiveTiles() {
+        return interactiveTiles;
     }
 
     public ArrayList<Entity> getParticleArrayList() {

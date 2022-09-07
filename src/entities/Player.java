@@ -1,5 +1,6 @@
 package entities;
 
+import ai.Node;
 import input.KeyInputs;
 import main.Scene;
 import objects.Fireball;
@@ -9,6 +10,7 @@ import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.*;
@@ -51,7 +53,8 @@ public class Player extends Entity {
         // TODO: not center
         worldX = 23 * TILE_SIZE;
         worldY = 21 * TILE_SIZE;
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
         direction = DOWN;
 
         // PLAYER STATUS
@@ -167,11 +170,15 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX/Y and hitbox
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-            damageMonster(monsterIndex, attack);
+            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
 
             // CHECK INTERACTIVE TILE COLLISION
             int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
             damageInteractiveTile(interactiveTileIndex);
+
+            // CHECK PROJECTILE COLLISION
+            int projectileIndex = scene.getCollisionDetection().checkEntity(this, scene.getProjectiles());
+            damageProjectile(projectileIndex);
 
             // After checking collision, restore the original data
             worldX = currentWorldX;
@@ -212,8 +219,13 @@ public class Player extends Entity {
             // SUBTRACT THE COST (MANA, AMMO ETC.)
             projectile.subtractEnergy(this);
 
-            // ADD IT TO THE LIST
-            scene.getProjectileArrayList().add(projectile);
+            // CHECK VACANCY
+            for(int i = 0; i < scene.getProjectiles()[1].length; i++) {
+                if(scene.getProjectiles()[scene.currentMap][i] == null) {
+                    scene.getProjectiles()[scene.currentMap][i] = projectile;
+                    break;
+                }
+            }
 
             shotAvailableCounter = 0;
 
@@ -348,11 +360,15 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int monsterIndex, int attack) {
+    public void damageMonster(int monsterIndex, int attack, int knockBackPower) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
+                if(knockBackPower > 0) {
+                    knockBack(monster, knockBackPower);
+                }
+
                 int damage = attack - monster.defense;
                 if(damage < 0) {
                     damage = 0;
@@ -370,6 +386,12 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+
+    private void knockBack(Entity entity, int knockBackPower) {
+        entity.direction = direction;
+        entity.speed += knockBackPower;
+        entity.knockBack = true;
     }
 
     private void contactInteractiveTile(int interactiveTileIndex) {
@@ -391,6 +413,14 @@ public class Player extends Entity {
             if(scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].life == 0) {
                 scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex] = scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].getDestroyedForm();
             }
+        }
+    }
+
+    private void damageProjectile(int projectileIndex) {
+        if(projectileIndex != 999) {
+            Entity projectile = scene.getProjectiles()[scene.currentMap][projectileIndex];
+            projectile.alive = false;
+            generateParticle(projectile, projectile);
         }
     }
 
@@ -509,6 +539,21 @@ public class Player extends Entity {
 //        graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 25F));
 //        graphics2D.setColor(Color.WHITE);
 //        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
+
+        //TODO: Draw NPC pathfinding
+        if(scene.getLevelManager().isDrawPath()) {
+            Player player = scene.getPlayer();
+            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
+            graphics2D.setColor(new Color(255, 0, 0, 70));
+            for(Node node : pathList) {
+                int worldX = node.getCol() * TILE_SIZE;
+                int worldY = node.getRow() * TILE_SIZE;
+                int screenX = worldX - player.getWorldX() + player.getScreenX();
+                int screenY = worldY - player.getWorldY() + player.getScreenY();
+
+                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+            }
+        }
     }
 
     public void resetDirectionBoolean() {

@@ -33,6 +33,7 @@ public abstract class Entity {
     protected String[] dialogues = new String[20];
     protected int dialogueIndex = 0;
     protected String objectName;
+    protected int defaultSpeed;
     protected int maxLives, life;
     protected int maxMana, mana;
     protected int ammo;
@@ -65,6 +66,9 @@ public abstract class Entity {
     protected int shotAvailableCounter;
     protected int price;
     protected boolean onPath;
+    protected boolean knockBack;
+    protected int knockBackCounter;
+    protected int knockBackPower;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -154,9 +158,27 @@ public abstract class Entity {
     }
 
     public void update() {
-        setAction();
-        checkCollision();
-        playerCanMove();
+        if(knockBack) {
+            checkCollision();
+            if(collision) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            playerCanMove();
+
+            knockBackCounter++;
+            if(knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        } else {
+            setAction();
+            checkCollision();
+            playerCanMove();
+        }
+
         updateAnimation();
         invincibleCounter();
 
@@ -369,8 +391,8 @@ public abstract class Entity {
 
         if(scene.getPathFinder().search()) {
             // Next worldX & worldY
-            int nextX = scene.getPathFinder().pathList.get(0).col * TILE_SIZE;
-            int nextY = scene.getPathFinder().pathList.get(0).row * TILE_SIZE;
+            int nextX = scene.getPathFinder().getPathList().get(0).getCol() * TILE_SIZE;
+            int nextY = scene.getPathFinder().getPathList().get(0).getRow() * TILE_SIZE;
             // Entity's hitbox position
             int enLeftX = worldX + hitbox.x;
             int enRightX = worldX + hitbox.x + hitbox.width;
@@ -420,11 +442,12 @@ public abstract class Entity {
             }
 
             // If reaches the goal, stop the search
-            int nextCol = scene.getPathFinder().pathList.get(0).col;
-            int nextRow = scene.getPathFinder().pathList.get(0).row;
-            if(nextCol == goalCol && nextRow == goalRow) {
-                onPath = false;
-            }
+            //TODO: disable for NPC following player
+//            int nextCol = scene.getPathFinder().getPathList().get(0).getCol();
+//            int nextRow = scene.getPathFinder().getPathList().get(0).getRow();
+//            if(nextCol == goalCol && nextRow == goalRow) {
+//                onPath = false;
+//            }
         }
     }
 
@@ -622,13 +645,5 @@ public abstract class Entity {
 
     public void sellItem(int price) {
         this.coin += price;
-    }
-
-    public boolean isOnPath() {
-        return onPath;
-    }
-
-    public void setOnPath(boolean onPath) {
-        this.onPath = onPath;
     }
 }

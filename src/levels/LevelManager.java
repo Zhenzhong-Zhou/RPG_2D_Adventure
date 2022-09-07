@@ -1,5 +1,6 @@
 package levels;
 
+import ai.Node;
 import entities.Player;
 import main.Scene;
 import tiles.TileManager;
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static utilities.Constants.GameConstant.MAX_MAP;
 import static utilities.Constants.SceneConstant.*;
@@ -19,6 +21,7 @@ public class LevelManager {
     private final Scene scene;
     private final TileManager tileManager;
     private int[][][] level;
+    private boolean drawPath = true;
 
     public LevelManager(Scene scene) {
         this.scene = scene;
@@ -121,6 +124,19 @@ public class LevelManager {
                 }
             }
         }
+        //TODO: Draw NPC pathfinding
+        if(scene.getLevelManager().isDrawPath()) {
+            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
+            graphics2D.setColor(new Color(255, 0, 0, 70));
+            for(Node node : pathList) {
+                int worldX = node.getCol() * TILE_SIZE;
+                int worldY = node.getRow() * TILE_SIZE;
+                int screenX = worldX - player.getWorldX() + player.getScreenX();
+                int screenY = worldY - player.getWorldY() + player.getScreenY();
+
+                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+            }
+        }
     }
 
     public int[][][] getTileId() {
@@ -129,5 +145,13 @@ public class LevelManager {
 
     public TileManager getTileManager() {
         return tileManager;
+    }
+
+    public boolean isDrawPath() {
+        return drawPath;
+    }
+
+    public void setDrawPath(boolean drawPath) {
+        this.drawPath = drawPath;
     }
 }
