@@ -29,11 +29,11 @@ public class Scene extends JPanel implements Runnable {
     private final Entity[][] gameObjects = new Entity[MAX_MAP][50];
     private final Entity[][] NPCs = new Entity[MAX_MAP][10];
     private final Entity[][] monsters = new Entity[MAX_MAP][30];
-    private Entity[][] projectiles = new Entity[MAX_MAP][30];
     private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
     public int currentMap;
+    private final Entity[][] projectiles = new Entity[MAX_MAP][30];
     private Thread thread;
     private Player player;
     private LevelManager levelManager;
