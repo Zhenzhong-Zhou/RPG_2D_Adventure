@@ -175,6 +175,10 @@ public class Player extends Entity {
             int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
             damageInteractiveTile(interactiveTileIndex);
 
+            // CHECK PROJECTILE COLLISION
+            int projectileIndex = scene.getCollisionDetection().checkEntity(this, scene.getProjectiles());
+            damageProjectile(projectileIndex);
+
             // After checking collision, restore the original data
             worldX = currentWorldX;
             worldY = currentWorldY;
@@ -214,8 +218,13 @@ public class Player extends Entity {
             // SUBTRACT THE COST (MANA, AMMO ETC.)
             projectile.subtractEnergy(this);
 
-            // ADD IT TO THE LIST
-            scene.getProjectileArrayList().add(projectile);
+            // CHECK VACANCY
+            for(int i = 0; i < scene.getProjectiles()[1].length; i++) {
+                if(scene.getProjectiles()[scene.currentMap][i] == null) {
+                    scene.getProjectiles()[scene.currentMap][i] = projectile;
+                    break;
+                }
+            }
 
             shotAvailableCounter = 0;
 
@@ -393,6 +402,14 @@ public class Player extends Entity {
             if(scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].life == 0) {
                 scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex] = scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].getDestroyedForm();
             }
+        }
+    }
+
+    private void damageProjectile(int projectileIndex) {
+        if(projectileIndex != 999) {
+            Entity projectile = scene.getProjectiles()[scene.currentMap][projectileIndex];
+            projectile.alive = false;
+            generateParticle(projectile, projectile);
         }
     }
 

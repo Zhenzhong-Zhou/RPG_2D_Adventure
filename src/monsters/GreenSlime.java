@@ -77,7 +77,15 @@ public class GreenSlime extends Entity {
             int i = new Random().nextInt(200) + 1;
             if(i > 197 && ! projectile.isAlive() && shotAvailableCounter == 30) {
                 projectile.set(worldX, worldY, direction, true, this);
-                scene.getProjectileArrayList().add(projectile);
+
+                // CHECK VACANCY
+                for(int x = 0; x < scene.getProjectiles()[1].length; x++) {
+                    if(scene.getProjectiles()[scene.currentMap][x] == null) {
+                        scene.getProjectiles()[scene.currentMap][x] = projectile;
+                        break;
+                    }
+                }
+
                 shotAvailableCounter = 0;
             }
         } else {
