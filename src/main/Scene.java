@@ -4,6 +4,7 @@ import ai.PathFinder;
 import audio.AudioManager;
 import entities.Entity;
 import entities.Player;
+import environment.EnvironmentManager;
 import events.EventManager;
 import gui.GUI;
 import gui.Options;
@@ -40,6 +41,7 @@ public class Scene extends JPanel implements Runnable {
     private EventManager eventManager;
     private CollisionDetection collisionDetection;
     private AudioManager audioManager;
+    private EnvironmentManager environmentManager;
     private GUI gui;
     private Options options;
     private AssetSetter assetSetter;
@@ -64,6 +66,7 @@ public class Scene extends JPanel implements Runnable {
         // Manager Classes
         levelManager = new LevelManager(this);
         eventManager = new EventManager(this);
+        environmentManager = new EnvironmentManager(this);
 
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
@@ -98,6 +101,7 @@ public class Scene extends JPanel implements Runnable {
         assetSetter.setNPCs();
         assetSetter.setMonsters();
         assetSetter.setInteractiveTile();
+        environmentManager.setup();
     }
 
     public void retry() {
@@ -222,6 +226,9 @@ public class Scene extends JPanel implements Runnable {
             // EMPTY ENTITY LIST
             entityArrayList.clear();
 
+            // ENVIRONMENT
+            environmentManager.draw(graphics2D);
+
             //GUI
             gui.draw(graphics2D);
         }
@@ -343,12 +350,16 @@ public class Scene extends JPanel implements Runnable {
         return eventManager;
     }
 
-    public CollisionDetection getCollisionDetection() {
-        return collisionDetection;
+    public EnvironmentManager getEnvironmentManager() {
+        return environmentManager;
     }
 
     public AudioManager getAudioManager() {
         return audioManager;
+    }
+
+    public CollisionDetection getCollisionDetection() {
+        return collisionDetection;
     }
 
     public GUI getGui() {
