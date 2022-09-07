@@ -5,8 +5,8 @@ import main.Scene;
 import java.awt.*;
 
 public class EnvironmentManager {
-    private Scene scene;
-    private Lighting lighting;
+    private final Scene scene;
+    private final Lighting lighting;
 
     public EnvironmentManager(Scene scene) {
         this.scene = scene;
