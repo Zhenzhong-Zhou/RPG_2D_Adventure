@@ -465,16 +465,16 @@ public abstract class Entity {
         int nextWorldY = user.getTopY();
 
         switch(user.direction) {
-            case UP -> nextWorldY = user.getTopY()-1;
-            case LEFT -> nextWorldX = user.getLeftX()-1;
-            case DOWN -> nextWorldY = user.getBottomY()+1;
-            case RIGHT -> nextWorldX = user.getRightX()+1;
+            case UP -> nextWorldY = user.getTopY() - 1;
+            case LEFT -> nextWorldX = user.getLeftX() - 1;
+            case DOWN -> nextWorldY = user.getBottomY() + 1;
+            case RIGHT -> nextWorldX = user.getRightX() + 1;
         }
 
-        int col = nextWorldX/TILE_SIZE;
-        int row = nextWorldY/TILE_SIZE;
+        int col = nextWorldX / TILE_SIZE;
+        int row = nextWorldY / TILE_SIZE;
 
-        for(int i=0; i< targets[1].length; i++) {
+        for(int i = 0; i < targets[1].length; i++) {
             Entity target = targets[scene.currentMap][i];
             if(target != null) {
                 if(target.getCol() == col && target.getRow() == row && target.getObjectName().equals(targetName)) {
@@ -699,11 +699,11 @@ public abstract class Entity {
     }
 
     public int getCol() {
-        return (worldX + hitbox.x)/TILE_SIZE;
+        return (worldX + hitbox.x) / TILE_SIZE;
     }
 
     public int getRow() {
-        return (worldY + hitbox.y)/TILE_SIZE;
+        return (worldY + hitbox.y) / TILE_SIZE;
     }
 
     public int getAmount() {

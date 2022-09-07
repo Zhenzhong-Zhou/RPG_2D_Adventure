@@ -32,8 +32,8 @@ public class Scene extends JPanel implements Runnable {
     private final InteractiveTile[][] interactiveTiles = new InteractiveTile[MAX_MAP][100];
     private final ArrayList<Entity> particleArrayList = new ArrayList<>();
     private final ArrayList<Entity> entityArrayList = new ArrayList<>();
-    public int currentMap;
     private final Entity[][] projectiles = new Entity[MAX_MAP][30];
+    public int currentMap;
     private Thread thread;
     private Player player;
     private LevelManager levelManager;

@@ -3,7 +3,10 @@ package entities;
 import ai.Node;
 import input.KeyInputs;
 import main.Scene;
-import objects.*;
+import objects.Axe;
+import objects.Fireball;
+import objects.Shield_Wood;
+import objects.Sword_Normal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -471,7 +474,7 @@ public class Player extends Entity {
     private int searchItemInInventory(String itemName) {
         int itemIndex = 999;
 
-        for(int i =0; i< inventory.size(); i++) {
+        for(int i = 0; i < inventory.size(); i++) {
             if(inventory.get(i).getObjectName().equals(itemName)) {
                 itemIndex = i;
                 break;

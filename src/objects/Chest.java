@@ -14,7 +14,7 @@ import static utilities.Constants.EntityConstant.OBSTACLE;
 import static utilities.LoadSave.*;
 
 public class Chest extends Entity {
-    private Entity loot;
+    private final Entity loot;
     private boolean opened;
 
     public Chest(Scene scene, Entity loot) {
@@ -35,14 +35,14 @@ public class Chest extends Entity {
 
     public void interact() {
         gameState = DIALOGUE;
-        if(!opened) {
+        if(! opened) {
             scene.getAudioManager().playEffect(UNLOCK);
 
             StringBuilder sb = new StringBuilder();
             sb.append("You open the chest and find a ").append(loot.getObjectName()).append("!");
 
             Player player = scene.getPlayer();
-            if(!player.canObtainItem(loot)) {
+            if(! player.canObtainItem(loot)) {
                 sb.append("\n...But you cannot carry more items!");
             } else {
                 sb.append("\nYou obtain the ").append(loot.getObjectName()).append("!");

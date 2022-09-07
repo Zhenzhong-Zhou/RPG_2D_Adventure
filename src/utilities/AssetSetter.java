@@ -4,7 +4,9 @@ import entities.NPC_Merchant;
 import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
-import objects.*;
+import objects.Chest;
+import objects.Door;
+import objects.Key;
 import tile_interactive.DryTree;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;

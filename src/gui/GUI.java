@@ -705,11 +705,11 @@ public class GUI {
                 amountY = slotY + TILE_SIZE;
 
                 // SHADOW
-                graphics2D.setColor(new Color(60,60,60));
+                graphics2D.setColor(new Color(60, 60, 60));
                 graphics2D.drawString(text, amountX, amountY);
                 // NUMBER
                 graphics2D.setColor(Color.WHITE);
-                graphics2D.drawString(text, amountX-3, amountY-3);
+                graphics2D.drawString(text, amountX - 3, amountY - 3);
             }
 
             slotX += slotSize;
