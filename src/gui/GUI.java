@@ -787,7 +787,7 @@ public class GUI {
             gameState = PLAY;
             scene.currentMap = scene.getEventManager().getTempMap();
             scene.getPlayer().setWorldX(TILE_SIZE * scene.getEventManager().getTempCol());
-            scene.getPlayer().setWorldX(TILE_SIZE * scene.getEventManager().getTempRow());
+            scene.getPlayer().setWorldY(TILE_SIZE * scene.getEventManager().getTempRow());
             scene.getEventManager().setPreviousEventX(scene.getPlayer().getWorldX());
             scene.getEventManager().setPreviousEventY(scene.getPlayer().getWorldY());
         }
