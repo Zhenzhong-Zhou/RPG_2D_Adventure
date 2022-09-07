@@ -62,19 +62,12 @@ public class EventManager {
         }
 
         if(canTouchEvent) {
-            if(trigger(0, 27, 16, RIGHT)) {
-                damagePit();
-            } else if(trigger(0, 23, 19, ANY)) {
-                damagePit();
-            } else if(trigger(0, 23, 12, UP)) {
-                healingPool();
-            } else if(trigger(0, 12, 12, ANY)) {
-                teleport(1, 12, 12);
-            } else if(trigger(1, 12, 12, ANY)) {
-                teleport(0, 12, 12);
-            } else if(trigger(1, 12, 9, UP)) {
-                speak(scene.getNPCs()[1][0]);
-            }
+            if(trigger(0, 27, 16, RIGHT)) damagePit();
+            else if(trigger(0, 23, 19, ANY)) damagePit();
+            else if(trigger(0, 23, 12, UP)) healingPool();
+            else if(trigger(0, 10, 39, ANY)) teleport(1, 12, 13);
+            else if(trigger(1, 12, 13, ANY)) teleport(0, 10, 39);
+            else if(trigger(1, 12, 9, UP)) speak(scene.getNPCs()[1][0]);
         }
     }
 
