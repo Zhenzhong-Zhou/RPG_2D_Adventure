@@ -68,6 +68,7 @@ public abstract class Entity {
     protected boolean onPath;
     protected boolean knockBack;
     protected int knockBackCounter;
+    protected int knockBackPower;
 
     public Entity(Scene scene) {
         this.scene = scene;

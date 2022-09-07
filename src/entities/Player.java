@@ -170,7 +170,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX/Y and hitbox
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-            damageMonster(monsterIndex, attack);
+            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
 
             // CHECK INTERACTIVE TILE COLLISION
             int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
@@ -360,12 +360,15 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int monsterIndex, int attack) {
+    public void damageMonster(int monsterIndex, int attack, int knockBackPower) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
-                knockBack(monster);
+                if(knockBackPower > 0) {
+                    knockBack(monster, knockBackPower);
+                }
+
                 int damage = attack - monster.defense;
                 if(damage < 0) {
                     damage = 0;
@@ -385,9 +388,9 @@ public class Player extends Entity {
         }
     }
 
-    private void knockBack(Entity entity) {
+    private void knockBack(Entity entity, int knockBackPower) {
         entity.direction = direction;
-        entity.speed += 10;
+        entity.speed += knockBackPower;
         entity.knockBack = true;
     }
 

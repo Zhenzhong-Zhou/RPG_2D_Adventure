@@ -20,5 +20,6 @@ public class Axe extends Entity {
         attackBox.height = 30;
         description = "[" + objectName + "]\nA bit rusty but still \ncan cut some trees.";
         price = 75;
+        knockBackPower = 10;
     }
 }

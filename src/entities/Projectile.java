@@ -24,7 +24,7 @@ public class Projectile extends Entity {
         if(user == scene.getPlayer()) {
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
             if(monsterIndex != 999) {
-                scene.getPlayer().damageMonster(monsterIndex, attack);
+                scene.getPlayer().damageMonster(monsterIndex, attack, knockBackPower);
                 generateParticle(user.projectile, scene.getMonsters()[scene.currentMap][monsterIndex]);
                 alive = false;
             }
