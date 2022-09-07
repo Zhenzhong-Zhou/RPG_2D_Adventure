@@ -21,6 +21,7 @@ public class Potion_Red extends Entity {
         down1 = GetSpriteAtlas(RED_POTION_IMAGE);
         description = "[" + objectName + "]\nHeals your life by " + value + ".";
         price = 125;
+        stackable = true;
     }
 
     public boolean use(Entity player) {

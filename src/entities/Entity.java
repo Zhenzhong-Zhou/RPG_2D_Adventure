@@ -69,6 +69,8 @@ public abstract class Entity {
     protected boolean knockBack;
     protected int knockBackCounter;
     protected int knockBackPower;
+    protected boolean stackable;
+    protected int amount = 1;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -702,5 +704,13 @@ public abstract class Entity {
 
     public int getRow() {
         return (worldY + hitbox.y)/TILE_SIZE;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public int reduceAmount() {
+        return amount--;
     }
 }

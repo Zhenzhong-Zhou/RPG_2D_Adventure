@@ -693,7 +693,27 @@ public class GUI {
             }
 
             graphics2D.drawImage(inventory.get(i).getDown1(), slotX, slotY, null);
+
+            // DISPLAY AMOUNT
+            if(entity == scene.getPlayer() && inventory.get(i).getAmount() > 1) {
+                graphics2D.setFont(maruMonica.deriveFont(32F));
+                int amountX;
+                int amountY;
+
+                String text = "" + inventory.get(i).getAmount();
+                amountX = getHorizonForAlignToRightText(text, slotX + 44);
+                amountY = slotY + TILE_SIZE;
+
+                // SHADOW
+                graphics2D.setColor(new Color(60,60,60));
+                graphics2D.drawString(text, amountX, amountY);
+                // NUMBER
+                graphics2D.setColor(Color.WHITE);
+                graphics2D.drawString(text, amountX-3, amountY-3);
+            }
+
             slotX += slotSize;
+
             if(i == 4 || i == 9 || i == 14 || i == 19) {
                 slotX = slotXstart;
                 slotY += slotSize;
@@ -859,13 +879,14 @@ public class GUI {
                     gameState = DIALOGUE;
                     currentDialogue = "You need more coins to buy " + npc.getInventory().get(itemIndex).getObjectName() + "!";
                     drawDeadScreen();
-                } else if(scene.getPlayer().getInventory().size() == scene.getPlayer().getMaxInventorySize()) {
-                    subState = 0;
-                    gameState = DIALOGUE;
-                    currentDialogue = "Your package is full!\nYou cannot carry " + npc.getInventory().get(itemIndex).getObjectName() + "!";
                 } else {
-                    scene.getPlayer().buyItem(npc.getInventory().get(itemIndex).getPrice());
-                    scene.getPlayer().getInventory().add(npc.getInventory().get(itemIndex));
+                    if(scene.getPlayer().canObtainItem(npc.getInventory().get(itemIndex))) {
+                        scene.getPlayer().buyItem(npc.getInventory().get(itemIndex).getPrice());
+                    } else {
+                        subState = 0;
+                        gameState = DIALOGUE;
+                        currentDialogue = "Your package is full!\nYou cannot carry " + npc.getInventory().get(itemIndex).getObjectName() + "!";
+                    }
                 }
             }
         }
@@ -920,7 +941,11 @@ public class GUI {
                     gameState = DIALOGUE;
                     currentDialogue = "You cannot sell an equipped item!";
                 } else {
-                    inventory.remove(itemIndex);
+                    if(inventory.get(itemIndex).getAmount() > 1) {
+                        inventory.get(itemIndex).reduceAmount();
+                    } else {
+                        inventory.remove(itemIndex);
+                    }
                     player.sellItem(price);
                 }
             }

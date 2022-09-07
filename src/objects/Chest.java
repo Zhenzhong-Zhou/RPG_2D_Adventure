@@ -42,11 +42,10 @@ public class Chest extends Entity {
             sb.append("You open the chest and find a ").append(loot.getObjectName()).append("!");
 
             Player player = scene.getPlayer();
-            if(player.getInventory().size() == player.getMaxInventorySize()) {
+            if(!player.canObtainItem(loot)) {
                 sb.append("\n...But you cannot carry more items!");
             } else {
                 sb.append("\nYou obtain the ").append(loot.getObjectName()).append("!");
-                player.getInventory().add(loot);
                 down1 = up2;
                 opened = true;
             }

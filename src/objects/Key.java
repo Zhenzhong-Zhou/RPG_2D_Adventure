@@ -19,6 +19,7 @@ public class Key extends Entity {
         down1 = GetSpriteAtlas(KEY_IMAGE);
         description = "[" + objectName + "]\nIt opens a door.";
         price = 100;
+        stackable = true;
     }
 
     public boolean use(Entity entity) {
