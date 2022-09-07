@@ -4,9 +4,6 @@ import entities.Player;
 import main.Scene;
 
 import java.awt.*;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.SceneConstant.*;
@@ -20,6 +17,10 @@ public class Lighting {
         this.scene = scene;
         this.circleSize = circleSize;
 
+        createBufferedImage();
+    }
+
+    private void createBufferedImage() {
         // Create a buffered image
         darknessFilter = new BufferedImage(SCENE_WIDTH, SCENE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = (Graphics2D) darknessFilter.getGraphics();

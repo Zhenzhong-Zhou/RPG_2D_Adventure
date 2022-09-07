@@ -101,7 +101,7 @@ public class Scene extends JPanel implements Runnable {
         assetSetter.setNPCs();
         assetSetter.setMonsters();
         assetSetter.setInteractiveTile();
-        environmentManager.setup();
+//        environmentManager.setup();
     }
 
     public void retry() {
