@@ -10,6 +10,7 @@ import gui.GUI;
 import gui.Options;
 import input.KeyInputs;
 import levels.LevelManager;
+import levels.Map;
 import tile_interactive.InteractiveTile;
 import utilities.AssetSetter;
 import utilities.CollisionDetection;
@@ -39,9 +40,10 @@ public class Scene extends JPanel implements Runnable {
     private Player player;
     private LevelManager levelManager;
     private EventManager eventManager;
-    private CollisionDetection collisionDetection;
     private AudioManager audioManager;
     private EnvironmentManager environmentManager;
+    private CollisionDetection collisionDetection;
+    private Map map;
     private GUI gui;
     private Options options;
     private AssetSetter assetSetter;
@@ -70,6 +72,9 @@ public class Scene extends JPanel implements Runnable {
 
         // Collision Detection
         collisionDetection = new CollisionDetection(this);
+
+        // Map Class
+        map = new Map(this);
 
         // Audio Class
         audioManager = new AudioManager();
@@ -189,6 +194,8 @@ public class Scene extends JPanel implements Runnable {
             gui.draw(graphics2D);
         } else if(gameState == SETTINGS) {
             options.draw(graphics2D);
+        } else if(gameState == MAP) {
+            map.drawFullMapScreen(graphics2D);
         } else {
             // MAP
             levelManager.draw(graphics2D, player);
@@ -230,6 +237,9 @@ public class Scene extends JPanel implements Runnable {
 
             // ENVIRONMENT
             environmentManager.draw(graphics2D);
+
+            // MINI MAP
+            map.drawMiniMap(graphics2D);
 
             //GUI
             gui.draw(graphics2D);
@@ -362,6 +372,10 @@ public class Scene extends JPanel implements Runnable {
 
     public CollisionDetection getCollisionDetection() {
         return collisionDetection;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     public GUI getGui() {

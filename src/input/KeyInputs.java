@@ -36,6 +36,7 @@ public class KeyInputs implements KeyListener {
             case OPTIONS -> options(e);
             case DEAD -> dead(e);
             case TRADE -> trade(e);
+            case MAP -> map(e);
         }
     }
 
@@ -93,6 +94,8 @@ public class KeyInputs implements KeyListener {
             case KeyEvent.VK_C -> gameState = CHARACTER;
             case KeyEvent.VK_ENTER -> enterPressed = true;
             case KeyEvent.VK_ESCAPE -> gameState = OPTIONS;
+            case KeyEvent.VK_M -> gameState = MAP;
+            case KeyEvent.VK_X -> scene.getMap().setMiniMapOn(! scene.getMap().isMiniMapOn());
         }
     }
 
@@ -186,6 +189,12 @@ public class KeyInputs implements KeyListener {
                 playerInventory(e);
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) scene.getGui().setSubState(0);
             }
+        }
+    }
+
+    private void map(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_M) {
+            gameState = PLAY;
         }
     }
 

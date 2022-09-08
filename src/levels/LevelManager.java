@@ -18,9 +18,9 @@ import static utilities.LoadSave.LEVEL_1;
 import static utilities.LoadSave.LEVEL_2;
 
 public class LevelManager {
-    private final Scene scene;
-    private final TileManager tileManager;
-    private int[][][] level;
+    protected final Scene scene;
+    protected final TileManager tileManager;
+    protected int[][][] level;
     private boolean drawPath = true;
 
     public LevelManager(Scene scene) {
@@ -149,9 +149,5 @@ public class LevelManager {
 
     public boolean isDrawPath() {
         return drawPath;
-    }
-
-    public void setDrawPath(boolean drawPath) {
-        this.drawPath = drawPath;
     }
 }
