@@ -161,4 +161,12 @@ public class Lighting {
     public void setDayState(int dayState) {
         this.dayState = dayState;
     }
+
+    public int getDayCounter() {
+        return dayCounter;
+    }
+
+    public void setDayCounter(int dayCounter) {
+        this.dayCounter = dayCounter;
+    }
 }

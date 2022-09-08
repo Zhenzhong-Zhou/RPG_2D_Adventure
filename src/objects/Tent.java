@@ -1,6 +1,7 @@
 package objects;
 
 import entities.Entity;
+import entities.Player;
 import main.Scene;
 
 import static main.GameState.SLEEP;
@@ -25,10 +26,13 @@ public class Tent extends Entity {
 
     @Override
     public boolean use(Entity entity) {
+        Player player = scene.getPlayer();
         gameState = SLEEP;
+        scene.getAudioManager().stopSound();
         scene.getAudioManager().playEffect(REST);
-        scene.getPlayer().setLife(scene.getPlayer().getMaxLives());
-        scene.getPlayer().setMana(scene.getPlayer().getMaxMana());
+        player.setLife(player.getMaxLives());
+        player.setMana(player.getMaxMana());
+        player.getSleepImage(down1);
         return true;
     }
 }

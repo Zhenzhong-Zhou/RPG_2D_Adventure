@@ -82,7 +82,7 @@ public class Player extends Entity {
         return defense = dexterity * currentShield.defenseValue;
     }
 
-    private void getPlayerImage() {
+    public void getPlayerImage() {
         up1 = GetSpriteAtlas(UP_1_IMAGE);
         up2 = GetSpriteAtlas(UP_2_IMAGE);
         left1 = GetSpriteAtlas(LEFT_1_IMAGE);
@@ -91,6 +91,17 @@ public class Player extends Entity {
         down2 = GetSpriteAtlas(DOWN_2_IMAGE);
         right1 = GetSpriteAtlas(RIGHT_1_IMAGE);
         right2 = GetSpriteAtlas(RIGHT_2_IMAGE);
+    }
+
+    public void getSleepImage(BufferedImage image) {
+        up1 = image;
+        up2 = image;
+        left1 = image;
+        left2 = image;
+        down1 = image;
+        down2 = image;
+        right1 = image;
+        right2 = image;
     }
 
     private void getPlayerAttackImage() {

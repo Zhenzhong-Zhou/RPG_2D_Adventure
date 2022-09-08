@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.MAIN_MENU;
+import static utilities.Constants.AudioManager.START;
 import static utilities.Constants.EnvironmentConstant.DAY;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
@@ -961,18 +962,21 @@ public class GUI {
         transitionCounter++;
         Lighting lighting = scene.getEnvironmentManager().getLighting();
         if(transitionCounter < 180) {
-            lighting.increaseFilterAlpha(0.001f);
+            lighting.increaseFilterAlpha(0.01f);
             if(lighting.getFilterAlpha() > 1) {
                 lighting.setFilterAlpha(1f);
             }
         }
         if(transitionCounter >= 180) {
-            lighting.decreaseFilterAlpha(0.001f);
+            lighting.decreaseFilterAlpha(0.01f);
             if(lighting.getFilterAlpha() <= 0) {
                 lighting.setFilterAlpha(0);
                 transitionCounter = 0;
                 lighting.setDayState(DAY);
+                lighting.setDayCounter(0);
                 gameState = PLAY;
+                scene.getPlayer().getPlayerImage();
+                scene.getAudioManager().playMusic(START);
             }
         }
     }
