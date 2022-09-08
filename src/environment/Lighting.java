@@ -28,9 +28,9 @@ public class Lighting {
         Graphics2D graphics2D = (Graphics2D) darknessFilter.getGraphics();
 
         Player player = scene.getPlayer();
-        float r =0, g=0, b =0.11f;
+        float r = 0, g = 0, b = 0.11f;
         if(player.getCurrentLight() == null) {
-            graphics2D.setColor(new Color(r,g,b,0.98f));
+            graphics2D.setColor(new Color(r, g, b, 0.98f));
         } else {
             // Get the center x and y of the light circle
             int centerX = player.getScreenX() + (TILE_SIZE) / 2;
@@ -40,32 +40,54 @@ public class Lighting {
             Color[] color = new Color[12];
             float[] fraction = new float[12];
 
-            int i= 0;
-            color[i] = new Color(r,g,b, 0.1f); i++;
-            color[i] = new Color(r,g,b, 0.42f);i++;
-            color[i] = new Color(r,g,b, 0.52f);i++;
-            color[i] = new Color(r,g,b, 0.61f);i++;
-            color[i] = new Color(r,g,b, 0.69f);i++;
-            color[i] = new Color(r,g,b, 0.76f);i++;
-            color[i] = new Color(r,g,b, 0.82f);i++;
-            color[i] = new Color(r,g,b, 0.87f);i++;
-            color[i] = new Color(r,g,b, 0.91f);i++;
-            color[i] = new Color(r,g,b, 0.94f);i++;
-            color[i] = new Color(r,g,b, 0.96f);i++;
-            color[i] = new Color(r,g,b, 0.98f);
+            int i = 0;
+            color[i] = new Color(r, g, b, 0.1f);
+            i++;
+            color[i] = new Color(r, g, b, 0.42f);
+            i++;
+            color[i] = new Color(r, g, b, 0.52f);
+            i++;
+            color[i] = new Color(r, g, b, 0.61f);
+            i++;
+            color[i] = new Color(r, g, b, 0.69f);
+            i++;
+            color[i] = new Color(r, g, b, 0.76f);
+            i++;
+            color[i] = new Color(r, g, b, 0.82f);
+            i++;
+            color[i] = new Color(r, g, b, 0.87f);
+            i++;
+            color[i] = new Color(r, g, b, 0.91f);
+            i++;
+            color[i] = new Color(r, g, b, 0.94f);
+            i++;
+            color[i] = new Color(r, g, b, 0.96f);
+            i++;
+            color[i] = new Color(r, g, b, 0.98f);
 
             i = 0;
-            fraction[i] = 0f;i++;
-            fraction[i] = 0.4f;i++;
-            fraction[i] = 0.5f;i++;
-            fraction[i] = 0.6f;i++;
-            fraction[i] = 0.65f;i++;
-            fraction[i] = 0.7f;i++;
-            fraction[i] = 0.75f;i++;
-            fraction[i] = 0.8f;i++;
-            fraction[i] = 0.85f;i++;
-            fraction[i] = 0.9f;i++;
-            fraction[i] = 0.95f;i++;
+            fraction[i] = 0f;
+            i++;
+            fraction[i] = 0.4f;
+            i++;
+            fraction[i] = 0.5f;
+            i++;
+            fraction[i] = 0.6f;
+            i++;
+            fraction[i] = 0.65f;
+            i++;
+            fraction[i] = 0.7f;
+            i++;
+            fraction[i] = 0.75f;
+            i++;
+            fraction[i] = 0.8f;
+            i++;
+            fraction[i] = 0.85f;
+            i++;
+            fraction[i] = 0.9f;
+            i++;
+            fraction[i] = 0.95f;
+            i++;
             fraction[i] = 1f;
 
             // Create a gradation paint settings
@@ -101,8 +123,8 @@ public class Lighting {
                 }
             }
             case DUSK -> {
-                filterAlpha+=transitionSpeed;
-                if(filterAlpha>1f) {
+                filterAlpha += transitionSpeed;
+                if(filterAlpha > 1f) {
                     filterAlpha = 1f;
                     dayState = NIGHT;
                 }
@@ -116,7 +138,7 @@ public class Lighting {
             }
             case DAWN -> {
                 filterAlpha -= transitionSpeed;
-                if(filterAlpha<0) {
+                if(filterAlpha < 0) {
                     filterAlpha = 0;
                     dayState = DAY;
                 }
@@ -139,7 +161,7 @@ public class Lighting {
         }
         graphics2D.setColor(Color.WHITE);
         graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.BOLD, 50F));
-        graphics2D.drawString(currentDayState, 21*TILE_SIZE, (int) (16.5*TILE_SIZE));
+        graphics2D.drawString(currentDayState, 21 * TILE_SIZE, (int) (16.5 * TILE_SIZE));
     }
 
     public float getFilterAlpha() {

@@ -668,10 +668,6 @@ public abstract class Entity {
         return inventory;
     }
 
-    public int getMaxInventorySize() {
-        return maxInventorySize;
-    }
-
     public int getPrice() {
         return price;
     }
