@@ -1,6 +1,7 @@
 package monsters;
 
 import entities.Entity;
+import entities.Player;
 import main.Scene;
 import objects.*;
 
@@ -48,46 +49,23 @@ public class GreenSlime extends Entity {
         right2 = GetSpriteAtlas(GREEN_SLIME_DOWN_2_IMAGE);
     }
 
-    public void update() {
-        super.update();
-
-        int xDistance = Math.abs(worldX - scene.getPlayer().getWorldX());
-        int yDistance = Math.abs(worldY - scene.getPlayer().getWorldY());
-        int tileDistance = (xDistance + yDistance) / TILE_SIZE;
-
-        if(! onPath && tileDistance < 5) {
-            int i = new Random().nextInt(100) + 1;
-            if(i > 50) onPath = true;
-        }
-        //TODO: other rules
-//        if(onPath && tileDistance > 20) {
-//            onPath = false;
-//        }
-    }
-
     public void setAction() {
+        Player player = scene.getPlayer();
+
         if(onPath) {
-            int goalCol = (scene.getPlayer().getWorldX() + scene.getPlayer().getHitbox().x) / TILE_SIZE;
-            int goalRow = (scene.getPlayer().getWorldY() + scene.getPlayer().getHitbox().y) / TILE_SIZE;
+            // Check if it stops chasing
+            checkStopChasingOrNot(player, 15, 100);
 
-            searchPath(goalCol, goalRow);
+            // Search the direction to go
+            searchPath(getGoalCol(player), getGoalRow(player));
 
-            int i = new Random().nextInt(200) + 1;
-            if(i > 197 && ! projectile.isAlive() && shotAvailableCounter == 30) {
-                projectile.set(worldX, worldY, direction, true, this);
-
-                // CHECK VACANCY
-                for(int x = 0; x < scene.getProjectiles()[1].length; x++) {
-                    if(scene.getProjectiles()[scene.currentMap][x] == null) {
-                        scene.getProjectiles()[scene.currentMap][x] = projectile;
-                        break;
-                    }
-                }
-
-                shotAvailableCounter = 0;
-            }
+            // Check if it shoots a projectile
+            checkShootOrNot(200, 30);
         } else {
-            super.setAction();
+            // Check if it starts chasing
+            checkStartChasingOrNot(player, 5, 100);
+            // Get a random direction
+            getRandomDirection();
         }
     }
 

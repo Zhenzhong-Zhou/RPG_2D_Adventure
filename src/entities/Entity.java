@@ -82,16 +82,7 @@ public abstract class Entity {
     }
 
     protected void setAction() {
-        actionLockCounter++;
-        if(actionLockCounter == 180) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1;    // pick up a number from 1 to 100;
-            if(i <= 25) direction = UP;
-            if(i > 25 && i <= 50) direction = DOWN;
-            if(i > 50 && i <= 75) direction = LEFT;
-            if(i > 75) direction = RIGHT;
-            actionLockCounter = 0;
-        }
+       getRandomDirection();
     }
 
     protected void damageReaction() {
@@ -459,6 +450,54 @@ public abstract class Entity {
         }
     }
 
+    protected void checkStartChasingOrNot(Entity target, int distance, int rate) {
+        if(getTileDistance(target) < distance) {
+            int i = new Random().nextInt(rate);
+            if(i== 0) {
+                onPath = true;
+            }
+        }
+    }
+
+    protected void checkStopChasingOrNot(Entity target, int distance, int rate) {
+        if(getTileDistance(target) > distance) {
+            int i = new Random().nextInt(rate);
+            if(i== 0) {
+                onPath = false;
+            }
+        }
+    }
+
+    protected void getRandomDirection() {
+        actionLockCounter++;
+        if(actionLockCounter == 180) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1;    // pick up a number from 1 to 100;
+            if(i <= 25) direction = UP;
+            if(i > 25 && i <= 50) direction = DOWN;
+            if(i > 50 && i <= 75) direction = LEFT;
+            if(i > 75) direction = RIGHT;
+            actionLockCounter = 0;
+        }
+    }
+
+    protected void checkShootOrNot(int rate, int shotInterval) {
+        int i = new Random().nextInt(rate);
+        if(i == 0 && ! projectile.isAlive() && shotAvailableCounter == shotInterval) {
+            projectile.set(worldX, worldY, direction, true, this);
+
+            // CHECK VACANCY
+            for(int x = 0; x < scene.getProjectiles()[1].length; x++) {
+                if(scene.getProjectiles()[scene.currentMap][x] == null) {
+                    scene.getProjectiles()[scene.currentMap][x] = projectile;
+                    break;
+                }
+            }
+
+            shotAvailableCounter = 0;
+        }
+    }
+
     protected int getDetected(Entity user, Entity[][] targets, String targetName) {
         int index = 999;
 
@@ -486,6 +525,26 @@ public abstract class Entity {
             }
         }
         return index;
+    }
+
+    public int getXDistance(Entity target) {
+       return Math.abs(worldX - target.worldX);
+    }
+
+    public int getYDistance(Entity target) {
+        return Math.abs(worldY - target.worldY);
+    }
+
+    public int getTileDistance(Entity target) {
+        return (getXDistance(target) + getYDistance(target))/TILE_SIZE;
+    }
+
+    public int getGoalCol(Entity target) {
+        return (target.worldX + target.hitbox.x) / TILE_SIZE;
+    }
+
+    public int getGoalRow(Entity target) {
+        return (target.worldY + target.hitbox.y) / TILE_SIZE;
     }
 
     public int getWorldX() {
