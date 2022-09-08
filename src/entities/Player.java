@@ -26,6 +26,7 @@ public class Player extends Entity {
     private final KeyInputs keyInputs;
     private int standCounter = 0;
     private boolean attackCanceled;
+    private boolean lightUpdated;
 
     public Player(Scene scene, KeyInputs keyInputs) {
         super(scene);
@@ -450,6 +451,7 @@ public class Player extends Entity {
 
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
+            //TODO: w/ or w/o weapon and shield -> change default values
             if(selectedItem.entityType == SWORD || selectedItem.entityType == AXE) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
@@ -458,6 +460,14 @@ public class Player extends Entity {
             if(selectedItem.entityType == SHIELD) {
                 currentShield = selectedItem;
                 defense = getDefense();
+            }
+            if(selectedItem.entityType == LIGHT) {
+                if(currentLight == selectedItem) {
+                    currentLight = null;
+                } else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
             }
             if(selectedItem.entityType == CONSUMABLE) {
                 if(selectedItem.use(this)) {
@@ -624,5 +634,13 @@ public class Player extends Entity {
 
     public void setAttackCanceled(boolean attackCanceled) {
         this.attackCanceled = attackCanceled;
+    }
+
+    public boolean isLightUpdated() {
+        return lightUpdated;
+    }
+
+    public void setLightUpdated(boolean lightUpdated) {
+        this.lightUpdated = lightUpdated;
     }
 }

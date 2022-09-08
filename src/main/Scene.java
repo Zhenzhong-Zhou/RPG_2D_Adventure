@@ -101,7 +101,6 @@ public class Scene extends JPanel implements Runnable {
         assetSetter.setNPCs();
         assetSetter.setMonsters();
         assetSetter.setInteractiveTile();
-//        environmentManager.setup();
     }
 
     public void retry() {
@@ -147,6 +146,9 @@ public class Scene extends JPanel implements Runnable {
                         interactiveTiles[currentMap][i].update();
                     }
                 }
+
+                // LIGHT EFFECT
+                environmentManager.update();
             }
             case PAUSE -> {
             }

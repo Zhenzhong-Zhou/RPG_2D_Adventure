@@ -147,6 +147,12 @@ public class LoadSave {
     // PICKUP
     public static final String COIN_IMAGE = "objects/coin_bronze.png";
 
+    // LIGHT: Lantern
+    public static final String LANTERN_IMAGE = "objects/lantern.png";
+
+    // SLEEP
+    public static final String TENT_IMAGE = "objects/tent.png";
+
     // FONTS
     public static final String MARU_MONICA = "fonts/x12y16pxMaruMonica.ttf";
     public static final String PURISA_BOLD = "fonts/Purisa Bold.ttf";

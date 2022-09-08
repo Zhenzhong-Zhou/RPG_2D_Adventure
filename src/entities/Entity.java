@@ -58,6 +58,7 @@ public abstract class Entity {
     protected int value;
     protected Entity currentWeapon;
     protected Entity currentShield;
+    protected Entity currentLight;
     protected Projectile projectile;
     protected int attackValue;
     protected int defenseValue;
@@ -71,6 +72,7 @@ public abstract class Entity {
     protected int knockBackPower;
     protected boolean stackable;
     protected int amount = 1;
+    protected int lightRadius;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -712,5 +714,13 @@ public abstract class Entity {
 
     public int reduceAmount() {
         return amount--;
+    }
+
+    public Entity getCurrentLight() {
+        return currentLight;
+    }
+
+    public int getLightRadius() {
+        return lightRadius;
     }
 }

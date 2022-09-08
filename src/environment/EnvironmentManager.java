@@ -10,11 +10,11 @@ public class EnvironmentManager {
 
     public EnvironmentManager(Scene scene) {
         this.scene = scene;
-        lighting = new Lighting(scene, 500);
+        lighting = new Lighting(scene);
     }
 
-    public void setup() {
-//        lighting = new Lighting(scene, 700);
+    public void update() {
+        lighting.update();
     }
 
     public void draw(Graphics2D graphics2D) {
