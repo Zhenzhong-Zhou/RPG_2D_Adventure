@@ -3,10 +3,7 @@ package entities;
 import ai.Node;
 import input.KeyInputs;
 import main.Scene;
-import objects.Axe;
-import objects.Fireball;
-import objects.Shield_Wood;
-import objects.Sword_Normal;
+import objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -135,6 +132,7 @@ public class Player extends Entity {
         inventory.add(currentShield);
         // TODO: default items in player's bag
         inventory.add(new Axe(scene));
+        inventory.add(new Lantern(scene));
     }
 
     public void update() {
@@ -452,29 +450,31 @@ public class Player extends Entity {
         if(itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
             //TODO: w/ or w/o weapon and shield -> change default values
-            if(selectedItem.entityType == SWORD || selectedItem.entityType == AXE) {
-                currentWeapon = selectedItem;
-                attack = getAttack();
-                getPlayerAttackImage();
-            }
-            if(selectedItem.entityType == SHIELD) {
-                currentShield = selectedItem;
-                defense = getDefense();
-            }
-            if(selectedItem.entityType == LIGHT) {
-                if(currentLight == selectedItem) {
-                    currentLight = null;
-                } else {
-                    currentLight = selectedItem;
+            switch(selectedItem.entityType) {
+                case SWORD, AXE -> {
+                    currentWeapon = selectedItem;
+                    attack = getAttack();
+                    getPlayerAttackImage();
                 }
-                lightUpdated = true;
-            }
-            if(selectedItem.entityType == CONSUMABLE) {
-                if(selectedItem.use(this)) {
-                    if(selectedItem.amount > 1) {
-                        selectedItem.amount--;
+                case SHIELD -> {
+                    currentShield = selectedItem;
+                    defense = getDefense();
+                }
+                case LIGHT -> {
+                    if(currentLight == selectedItem) {
+                        currentLight = null;
                     } else {
-                        inventory.remove(itemIndex);
+                        currentLight = selectedItem;
+                    }
+                    lightUpdated = true;
+                }
+                case CONSUMABLE -> {
+                    if(selectedItem.use(this)) {
+                        if(selectedItem.amount > 1) {
+                            selectedItem.amount--;
+                        } else {
+                            inventory.remove(itemIndex);
+                        }
                     }
                 }
             }
