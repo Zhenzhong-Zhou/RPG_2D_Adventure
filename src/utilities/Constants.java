@@ -97,7 +97,7 @@ public class Constants {
         public static final String LANTERN = "Lantern";
 
         // Sleep
-        public static final String TENT = "TENT";
+        public static final String TENT = "Tent";
     }
 
     /**
@@ -122,7 +122,7 @@ public class Constants {
         public static final int CUT_TREE = 10;
         public static final int DIE = 11;
         public static final int GAME_OVER = 12;
-        public static final int SLEEP = 13;
+        public static final int REST = 13;
 
         // OPTIONS CONTROL
         public static final String MUTE_ON = "-1";

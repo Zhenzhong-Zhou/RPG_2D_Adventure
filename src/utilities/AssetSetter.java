@@ -4,10 +4,7 @@ import entities.NPC_Merchant;
 import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
-import objects.Chest;
-import objects.Door;
-import objects.Key;
-import objects.Lantern;
+import objects.*;
 import tile_interactive.DryTree;
 
 import static utilities.Constants.SceneConstant.TILE_SIZE;
@@ -34,6 +31,11 @@ public class AssetSetter {
 
         scene.getGameObjects()[mapNum][i] = new Lantern(scene);
         scene.getGameObjects()[mapNum][i].setWorldX(18 * TILE_SIZE);
+        scene.getGameObjects()[mapNum][i].setWorldY(20 * TILE_SIZE);
+        i++;
+
+        scene.getGameObjects()[mapNum][i] = new Tent(scene);
+        scene.getGameObjects()[mapNum][i].setWorldX(19 * TILE_SIZE);
         scene.getGameObjects()[mapNum][i].setWorldY(20 * TILE_SIZE);
         i++;
 

@@ -141,4 +141,24 @@ public class Lighting {
         graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.BOLD, 50F));
         graphics2D.drawString(currentDayState, 21*TILE_SIZE, (int) (16.5*TILE_SIZE));
     }
+
+    public float getFilterAlpha() {
+        return filterAlpha;
+    }
+
+    public void setFilterAlpha(float filterAlpha) {
+        this.filterAlpha = filterAlpha;
+    }
+
+    public void increaseFilterAlpha(float filterAlpha) {
+        this.filterAlpha += filterAlpha;
+    }
+
+    public void decreaseFilterAlpha(float filterAlpha) {
+        this.filterAlpha -= filterAlpha;
+    }
+
+    public void setDayState(int dayState) {
+        this.dayState = dayState;
+    }
 }

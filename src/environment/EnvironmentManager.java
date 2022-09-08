@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class EnvironmentManager {
     private final Scene scene;
-    private final Lighting lighting;
+    private Lighting lighting;
 
     public EnvironmentManager(Scene scene) {
         this.scene = scene;
@@ -19,5 +19,13 @@ public class EnvironmentManager {
 
     public void draw(Graphics2D graphics2D) {
         lighting.draw(graphics2D);
+    }
+
+    public Lighting getLighting() {
+        return lighting;
+    }
+
+    public void setLighting(Lighting lighting) {
+        this.lighting = lighting;
     }
 }

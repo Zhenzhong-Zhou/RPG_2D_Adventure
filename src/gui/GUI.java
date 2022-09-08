@@ -2,6 +2,7 @@ package gui;
 
 import entities.Entity;
 import entities.Player;
+import environment.Lighting;
 import main.Scene;
 import objects.Coin_Bronze;
 import objects.Heart;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 
 import static main.GameState.*;
 import static utilities.Constants.AudioManager.MAIN_MENU;
+import static utilities.Constants.EnvironmentConstant.DAY;
 import static utilities.Constants.SceneConstant.*;
 import static utilities.LoadSave.*;
 
@@ -97,6 +99,7 @@ public class GUI {
             case DEAD -> drawDeadScreen();
             case TRANSITION -> drawTransition();
             case TRADE -> drawTradeScreen();
+            case SLEEP -> drawSleepScreen();
         }
     }
 
@@ -950,6 +953,26 @@ public class GUI {
                     }
                     player.sellItem(price);
                 }
+            }
+        }
+    }
+
+    private void drawSleepScreen() {
+        transitionCounter++;
+        Lighting lighting = scene.getEnvironmentManager().getLighting();
+        if(transitionCounter < 180) {
+            lighting.increaseFilterAlpha(0.001f);
+            if(lighting.getFilterAlpha() > 1) {
+                lighting.setFilterAlpha(1f);
+            }
+        }
+        if(transitionCounter >= 180) {
+            lighting.decreaseFilterAlpha(0.001f);
+            if(lighting.getFilterAlpha() <= 0) {
+                lighting.setFilterAlpha(0);
+                transitionCounter = 0;
+                lighting.setDayState(DAY);
+                gameState = PLAY;
             }
         }
     }
