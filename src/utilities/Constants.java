@@ -122,9 +122,27 @@ public class Constants {
         public static final int CUT_TREE = 10;
         public static final int DIE = 11;
         public static final int GAME_OVER = 12;
+        public static final int SLEEP = 13;
 
         // OPTIONS CONTROL
         public static final String MUTE_ON = "-1";
         public static final String MUTE_OFF = "0";
+    }
+
+    /**
+     * ENVIRONMENT SETTINGS
+     */
+    public static class EnvironmentConstant {
+        // DAY STATES
+        public static final int DAY = 0;
+        public static final int DUSK = 1;
+        public static final int NIGHT = 2;
+        public static final int DAWN = 3;
+
+        // CURRENT STATE
+        public static final String DAY_STATE = "Day";
+        public static final String DUSK_STATE = "Dusk";
+        public static final String NIGHT_STATE = "Night";
+        public static final String DAWN_STATE = "Dawn";
     }
 }
