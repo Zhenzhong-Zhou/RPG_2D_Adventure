@@ -51,21 +51,11 @@ public class Map extends LevelManager {
     }
 
     public void drawFullMapScreen(Graphics2D graphics2D) {
-//        // Background Color
-//        graphics2D.setColor(Color.BLACK);
-//        graphics2D.fillRect(0,0,SCENE_WIDTH, SCENE_HEIGHT); //TODO: SCENE_WIDTH, SCENE_HEIGHT
-
         // Draw Map
-//        int width = 800;    // 500
-//        int height = 800;   // 500
-//        int x = SCENE_WIDTH/2 - width/2;
-//        int y = SCENE_HEIGHT/2-height/2;
-        int x = 0;
-        int y = 0;
-        graphics2D.drawImage(worldMap[scene.currentMap], x,y, SCENE_WIDTH,SCENE_HEIGHT, null);
+        graphics2D.drawImage(worldMap[scene.currentMap], 0, 0, SCENE_WIDTH, SCENE_HEIGHT, null);
 
         // Draw Player
-        drawPlayer(graphics2D, x, y);
+
 
         // Hint
         graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 32F));
@@ -76,22 +66,25 @@ public class Map extends LevelManager {
     public void drawMiniMap(Graphics2D graphics2D) {
         if(miniMapOn) {
             // Draw Map
-            int width = 200;
-            int height = 200;
-            int x = SCENE_WIDTH - width -50;
+            int width = 250;
+            int height = 250;
+            int x = SCENE_WIDTH - width - 50;
             int y = 50;
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             graphics2D.drawImage(worldMap[scene.currentMap],x,y,width,height,null);
+
+            // Draw Player
+            drawMiniPlayer(graphics2D, x,y);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
-    private void drawPlayer(Graphics2D graphics2D, int x, int y) {
+    private void drawMiniPlayer(Graphics2D graphics2D, int x, int y) {
         Player player = scene.getPlayer();
-        double scale = (double) (MAX_WORLD_COL * TILE_SIZE) / SCENE_WIDTH;
-        int playerX = (int) (x + player.getWorldX() / scale);
-        int playerY = (int) (y + player.getWorldY() / scale);
-        int playerSize = (int) (TILE_SIZE/scale);
+        int playerX = x + player.getWorldX()/ 10;
+        int playerY = y + player.getWorldY()/ 10;
+        int playerSize = TILE_SIZE/3;
         graphics2D.drawImage(player.getDown1(), playerX, playerY, playerSize, playerSize, null);
     }
 
