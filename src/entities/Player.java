@@ -62,7 +62,7 @@ public class Player extends Entity {
         maxMana = 4;
         mana = maxMana;
         strength = 1;   // The more strength he has, the more damage he gives.
-        dexterity = 1;  // The more dexterity he has, the less damage he receives.
+        dexterity = 10;  // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
         coin = 500; // TODO: Remove
@@ -179,7 +179,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated worldX/Y and hitbox
             int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
+            damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
 
             // CHECK INTERACTIVE TILE COLLISION
             int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
@@ -376,13 +376,13 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int monsterIndex, int attack, int knockBackPower) {
+    public void damageMonster(int monsterIndex, Entity attacker, int attack, int knockBackPower) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
                 scene.getAudioManager().playEffect(HIT_MONSTER);
                 if(knockBackPower > 0) {
-                    knockBack(monster, knockBackPower);
+                    setKnockBack(monster, attacker, knockBackPower);
                 }
 
                 int damage = attack - monster.defense;
@@ -402,12 +402,6 @@ public class Player extends Entity {
                 }
             }
         }
-    }
-
-    private void knockBack(Entity entity, int knockBackPower) {
-        entity.direction = direction;
-        entity.speed += knockBackPower;
-        entity.knockBack = true;
     }
 
     private void contactInteractiveTile(int interactiveTileIndex) {

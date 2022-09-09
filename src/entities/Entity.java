@@ -59,6 +59,7 @@ public abstract class Entity {
     protected Entity currentWeapon;
     protected Entity currentShield;
     protected Entity currentLight;
+    protected Entity attacker;
     protected Projectile projectile;
     protected int attackValue;
     protected int defenseValue;
@@ -73,6 +74,7 @@ public abstract class Entity {
     protected boolean stackable;
     protected int amount = 1;
     protected int lightRadius;
+    protected String knockBackDirection;
 
     public Entity(Scene scene) {
         this.scene = scene;
@@ -164,7 +166,7 @@ public abstract class Entity {
                 knockBack = false;
                 speed = defaultSpeed;
             }
-            playerCanMove();
+            Direction(knockBackDirection);
 
             knockBackCounter++;
             if(knockBackCounter == 10) {
@@ -186,6 +188,17 @@ public abstract class Entity {
         }
     }
 
+    private void Direction(String direction) {
+        if(! collision) {
+            switch(direction) {
+                case UP -> worldY -= speed;
+                case LEFT -> worldX -= speed;
+                case DOWN -> worldY += speed;
+                case RIGHT -> worldX += speed;
+            }
+        }
+    }
+
     protected void damagePlayer(int attack) {
         if(! scene.getPlayer().invincible) {
             // Player get damaged
@@ -200,16 +213,16 @@ public abstract class Entity {
         }
     }
 
+    protected void setKnockBack(Entity target, Entity attacker, int knockBackPower) {
+        this.attacker = attacker;
+        target.knockBackDirection = attacker.direction;
+        target.speed += knockBackPower;
+        target.knockBack = true;
+    }
+
     protected void playerCanMove() {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(! collision) {
-            switch(direction) {
-                case UP -> worldY -= speed;
-                case LEFT -> worldX -= speed;
-                case DOWN -> worldY += speed;
-                case RIGHT -> worldX += speed;
-            }
-        }
+        Direction(direction);
     }
 
     protected void updateAnimation() {
@@ -777,5 +790,13 @@ public abstract class Entity {
 
     public int getLightRadius() {
         return lightRadius;
+    }
+
+    public boolean isKnockBack() {
+        return knockBack;
+    }
+
+    public String getKnockBackDirection() {
+        return knockBackDirection;
     }
 }

@@ -28,7 +28,12 @@ public class CollisionDetection {
 
         int tileNum1, tileNum2;
         Tile[] tiles = scene.getLevelManager().getTileManager().getTiles();
-        switch(entity.getDirection()) {
+
+        // Use a temporal direction when it's being knockBacked
+        String direction = entity.getDirection();
+        if(entity.isKnockBack()) direction = entity.getKnockBackDirection();
+
+        switch(direction) {
             case UP -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / TILE_SIZE;
                 tileNum1 = scene.getLevelManager().getTileId()[scene.currentMap][entityLeftCol][entityTopRow];
@@ -81,8 +86,8 @@ public class CollisionDetection {
         entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
     }
 
-    private void entityDirection(Entity entity) {
-        switch(entity.getDirection()) {
+    private void entityDirection(Entity entity, String direction) {
+        switch(direction) {
             case UP -> entity.getHitbox().y -= entity.getSpeed();
             case LEFT -> entity.getHitbox().x -= entity.getSpeed();
             case DOWN -> entity.getHitbox().y += entity.getSpeed();
@@ -104,7 +109,7 @@ public class CollisionDetection {
                 object.getHitbox().x = object.getWorldX() + object.getHitbox().x;
                 object.getHitbox().y = object.getWorldY() + object.getHitbox().y;
 
-                entityDirection(entity);
+                entityDirection(entity, entity.getDirection());
 
                 if(entity.getHitbox().intersects(object.getHitbox())) {
                     if(object.isCollision()) {
@@ -128,6 +133,10 @@ public class CollisionDetection {
     public int checkEntity(Entity entity, Entity[][] targets) {
         int index = 999;
 
+        // Use a temporal direction when it's being knockBacked
+        String direction = entity.getDirection();
+        if(entity.isKnockBack()) direction = entity.getKnockBackDirection();
+
         for(int i = 0; i < targets[1].length; i++) {
             Entity target = targets[scene.currentMap][i];
             if(target != null) {
@@ -138,7 +147,7 @@ public class CollisionDetection {
                 target.getHitbox().x = target.getWorldX() + target.getHitbox().x;
                 target.getHitbox().y = target.getWorldY() + target.getHitbox().y;
 
-                entityDirection(entity);
+                entityDirection(entity, direction);
 
                 if(entity.getHitbox().intersects(target.getHitbox())) {
                     if(target != entity) {
@@ -166,7 +175,7 @@ public class CollisionDetection {
         player.getHitbox().x = player.getWorldX() + player.getHitbox().x;
         player.getHitbox().y = player.getWorldY() + player.getHitbox().y;
 
-        entityDirection(entity);
+        entityDirection(entity, entity.getDirection());
 
         if(entity.getHitbox().intersects(player.getHitbox())) {
             entity.setCollision(true);
