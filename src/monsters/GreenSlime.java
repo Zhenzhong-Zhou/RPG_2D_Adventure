@@ -10,7 +10,6 @@ import java.util.Random;
 
 import static utilities.Constants.EntityConstant.GREEN_SLIME;
 import static utilities.Constants.EntityConstant.MONSTER;
-import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.LoadSave.*;
 
 public class GreenSlime extends Entity {

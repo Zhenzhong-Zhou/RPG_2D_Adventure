@@ -84,7 +84,7 @@ public abstract class Entity {
     }
 
     protected void setAction() {
-       getRandomDirection();
+        getRandomDirection();
     }
 
     protected void damageReaction() {
@@ -230,7 +230,7 @@ public abstract class Entity {
                     damagePlayer(attack);
                 }
             } else {
-                Player player= scene.getPlayer();
+                Player player = scene.getPlayer();
                 // Check monster collision with the updated worldX/Y and hitbox
                 int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
                 player.damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
@@ -559,7 +559,7 @@ public abstract class Entity {
         if(targetInRange) {
             // Check if it initiates an attack
             int i = new Random().nextInt(rate);
-            if(i==0){
+            if(i == 0) {
                 attacking = true;
                 spriteNum = 1;
                 spriteCounter = 0;
@@ -571,7 +571,7 @@ public abstract class Entity {
     protected void checkStartChasingOrNot(Entity target, int distance, int rate) {
         if(getTileDistance(target) < distance) {
             int i = new Random().nextInt(rate);
-            if(i== 0) {
+            if(i == 0) {
                 onPath = true;
             }
         }
@@ -580,7 +580,7 @@ public abstract class Entity {
     protected void checkStopChasingOrNot(Entity target, int distance, int rate) {
         if(getTileDistance(target) > distance) {
             int i = new Random().nextInt(rate);
-            if(i== 0) {
+            if(i == 0) {
                 onPath = false;
             }
         }
@@ -646,7 +646,7 @@ public abstract class Entity {
     }
 
     public int getXDistance(Entity target) {
-       return Math.abs(worldX - target.worldX);
+        return Math.abs(worldX - target.worldX);
     }
 
     public int getYDistance(Entity target) {
@@ -654,7 +654,7 @@ public abstract class Entity {
     }
 
     public int getTileDistance(Entity target) {
-        return (getXDistance(target) + getYDistance(target))/TILE_SIZE;
+        return (getXDistance(target) + getYDistance(target)) / TILE_SIZE;
     }
 
     public int getGoalCol(Entity target) {

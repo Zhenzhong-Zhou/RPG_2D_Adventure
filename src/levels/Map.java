@@ -26,19 +26,19 @@ public class Map extends LevelManager {
         int worldMapWidth = TILE_SIZE * MAX_WORLD_COL;
         int worldMapHeight = TILE_SIZE * MAX_WORLD_ROW;
 
-        for(int i=0; i<MAX_MAP; i++) {
+        for(int i = 0; i < MAX_MAP; i++) {
             worldMap[i] = new BufferedImage(worldMapWidth, worldMapHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D graphics2D = worldMap[i].createGraphics();
 
             int col = 0;
             int row = 0;
 
-            while(col<MAX_WORLD_COL && row < MAX_WORLD_ROW) {
+            while(col < MAX_WORLD_COL && row < MAX_WORLD_ROW) {
                 int tileId = level[i][col][row];
-                int x = col *TILE_SIZE;
-                int y = row*TILE_SIZE;
+                int x = col * TILE_SIZE;
+                int y = row * TILE_SIZE;
 
-                graphics2D.drawImage(tileManager.getTiles()[tileId].getSprite(), x,y,null);
+                graphics2D.drawImage(tileManager.getTiles()[tileId].getSprite(), x, y, null);
                 col++;
                 if(col == MAX_WORLD_COL) {
                     col = 0;
@@ -60,7 +60,7 @@ public class Map extends LevelManager {
         // Hint
         graphics2D.setFont(scene.getGui().getMaruMonica().deriveFont(Font.PLAIN, 32F));
         graphics2D.setColor(Color.WHITE);
-        graphics2D.drawString("Press M to close", (int) (18.5*TILE_SIZE), 17*TILE_SIZE);
+        graphics2D.drawString("Press M to close", (int) (18.5 * TILE_SIZE), 17 * TILE_SIZE);
     }
 
     public void drawMiniMap(Graphics2D graphics2D) {
@@ -72,19 +72,19 @@ public class Map extends LevelManager {
             int y = 50;
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
-            graphics2D.drawImage(worldMap[scene.currentMap],x,y,width,height,null);
+            graphics2D.drawImage(worldMap[scene.currentMap], x, y, width, height, null);
 
             // Draw Player
-            drawMiniPlayer(graphics2D, x,y);
+            drawMiniPlayer(graphics2D, x, y);
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
     private void drawMiniPlayer(Graphics2D graphics2D, int x, int y) {
         Player player = scene.getPlayer();
-        int playerX = x + player.getWorldX()/ 10;
-        int playerY = y + player.getWorldY()/ 10;
-        int playerSize = TILE_SIZE/3;
+        int playerX = x + player.getWorldX() / 10;
+        int playerY = y + player.getWorldY() / 10;
+        int playerSize = TILE_SIZE / 3;
         graphics2D.drawImage(player.getDown1(), playerX, playerY, playerSize, playerSize, null);
     }
 

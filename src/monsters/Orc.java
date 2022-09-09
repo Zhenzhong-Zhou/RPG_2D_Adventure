@@ -3,12 +3,16 @@ package monsters;
 import entities.Entity;
 import entities.Player;
 import main.Scene;
-import objects.*;
+import objects.Coin_Bronze;
+import objects.Heart;
+import objects.ManaCrystal;
+import objects.Potion_Red;
 
 import java.awt.*;
 import java.util.Random;
 
-import static utilities.Constants.EntityConstant.*;
+import static utilities.Constants.EntityConstant.MONSTER;
+import static utilities.Constants.EntityConstant.ORC;
 import static utilities.Constants.SceneConstant.TILE_SIZE;
 import static utilities.LoadSave.*;
 
