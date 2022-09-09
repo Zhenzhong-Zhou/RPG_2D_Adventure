@@ -78,8 +78,28 @@ public class LoadSave {
     public static final String ROCK_IMAGE = "projectile/rock_down_1.png";
 
     // MONSTER: Green Slime
-    public static final String GREEN_SLIME_DOWN_1_IMAGE = "monster/greenslime_down_1.png";
-    public static final String GREEN_SLIME_DOWN_2_IMAGE = "monster/greenslime_down_2.png";
+    public static final String GREEN_SLIME_DOWN_1_IMAGE = "monster/slime/greenslime_down_1.png";
+    public static final String GREEN_SLIME_DOWN_2_IMAGE = "monster/slime/greenslime_down_2.png";
+
+    // MONSTER: Orc Walk
+    public static final String ORC_DOWN_1_IMAGE = "monster/orc/walk/orc_down_1.png";
+    public static final String ORC_DOWN_2_IMAGE = "monster/orc/walk/orc_down_2.png";
+    public static final String ORC_UP_1_IMAGE = "monster/orc/walk/orc_up_1.png";
+    public static final String ORC_UP_2_IMAGE = "monster/orc/walk/orc_up_2.png";
+    public static final String ORC_LEFT_1_IMAGE = "monster/orc/walk/orc_left_1.png";
+    public static final String ORC_LEFT_2_IMAGE = "monster/orc/walk/orc_left_2.png";
+    public static final String ORC_RIGHT_1_IMAGE = "monster/orc/walk/orc_right_1.png";
+    public static final String ORC_RIGHT_2_IMAGE = "monster/orc/walk/orc_right_2.png";
+
+    // MONSTER: Orc Attack
+    public static final String ORC_ATTACK_DOWN_1_IMAGE = "monster/orc/attack/orc_attack_down_1.png";
+    public static final String ORC_ATTACK_DOWN_2_IMAGE = "monster/orc/attack/orc_attack_down_2.png";
+    public static final String ORC_ATTACK_UP_1_IMAGE = "monster/orc/attack/orc_attack_up_1.png";
+    public static final String ORC_ATTACK_UP_2_IMAGE = "monster/orc/attack/orc_attack_up_2.png";
+    public static final String ORC_ATTACK_LEFT_1_IMAGE = "monster/orc/attack/orc_attack_left_1.png";
+    public static final String ORC_ATTACK_LEFT_2_IMAGE = "monster/orc/attack/orc_attack_left_2.png";
+    public static final String ORC_ATTACK_RIGHT_1_IMAGE = "monster/orc/attack/orc_attack_right_1.png";
+    public static final String ORC_ATTACK_RIGHT_2_IMAGE = "monster/orc/attack/orc_attack_right_2.png";
 
     // TILES: Grass
     public static final String GRASS_00_IMAGE = "tile/grass/grass00.png";

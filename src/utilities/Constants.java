@@ -76,6 +76,7 @@ public class Constants {
 
         // Monster Name
         public static final String GREEN_SLIME = "Green Slime";
+        public static final String ORC = "Orc";
 
         // Consumable Name
         public static final String KEY = "Key";

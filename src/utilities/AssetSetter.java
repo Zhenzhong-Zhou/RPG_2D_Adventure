@@ -4,6 +4,7 @@ import entities.NPC_Merchant;
 import entities.NPC_OldMan;
 import main.Scene;
 import monsters.GreenSlime;
+import monsters.Orc;
 import objects.*;
 import tile_interactive.DryTree;
 
@@ -64,6 +65,10 @@ public class AssetSetter {
             scene.getMonsters()[mapNum][j].setWorldX((20 + j) * TILE_SIZE);
             scene.getMonsters()[mapNum][j].setWorldY((35 + j) * TILE_SIZE);
         }
+
+        scene.getMonsters()[mapNum][9] = new Orc(scene);
+        scene.getMonsters()[mapNum][9].setWorldX(12 * TILE_SIZE);
+        scene.getMonsters()[mapNum][9].setWorldY(33 * TILE_SIZE);
     }
 
     public void setInteractiveTile() {
