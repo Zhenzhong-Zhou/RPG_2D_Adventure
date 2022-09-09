@@ -55,14 +55,14 @@ public class Orc extends Entity {
     }
 
     private void getOrcAttackImage() {
-        up1 = GetAttackImage(ORC_ATTACK_UP_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        up2 = GetAttackImage(ORC_ATTACK_UP_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        left1 = GetAttackImage(ORC_ATTACK_LEFT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        left2 = GetAttackImage(ORC_ATTACK_LEFT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        down1 = GetAttackImage(ORC_ATTACK_DOWN_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        down2 = GetAttackImage(ORC_ATTACK_DOWN_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
-        right1 = GetAttackImage(ORC_ATTACK_RIGHT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
-        right2 = GetAttackImage(ORC_ATTACK_RIGHT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackUp1 = GetAttackImage(ORC_ATTACK_UP_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackUp2 = GetAttackImage(ORC_ATTACK_UP_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackLeft1 = GetAttackImage(ORC_ATTACK_LEFT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackLeft2 = GetAttackImage(ORC_ATTACK_LEFT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackDown1 = GetAttackImage(ORC_ATTACK_DOWN_1_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackDown2 = GetAttackImage(ORC_ATTACK_DOWN_2_IMAGE, TILE_SIZE, TILE_SIZE * 2);
+        attackRight1 = GetAttackImage(ORC_ATTACK_RIGHT_1_IMAGE, TILE_SIZE * 2, TILE_SIZE);
+        attackRight2 = GetAttackImage(ORC_ATTACK_RIGHT_2_IMAGE, TILE_SIZE * 2, TILE_SIZE);
     }
 
     public void setAction() {
