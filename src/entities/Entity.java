@@ -174,13 +174,15 @@ public abstract class Entity {
                 knockBack = false;
                 speed = defaultSpeed;
             }
+        } else if(attacking) {
+            attacking();
         } else {
             setAction();
             checkCollision();
             playerCanMove();
+            updateAnimation();
         }
 
-        updateAnimation();
         invincibleCounter();
 
         if(shotAvailableCounter < 30) {
@@ -196,6 +198,62 @@ public abstract class Entity {
                 case DOWN -> worldY += speed;
                 case RIGHT -> worldX += speed;
             }
+        }
+    }
+
+    protected void attacking() {
+        spriteCounter++;
+        if(spriteCounter <= 5) spriteNum = 1;
+        if(spriteCounter > 5 && spriteCounter <= 25) {
+            spriteNum = 2;
+
+            // Save the current worldX, worldY, hitbox
+            int currentWorldX = worldX;
+            int currentWorldY = worldY;
+            int hitboxWidth = hitbox.width;
+            int hitboxHeight = hitbox.height;
+
+            // Adjust player's worldX/Y for the attackBox
+            switch(direction) {
+                case UP -> worldY -= attackBox.height;
+                case LEFT -> worldX -= attackBox.width;
+                case DOWN -> worldY += attackBox.height;
+                case RIGHT -> worldX += attackBox.width;
+            }
+
+            // attackBox becomes hitbox
+            hitbox.width = attackBox.width;
+            hitbox.height = attackBox.height;
+
+            if(entityType == MONSTER) {
+                if(scene.getCollisionDetection().checkPlayer(this)) {
+                    damagePlayer(attack);
+                }
+            } else {
+                Player player= scene.getPlayer();
+                // Check monster collision with the updated worldX/Y and hitbox
+                int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
+                player.damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
+
+                // CHECK INTERACTIVE TILE COLLISION
+                int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
+                player.damageInteractiveTile(interactiveTileIndex);
+
+                // CHECK PROJECTILE COLLISION
+                int projectileIndex = scene.getCollisionDetection().checkEntity(this, scene.getProjectiles());
+                player.damageProjectile(projectileIndex);
+            }
+
+            // After checking collision, restore the original data
+            worldX = currentWorldX;
+            worldY = currentWorldY;
+            hitbox.width = hitboxWidth;
+            hitbox.height = hitboxHeight;
+        }
+        if(spriteCounter > 35) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            attacking = false;
         }
     }
 
@@ -254,37 +312,52 @@ public abstract class Entity {
     protected BufferedImage animate() {
         BufferedImage image = null;
 
+        int screenX = scene.getPlayer().getScreenX();
+        int screenY = scene.getPlayer().getScreenY();
+        int tempScreenX = screenX;
+        int tempScreenY = screenY;
+
         switch(direction) {
             case UP -> {
-                if(spriteNum == 1) {
-                    image = up1;
+                if(! attacking) {
+                    if(spriteNum == 1) image = up1;
+                    if(spriteNum == 2) image = up2;
                 }
-                if(spriteNum == 2) {
-                    image = up2;
+                if(attacking) {
+                    tempScreenY = screenY - TILE_SIZE;
+                    if(spriteNum == 1) image = attackUp1;
+                    if(spriteNum == 2) image = attackUp2;
                 }
             }
             case LEFT -> {
-                if(spriteNum == 1) {
-                    image = left1;
+                if(! attacking) {
+                    if(spriteNum == 1) image = left1;
+                    if(spriteNum == 2) image = left2;
                 }
-                if(spriteNum == 2) {
-                    image = left2;
+                if(attacking) {
+                    tempScreenX = screenX - TILE_SIZE;
+                    if(spriteNum == 1) image = attackLeft1;
+                    if(spriteNum == 2) image = attackLeft2;
                 }
             }
             case DOWN -> {
-                if(spriteNum == 1) {
-                    image = down1;
+                if(! attacking) {
+                    if(spriteNum == 1) image = down1;
+                    if(spriteNum == 2) image = down2;
                 }
-                if(spriteNum == 2) {
-                    image = down2;
+                if(attacking) {
+                    if(spriteNum == 1) image = attackDown1;
+                    if(spriteNum == 2) image = attackDown2;
                 }
             }
             case RIGHT -> {
-                if(spriteNum == 1) {
-                    image = right1;
+                if(! attacking) {
+                    if(spriteNum == 1) image = right1;
+                    if(spriteNum == 2) image = right2;
                 }
-                if(spriteNum == 2) {
-                    image = right2;
+                if(attacking) {
+                    if(spriteNum == 1) image = attackRight1;
+                    if(spriteNum == 2) image = attackRight2;
                 }
             }
         }
@@ -460,6 +533,38 @@ public abstract class Entity {
 //            if(nextCol == goalCol && nextRow == goalRow) {
 //                onPath = false;
 //            }
+        }
+    }
+
+    protected void checkAttackOrNot(int rate, int vertical, int horizontal) {
+        Player player = scene.getPlayer();
+        boolean targetInRange = false;
+        int xDistance = getXDistance(player);
+        int yDistance = getYDistance(player);
+
+        switch(direction) {
+            case UP -> {
+                if(player.worldY < worldY && yDistance < vertical && xDistance < horizontal) targetInRange = true;
+            }
+            case DOWN -> {
+                if(player.worldY > worldY && yDistance < vertical && xDistance < horizontal) targetInRange = true;
+            }
+            case LEFT -> {
+                if(player.worldX < worldX && xDistance < vertical && yDistance < horizontal) targetInRange = true;
+            }
+            case RIGHT -> {
+                if(player.worldX > worldX && xDistance < vertical && yDistance < horizontal) targetInRange = true;
+            }
+        }
+        if(targetInRange) {
+            // Check if it initiates an attack
+            int i = new Random().nextInt(rate);
+            if(i==0){
+                attacking = true;
+                spriteNum = 1;
+                spriteCounter = 0;
+                shotAvailableCounter = 0;
+            }
         }
     }
 

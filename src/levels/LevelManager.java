@@ -125,18 +125,18 @@ public class LevelManager {
             }
         }
         //TODO: Draw NPC pathfinding
-        if(scene.getLevelManager().isDrawPath()) {
-            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
-            graphics2D.setColor(new Color(255, 0, 0, 70));
-            for(Node node : pathList) {
-                int worldX = node.getCol() * TILE_SIZE;
-                int worldY = node.getRow() * TILE_SIZE;
-                int screenX = worldX - player.getWorldX() + player.getScreenX();
-                int screenY = worldY - player.getWorldY() + player.getScreenY();
-
-                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
-            }
-        }
+//        if(scene.getLevelManager().isDrawPath()) {
+//            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
+//            graphics2D.setColor(new Color(255, 0, 0, 70));
+//            for(Node node : pathList) {
+//                int worldX = node.getCol() * TILE_SIZE;
+//                int worldY = node.getRow() * TILE_SIZE;
+//                int screenX = worldX - player.getWorldX() + player.getScreenX();
+//                int screenY = worldY - player.getWorldY() + player.getScreenY();
+//
+//                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+//            }
+//        }
     }
 
     public int[][][] getTileId() {

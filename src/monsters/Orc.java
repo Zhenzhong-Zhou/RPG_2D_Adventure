@@ -76,6 +76,11 @@ public class Orc extends Entity {
             // Get a random direction
             getRandomDirection();
         }
+
+        // Check if it attacks
+        if(attacking) {
+            checkAttackOrNot(30, TILE_SIZE, TILE_SIZE);
+        }
     }
 
     public void damageReaction() {

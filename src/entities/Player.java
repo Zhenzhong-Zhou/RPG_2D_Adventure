@@ -153,55 +153,6 @@ public class Player extends Entity {
         updatePositions();
     }
 
-    private void attacking() {
-        spriteCounter++;
-        if(spriteCounter <= 5) spriteNum = 1;
-        if(spriteCounter > 5 && spriteCounter <= 25) {
-            spriteNum = 2;
-
-            // Save the current worldX, worldY, hitbox
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
-            int hitboxWidth = hitbox.width;
-            int hitboxHeight = hitbox.height;
-
-            // Adjust player's worldX/Y for the attackBox
-            switch(direction) {
-                case UP -> worldY -= attackBox.height;
-                case LEFT -> worldX -= attackBox.width;
-                case DOWN -> worldY += attackBox.height;
-                case RIGHT -> worldX += attackBox.width;
-            }
-
-            // attackBox becomes hitbox
-            hitbox.width = attackBox.width;
-            hitbox.height = attackBox.height;
-
-            // Check monster collision with the updated worldX/Y and hitbox
-            int monsterIndex = scene.getCollisionDetection().checkEntity(this, scene.getMonsters());
-            damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
-
-            // CHECK INTERACTIVE TILE COLLISION
-            int interactiveTileIndex = scene.getCollisionDetection().checkEntity(this, scene.getInteractiveTiles());
-            damageInteractiveTile(interactiveTileIndex);
-
-            // CHECK PROJECTILE COLLISION
-            int projectileIndex = scene.getCollisionDetection().checkEntity(this, scene.getProjectiles());
-            damageProjectile(projectileIndex);
-
-            // After checking collision, restore the original data
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            hitbox.width = hitboxWidth;
-            hitbox.height = hitboxHeight;
-        }
-        if(spriteCounter > 35) {
-            spriteNum = 1;
-            spriteCounter = 0;
-            attacking = false;
-        }
-    }
-
     private void updatePositions() {
         if(keyInputs.isUpPressed() || keyInputs.isLeftPressed() || keyInputs.isDownPressed() || keyInputs.isRightPressed() || keyInputs.isEnterPressed()) {
             if(keyInputs.isUpPressed()) direction = UP;
@@ -376,7 +327,7 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int monsterIndex, Entity attacker, int attack, int knockBackPower) {
+    protected void damageMonster(int monsterIndex, Entity attacker, int attack, int knockBackPower) {
         if(monsterIndex != 999) {
             Entity monster = scene.getMonsters()[scene.currentMap][monsterIndex];
             if(! monster.invincible) {
@@ -410,7 +361,7 @@ public class Player extends Entity {
         }
     }
 
-    private void damageInteractiveTile(int interactiveTileIndex) {
+    protected void damageInteractiveTile(int interactiveTileIndex) {
         if(interactiveTileIndex != 999 && scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].destructible
                 && scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].isCorrectItem(this) && ! scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].invincible) {
             scene.getInteractiveTiles()[scene.currentMap][interactiveTileIndex].playEffect();
@@ -426,7 +377,7 @@ public class Player extends Entity {
         }
     }
 
-    private void damageProjectile(int projectileIndex) {
+    protected void damageProjectile(int projectileIndex) {
         if(projectileIndex != 999) {
             Entity projectile = scene.getProjectiles()[scene.currentMap][projectileIndex];
             projectile.alive = false;
@@ -607,19 +558,19 @@ public class Player extends Entity {
 //        graphics2D.drawString("Invincible: " + invincibleCounter, 10, 550);
 
         //TODO: Draw NPC pathfinding
-        if(scene.getLevelManager().isDrawPath()) {
-            Player player = scene.getPlayer();
-            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
-            graphics2D.setColor(new Color(255, 0, 0, 70));
-            for(Node node : pathList) {
-                int worldX = node.getCol() * TILE_SIZE;
-                int worldY = node.getRow() * TILE_SIZE;
-                int screenX = worldX - player.getWorldX() + player.getScreenX();
-                int screenY = worldY - player.getWorldY() + player.getScreenY();
-
-                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
-            }
-        }
+//        if(scene.getLevelManager().isDrawPath()) {
+//            Player player = scene.getPlayer();
+//            ArrayList<Node> pathList = scene.getPathFinder().getPathList();
+//            graphics2D.setColor(new Color(255, 0, 0, 70));
+//            for(Node node : pathList) {
+//                int worldX = node.getCol() * TILE_SIZE;
+//                int worldY = node.getRow() * TILE_SIZE;
+//                int screenX = worldX - player.getWorldX() + player.getScreenX();
+//                int screenY = worldY - player.getWorldY() + player.getScreenY();
+//
+//                graphics2D.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+//            }
+//        }
     }
 
     public void resetDirectionBoolean() {
